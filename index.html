@@ -66,37 +66,36 @@
         .nav-item:hover {
             background-color: #7a5f4a;
         }
-     /* --- Hành lang trưng bày hoành tráng --- */
+    /* --- Hành lang trưng bày cân đối --- */
 .gallery-corridor {
-    border-top: 2px solid #5d4737;
-    border-bottom: 2px solid #5d4737;
-    background-color: rgba(93, 71, 55, 0.05); /* Tông nâu nhạt tạo chiều sâu */
-    margin: 80px 0;
-    padding: 60px 0; /* Tăng khoảng cách để khung tranh không bị dính */
+    border-top: 1px solid #5d4737;
+    border-bottom: 1px solid #5d4737;
+    background-color: rgba(0, 0, 0, 0.02); 
+    margin: 60px auto; /* Căn giữa khung */
+    padding: 40px 0;
     position: relative;
-    width: 100%;
+    width: 850px; /* BẰNG VỚI KHUNG ABOUT */
+    max-width: 95%; /* Để hiển thị tốt trên điện thoại */
     overflow: hidden;
     display: flex;
     justify-content: center;
-    align-items: center; /* Căn giữa theo chiều dọc */
 }
 
-/* --- Nhãn Kho Báu hoành tráng --- */
+/* --- Nhãn Kho Báu --- */
 .gallery-label {
     position: absolute;
-    top: -15px; /* Giữ nhãn nằm đè lên đường kẻ */
+    top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #e2d1c3; /* Trùng màu nền web */
-    padding: 0 30px;
+    background-color: #e2d1c3; 
+    padding: 0 20px;
     color: #5d4737;
-    font-size: 24px; /* Tăng cỡ chữ nhãn */
-    letter-spacing: 5px;
+    font-size: 18px;
+    letter-spacing: 4px;
     z-index: 10;
-    white-space: nowrap;
 }
 
-/* --- Hiệu ứng chạy hoành tráng (Dài hơn và mượt hơn) --- */
+/* --- Hiệu ứng chạy vô tận --- */
 @keyframes scrollGallery {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); } 
@@ -105,28 +104,28 @@
 .gallery-wrapper {
     display: flex;
     width: max-content; 
-    animation: scrollGallery 25s linear infinite; /* Tốc độ vừa phải cho khung tranh to */
+    animation: scrollGallery 20s linear infinite; 
 }
 
 .gallery-wrapper:hover {
     animation-play-state: paused;
 }
 
-/* --- Khung tranh cổ điển kích thước lớn --- */
+/* --- Khung tranh kích thước vừa vặn --- */
 .picture-frame {
-    width: 250px; /* Tăng kích thước khung tranh */
-    height: 375px; /* Giữ tỷ lệ khung tranh (1.5 lần chiều rộng) */
-    border: 12px solid #fff; /* Viền trắng dày tạo cảm giác khung tranh hoành tráng */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.25); /* Tăng độ bóng */
+    width: 180px; /* Kích thước vừa phải, không quá to */
+    height: 270px; 
+    border: 8px solid #fff; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     overflow: hidden;
-    background-color: #f0f0f0; 
+    transition: 0.3s;
 }
 
 .novel-item {
     flex-shrink: 0;
-    width: 300px; /* Tăng kích thước ô truyện */
+    width: 220px; 
     text-align: center;
-    margin: 0 40px; /* Tăng khoảng cách giữa các tranh */
+    margin: 0 20px; 
 }
     </style>
 </head>
@@ -188,36 +187,35 @@
             <div class="novel-item">
                 <a href="muc-luc-meo-con.html" style="text-decoration: none;">
                     <div class="picture-frame"><img src="bia1.png" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                    <div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px; width: fit-content; margin-left: auto; margin-right: auto;">Hôm nay mèo con...</div>
+                    <div style="background-color: #5d4737; color: #fff; padding: 5px 10px; margin-top: 15px; font-size: 11px; width: fit-content; margin-left: auto; margin-right: auto;">Hôm nay mèo con...</div>
                 </a>
             </div>
             <div class="novel-item">
                 <a href="muc-luc-say.html" style="text-decoration: none;">
                     <div class="picture-frame"><img src="bia2.png" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                    <div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px; width: fit-content; margin-left: auto; margin-right: auto;">Yêu tựa hơi say</div>
+                    <div style="background-color: #5d4737; color: #fff; padding: 5px 10px; margin-top: 15px; font-size: 11px; width: fit-content; margin-left: auto; margin-right: auto;">Yêu tựa hơi say</div>
                 </a>
             </div>
             <div class="novel-item">
                 <a href="muc-luc-vi-sao.html" style="text-decoration: none;">
                     <div class="picture-frame"><img src="bia3.png" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                    <div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px; width: fit-content; margin-left: auto; margin-right: auto;">Vì sao loại A này...</div>
+                    <div style="background-color: #5d4737; color: #fff; padding: 5px 10px; margin-top: 15px; font-size: 11px; width: fit-content; margin-left: auto; margin-right: auto;">Vì sao loại A này...</div>
                 </a>
             </div>
-            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia1.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px;">Hôm nay mèo con...</div></a></div>
-            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia2.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px;">Yêu tựa hơi say</div></a></div>
-            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia3.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px;">Vì sao loại A này...</div></a></div>
+            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia1.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 5px; margin-top: 15px; font-size: 11px;">Hôm nay mèo con...</div></a></div>
+            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia2.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 5px; margin-top: 15px; font-size: 11px;">Yêu tựa hơi say</div></a></div>
+            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia3.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 5px; margin-top: 15px; font-size: 11px;">Vì sao loại A này...</div></a></div>
         </div>
 
         <div style="display: flex;">
-            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia1.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px;">Hôm nay mèo con...</div></a></div>
-            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia2.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px;">Yêu tựa hơi say</div></a></div>
-            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia3.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px;">Vì sao loại A này...</div></a></div>
-            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia1.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px;">Hôm nay mèo con...</div></a></div>
-            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia2.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px;">Yêu tựa hơi say</div></a></div>
-            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia3.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 6px 12px; margin-top: 15px; font-size: 12px;">Vì sao loại A này...</div></a></div>
+            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia1.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 5px; margin-top: 15px; font-size: 11px;">Hôm nay mèo con...</div></a></div>
+            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia2.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 5px; margin-top: 15px; font-size: 11px;">Yêu tựa hơi say</div></a></div>
+            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia3.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 5px; margin-top: 15px; font-size: 11px;">Vì sao loại A này...</div></a></div>
+            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia1.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 5px; margin-top: 15px; font-size: 11px;">Hôm nay mèo con...</div></a></div>
+            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia2.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 5px; margin-top: 15px; font-size: 11px;">Yêu tựa hơi say</div></a></div>
+            <div class="novel-item"><a href="#"><div class="picture-frame"><img src="bia3.png" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="background-color: #5d4737; color: #fff; padding: 5px; margin-top: 15px; font-size: 11px;">Vì sao loại A này...</div></a></div>
         </div>
     </div>
-</div>
 </div>
 
 </body>
