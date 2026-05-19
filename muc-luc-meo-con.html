@@ -16,7 +16,7 @@
             background-attachment: fixed; 
             background-size: cover;
             background-position: center;
-            font-family: 'Lora', Georgia, Serif; /* ĐỒI SANG FONT LORA ĐỒNG BỘ */
+            font-family: 'Lora', Georgia, Serif; 
             color: #4a3728; 
             margin: 0;
             padding: 0;
@@ -26,7 +26,7 @@
         .header-container {
             text-align: center;
             padding-top: 50px;
-            padding-bottom: 60px; 
+            padding-bottom: 30px; 
         }
 
         .site-title {
@@ -74,10 +74,6 @@
             background-color: #7a5f4a;
         }
 
-        span.nav-item {
-            cursor: default;
-        }
-
         .dropdown-content {
             display: none;
             position: absolute;
@@ -115,23 +111,23 @@
             display: block;
         }
 
-        /* --- 4. Giao diện Khung Giới Thiệu Truyện --- */
+        /* --- 4. Giao diện Toàn Bộ Khung Giấy Trắng Căn Giữa (Gồm cả Giới thiệu & Mục lục) --- */
         .novel-info-container {
             max-width: 850px;
             width: 90%;
-            margin: 0 auto 40px;
+            margin: 0 auto 60px;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.92); /* Tăng độ đậm nền giấy để nhìn rõ chữ */
+            background-color: rgba(255, 255, 255, 0.94); /* Nền giấy trắng sữa giữ trọn bọc mục lục */
             border: 1px solid #8d7561;
             border-radius: 2px;
-            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.2), 0 4px 20px rgba(0,0,0,0.05);
+            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
             box-sizing: border-box;
         }
 
-        /* Sử dụng Flexbox thay cho Table ở khung giới thiệu để tự động co giãn dọc trên điện thoại */
         .novel-layout-flex {
             display: flex;
             gap: 30px;
+            margin-bottom: 40px;
         }
 
         .novel-cover-cell {
@@ -141,6 +137,7 @@
 
         .novel-meta-cell {
             flex-grow: 1;
+            text-align: left;
         }
 
         .novel-cover-frame {
@@ -194,16 +191,12 @@
             text-align: justify;
         }
 
-        /* --- 5. Khung Danh Sách Chương ĐÃ ĐƯỢC CẢI TIẾN --- */
+        /* --- 5. Khung Danh Sách Chương Cải Tiến Thứ Tự --- */
         #chapter-list-container {
-            width: 850px; 
-            max-width: 90%;
-            margin: 60px auto 40px; 
-            padding: 40px 30px;
+            margin-top: 50px; 
+            padding-top: 30px;
             border-top: 1px solid #5d4737;
-            border-bottom: 1px solid #5d4737;
-            background-color: rgba(255, 255, 255, 0.92);
-            box-sizing: border-box;
+            text-align: center;
         }
 
         #chapter-label {
@@ -226,10 +219,10 @@
             margin: 0 20px; 
         }
 
-        /* Thay thế table bằng Grid thông minh tự bẻ dòng */
+        /* Thiết lập lưới tự động: Máy tính chia 3 cột, tự xếp 01, 02, 03 đều sang ngang */
         .chapter-grid-new {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Mặc định chia 3 cột đều nhau trên máy tính */
+            grid-template-columns: repeat(3, 1fr); 
             gap: 12px 20px;
         }
 
@@ -252,35 +245,32 @@
             font-weight: bold;
         }
 
-        /* --- 6. PHÂN VÙNG ĐÁP ỨNG TRÊN ĐIỆN THOẠI (RESPONSIVE CHỐNG LỖI 100%) --- */
+        /* --- 6. RESPONSIVE ĐIỆN THOẠI (CHỐNG NHẢY CHƯƠNG & KHÔI PHỤC KHUNG) --- */
         @media screen and (max-width: 768px) {
             .site-title { font-size: 32px !important; }
             .site-slogan { font-size: 15px !important; }
 
-            /* Khung thông tin truyện xếp dọc trên điện thoại */
             .novel-layout-flex {
                 flex-direction: column;
                 align-items: center;
+                margin-bottom: 25px;
             }
             .novel-cover-cell {
-                padding-right: 0 !important;
                 margin-bottom: 15px;
             }
             .novel-info-container {
-                padding: 25px 20px !important;
+                padding: 30px 20px !important;
+                width: 95% !important;
             }
             .novel-title {
                 text-align: center;
                 font-size: 22px !important;
             }
 
-            /* CHÍNH XÁC: Điện thoại tự động thu về thành 2 cột ngay ngắn không bị ép chữ */
+            /* Điện thoại tự thu về 2 cột tăng dần thẳng thớm ngọt ngào */
             .chapter-grid-new {
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 10px 15px !important;
-            }
-            #chapter-list-container {
-                padding: 30px 15px !important;
             }
             #chapter-label {
                 font-size: 16px !important;
@@ -291,7 +281,7 @@
             }
         }
 
-        /* Màn hình điện thoại siêu nhỏ thì chuyển về 1 cột dọc thẳng tắp */
+        /* Màn hình điện thoại siêu nhỏ thì xếp thẳng 1 hàng dọc đứng */
         @media screen and (max-width: 420px) {
             .chapter-grid-new {
                 grid-template-columns: 1fr !important;
@@ -323,53 +313,53 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="novel-info-container">
-            <div class="novel-layout-flex">
-                <div class="novel-cover-cell">
-                    <div class="novel-cover-frame">
-                        <img src="bia1.png" alt="Bìa Hôm nay mèo con cũng cứu vớt vai ác">
-                    </div>
+    <div class="novel-info-container">
+        <div class="novel-layout-flex">
+            <div class="novel-cover-cell">
+                <div class="novel-cover-frame">
+                    <img src="bia1.png" alt="Bìa Hôm nay mèo con cũng cứu vớt vai ác">
                 </div>
+            </div>
+            
+            <div class="novel-meta-cell">
+                <h2 class="novel-title">Hôm Nay Mèo Con Cũng Cứu Vớt Vai Ác</h2>
                 
-                <div class="novel-meta-cell">
-                    <h2 class="novel-title">Hôm Nay Mèo Con Cũng Cứu Vớt Vai Ác</h2>
-                    
-                    <div class="novel-details">
-                        <strong>Tác giả:</strong> Trác Mễ <br>
-                        <strong>Thể loại:</strong> Nguyên sang, đam mỹ, hiện đại, HE, tình cảm, hệ thống, chủ thụ, duyên trời tác hợp, 1v1, manh sủng, xuyên nhanh, ai cũng mê<br>
-                        <strong>Tình trạng:</strong> Hoàn thành (99 chương + 1 ngoại truyện)<br>
-                        <strong>Editor & Beta:</strong> Bạc hà team
-                    </div>
+                <div class="novel-details">
+                    <strong>Tác giả:</strong> Trác Mễ <br>
+                    <strong>Thể loại:</strong> Nguyên sang, đam mỹ, hiện đại, HE, tình cảm, hệ thống, chủ thụ, duyên trời tác hợp, 1v1, manh sủng, xuyên nhanh, ai cũng mê<br>
+                    <strong>Tình trạng:</strong> Hoàn thành (99 chương + 1 ngoại truyện)<br>
+                    <strong>Editor & Beta:</strong> Bạc hà team
+                </div>
 
-                    <div class="novel-summary-title">Giới thiệu</div>
-                    <div class="novel-summary-text">
-                        Đường Hi là một con mèo con lông vàng bụ bẫm đáng yêu.<br><br>
-                        Bởi vì sau khi thống nhất không cho phép yêu tinh tu luyện nữa, cậu ngày ngày giả làm một con mèo nhỏ ở trước mặt nhân loại cọ ăn cọ uống.<br><br>
-                        Cho đến một ngày, cậu bị hệ thống tóm đi làm nhiệm vụ ở trăm ngàn thế giới.<br><br>
-                        Hệ thống: Khẩu hiệu của chúng ta là gì nào?<br><br>
-                        Đường Hi: Cá khô nhỏ! Cá khô nhỏ! Cá khô nhỏ!<br><br>
-                        Hệ thống hận không thể rèn sắt thành thép: Là cứu vớt vai ác!<br><br>
-                        …<br><br>
-                        Đường Hi ôm cá khô chạy vào hiện trường gây án của vai ác, sợ tới mức biến trở về thành mèo con.<br><br>
-                        Vai ác vẻ mặt xảo quyệt khó đoán, xách mèo con dưới đất lên: “Hửm?”<br><br>
-                        Đường Hi: Hệ thống cứu mạng! Tôi sắp bị ăn mất rồi! QWQ<br><br>
-                        Hệ thống: Cáo từ 🙂<br><br>
-                        Vai ác nhẹ nhàng nhéo nhéo móng vuốt nhỏ, nhướng mày lộ ra vẻ mặt hứng thú.<br><br>
-                        Đường Hi:… Meo.<br><br>
-                        Tổ hợp sự đáng yêu.jpg<br><br>
-                        ———————–<br><br>
-                        Tính cách ở mỗi thế giới đều có thêm tật xấu công x Có ăn ngon là có thể lừa đi mèo con thụ<br><br>
-                        Ps: Khi bị tấn công thì sẽ giận dữ, nhưng bề ngoài có thuộc tính vạn nhân mê (ai mà không thích mèo đâu?), là một con mèo không màng thế sự.<br><br>
-                        Công từ đầu đến cuối chỉ có một người, công và thụ từ thể xác đến linh hồn chỉ có lẫn nhau.<br><br>
-                        <strong>Một câu tóm tắt:</strong> Tôi chỉ là một con mèo con thôi nha!<br>
-                        <strong>Mục đích:</strong> Đưa than ngày tuyết, nắm tay cùng nhau truyền năng lượng tích cực.
-                    </div>
+                <div class="novel-summary-title">Giới thiệu</div>
+                <div class="novel-summary-text">
+                    Đường Hi là một con mèo con lông vàng bụ bẫm đáng yêu.<br><br>
+                    Bởi vì sau khi thống nhất không cho phép yêu tinh tu luyện nữa, cậu ngày ngày giả làm một con mèo nhỏ ở trước mặt nhân loại cọ ăn cọ uống.<br><br>
+                    Cho đến một ngày, cậu bị hệ thống tóm đi làm nhiệm vụ ở trăm ngàn thế giới.<br><br>
+                    Hệ thống: Khẩu hiệu của chúng ta là gì nào?<br><br>
+                    Đường Hi: Cá khô nhỏ! Cá khô nhỏ! Cá khô nhỏ!<br><br>
+                    Hệ thống hận không thể rèn sắt thành thép: Là cứu vớt vai ác!<br><br>
+                    …<br><br>
+                    Đường Hi ôm cá khô chạy vào hiện trường gây án của vai ác, sợ tới mức biến trở về thành mèo con.<br><br>
+                    Vai ác vẻ mặt xảo quyệt khó đoán, xách mèo con dưới đất lên: “Hửm?”<br><br>
+                    Đường Hi: Hệ thống cứu mạng! Tôi sắp bị ăn mất rồi! QWQ<br><br>
+                    Hệ thống: Cáo từ 🙂<br><br>
+                    Vai ác nhẹ nhàng nhéo nhéo móng vuốt nhỏ, nhướng mày lộ ra vẻ mặt hứng thú.<br><br>
+                    Đường Hi:… Meo.<br><br>
+                    Tổ hợp sự đáng yêu.jpg<br><br>
+                    ———————–<br><br>
+                    Tính cách ở mỗi thế giới đều có thêm tật xấu công x Có ăn ngon là có thể lừa đi mèo con thụ<br><br>
+                    Ps: Khi bị tấn công thì sẽ giận dữ, nhưng bề ngoài có thuộc tính vạn nhân mê (ai mà không thích mèo đâu?), là một con mèo không màng thế sự.<br><br>
+                    Công từ đầu đến cuối chỉ có một người, công và thụ từ thể xác đến linh hồn chỉ có lẫn nhau.<br><br>
+                    <strong>Một câu tóm tắt:</strong> Tôi chỉ là một con mèo con thôi nha!<br>
+                    <strong>Mục đích:</strong> Đưa than ngày tuyết, nắm tay cùng nhau truyền năng lượng tích cực.
                 </div>
             </div>
         </div>
 
-        <div style="text-align: center; margin: 20px 0; padding: 0;">
+        <div style="text-align: center; margin: 40px 0 20px 0; padding: 0;">
             <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto;">
         </div>
 
@@ -378,144 +368,107 @@
             
             <div class="chapter-grid-new">
                 <a href="s1-c1.html" class="chapter-link">Chương 01</a>
-                <a href="s1-c35.html" class="chapter-link">Chương 35</a>
-                <a href="s1-c69.html" class="chapter-link">Chương 69</a>
-
                 <a href="s1-c2.html" class="chapter-link">Chương 02</a>
-                <a href="s1-c36.html" class="chapter-link">Chương 36</a>
-                <a href="s1-c70.html" class="chapter-link">Chương 70</a>
-
                 <a href="s1-c3.html" class="chapter-link">Chương 03</a>
-                <a href="s1-c37.html" class="chapter-link">Chương 37</a>
-                <a href="s1-c71.html" class="chapter-link">Chương 71</a>
-
                 <a href="s1-c4.html" class="chapter-link">Chương 04</a>
-                <a href="s1-c38.html" class="chapter-link">Chương 38</a>
-                <a href="s1-c72.html" class="chapter-link">Chương 72</a>
-
                 <a href="s1-c5.html" class="chapter-link">Chương 05</a>
-                <a href="s1-c39.html" class="chapter-link">Chương 39</a>
-                <a href="s1-c73.html" class="chapter-link">Chương 73</a>
-
                 <a href="s1-c6.html" class="chapter-link">Chương 06</a>
-                <a href="s1-c40.html" class="chapter-link">Chương 40</a>
-                <a href="s1-c74.html" class="chapter-link">Chương 74</a>
-
                 <a href="s1-c7.html" class="chapter-link">Chương 07</a>
-                <a href="s1-c41.html" class="chapter-link">Chương 41</a>
-                <a href="s1-c75.html" class="chapter-link">Chương 75</a>
-
                 <a href="s1-c8.html" class="chapter-link">Chương 08</a>
-                <a href="s1-c42.html" class="chapter-link">Chương 42</a>
-                <a href="s1-c76.html" class="chapter-link">Chương 76</a>
-
                 <a href="s1-c9.html" class="chapter-link">Chương 09</a>
-                <a href="s1-c43.html" class="chapter-link">Chương 43</a>
-                <a href="s1-c77.html" class="chapter-link">Chương 77</a>
-
                 <a href="s1-c10.html" class="chapter-link">Chương 10</a>
-                <a href="s1-c44.html" class="chapter-link">Chương 44</a>
-                <a href="s1-c78.html" class="chapter-link">Chương 78</a>
-
                 <a href="s1-c11.html" class="chapter-link">Chương 11</a>
-                <a href="s1-c45.html" class="chapter-link">Chương 45</a>
-                <a href="s1-c79.html" class="chapter-link">Chương 79</a>
-
                 <a href="s1-c12.html" class="chapter-link">Chương 12</a>
-                <a href="s1-c46.html" class="chapter-link">Chương 46</a>
-                <a href="s1-c80.html" class="chapter-link">Chương 80</a>
-
                 <a href="s1-c13.html" class="chapter-link">Chương 13</a>
-                <a href="s1-c47.html" class="chapter-link">Chương 47</a>
-                <a href="s1-c81.html" class="chapter-link">Chương 81</a>
-
                 <a href="s1-c14.html" class="chapter-link">Chương 14</a>
-                <a href="s1-c48.html" class="chapter-link">Chương 48</a>
-                <a href="s1-c82.html" class="chapter-link">Chương 82</a>
-
                 <a href="s1-c15.html" class="chapter-link">Chương 15</a>
-                <a href="s1-c49.html" class="chapter-link">Chương 49</a>
-                <a href="s1-c83.html" class="chapter-link">Chương 83</a>
-
                 <a href="s1-c16.html" class="chapter-link">Chương 16</a>
-                <a href="s1-c50.html" class="chapter-link">Chương 50</a>
-                <a href="s1-c84.html" class="chapter-link">Chương 84</a>
-
                 <a href="s1-c17.html" class="chapter-link">Chương 17</a>
-                <a href="s1-c51.html" class="chapter-link">Chương 51</a>
-                <a href="s1-c85.html" class="chapter-link">Chương 85</a>
-
                 <a href="s1-c18.html" class="chapter-link">Chương 18</a>
-                <a href="s1-c52.html" class="chapter-link">Chương 52</a>
-                <a href="s1-c86.html" class="chapter-link">Chương 86</a>
-
                 <a href="s1-c19.html" class="chapter-link">Chương 19</a>
-                <a href="s1-c53.html" class="chapter-link">Chương 53</a>
-                <a href="s1-c87.html" class="chapter-link">Chương 87</a>
-
                 <a href="s1-c20.html" class="chapter-link">Chương 20</a>
-                <a href="s1-c54.html" class="chapter-link">Chương 54</a>
-                <a href="s1-c88.html" class="chapter-link">Chương 88</a>
-
                 <a href="s1-c21.html" class="chapter-link">Chương 21</a>
-                <a href="s1-c55.html" class="chapter-link">Chương 55</a>
-                <a href="s1-c89.html" class="chapter-link">Chương 89</a>
-
                 <a href="s1-c22.html" class="chapter-link">Chương 22</a>
-                <a href="s1-c56.html" class="chapter-link">Chương 56</a>
-                <a href="s1-c90.html" class="chapter-link">Chương 90</a>
-
                 <a href="s1-c23.html" class="chapter-link">Chương 23</a>
-                <a href="s1-c57.html" class="chapter-link">Chương 57</a>
-                <a href="s1-c91.html" class="chapter-link">Chương 91</a>
-
                 <a href="s1-c24.html" class="chapter-link">Chương 24</a>
-                <a href="s1-c58.html" class="chapter-link">Chương 58</a>
-                <a href="s1-c92.html" class="chapter-link">Chương 92</a>
-
                 <a href="s1-c25.html" class="chapter-link">Chương 25</a>
-                <a href="s1-c59.html" class="chapter-link">Chương 59</a>
-                <a href="s1-c93.html" class="chapter-link">Chương 93</a>
-
                 <a href="s1-c26.html" class="chapter-link">Chương 26</a>
-                <a href="s1-c60.html" class="chapter-link">Chương 60</a>
-                <a href="s1-c94.html" class="chapter-link">Chương 94</a>
-
                 <a href="s1-c27.html" class="chapter-link">Chương 27</a>
-                <a href="s1-c61.html" class="chapter-link">Chương 61</a>
-                <a href="s1-c95.html" class="chapter-link">Chương 95</a>
-
                 <a href="s1-c28.html" class="chapter-link">Chương 28</a>
-                <a href="s1-c62.html" class="chapter-link">Chương 62</a>
-                <a href="s1-c96.html" class="chapter-link">Chương 96</a>
-
                 <a href="s1-c29.html" class="chapter-link">Chương 29</a>
-                <a href="s1-c63.html" class="chapter-link">Chương 63</a>
-                <a href="s1-c97.html" class="chapter-link">Chương 97</a>
-
                 <a href="s1-c30.html" class="chapter-link">Chương 30</a>
-                <a href="s1-c64.html" class="chapter-link">Chương 64</a>
-                <a href="s1-c98.html" class="chapter-link">Chương 98</a>
-
                 <a href="s1-c31.html" class="chapter-link">Chương 31</a>
-                <a href="s1-c65.html" class="chapter-link">Chương 65</a>
-                <a href="s1-c99.html" class="chapter-link">Chương 99</a>
-
                 <a href="s1-c32.html" class="chapter-link">Chương 32</a>
-                <a href="s1-c66.html" class="chapter-link">Chương 66</a>
-                <a href="s1-c100.html" class="chapter-link">Chương 100</a>
-
                 <a href="s1-c33.html" class="chapter-link">Chương 33</a>
-                <a href="s1-c67.html" class="chapter-link">Chương 67</a>
-                <a href="s1-c101.html" class="chapter-link">Chương 101</a>
-
                 <a href="s1-c34.html" class="chapter-link">Chương 34</a>
+                <a href="s1-c35.html" class="chapter-link">Chương 35</a>
+                <a href="s1-c36.html" class="chapter-link">Chương 36</a>
+                <a href="s1-c37.html" class="chapter-link">Chương 37</a>
+                <a href="s1-c38.html" class="chapter-link">Chương 38</a>
+                <a href="s1-c39.html" class="chapter-link">Chương 39</a>
+                <a href="s1-c40.html" class="chapter-link">Chương 40</a>
+                <a href="s1-c41.html" class="chapter-link">Chương 41</a>
+                <a href="s1-c42.html" class="chapter-link">Chương 42</a>
+                <a href="s1-c43.html" class="chapter-link">Chương 43</a>
+                <a href="s1-c44.html" class="chapter-link">Chương 44</a>
+                <a href="s1-c45.html" class="chapter-link">Chương 45</a>
+                <a href="s1-c46.html" class="chapter-link">Chương 46</a>
+                <a href="s1-c47.html" class="chapter-link">Chương 47</a>
+                <a href="s1-c48.html" class="chapter-link">Chương 48</a>
+                <a href="s1-c49.html" class="chapter-link">Chương 49</a>
+                <a href="s1-c50.html" class="chapter-link">Chương 50</a>
+                <a href="s1-c51.html" class="chapter-link">Chương 51</a>
+                <a href="s1-c52.html" class="chapter-link">Chương 52</a>
+                <a href="s1-c53.html" class="chapter-link">Chương 53</a>
+                <a href="s1-c54.html" class="chapter-link">Chương 54</a>
+                <a href="s1-c55.html" class="chapter-link">Chương 55</a>
+                <a href="s1-c56.html" class="chapter-link">Chương 56</a>
+                <a href="s1-c57.html" class="chapter-link">Chương 57</a>
+                <a href="s1-c58.html" class="chapter-link">Chương 58</a>
+                <a href="s1-c59.html" class="chapter-link">Chương 59</a>
+                <a href="s1-c60.html" class="chapter-link">Chương 60</a>
+                <a href="s1-c61.html" class="chapter-link">Chương 61</a>
+                <a href="s1-c62.html" class="chapter-link">Chương 62</a>
+                <a href="s1-c63.html" class="chapter-link">Chương 63</a>
+                <a href="s1-c64.html" class="chapter-link">Chương 64</a>
+                <a href="s1-c65.html" class="chapter-link">Chương 65</a>
+                <a href="s1-c66.html" class="chapter-link">Chương 66</a>
+                <a href="s1-c67.html" class="chapter-link">Chương 67</a>
                 <a href="s1-c68.html" class="chapter-link">Chương 68</a>
-                <span style="display: block;"></span>
+                <a href="s1-c69.html" class="chapter-link">Chương 69</a>
+                <a href="s1-c70.html" class="chapter-link">Chương 70</a>
+                <a href="s1-c71.html" class="chapter-link">Chương 71</a>
+                <a href="s1-c72.html" class="chapter-link">Chương 72</a>
+                <a href="s1-c73.html" class="chapter-link">Chương 73</a>
+                <a href="s1-c74.html" class="chapter-link">Chương 74</a>
+                <a href="s1-c75.html" class="chapter-link">Chương 75</a>
+                <a href="s1-c76.html" class="chapter-link">Chương 76</a>
+                <a href="s1-c77.html" class="chapter-link">Chương 77</a>
+                <a href="s1-c78.html" class="chapter-link">Chương 78</a>
+                <a href="s1-c79.html" class="chapter-link">Chương 79</a>
+                <a href="s1-c80.html" class="chapter-link">Chương 80</a>
+                <a href="s1-c81.html" class="chapter-link">Chương 81</a>
+                <a href="s1-c82.html" class="chapter-link">Chương 82</a>
+                <a href="s1-c83.html" class="chapter-link">Chương 83</a>
+                <a href="s1-c84.html" class="chapter-link">Chương 84</a>
+                <a href="s1-c85.html" class="chapter-link">Chương 85</a>
+                <a href="s1-c86.html" class="chapter-link">Chương 86</a>
+                <a href="s1-c87.html" class="chapter-link">Chương 87</a>
+                <a href="s1-c88.html" class="chapter-link">Chương 88</a>
+                <a href="s1-c89.html" class="chapter-link">Chương 89</a>
+                <a href="s1-c90.html" class="chapter-link">Chương 90</a>
+                <a href="s1-c91.html" class="chapter-link">Chương 91</a>
+                <a href="s1-c92.html" class="chapter-link">Chương 92</a>
+                <a href="s1-c93.html" class="chapter-link">Chương 93</a>
+                <a href="s1-c94.html" class="chapter-link">Chương 94</a>
+                <a href="s1-c95.html" class="chapter-link">Chương 95</a>
+                <a href="s1-c96.html" class="chapter-link">Chương 96</a>
+                <a href="s1-c97.html" class="chapter-link">Chương 97</a>
+                <a href="s1-c98.html" class="chapter-link">Chương 98</a>
+                <a href="s1-c99.html" class="chapter-link">Chương 99</a>
+                <a href="s1-c100.html" class="chapter-link">Chương 100</a>
+                <a href="s1-c101.html" class="chapter-link">Ngoại truyện 1</a>
             </div>
         </div>
-
-    </div>
-
-</body>
+    </div> </body>
 </html>
