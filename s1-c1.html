@@ -112,7 +112,7 @@
         .story-paragraph-wrapper {
             position: relative;
             margin-bottom: 25px;
-            padding-right: 45px; /* Tạo không gian bên phải để chứa nút cmt */
+            padding-right: 45px; 
         }
 
         .story-text {
@@ -122,7 +122,6 @@
             margin: 0;
         }
 
-        /* Chú thích nghiêng mờ cho giải nghĩa từ ngữ */
         .story-note {
             font-size: 15px;
             font-style: italic;
@@ -131,7 +130,6 @@
             margin-top: 5px;
         }
 
-        /* Nút bong bóng bình luận đoạn văn mờ nhẹ */
         .paragraph-comment-btn {
             position: absolute;
             right: 5px;
@@ -147,12 +145,11 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            opacity: 0; /* Mặc định ẩn đi */
+            opacity: 0; 
             transition: 0.2s ease-in-out;
             box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
         }
 
-        /* Rê chuột vào đoạn văn nào thì hiện nút cmt đoạn đó ra */
         .story-paragraph-wrapper:hover .paragraph-comment-btn {
             opacity: 0.6;
         }
@@ -163,7 +160,6 @@
             color: #fff;
         }
 
-        /* Khung hiển thị bình luận đoạn văn hạ xuống khi bấm vào nút */
         .paragraph-comment-box {
             display: none;
             background-color: rgba(255, 255, 255, 0.7);
@@ -206,7 +202,7 @@
             background-color: #cccccc;
             color: #888888;
             cursor: not-allowed;
-            pointer-events: none; /* Khóa nút ở chương 1 */
+            pointer-events: none; 
         }
 
         /* --- 5. Khung Bình Luận Tổng Của Cả Chương (Disqus) --- */
@@ -354,7 +350,7 @@
         </div>
 
         <div class="story-paragraph-wrapper">
-            <p class="story-text">After khi tan làm, Đường Hi cũng không đi đến chỗ hẹn như người khác nghĩ mà thay vào đó, cậu linh hoạt rẽ trái rẽ phải đến một ngõ nhỏ vắng vẻ, không một bóng người, cậu lắc người một cái, chợt biến thành một con mèo.</p>
+            <p class="story-text">Sau khi tan làm, Đường Hi cũng không đi đến chỗ hẹn như người khác nghĩ mà thay vào đó, cậu linh hoạt rẽ trái rẽ phải đến một ngõ nhỏ vắng vẻ, không một bóng người, cậu lắc người một cái, chợt biến thành một con mèo.</p>
             <div class="paragraph-comment-btn" onclick="toggleInlineComment(12)">💬</div>
             <div class="paragraph-comment-box" id="inline-comment-12">
                 <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
@@ -584,181 +580,4 @@
             <p class="story-text">Từ góc nhìn của Thượng đế thì đây là hai cục bông nhỏ đang chơi với nhau, một vàng một trắng lăn lộn trên giường.</p>
             <div class="paragraph-comment-btn" onclick="toggleInlineComment(37)">💬</div>
             <div class="paragraph-comment-box" id="inline-comment-37">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Lăn đến mệt mỏi, cuối cùng Đường Hi thư thái chép chép miệng, nhắm mắt chìm vào trong mộng.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(38)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-38">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Thân thể nho nhỏ dựa sát vào cầu lông, hô hấp rất nhỏ phập phồng lên xuống. ...</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(39)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-39">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">【 Dậy đi! Xin chào! 】</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(40)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-40">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Mí mắt nặng nề không mở nổi, bên tai lại có tiếng ồn ào. Mèo nhỏ Đường Hi run run tai, dù hai mắt vẫn nhắm nhưng cậu vẫn có thể một móng chuẩn xác đá văng vật phát ra tiếng.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(41)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-41">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Cuối cùng cũng yên tĩnh trở lại.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(42)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-42">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Đáng tiếc âm thanh chỉ dừng một phút rồi lại tiếp tục, càng ngày càng lớn khiến đầu cậu phát đau.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(43)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-43">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Đường Hi không thể không mở mắt, còn chưa kịp tức giận thì ngẩn ra.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(44)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-44">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Một quả cầu nhỏ ánh bạc lơ lửng trước mặt cậu:【 Dậy rồi sao mèo ngốc? 】</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(45)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-45">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Tuy rằng không hiểu tại sao cậu lại xuất hiện ở không gian trắng tinh này, nhưng điều đó cũng không ngăn được Đường Hi bày ra tư thế săn mồi khi nhìn thấy quả cầu bạc.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(46)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-46">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Quả cầu bạc không biết hình dạng của mình sẽ chọc cho móng mèo ngứa ngáy, còn bay tới bay lui nhiệt tình giải thích:【 Đầu tiên, cậu được chọn trở thành người làm nhiệm vụ thứ 17707.】</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(47)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-47">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">【 Cậu làm thế giới này phát sinh ra bug, vì vậy hiện tại cậu nhất định phải đi theo tôi làm nhiệm vụ…】</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(48)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-48">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Quả cầu bạc mới nói được một nửa đã bị nhào xuống mặt đất.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(49)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-49">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Móng vuốt nho nhỏ chuẩn xác ôm lấy quả cầu.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(50)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-50">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Con ngươi của Đường Hi giãn ra, cả mèo trở nên phấn khích, meo meo kêu loạn cả lên.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(51)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-51">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Đây là lần đầu tiên cậu thành công bắt được một vật nhỏ phát sáng như vậy! Cho dù là trò đùa tia laze hay tia sáng phản chiếu qua gương, cậu chưa bao giờ cảm thấy chán, nhưng cậu vẫn luôn ước mình có thể chụp được vật phát sáng dường như vô hình này.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(52)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-52">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Móng vuốt nhỏ ác liệt lay tới lay lui quả cầu bạc, càng chơi càng hăng.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(53)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-53">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">【 Dừng! Dừng móng! Cậu là quỷ à!? 】</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(54)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-54">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Đường Hi chơi đã ghiền mới lắc lắc đuôi dừng lại, nhưng cậu vẫn ấn quả cầu bạc dưới móng vuốt nhỏ không chịu buông ra.</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(55)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-55">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Quả cầu bạc không có cách đối phó với mèo nhỏ, sau khi từ bỏ giãy dụa, áp lực nói:【Tôi là hệ thống số 1551, sau này xin hãy chiếu cố nhiều hơn.】</p>
-            <div class="paragraph-comment-btn" onclick="toggleInlineComment(56)">💬</div>
-            <div class="paragraph-comment-box" id="inline-comment-56">
-                <p style="font-size: 13px; margin: 0 0 10px 0; font-weight: bold; color: #5d4737;">Bình luận đoạn này:</p>
-                <p style="font-size: 13px; font-style: italic; color: #666;">Chưa có bình luận nào cho đoạn này.</p>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">"Meo meo meo?" Tôi phải làm nhiệm vụ gì
+                <p style="font-size: 13px; margin: 0
