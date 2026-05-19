@@ -73,18 +73,26 @@
             justify-content: center;
         }
 
-          #gallery-label-new {
-            position: absolute;
-            top: -16px; /* Nhấc lên một chút cho đều */
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #e2d1c3; /* Màu nền của bạn */
-            padding: 0 20px;
+       #gallery-label-new {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
             color: #5d4737;
             font-size: 18px;
-            letter-spacing: 4px;
-            z-index: 99; /* Tăng lên 99 để nhảy lên trên cùng, không bị che nữa */
-            white-space: nowrap;
+            letter-spacing: 6px; /* Tăng độ giãn chữ nhìn cho sang */
+            font-weight: bold;
+            margin: 0 0 30px 0; /* Khoảng cách dưới chữ */
+            width: 100%;
+        }
+
+        /* Tạo hai đường kẻ song song bằng code */
+        #gallery-label-new::before,
+        #gallery-label-new::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #5d4737; /* Đường kẻ */
+            margin: 0 20px; /* Khoảng cách giữa đường kẻ và chữ */
         }
 
         /* Hiệu ứng trôi ngang vô tận */
@@ -173,6 +181,8 @@
                     <li style="margin-bottom: 10px;">✦ Chấp nhận những lời góp ý văn minh, thiện chí. Đừng nặng lời với nhà, mình buồn.</li>
                     <li style="margin-bottom: 10px;">✦ Mình làm vì thích và đam mê nên có vấn đề gì thì xin góp ý thẳng với nhà, hạn chế drama.</li>
                 </ul>
+                
+                </p>
             </div>
         </div>
 
@@ -180,8 +190,12 @@
             <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto;">
         </div>
 
-        <h2 style="text-align: center; color: #5d4737; font-size: 28px; letter-spacing: 3px; margin-bottom: 50px;">
-                ☘ KHO BÁU ☘
+ <div id="kho-bau-gallery">
+            <div id="gallery-label-new">KHO BÁU</div>
+            
+            <div class="gallery-scroller">
+                </div>
+        </div>
             
             <div class="gallery-scroller">
                 <div style="display: flex;">
