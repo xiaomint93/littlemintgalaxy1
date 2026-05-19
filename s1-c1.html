@@ -992,17 +992,76 @@
             <a href="s1-c2.html" class="nav-btn">Chương sau</a>
         </div>
 
-     <div class="chapter-discussion-box">
+  <div class="chapter-discussion-box">
             <h3 class="discussion-title">Thảo luận của chương này</h3>
             
-            <div id="cusdis_thread"
-              data-host="https://cusdis.com"
-              data-app-id="6ba07963-b8be-439f-b7a4-0ef663737e96" data-page-id="s1-c1"
-              data-page-url="https://xiaomint93.github.io/littlemintgalaxy1/s1-c1.html"
-              data-page-title="S1-C1">
+            <form id="commentForm" onsubmit="sendComment(event)" style="max-width: 650px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px;">
+                
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 14px; color: #5d4737; font-weight: bold;">Tên hoặc Biệt danh của bạn:</label>
+                    <input type="text" id="commentName" placeholder="Ví dụ: Tiểu Mèo..." required 
+                           style="padding: 10px; font-size: 14px; border: 1px solid #8d7561; border-radius: 3px; font-family: inherit; background-color: rgba(255,255,255,0.8); color: #4a3728;">
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 14px; color: #5d4737; font-weight: bold;">Cảm nghĩ của bạn về chương này:</label>
+                    <textarea id="commentText" rows="4" placeholder="Viết bình luận tại đây..." required
+                              style="padding: 10px; font-size: 14px; border: 1px solid #8d7561; border-radius: 3px; font-family: inherit; background-color: rgba(255,255,255,0.8); color: #4a3728; resize: none;"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" style="background-color: #5d4737; color: white; border: none; padding: 10px 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: 'Palatino Linotype', serif;">
+                    Gửi bình luận
+                </button>
+                
+                <p id="successMessage" style="display: none; color: #5d4737; font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px;">
+                    ✦ Bình luận của bạn đã được gửi thành công! Cảm ơn bạn nhé.
+                </p>
+            </form>
+
+            <div style="margin-top: 40px; border-top: 1px dashed #8d7561; padding-top: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 14px; font-weight: bold; color: #5d4737; margin-bottom: 15px;">💬 Độc giả nói gì:</p>
+                
+                <div style="background-color: rgba(255, 255, 255, 0.6); padding: 12px 15px; border-radius: 4px; margin-bottom: 15px; border: 1px solid rgba(141, 117, 97, 0.2);">
+                    <strong style="color: #5d4737; font-size: 13px;">✦ Bạn Độc Giả A:</strong>
+                    <p style="font-size: 14px; margin: 5px 0 0 0; line-height: 1.5;">Truyện dễ thương xỉu luôn á chủ nhà ơi, hóng chương mới nha!</p>
+                </div>
+                
             </div>
-            <script async src="https://cusdis.com/js/cusdis.es.js"></script>
         </div>
+
+        <script>
+            function sendComment(event) {
+                event.preventDefault();
+                
+                var name = document.getElementById('commentName').value;
+                var text = document.getElementById('commentText').value;
+                var chapter = "Tập 1 - Chương 1"; // Khi làm sang chương 2 thì sửa chữ này thành "Tập 1 - Chương 2"
+                
+                // ĐƯỜNG LINK FORMPESPONSE CHUẨN ĐÃ ĐƯỢC TÍCH HỢP
+                var formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
+                var formData = new FormData();
+                
+                // CÁC MÃ SỐ ENTRY ẨN CHUẨN XÁC TỪ FORM CỦA BẠN
+                formData.append('entry.110222111', name);
+                formData.append('entry.1515223589', text);
+                formData.append('entry.1093378953', chapter);
+                
+                fetch(formUrl, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                }).then(function() {
+                    // Xóa nội dung ô gõ chữ và hiện thông báo thành công tại chỗ
+                    document.getElementById('commentText').value = ''; 
+                    document.getElementById('successMessage').style.display = 'block'; 
+                    setTimeout(function() {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 4000);
+                }).catch(function(error) {
+                    alert('Có lỗi nhỏ xảy ra, bạn thử lại giúp mình nha!');
+                });
+            }
+        </script>
     </div>
 
     <script>
