@@ -73,17 +73,18 @@
             justify-content: center;
         }
 
-        #gallery-label-new {
+          #gallery-label-new {
             position: absolute;
-            top: -12px;
+            top: -16px; /* Nhấc lên một chút cho đều */
             left: 50%;
             transform: translateX(-50%);
-            background-color: #e2d1c3; /* Nên để trùng màu nền chủ đạo của bạn */
+            background-color: #e2d1c3; /* Màu nền của bạn */
             padding: 0 20px;
             color: #5d4737;
             font-size: 18px;
             letter-spacing: 4px;
-            z-index: 10;
+            z-index: 99; /* Tăng lên 99 để nhảy lên trên cùng, không bị che nữa */
+            white-space: nowrap;
         }
 
         /* Hiệu ứng trôi ngang vô tận */
