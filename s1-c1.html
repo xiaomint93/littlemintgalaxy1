@@ -74,15 +74,17 @@
         .dropdown-content a:hover { background-color: #7a5f4a; }
         .dropdown:hover .dropdown-content { display: block; }
 
-        /* --- 3. Khung Đọc Truyện Giấy Cũ Tinh Tế --- */
+        /* --- 3. Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
         .reading-container {
-            max-width: 800px;
-            margin: 0 auto 60px;
-            padding: 50px 60px;
+            max-width: 800px;             /* Giới hạn chiều ngang trên máy tính */
+            width: 90%;                   /* Co giãn chiếm 90% màn hình */
+            margin: 40px auto;            /* CĂN GIỮA: Giúp khung luôn nằm giữa màn hình */
             background-color: rgba(255, 255, 255, 0.4);
             border: 1px solid #8d7561;
             border-radius: 2px;
-            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1);
+            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 50px 60px;
+            box-sizing: border-box;       /* Đảm bảo lề đệm tính toán chính xác */
         }
 
         .story-header {
@@ -115,12 +117,12 @@
             padding-right: 45px; 
         }
 
-       .story-text {
+        .story-text {
             font-size: 17px;
             line-height: 1.8;
             text-align: justify;          /* Dàn đều hai bên trái phải */
-            text-justify: inter-word;     /* Ép trình duyệt điện thoại phân bổ khoảng cách giữa các từ đều nhau */
-            word-break: break-word;       /* Ngăn không cho chữ dài làm vỡ hàng trên màn hình dọc */
+            text-justify: inter-word;     /* Chia đều khoảng cách giữa các chữ */
+            word-break: break-word;       /* Ngăn vỡ hàng trên điện thoại */
             margin: 0;
         }
 
@@ -286,30 +288,33 @@
             padding-bottom: 10px;
             font-weight: normal;
         }
-        /* --- ĐOẠN CODE ÉP GIAO DIỆN ĐIỆN THOẠI PHẢI DÀN ĐỀU 100% --- */
+
+        /* --- ĐOẠN CODE ĐÁP ỨNG BIẾN ĐỔI TRÊN ĐIỆN THOẠI (RESPONSIVE) --- */
         @media screen and (max-width: 768px) {
-            /* 1. Thu hẹp lề đệm trên điện thoại để chữ có không gian thở */
+            /* Thu lề để khung nằm giữa cân đối và chữ có khoảng trống hiển thị */
             .reading-container {
+                width: 95% !important;
                 padding: 30px 20px !important; 
-                margin: 0 10px 40px 10px !important;
+                margin: 20px auto !important; /* Luôn luôn nằm chính giữa màn hình dọc */
                 border-radius: 4px !important;
             }
 
-            /* 2. Ép tất cả các đoạn văn bắt buộc phải dàn đều tăm tắp hai bên */
+            /* Ép chữ bắt buộc phải dàn đều hai bên tinh tế */
             .story-text {
-                font-size: 16px !important; /* Hạ nhẹ 1 size trên điện thoại cho dễ đọc */
+                font-size: 16px !important; 
                 text-align: justify !important;
                 text-justify: inter-word !important;
                 display: block !important;
             }
             
-            /* 3. Chỉnh lại khoảng cách bóng chát cho vừa vặn màn hình dọc */
             .story-paragraph-wrapper {
-                padding-right: 30px !important;
+                padding-right: 35px !important;
                 margin-bottom: 20px !important;
             }
+
+            /* Trên điện thoại cho bóng chát hiện sẵn mờ mờ để độc giả dễ click */
             .comment-icon {
-                opacity: 0.6 !important; /* Trên điện thoại không có chuột rê, nên cho hiện mờ sẵn luôn */
+                opacity: 0.6 !important; 
                 right: 0px !important;
             }
         }
