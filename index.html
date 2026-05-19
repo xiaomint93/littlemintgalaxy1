@@ -199,6 +199,83 @@
             font-size: 11px;
             display: inline-block;
         }
+        
+        /* --- 5. Khu vực Nơi Cư Ngụ Vintage --- */
+        #noi-cu-ngu-container {
+            width: 850px;
+            max-width: 95%;
+            margin: 60px auto;
+            text-align: center;
+        }
+
+        /* Tiêu đề Nơi cư ngụ có 2 đường kẻ song song đồng bộ với Kho báu */
+        #noi-cu-ngu-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5d4737;
+            font-size: 18px;
+            letter-spacing: 6px;
+            font-weight: bold;
+            margin: 0 0 40px 0;
+            width: 100%;
+        }
+
+        #noi-cu-ngu-label::before,
+        #noi-cu-ngu-label::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #5d4737;
+            margin: 0 20px;
+        }
+
+        /* Khung chứa các nút liên kết */
+        .social-galaxy {
+            display: flex;
+            justify-content: center;
+            gap: 40px; /* Khoảng cách giữa các nút */
+            flex-wrap: wrap;
+        }
+
+        /* Thiết kế từng nút như một chiếc nhãn cổ điển */
+        .social-star {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid #8d7561;
+            padding: 12px 25px;
+            color: #5d4737;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            box-shadow: 3px 3px 0px #5d4737;
+            transition: all 0.3s ease;
+        }
+
+        /* Icon tròn nhỏ giả lập hành tinh bên trong nút */
+        .social-star::before {
+            content: "✦";
+            color: #5d4737;
+            font-size: 12px;
+            transition: transform 0.4s ease;
+        }
+
+        /* Hiệu ứng khi rê chuột vào: Nhấc nhẹ lên và đổi màu lung linh */
+        .social-star:hover {
+            background-color: #5d4737;
+            color: #ffffff;
+            box-shadow: 0px 0px 0px transparent;
+            transform: translateY(-5px); /* Bay nhẹ lên */
+        }
+
+        .social-star:hover::before {
+            color: #ffffff;
+            transform: rotate(180deg); /* Ngôi sao tự xoay */
+        }
     </style>
 </head>
 <body>
@@ -303,7 +380,25 @@
                             <div class="title-box">Vì sao loại A này...</div>
                         </a>
                     </div>
-                </div>
+ <div style="text-align: center; margin: 40px 0; padding: 0;">
+            <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto;">
+        </div>
+
+        <div id="noi-cu-ngu-container">
+            <div id="noi-cu-ngu-label">NƠI CƯ NGỰ</div>
+            
+            <div class="social-galaxy">
+                <a href="https://bachanhoxinh.wordpress.com" target="_blank" class="social-star">
+                    Wordpress
+                </a>
+                <a href="https://www.wattpad.com/user/Mint9323" target="_blank" class="social-star">
+                    Wattpad
+                </a>
+                <a href="https://www.facebook.com/littlemint23" target="_blank" class="social-star">
+                    Facebook
+                </a>
             </div>
-        </div> </div> </body>
+        </div>
+
+    </div> </div> </div> </body>
 </html>
