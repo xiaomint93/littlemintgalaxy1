@@ -66,78 +66,57 @@
         .nav-item:hover {
             background-color: #7a5f4a;
         }
- /* Khung cố định chiều rộng bằng khung About */
-#kho-bau-gallery {
-    width: 850px; 
-    max-width: 95%;
-    margin: 60px auto; 
-    padding: 40px 0;
-    border-top: 1px solid #5d4737;
-    border-bottom: 1px solid #5d4737;
-    background-color: rgba(93, 71, 55, 0.05);
-    position: relative;
+/* --- Khung cửa sổ giả lập Windows Vintage --- */
+.window-frame {
+    border: 2px solid #5d4737;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 5px 5px 0px #5d4737;
+    max-width: 950px;
+    margin: 50px auto;
     overflow: hidden;
+}
+
+.window-header {
+    background-color: #5d4737;
+    color: white;
+    padding: 8px 15px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #5d4737;
 }
 
-#gallery-label-new {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #e2d1c3; 
-    padding: 0 20px;
-    color: #5d4737;
-    font-size: 18px;
-    letter-spacing: 4px;
-    z-index: 10;
+.window-controls span {
+    border: 1px solid white;
+    padding: 0 5px;
+    margin-left: 5px;
+    font-family: monospace;
 }
 
-@keyframes scrollInfinite {
+/* --- Hiệu ứng chạy ngang mượt mà --- */
+@keyframes scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
 
-.gallery-scroller {
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 40px 0;
+    /* Tạo hiệu ứng dòng kẻ màn hình cũ (Scanlines) */
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(93, 71, 55, 0.05) 1px, rgba(93, 71, 55, 0.05) 2px);
+}
+
+.marquee-content {
     display: flex;
     width: max-content;
-    animation: scrollInfinite 20s linear infinite;
+    animation: scroll 30s linear infinite;
 }
 
-.gallery-scroller:hover {
+.marquee-content:hover {
     animation-play-state: paused;
-}
-
-.novel-card {
-    flex-shrink: 0;
-    width: 220px;
-    text-align: center;
-    margin: 0 20px;
-}
-
-.novel-card .frame {
-    width: 180px;
-    height: 270px;
-    border: 8px solid #fff;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    overflow: hidden;
-    margin: 0 auto;
-}
-
-.novel-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.novel-card .title-box {
-    background-color: #5d4737;
-    color: #fff;
-    padding: 5px 10px;
-    margin-top: 15px;
-    font-size: 11px;
-    display: inline-block;
 }
     </style>
 </head>
@@ -195,51 +174,68 @@
 <div class="novel-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 40px; justify-items: center; max-width: 1000px; margin: 0 auto; padding: 20px;">
     
     
-    <div class="gallery-scroller">
-        <!-- NHÓM 1 -->
-        <div style="display: flex;">
-            <div class="novel-card">
-                <a href="muc-luc-meo-con.html" style="text-decoration: none;">
-                    <div class="frame"><img src="bia1.png"></div>
-                    <div class="title-box">Hôm nay mèo con...</div>
-                </a>
-            </div>
-            <div class="novel-card">
-                <a href="muc-luc-say.html" style="text-decoration: none;">
-                    <div class="frame"><img src="bia2.png"></div>
-                    <div class="title-box">Yêu tựa hơi say</div>
-                </a>
-            </div>
-            <div class="novel-card">
-                <a href="muc-luc-vi-sao.html" style="text-decoration: none;">
-                    <div class="frame"><img src="bia3.png"></div>
-                    <div class="title-box">Vì sao loại A này...</div>
-                </a>
-            </div>
+   <div class="window-frame">
+    <div class="window-header">
+        <span>C:\Novels\Done (18)</span>
+        <div class="window-controls">
+            <span>_</span><span>□</span><span>x</span>
         </div>
+    </div>
 
-        <!-- NHÓM 2 (LẶP LẠI ĐỂ TẠO VÒNG LẶP) -->
-        <div style="display: flex;">
-            <div class="novel-card">
-                <a href="muc-luc-meo-con.html" style="text-decoration: none;">
-                    <div class="frame"><img src="bia1.png"></div>
-                    <div class="title-box">Hôm nay mèo con...</div>
-                </a>
+    <div class="marquee-container">
+        <div class="marquee-content">
+            
+            <div style="display: flex; gap: 40px; padding: 0 20px;">
+                <div class="novel-item" style="width: 180px; text-align: center; flex-shrink: 0;">
+                    <a href="muc-luc-meo-con.html" style="text-decoration: none;">
+                        <div style="width: 160px; height: 240px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                            <img src="Hom-nay-meo-con.png" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="background-color: #5d4737; margin: 10px auto 0; padding: 5px 10px; width: fit-content; color: #fff; font-size: 11px;">Hôm nay mèo con...</div>
+                    </a>
+                </div>
+                <div class="novel-item" style="width: 180px; text-align: center; flex-shrink: 0;">
+                    <a href="muc-luc-say.html" style="text-decoration: none;">
+                        <div style="width: 160px; height: 240px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                            <img src="Yeu-tua-hoi-say.png" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="background-color: #5d4737; margin: 10px auto 0; padding: 5px 10px; width: fit-content; color: #fff; font-size: 11px;">Yêu tựa hơi say</div>
+                    </a>
+                </div>
+                <div class="novel-item" style="width: 180px; text-align: center; flex-shrink: 0;">
+                    <a href="muc-luc-vi-sao.html" style="text-decoration: none;">
+                        <div style="width: 160px; height: 240px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                            <img src="Vi-sao-cung.png" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="background-color: #5d4737; margin: 10px auto 0; padding: 5px 10px; width: fit-content; color: #fff; font-size: 11px;">Vì sao cũng</div>
+                    </a>
+                </div>
             </div>
-            <div class="novel-card">
-                <a href="muc-luc-say.html" style="text-decoration: none;">
-                    <div class="frame"><img src="bia2.png"></div>
-                    <div class="title-box">Yêu tựa hơi say</div>
-                </a>
+
+            <div style="display: flex; gap: 40px; padding: 0 20px;">
+                <div class="novel-item" style="width: 180px; text-align: center; flex-shrink: 0;">
+                    <a href="muc-luc-meo-con.html" style="text-decoration: none;">
+                        <div style="width: 160px; height: 240px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.15);"><img src="bia1.png" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div style="background-color: #5d4737; margin: 10px auto 0; padding: 5px 10px; width: fit-content; color: #fff; font-size: 11px;">Hôm nay mèo con...</div>
+                    </a>
+                </div>
+                <div class="novel-item" style="width: 180px; text-align: center; flex-shrink: 0;">
+                    <a href="muc-luc-say.html" style="text-decoration: none;">
+                        <div style="width: 160px; height: 240px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.15);"><img src="bia2.png" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div style="background-color: #5d4737; margin: 10px auto 0; padding: 5px 10px; width: fit-content; color: #fff; font-size: 11px;">Yêu tựa hơi say</div>
+                    </a>
+                </div>
+                <div class="novel-item" style="width: 180px; text-align: center; flex-shrink: 0;">
+                    <a href="muc-luc-vi-sao.html" style="text-decoration: none;">
+                        <div style="width: 160px; height: 240px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.15);"><img src="bia3.png" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div style="background-color: #5d4737; margin: 10px auto 0; padding: 5px 10px; width: fit-content; color: #fff; font-size: 11px;">Vì sao loại A này...</div>
+                    </a>
+                </div>
             </div>
-            <div class="novel-card">
-                <a href="muc-luc-vi-sao.html" style="text-decoration: none;">
-                    <div class="frame"><img src="bia3.png"></div>
-                    <div class="title-box">Vì sao loại A này...</div>
-                </a>
-            </div>
+
         </div>
     </div>
 </div>
+
 </body>
 </html>
