@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mục lục: Hôm nay mèo con cũng cứu vớt vai ác - Little Mint's Galaxy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
     <style>
         /* 1. Thiết lập nền ảnh hoa hồng đồng bộ trang chủ */
         body {
@@ -11,7 +16,7 @@
             background-attachment: fixed; 
             background-size: cover;
             background-position: center;
-            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; 
+            font-family: 'Lora', Georgia, Serif; /* ĐỒI SANG FONT LORA ĐỒNG BỘ */
             color: #4a3728; 
             margin: 0;
             padding: 0;
@@ -61,7 +66,7 @@
             text-transform: uppercase;
             border-radius: 2px;
             display: block;
-            font-family: 'Palatino Linotype', serif;
+            font-family: 'Lora', Georgia, Serif;
             border: none;
         }
         
@@ -113,31 +118,29 @@
         /* --- 4. Giao diện Khung Giới Thiệu Truyện --- */
         .novel-info-container {
             max-width: 850px;
+            width: 90%;
             margin: 0 auto 40px;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 0.92); /* Tăng độ đậm nền giấy để nhìn rõ chữ */
             border: 1px solid #8d7561;
             border-radius: 2px;
-            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.2);
-            display: block; 
-            text-align: left;
+            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.2), 0 4px 20px rgba(0,0,0,0.05);
+            box-sizing: border-box;
         }
 
-        .novel-layout-table {
-            display: table;
-            width: 100%;
+        /* Sử dụng Flexbox thay cho Table ở khung giới thiệu để tự động co giãn dọc trên điện thoại */
+        .novel-layout-flex {
+            display: flex;
+            gap: 30px;
         }
 
         .novel-cover-cell {
-            display: table-cell;
-            width: 240px;
-            vertical-align: top;
-            padding-right: 30px;
+            width: 220px;
+            flex-shrink: 0;
         }
 
         .novel-meta-cell {
-            display: table-cell;
-            vertical-align: top;
+            flex-grow: 1;
         }
 
         .novel-cover-frame {
@@ -146,6 +149,7 @@
             border: 8px solid #fff;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             overflow: hidden;
+            box-sizing: border-box;
         }
 
         .novel-cover-frame img {
@@ -190,16 +194,16 @@
             text-align: justify;
         }
 
-        /* --- 5. Khung Danh Sách Chương --- */
+        /* --- 5. Khung Danh Sách Chương ĐÃ ĐƯỢC CẢI TIẾN --- */
         #chapter-list-container {
             width: 850px; 
-            max-width: 95%;
-            margin: 60px auto 0; 
+            max-width: 90%;
+            margin: 60px auto 40px; 
             padding: 40px 30px;
             border-top: 1px solid #5d4737;
             border-bottom: 1px solid #5d4737;
-            background-color: rgba(255, 255, 255, 0.25);
-            text-align: center;
+            background-color: rgba(255, 255, 255, 0.92);
+            box-sizing: border-box;
         }
 
         #chapter-label {
@@ -222,20 +226,11 @@
             margin: 0 20px; 
         }
 
-        .chapter-grid {
-            display: table;
-            width: 100%;
-        }
-
-        .chapter-row {
-            display: table-row;
-        }
-
-        .chapter-cell {
-            display: table-cell;
-            width: 33.33%;
-            padding: 8px 10px;
-            text-align: left;
+        /* Thay thế table bằng Grid thông minh tự bẻ dòng */
+        .chapter-grid-new {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Mặc định chia 3 cột đều nhau trên máy tính */
+            gap: 12px 20px;
         }
 
         .chapter-link {
@@ -243,17 +238,64 @@
             color: #4a3728;
             text-decoration: none;
             font-size: 14px;
-            padding: 6px 12px;
+            padding: 8px 12px;
             border-bottom: 1px dashed rgba(93, 71, 55, 0.2);
             transition: all 0.2s ease;
+            text-align: left;
         }
 
         .chapter-link:hover {
             color: #5d4737;
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.8);
             padding-left: 18px;
             border-bottom: 1px solid #5d4737;
             font-weight: bold;
+        }
+
+        /* --- 6. PHÂN VÙNG ĐÁP ỨNG TRÊN ĐIỆN THOẠI (RESPONSIVE CHỐNG LỖI 100%) --- */
+        @media screen and (max-width: 768px) {
+            .site-title { font-size: 32px !important; }
+            .site-slogan { font-size: 15px !important; }
+
+            /* Khung thông tin truyện xếp dọc trên điện thoại */
+            .novel-layout-flex {
+                flex-direction: column;
+                align-items: center;
+            }
+            .novel-cover-cell {
+                padding-right: 0 !important;
+                margin-bottom: 15px;
+            }
+            .novel-info-container {
+                padding: 25px 20px !important;
+            }
+            .novel-title {
+                text-align: center;
+                font-size: 22px !important;
+            }
+
+            /* CHÍNH XÁC: Điện thoại tự động thu về thành 2 cột ngay ngắn không bị ép chữ */
+            .chapter-grid-new {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px 15px !important;
+            }
+            #chapter-list-container {
+                padding: 30px 15px !important;
+            }
+            #chapter-label {
+                font-size: 16px !important;
+                letter-spacing: 3px !important;
+            }
+            #chapter-label::before, #chapter-label::after {
+                margin: 0 10px !important;
+            }
+        }
+
+        /* Màn hình điện thoại siêu nhỏ thì chuyển về 1 cột dọc thẳng tắp */
+        @media screen and (max-width: 420px) {
+            .chapter-grid-new {
+                grid-template-columns: 1fr !important;
+            }
         }
     </style>
 </head>
@@ -283,7 +325,7 @@
         </div>
 
         <div class="novel-info-container">
-            <div class="novel-layout-table">
+            <div class="novel-layout-flex">
                 <div class="novel-cover-cell">
                     <div class="novel-cover-frame">
                         <img src="bia1.png" alt="Bìa Hôm nay mèo con cũng cứu vớt vai ác">
@@ -334,179 +376,142 @@
         <div id="chapter-list-container">
             <div id="chapter-label">DANH SÁCH CHƯƠNG</div>
             
-            <div class="chapter-grid">
-                
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c1.html" class="chapter-link">Chương 01</a></div>
-                    <div class="chapter-cell"><a href="s1-c35.html" class="chapter-link">Chương 35</a></div>
-                    <div class="chapter-cell"><a href="s1-c69.html" class="chapter-link">Chương 69</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c2.html" class="chapter-link">Chương 02</a></div>
-                    <div class="chapter-cell"><a href="s1-c36.html" class="chapter-link">Chương 36</a></div>
-                    <div class="chapter-cell"><a href="s1-c70.html" class="chapter-link">Chương 70</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c3.html" class="chapter-link">Chương 03</a></div>
-                    <div class="chapter-cell"><a href="s1-c37.html" class="chapter-link">Chương 37</a></div>
-                    <div class="chapter-cell"><a href="s1-c71.html" class="chapter-link">Chương 71</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c4.html" class="chapter-link">Chương 04</a></div>
-                    <div class="chapter-cell"><a href="s1-c38.html" class="chapter-link">Chương 38</a></div>
-                    <div class="chapter-cell"><a href="s1-c72.html" class="chapter-link">Chương 72</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c5.html" class="chapter-link">Chương 05</a></div>
-                    <div class="chapter-cell"><a href="s1-c39.html" class="chapter-link">Chương 39</a></div>
-                    <div class="chapter-cell"><a href="s1-c73.html" class="chapter-link">Chương 73</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c6.html" class="chapter-link">Chương 06</a></div>
-                    <div class="chapter-cell"><a href="s1-c40.html" class="chapter-link">Chương 40</a></div>
-                    <div class="chapter-cell"><a href="s1-c74.html" class="chapter-link">Chương 74</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c7.html" class="chapter-link">Chương 07</a></div>
-                    <div class="chapter-cell"><a href="s1-c41.html" class="chapter-link">Chương 41</a></div>
-                    <div class="chapter-cell"><a href="s1-c75.html" class="chapter-link">Chương 75</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c8.html" class="chapter-link">Chương 08</a></div>
-                    <div class="chapter-cell"><a href="s1-c42.html" class="chapter-link">Chương 42</a></div>
-                    <div class="chapter-cell"><a href="s1-c76.html" class="chapter-link">Chương 76</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c9.html" class="chapter-link">Chương 09</a></div>
-                    <div class="chapter-cell"><a href="s1-c43.html" class="chapter-link">Chương 43</a></div>
-                    <div class="chapter-cell"><a href="s1-c77.html" class="chapter-link">Chương 77</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c10.html" class="chapter-link">Chương 10</a></div>
-                    <div class="chapter-cell"><a href="s1-c44.html" class="chapter-link">Chương 44</a></div>
-                    <div class="chapter-cell"><a href="s1-c78.html" class="chapter-link">Chương 78</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c11.html" class="chapter-link">Chương 11</a></div>
-                    <div class="chapter-cell"><a href="s1-c45.html" class="chapter-link">Chương 45</a></div>
-                    <div class="chapter-cell"><a href="s1-c79.html" class="chapter-link">Chương 79</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c12.html" class="chapter-link">Chương 12</a></div>
-                    <div class="chapter-cell"><a href="s1-c46.html" class="chapter-link">Chương 46</a></div>
-                    <div class="chapter-cell"><a href="s1-c80.html" class="chapter-link">Chương 80</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c13.html" class="chapter-link">Chương 13</a></div>
-                    <div class="chapter-cell"><a href="s1-c47.html" class="chapter-link">Chương 47</a></div>
-                    <div class="chapter-cell"><a href="s1-c81.html" class="chapter-link">Chương 81</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c14.html" class="chapter-link">Chương 14</a></div>
-                    <div class="chapter-cell"><a href="s1-c48.html" class="chapter-link">Chương 48</a></div>
-                    <div class="chapter-cell"><a href="s1-c82.html" class="chapter-link">Chương 82</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c15.html" class="chapter-link">Chương 15</a></div>
-                    <div class="chapter-cell"><a href="s1-c49.html" class="chapter-link">Chương 49</a></div>
-                    <div class="chapter-cell"><a href="s1-c83.html" class="chapter-link">Chương 83</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c16.html" class="chapter-link">Chương 16</a></div>
-                    <div class="chapter-cell"><a href="s1-c50.html" class="chapter-link">Chương 50</a></div>
-                    <div class="chapter-cell"><a href="s1-c84.html" class="chapter-link">Chương 84</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c17.html" class="chapter-link">Chương 17</a></div>
-                    <div class="chapter-cell"><a href="s1-c51.html" class="chapter-link">Chương 51</a></div>
-                    <div class="chapter-cell"><a href="s1-c85.html" class="chapter-link">Chương 85</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c18.html" class="chapter-link">Chương 18</a></div>
-                    <div class="chapter-cell"><a href="s1-c52.html" class="chapter-link">Chương 52</a></div>
-                    <div class="chapter-cell"><a href="s1-c86.html" class="chapter-link">Chương 86</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c19.html" class="chapter-link">Chương 19</a></div>
-                    <div class="chapter-cell"><a href="s1-c53.html" class="chapter-link">Chương 53</a></div>
-                    <div class="chapter-cell"><a href="s1-c87.html" class="chapter-link">Chương 87</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c20.html" class="chapter-link">Chương 20</a></div>
-                    <div class="chapter-cell"><a href="s1-c54.html" class="chapter-link">Chương 54</a></div>
-                    <div class="chapter-cell"><a href="s1-c88.html" class="chapter-link">Chương 88</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c21.html" class="chapter-link">Chương 21</a></div>
-                    <div class="chapter-cell"><a href="s1-c55.html" class="chapter-link">Chương 55</a></div>
-                    <div class="chapter-cell"><a href="s1-c89.html" class="chapter-link">Chương 89</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c22.html" class="chapter-link">Chương 22</a></div>
-                    <div class="chapter-cell"><a href="s1-c56.html" class="chapter-link">Chương 56</a></div>
-                    <div class="chapter-cell"><a href="s1-c90.html" class="chapter-link">Chương 90</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c23.html" class="chapter-link">Chương 23</a></div>
-                    <div class="chapter-cell"><a href="s1-c57.html" class="chapter-link">Chương 57</a></div>
-                    <div class="chapter-cell"><a href="s1-c91.html" class="chapter-link">Chương 91</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c24.html" class="chapter-link">Chương 24</a></div>
-                    <div class="chapter-cell"><a href="s1-c58.html" class="chapter-link">Chương 58</a></div>
-                    <div class="chapter-cell"><a href="s1-c92.html" class="chapter-link">Chương 92</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c25.html" class="chapter-link">Chương 25</a></div>
-                    <div class="chapter-cell"><a href="s1-c59.html" class="chapter-link">Chương 59</a></div>
-                    <div class="chapter-cell"><a href="s1-c93.html" class="chapter-link">Chương 93</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c26.html" class="chapter-link">Chương 26</a></div>
-                    <div class="chapter-cell"><a href="s1-c60.html" class="chapter-link">Chương 60</a></div>
-                    <div class="chapter-cell"><a href="s1-c94.html" class="chapter-link">Chương 94</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c27.html" class="chapter-link">Chương 27</a></div>
-                    <div class="chapter-cell"><a href="s1-c61.html" class="chapter-link">Chương 61</a></div>
-                    <div class="chapter-cell"><a href="s1-c95.html" class="chapter-link">Chương 95</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c28.html" class="chapter-link">Chương 28</a></div>
-                    <div class="chapter-cell"><a href="s1-c62.html" class="chapter-link">Chương 62</a></div>
-                    <div class="chapter-cell"><a href="s1-c96.html" class="chapter-link">Chương 96</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c29.html" class="chapter-link">Chương 29</a></div>
-                    <div class="chapter-cell"><a href="s1-c63.html" class="chapter-link">Chương 63</a></div>
-                    <div class="chapter-cell"><a href="s1-c97.html" class="chapter-link">Chương 97</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c30.html" class="chapter-link">Chương 30</a></div>
-                    <div class="chapter-cell"><a href="s1-c64.html" class="chapter-link">Chương 64</a></div>
-                    <div class="chapter-cell"><a href="s1-c98.html" class="chapter-link">Chương 98</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c31.html" class="chapter-link">Chương 31</a></div>
-                    <div class="chapter-cell"><a href="s1-c65.html" class="chapter-link">Chương 65</a></div>
-                    <div class="chapter-cell"><a href="s1-c99.html" class="chapter-link">Chương 99</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c32.html" class="chapter-link">Chương 32</a></div>
-                    <div class="chapter-cell"><a href="s1-c66.html" class="chapter-link">Chương 66</a></div>
-                    <div class="chapter-cell"><a href="s1-c100.html" class="chapter-link">Chương 100</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c33.html" class="chapter-link">Chương 33</a></div>
-                    <div class="chapter-cell"><a href="s1-c67.html" class="chapter-link">Chương 67</a></div>
-                    <div class="chapter-cell"><a href="s1-c101.html" class="chapter-link">Chương 101</a></div>
-                </div>
-                <div class="chapter-row">
-                    <div class="chapter-cell"><a href="s1-c34.html" class="chapter-link">Chương 34</a></div>
-                    <div class="chapter-cell"><a href="s1-c68.html" class="chapter-link">Chương 68</a></div>
-                    <div class="chapter-cell" style="background: none; border: none;"></div>
-                </div>
+            <div class="chapter-grid-new">
+                <a href="s1-c1.html" class="chapter-link">Chương 01</a>
+                <a href="s1-c35.html" class="chapter-link">Chương 35</a>
+                <a href="s1-c69.html" class="chapter-link">Chương 69</a>
 
+                <a href="s1-c2.html" class="chapter-link">Chương 02</a>
+                <a href="s1-c36.html" class="chapter-link">Chương 36</a>
+                <a href="s1-c70.html" class="chapter-link">Chương 70</a>
+
+                <a href="s1-c3.html" class="chapter-link">Chương 03</a>
+                <a href="s1-c37.html" class="chapter-link">Chương 37</a>
+                <a href="s1-c71.html" class="chapter-link">Chương 71</a>
+
+                <a href="s1-c4.html" class="chapter-link">Chương 04</a>
+                <a href="s1-c38.html" class="chapter-link">Chương 38</a>
+                <a href="s1-c72.html" class="chapter-link">Chương 72</a>
+
+                <a href="s1-c5.html" class="chapter-link">Chương 05</a>
+                <a href="s1-c39.html" class="chapter-link">Chương 39</a>
+                <a href="s1-c73.html" class="chapter-link">Chương 73</a>
+
+                <a href="s1-c6.html" class="chapter-link">Chương 06</a>
+                <a href="s1-c40.html" class="chapter-link">Chương 40</a>
+                <a href="s1-c74.html" class="chapter-link">Chương 74</a>
+
+                <a href="s1-c7.html" class="chapter-link">Chương 07</a>
+                <a href="s1-c41.html" class="chapter-link">Chương 41</a>
+                <a href="s1-c75.html" class="chapter-link">Chương 75</a>
+
+                <a href="s1-c8.html" class="chapter-link">Chương 08</a>
+                <a href="s1-c42.html" class="chapter-link">Chương 42</a>
+                <a href="s1-c76.html" class="chapter-link">Chương 76</a>
+
+                <a href="s1-c9.html" class="chapter-link">Chương 09</a>
+                <a href="s1-c43.html" class="chapter-link">Chương 43</a>
+                <a href="s1-c77.html" class="chapter-link">Chương 77</a>
+
+                <a href="s1-c10.html" class="chapter-link">Chương 10</a>
+                <a href="s1-c44.html" class="chapter-link">Chương 44</a>
+                <a href="s1-c78.html" class="chapter-link">Chương 78</a>
+
+                <a href="s1-c11.html" class="chapter-link">Chương 11</a>
+                <a href="s1-c45.html" class="chapter-link">Chương 45</a>
+                <a href="s1-c79.html" class="chapter-link">Chương 79</a>
+
+                <a href="s1-c12.html" class="chapter-link">Chương 12</a>
+                <a href="s1-c46.html" class="chapter-link">Chương 46</a>
+                <a href="s1-c80.html" class="chapter-link">Chương 80</a>
+
+                <a href="s1-c13.html" class="chapter-link">Chương 13</a>
+                <a href="s1-c47.html" class="chapter-link">Chương 47</a>
+                <a href="s1-c81.html" class="chapter-link">Chương 81</a>
+
+                <a href="s1-c14.html" class="chapter-link">Chương 14</a>
+                <a href="s1-c48.html" class="chapter-link">Chương 48</a>
+                <a href="s1-c82.html" class="chapter-link">Chương 82</a>
+
+                <a href="s1-c15.html" class="chapter-link">Chương 15</a>
+                <a href="s1-c49.html" class="chapter-link">Chương 49</a>
+                <a href="s1-c83.html" class="chapter-link">Chương 83</a>
+
+                <a href="s1-c16.html" class="chapter-link">Chương 16</a>
+                <a href="s1-c50.html" class="chapter-link">Chương 50</a>
+                <a href="s1-c84.html" class="chapter-link">Chương 84</a>
+
+                <a href="s1-c17.html" class="chapter-link">Chương 17</a>
+                <a href="s1-c51.html" class="chapter-link">Chương 51</a>
+                <a href="s1-c85.html" class="chapter-link">Chương 85</a>
+
+                <a href="s1-c18.html" class="chapter-link">Chương 18</a>
+                <a href="s1-c52.html" class="chapter-link">Chương 52</a>
+                <a href="s1-c86.html" class="chapter-link">Chương 86</a>
+
+                <a href="s1-c19.html" class="chapter-link">Chương 19</a>
+                <a href="s1-c53.html" class="chapter-link">Chương 53</a>
+                <a href="s1-c87.html" class="chapter-link">Chương 87</a>
+
+                <a href="s1-c20.html" class="chapter-link">Chương 20</a>
+                <a href="s1-c54.html" class="chapter-link">Chương 54</a>
+                <a href="s1-c88.html" class="chapter-link">Chương 88</a>
+
+                <a href="s1-c21.html" class="chapter-link">Chương 21</a>
+                <a href="s1-c55.html" class="chapter-link">Chương 55</a>
+                <a href="s1-c89.html" class="chapter-link">Chương 89</a>
+
+                <a href="s1-c22.html" class="chapter-link">Chương 22</a>
+                <a href="s1-c56.html" class="chapter-link">Chương 56</a>
+                <a href="s1-c90.html" class="chapter-link">Chương 90</a>
+
+                <a href="s1-c23.html" class="chapter-link">Chương 23</a>
+                <a href="s1-c57.html" class="chapter-link">Chương 57</a>
+                <a href="s1-c91.html" class="chapter-link">Chương 91</a>
+
+                <a href="s1-c24.html" class="chapter-link">Chương 24</a>
+                <a href="s1-c58.html" class="chapter-link">Chương 58</a>
+                <a href="s1-c92.html" class="chapter-link">Chương 92</a>
+
+                <a href="s1-c25.html" class="chapter-link">Chương 25</a>
+                <a href="s1-c59.html" class="chapter-link">Chương 59</a>
+                <a href="s1-c93.html" class="chapter-link">Chương 93</a>
+
+                <a href="s1-c26.html" class="chapter-link">Chương 26</a>
+                <a href="s1-c60.html" class="chapter-link">Chương 60</a>
+                <a href="s1-c94.html" class="chapter-link">Chương 94</a>
+
+                <a href="s1-c27.html" class="chapter-link">Chương 27</a>
+                <a href="s1-c61.html" class="chapter-link">Chương 61</a>
+                <a href="s1-c95.html" class="chapter-link">Chương 95</a>
+
+                <a href="s1-c28.html" class="chapter-link">Chương 28</a>
+                <a href="s1-c62.html" class="chapter-link">Chương 62</a>
+                <a href="s1-c96.html" class="chapter-link">Chương 96</a>
+
+                <a href="s1-c29.html" class="chapter-link">Chương 29</a>
+                <a href="s1-c63.html" class="chapter-link">Chương 63</a>
+                <a href="s1-c97.html" class="chapter-link">Chương 97</a>
+
+                <a href="s1-c30.html" class="chapter-link">Chương 30</a>
+                <a href="s1-c64.html" class="chapter-link">Chương 64</a>
+                <a href="s1-c98.html" class="chapter-link">Chương 98</a>
+
+                <a href="s1-c31.html" class="chapter-link">Chương 31</a>
+                <a href="s1-c65.html" class="chapter-link">Chương 65</a>
+                <a href="s1-c99.html" class="chapter-link">Chương 99</a>
+
+                <a href="s1-c32.html" class="chapter-link">Chương 32</a>
+                <a href="s1-c66.html" class="chapter-link">Chương 66</a>
+                <a href="s1-c100.html" class="chapter-link">Chương 100</a>
+
+                <a href="s1-c33.html" class="chapter-link">Chương 33</a>
+                <a href="s1-c67.html" class="chapter-link">Chương 67</a>
+                <a href="s1-c101.html" class="chapter-link">Chương 101</a>
+
+                <a href="s1-c34.html" class="chapter-link">Chương 34</a>
+                <a href="s1-c68.html" class="chapter-link">Chương 68</a>
+                <span style="display: block;"></span>
             </div>
         </div>
 
