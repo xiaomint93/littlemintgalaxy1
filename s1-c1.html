@@ -286,6 +286,33 @@
             padding-bottom: 10px;
             font-weight: normal;
         }
+        /* --- ĐOẠN CODE ÉP GIAO DIỆN ĐIỆN THOẠI PHẢI DÀN ĐỀU 100% --- */
+        @media screen and (max-width: 768px) {
+            /* 1. Thu hẹp lề đệm trên điện thoại để chữ có không gian thở */
+            .reading-container {
+                padding: 30px 20px !important; 
+                margin: 0 10px 40px 10px !important;
+                border-radius: 4px !important;
+            }
+
+            /* 2. Ép tất cả các đoạn văn bắt buộc phải dàn đều tăm tắp hai bên */
+            .story-text {
+                font-size: 16px !important; /* Hạ nhẹ 1 size trên điện thoại cho dễ đọc */
+                text-align: justify !important;
+                text-justify: inter-word !important;
+                display: block !important;
+            }
+            
+            /* 3. Chỉnh lại khoảng cách bóng chát cho vừa vặn màn hình dọc */
+            .story-paragraph-wrapper {
+                padding-right: 30px !important;
+                margin-bottom: 20px !important;
+            }
+            .comment-icon {
+                opacity: 0.6 !important; /* Trên điện thoại không có chuột rê, nên cho hiện mờ sẵn luôn */
+                right: 0px !important;
+            }
+        }
     </style>
 </head>
 <body>
