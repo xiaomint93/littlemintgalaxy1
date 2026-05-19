@@ -115,10 +115,12 @@
             padding-right: 45px; 
         }
 
-        .story-text {
+       .story-text {
             font-size: 17px;
             line-height: 1.8;
-            text-align: justify;
+            text-align: justify;          /* Dàn đều hai bên trái phải */
+            text-justify: inter-word;     /* Ép trình duyệt điện thoại phân bổ khoảng cách giữa các từ đều nhau */
+            word-break: break-word;       /* Ngăn không cho chữ dài làm vỡ hàng trên màn hình dọc */
             margin: 0;
         }
 
