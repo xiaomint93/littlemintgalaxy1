@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chương 1: Mèo con xuất thế - Little Mint's Galaxy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
     <style>
         /* 1. Thiết lập nền ảnh hoa hồng đồng bộ toàn hệ thống */
         body {
@@ -11,7 +16,7 @@
             background-attachment: fixed; 
             background-size: cover;
             background-position: center;
-            font-family: 'Lora', Georgia, Serif; /* ĐỔI SANG FONT LORA MƯỢT MÀ KHÔNG LỖI DẤU */ 
+            font-family: 'Lora', Georgia, Serif; 
             color: #4a3728; 
             margin: 0;
             padding: 0;
@@ -42,7 +47,7 @@
             text-transform: uppercase;
             border-radius: 2px;
             display: block;
-            font-family: 'Palatino Linotype', serif;
+            font-family: 'Lora', Georgia, Serif;
             border: none;
         }
         
@@ -76,15 +81,15 @@
 
         /* --- 3. Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
         .reading-container {
-            max-width: 800px;             /* Giới hạn chiều ngang trên máy tính */
-            width: 90%;                   /* Co giãn chiếm 90% màn hình */
-            margin: 40px auto;            /* CĂN GIỮA: Giúp khung luôn nằm giữa màn hình */
+            max-width: 800px;             
+            width: 90%;                   
+            margin: 40px auto;            
             background-color: rgba(255, 255, 255, 0.4);
             border: 1px solid #8d7561;
             border-radius: 2px;
             box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
             padding: 50px 60px;
-            box-sizing: border-box;       /* Đảm bảo lề đệm tính toán chính xác */
+            box-sizing: border-box;       
         }
 
         .story-header {
@@ -120,9 +125,9 @@
         .story-text {
             font-size: 17px;
             line-height: 1.8;
-            text-align: justify;          /* Dàn đều hai bên trái phải */
-            text-justify: inter-word;     /* Chia đều khoảng cách giữa các chữ */
-            word-break: break-word;       /* Ngăn vỡ hàng trên điện thoại */
+            text-align: justify;          
+            text-justify: inter-word;     
+            word-break: break-word;       
             margin: 0;
         }
 
@@ -181,20 +186,14 @@
             margin-bottom: 12px;
         }
 
-        .single-old-comment {
-            margin-bottom: 6px;
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
         .comment-form-inline {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
-        .inline-input-name {
-            padding: 6px 10px;
+        .inline-input-name, .inline-textarea-text {
+            padding: 8px 10px;
             font-size: 13px;
             border: 1px solid #8d7561;
             border-radius: 3px;
@@ -203,16 +202,7 @@
             color: #4a3728;
         }
 
-        .inline-textarea-text {
-            padding: 8px 10px;
-            font-size: 13px;
-            border: 1px solid #8d7561;
-            border-radius: 3px;
-            font-family: inherit;
-            resize: none;
-            background-color: #fff;
-            color: #4a3728;
-        }
+        .inline-textarea-text { resize: none; }
 
         .inline-submit-btn {
             background-color: #5d4737;
@@ -227,9 +217,7 @@
             font-weight: bold;
         }
 
-        .inline-submit-btn:hover {
-            background-color: #7a5f4a;
-        }
+        .inline-submit-btn:hover { background-color: #7a5f4a; }
 
         .inline-success-msg {
             color: #5d4737;
@@ -291,15 +279,13 @@
 
         /* --- ĐOẠN CODE ĐÁP ỨNG BIẾN ĐỔI TRÊN ĐIỆN THOẠI (RESPONSIVE) --- */
         @media screen and (max-width: 768px) {
-            /* Thu lề để khung nằm giữa cân đối và chữ có khoảng trống hiển thị */
             .reading-container {
                 width: 95% !important;
                 padding: 30px 20px !important; 
-                margin: 20px auto !important; /* Luôn luôn nằm chính giữa màn hình dọc */
+                margin: 20px auto !important; 
                 border-radius: 4px !important;
             }
 
-            /* Ép chữ bắt buộc phải dàn đều hai bên tinh tế */
             .story-text {
                 font-size: 16px !important; 
                 text-align: justify !important;
@@ -312,7 +298,6 @@
                 margin-bottom: 20px !important;
             }
 
-            /* Trên điện thoại cho bóng chát hiện sẵn mờ mờ để độc giả dễ click */
             .comment-icon {
                 opacity: 0.6 !important; 
                 right: 0px !important;
@@ -343,711 +328,108 @@
             <h1 class="chapter-title">Chương 01: Mèo con xuất thế</h1>
         </div>
 
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Cẩn thận đặt lát chanh cuối cùng lên miệng ly, Đường Hi bưng ly đồ uống do chính tay cậu pha cho khách, kèm theo đó là một nụ cười ngoan ngoãn lễ phép.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-1')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-1" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-1', 'Đoạn 1')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+        <div id="story-content-area">
+            <p class="story-text">Cần thận đặt lát chanh cuối cùng lên miệng ly, Đường Hi bưng ly đồ uống do chính tay cậu pha cho khách, kèm theo đó là một nụ cười ngoan ngoãn lễ phép.</p>
+            
             <p class="story-text">Có một ánh mắt như thiêu đốt di chuyển theo tấm lưng cậu, nhưng cậu đã tập mãi thành quen, từ khi cậu đến đây làm việc, ông chủ ngày nào cũng đến quán ngồi cả ngày, cái gì cũng không làm, chỉ dán mắt vào cậu.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-2')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-2" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-2', 'Đoạn 2')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Đây là công việc tử tế đầu tiên Đường Hi tìm được từ sau khi cậu mười tám tuổi, tuy đây chỉ là công việc tạm thời, ông chủ lại có phần hơi nghiêm khắc nhưng Đường Hi vô cùng quý trọng, nhất cử nhất động đều rất cẩn thận.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-3')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-3" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-3', 'Đoạn 3')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Ông chủ ngồi ở bên kia cửa sổ đưa tay liếc nhìn đồng hồ, ngồi nhiều giờ liền như vậy, cuối cùng lấy hết can đảm gọi cậu: "Đường Hi, hôm nay tan tầm cậu có việc gì không?"</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-4')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-4" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-4', 'Đoạn 4')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
+            
+            <div class="story-paragraph-wrapper"> <p class="story-text">"Tôi, tôi có hẹn với người khác rồi." Đường Hi có chút thụ sủng nhược kinh*.</p>
+                <span class="story-note">*Thụ sủng nhược kinh: được sủng ái mà lo sợ.</span>
             </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">"Tôi, tôi có hẹn với người khác rồi." Đường Hi có chút thụ sủng nhược kinh*.</p>
-            <span class="story-note">*Thụ sủng nhược kinh: được sủng ái mà lo sợ.</span>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-5')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-5" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-5', 'Đoạn 5')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Bình thường cậu không dám tiếp xúc nhiều with nhân loại, tùy tiện tìm một cái cớ qua loa lấy lệ để từ chối.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-6')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-6" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-6', 'Đoạn 6')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
+            <p class="story-text">Bình thường cậu không dám tiếp xúc nhiều với nhân loại, tùy tiện tìm một cái cớ qua loa lấy lệ để từ chối.</p>
+            
             <p class="story-text">Được một nhân viên đáng yêu dùng ánh mắt trong veo như lưu ly nhìn chăm chú lúc bạn nói chuyện, cho dù có từ chối cũng không khiến bạn cảm thấy khó chịu chút nào.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-7')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-7" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-7', 'Đoạn 7')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Ông chủ chỉ có thể lộ ra biểu tình tiếc nuối gật đầu, thậm chí phá lệ cho cậu về sớm.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-8')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-8" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-8', 'Đoạn 8')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Trong tiệm có một vị khách mới đến, thấy vậy liền trêu ghẹo: "Ông chủ, ông đúng là có sổ hưởng nha."</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-9')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-9" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-9', 'Đoạn 9')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
+            <p class="story-text">Trong tiệm có một vị khách mới đến, thấy vậy liền trêu ghẹo: "Ông chủ, ông đúng là có số hưởng nha."</p>
+            
             <p class="story-text">Bởi vì trong quán có anh chàng nhân viên đẹp trai nên cửa tiệm ẩn mình này càng ngày càng hút khách.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-10')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-10" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-10', 'Đoạn 10')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Ông chủ lắc đầu cười gượng gạo, mặt không đổi sắc âm thầm hủy hẹn ở nhà hàng tư nhân đã đặt cho tối nay.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-11')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-11" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-11', 'Đoạn 11')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Sau khi tan làm, Đường Hi cũng không đi đến chỗ hẹn như người khác nghĩ mà thay vào đó, cậu linh hoạt rẽ trái rẽ phải đến một ngõ nhỏ vắng vẻ, không một bóng người, cậu lắc người một cái, chợt biến thành một con mèo.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-12')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-12" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-12', 'Đoạn 12')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
+            
+            <div class="story-paragraph-wrapper">
+                <p class="story-text">Kiên nhẫn mò mẫm đi vào sâu trong con hẻm, cậu đang chờ cô gái kia xuất hiện, mấy hôm trước cậu vô tình gặp được cô gái ấy rồi giả vờ bán manh*, sau đó chạy vào con hẻm này rồi biến mất, cô quả nhiên bị lừa, mỗi ngày đều mang thức ăn đến hẻm nhỏ này xem một cái, muốn gặp lại mèo con.</p>
+                <span class="story-note">*Bán manh: làm nũng, tỏ ra dễ thương.</span>
             </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Kiên nhẫn mò mẫm đi vào sâu trong con hẻm, cậu đang chờ cô gái kia xuất hiện, mấy hôm trước cậu vô tình gặp được cô gái ấy rồi giả vờ bán manh*, sau đó chạy vào con hẻm này rồi biến mất, cô quả nhiên bị lừa, mỗi ngày đều mang thức ăn đến hẻm nhỏ này xem một cái, muốn gặp lại mèo con.</p>
-            <span class="story-note">*Bán manh: làm nũng, tỏ ra dễ thương.</span>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-13')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-13" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-13', 'Đoạn 13')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Bàn về lừa ăn lừa uống thì cậu đây chính là một mèo chuyên nghiệp.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-14')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-14" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-14', 'Đoạn 14')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Đường Hi đắc ý liếm liếm móng vuốt nhỏ.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-15')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-15" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-15', 'Đoạn 15')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">“Meo ~”</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-16')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-16" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-16', 'Đoạn 16')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Không lâu sau, một tiếng mèo kêu ngọt ngào như sữa vang lên trong ngõ.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-17')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-17" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-17', 'Đoạn 17')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">"Chúng ta lại gặp nhau rồi mèo con! Em đáng yêu quá đi!" Cô gái bị mèo nhỏ hấp dẫn, cô che miệng âm thầm hét lên trong lòng rồi nhìn về phía cục bông nhỏ màu vàng trước mặt.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-18')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-18" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-18', 'Đoạn 18')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Cô gái xé thịt khô trên tay thành từng miếng nhỏ để trên tờ giấy rồi nhẹ nhàng đưa qua, sợ rằng nếu mình nhúc nhích thêm một cái nữa thì cục bông vàng sẽ bị dọa chạy mất.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-19')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-19" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-19', 'Đoạn 19')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Đường Hi đang cuộn người trên mặt đất, những móng vuốt sắc bén không thấy đâu, trông vô cùng ngoan ngoãn, cậu meo meo hai tiếng để bày tỏ lòng biết ơn của mình, sau đó mới bắt đầu ăn.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-20')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-20" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-20', 'Đoạn 20')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Ban đầu cô gái lo lắng cậu còn quá nhỏ, không thể cắn được thịt khô, nhưng nhìn thấy cậu ăn một cách dễ dàng, cô mới nhẹ nhàng thở ra, đưa tay vào túi lấy di động ra chụp ảnh.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-21')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-21" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-21', 'Đoạn 21')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
+            
+            <div class="story-paragraph-wrapper">
+                <p class="story-text">Răng của Đường Hi nhỏ như hạt gạo kê* nhưng lại rất chắc khỏe. Rốt cuộc cậu cũng không còn là mèo con nữa, tuy rằng cơ thể luôn duy trì hình dáng của mèo con nhưng một tháng trước cậu đã bước qua tuổi mười tám, dựa theo tiêu chuẩn của nhân loại thì đã trưởng thành rồi.</p>
+                <span class="story-note">*Hạt gạo kê: kích thước rất nhỏ bé.</span>
             </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Răng của Đường Hi nhỏ như hạt gạo kê* nhưng lại rất chắc khỏe. Rốt cuộc cậu cũng không còn là mèo con nữa, tuy rằng cơ thể luôn duy trì hình dáng của mèo con nhưng một tháng trước cậu đã bước qua tuổi mười tám, dựa theo tiêu chuẩn của nhân loại thì đã trưởng thành rồi.</p>
-            <span class="story-note">*Gạo kê</span>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-22')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-22" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-22', 'Đoạn 22')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Tuy rằng đã mười tám tuổi rồi mà còn giả vờ làm mèo con lừa ăn gạt uống thì không phải là hành động của chính nhân quân tử, nhưng Đường Hi vẫn kiên trì khẳng định mình là một con mèo nhỏ nha.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-23')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-23" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-23', 'Đoạn 23')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Trên thực tế, lúc mười sáu tuổi, cậu đã có thể kiếm đủ thức ăn cho mình nhờ chạy việc lặt vặt. Chỉ là tiền thuê nhà, điện nước, chi phí sinh hoạt của nhân loại quá đắt, cậu lại không có hộ khẩu hợp pháp, tiền đã kiếm không được nhiều lại còn bị chủ nhà lòng dạ hiểm độc áp bức, số tiền còn dư lại chỉ đủ cho cậu mua ba bữa một ngày.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-24')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-24" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-24', 'Đoạn 24')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Vì muốn tiết kiệm tiền mua cá khô chưng đường yêu thích, Đường Hi chỉ có thể nghĩ ra hạ sách này, lợi dụng ưu thế chủng tộc của mình đi quyến rũ những cô gái nhỏ thiện lương để lừa chút đồ ăn ngon.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-25')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-25" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-25', 'Đoạn 25')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Coi như đây là sự bổ sung dinh dưỡng ngoài giờ đi.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-26')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-26" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-26', 'Đoạn 26')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Lúc Đường Hi đang ăn vui vẻ, trong đầu bỗng nhiên vang lên một tiếng "Tít", âm thanh máy móc lạnh lùng không có chút độ ấm nào vang lên.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-27')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-27" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-27', 'Đoạn 27')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">【Đã tìm thấy đối tượng thích hợp, đang tiến hành khóa định linh hồn.】</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-28')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-28" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-28', 'Đoạn 28')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Cái gì thế này?</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-29')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-29" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-29', 'Đoạn 29')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Đường Hi sợ tới mức miếng thịt khô ngậm trong miệng rơi xuống đất, cậu cảnh giác nhìn dáo dác xung quanh, cái đuôi dài xù lên xẹp xuống vô cùng bất an.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-30')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-30" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-30', 'Đoạn 30')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Cô gái thấy biểu hiện bất thường của mèo nhỏ thì hoảng sợ, nghĩ là do mình vừa cử động làm nó sợ, bèn ngồi im bất động luống cuống giải thích: "Mèo con đừng sợ, chị không làm tổn thương em đâu."</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-31')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-31" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-31', 'Đoạn 31')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Đường Hi không có thời gian chú ý tới cô, bởi vì âm thanh quái dị trong đầu lại vang lên.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-32')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-32" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-32', 'Đoạn 32')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">【Trói buộc thành công! Chào ký chủ, tôi là hệ thống cứu vớt vai ác 007, hân hạnh được phục vụ bạn.】</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-33')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-33" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-33', 'Đoạn 33')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Đường Hi lùi lại hai bước, trong lòng không ngừng gầm thét: "Cái quái gì thế này? Mau ra khỏi đầu ta!"</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-34')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-34" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-34', 'Đoạn 34')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Hệ thống 007 giải thích giải thích: 【Ký chủ không cần dùng miệng nói chuyện, chỉ cần ở trong lòng suy nghĩ là tôi có thể nghe thấy được. Tôi không phải là quái vật, tôi là một người giúp việc có thể giúp ký chủ đạt được ước nguyện, chỉ cần ký chủ hoàn thành nhiệm vụ do tôi giao cho, bạn sẽ nhận được phần thưởng phong phú từ tổng bộ.】</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-35')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-35" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-35', 'Đoạn 35')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
+            <p class="story-text">Hệ thống 007 giải thích: 【Ký chủ không cần dùng miệng nói chuyện, chỉ cần ở trong lòng suy nghĩ là tôi có thể nghe thấy được. Tôi không phải là quái vật, tôi là một người giúp việc có thể giúp ký chủ đạt được ước nguyện, chỉ cần ký chủ hoàn thành nhiệm vụ do tôi giao cho, bạn sẽ nhận được phần thưởng phong phú từ tổng bộ.】</p>
+            
             <p class="story-text">Đường Hi hoài nghi hỏi: "Thật sự cái gì cũng có thể thực hiện?"</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-36')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-36" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-36', 'Đoạn 36')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">【Đúng vậy, chỉ cần không vi phạm quy tắc của tinh tế, bất luận là tiền tài hay là quyền lực, thậm chí là một thân phận hợp pháp của nhân loại, tổng bộ đều có thể cung cấp cho bạn.】 Hệ thống 007 dụ dỗ.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-37')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-37" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-37', 'Đoạn 37')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Thân phận hợp pháp của nhân loại!</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-38')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-38" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-38', 'Đoạn 38')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Đường Hi nghe tới đây lập tức sáng mắt lên. Đây chính là thứ mà cậu hằng ao ước, có thân phận hợp pháp rồi cậu sẽ không cần lủi thủi trốn tránh nữa, có thể ngẩng cao đầu đi tìm việc làm, mua một căn nhà nhỏ ấm áp thuộc về riêng mình, không còn bị xua đuổi.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-39')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-39" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-39', 'Đoạn 39')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">"Được rồi, ta đồng ý với ngươi, nhiệm vụ là gì?" Đường Hi nén sự kích động hỏi.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-40')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-40" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-40', 'Đoạn 40')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">【Nhiệm vụ vô cùng đơn giản, có một số thế giới do oán khí của vai ác quá nặng dẫn đến sụp đổ, việc ký chủ cần làm là tiến vào các thế giới đó cứu vớt phản diện, trợ giúp bọn họ cảm nhận được sự ấm áp của thế giới này, tiêu trừ oán khí. Thể chất của ký chủ rất đặc biệt, vô cùng thích hợp với nhiệm vụ này.】</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-41')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-41" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-41', 'Đoạn 41')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Đường Hi gật gật cái đầu nhỏ, tuy cậu nghe không hiểu oán khí sụp đổ là gì, nhưng đi sưởi ấm cho người khác thì cậu tự tin mình làm được nha. Cậu ngoan ngoãn như vậy, ai nhìn thấy mà không thích cơ chứ?</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-42')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-42" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-42', 'Đoạn 42')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">"Vậy khi nào chúng ta xuất phát?" Đường Hi vội vàng hỏi.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-43')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-43" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-43', 'Đoạn 43')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">【Bây giờ tiến hành truyền tống, thế giới thứ nhất đang được mở ra, xin ký chủ chuẩn bị sẵn sàng.】</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-44')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-44" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-44', 'Đoạn 44')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
             <p class="story-text">Lời hệ thống vừa dứt, một quầng sáng trắng ấm áp lập tức bao bọc lấy cơ thể mèo nhỏ, ý thức của Đường Hi dần trở nên mơ hồ.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-45')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-45" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-45', 'Đoạn 45')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
-            <p class="story-text">Trong ngõ nhỏ, cô gái đang nhìn chằm chằm vào di động bỗng cảm thấy trước mắt lóe lên một cái, lúc nhìn lại thì cục bông nhỏ màu vàng trên mặt đất đã biến mất không thấy tăm hơi, chỉ còn lại mấy miếng thịt khô nằm trơ trọi trên giấy giấy.</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-46')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-46" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-46', 'Đoạn 46')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="story-paragraph-wrapper">
+            
+            <p class="story-text">Trong ngõ nhỏ, cô gái đang nhìn chằm chằm vào di động bỗng cảm thấy trước mắt lóe lên một cái, lúc nhìn lại thì cục bông nhỏ màu vàng trên mặt đất đã biến mất không thấy tăm hơi, chỉ còn lại mấy miếng thịt khô nằm trơ trọi trên giấy.</p>
+            
             <p class="story-text">Cô dụi dụi mắt hoang mang: "Ủa, mèo con đâu rồi? Chạy nhanh dữ vậy sao..."</p>
-            <span class="comment-icon" onclick="toggleInlineComment('inline-comment-47')">💬</span>
-            <div class="paragraph-comment-box" id="inline-comment-47" style="display: none;">
-                <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
-                <div class="old-comments-list"><p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p></div>
-                <form class="comment-form-inline" onsubmit="sendInlineComment(event, 'inline-comment-47', 'Đoạn 47')">
-                    <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                    <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
-                    <button type="submit" class="inline-submit-btn">Gửi cmt</button>
-                    <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
-                </form>
-            </div>
         </div>
 
         <div class="chapter-navigation">
@@ -1057,8 +439,7 @@
         </div>
 
         <div class="chapter-discussion-box">
-            <h3 class="discussion-title">Thảo luận của chương này</h3>
-            
+            <h3 class="discussion-title">💬 Thảo luận của chương này</h3>
             <form id="commentForm" onsubmit="sendGeneralComment(event)" style="max-width: 650px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px;">
                 <div style="display: flex; flex-direction: column; gap: 5px;">
                     <label style="font-size: 14px; color: #5d4737; font-weight: bold;">Hãy cho xin danh tính</label>
@@ -1072,7 +453,7 @@
                               style="padding: 10px; font-size: 14px; border: 1px solid #8d7561; border-radius: 3px; font-family: inherit; background-color: rgba(255,255,255,0.8); color: #4a3728; resize: none;"></textarea>
                 </div>
 
-                <button type="submit" id="submitBtn" style="background-color: #5d4737; color: white; border: none; padding: 10px 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: 'Palatino Linotype', serif;">
+                <button type="submit" id="submitBtn" style="background-color: #5d4737; color: white; border: none; padding: 10px 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: 'Lora', serif;">
                     Gửi bình luận
                 </button>
                 
@@ -1090,76 +471,93 @@
             </div>
         </div>
 
-    </div> <script>
-        // 1. Hàm ẩn hiện hộp thoại cmt khi ấn bóng chát
-        function toggleInlineComment(id) {
-            var box = document.getElementById(id);
-            if (box.style.display === "none" || box.style.display === "") {
-                box.style.display = "block";
-            } else {
-                box.style.display = "none";
-            }
-        }
+    </div> 
 
-        // Đường link phản hồi biểu mẫu chung của Nghi
+    <script>
+        var currentChapterName = "Tập 1 - Chương 1"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
 
-        // 2. Hàm xử lý gửi bình luận TỪNG ĐOẠN VĂN
-        function sendInlineComment(event, boxId, paragraphName) {
-            event.preventDefault();
+        // Tự động quét và sinh bóng chát + form ẩn cho các thẻ p.story-text thông thường
+        document.addEventListener("DOMContentLoaded", function() {
+            var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
             
+            paragraphs.forEach(function(p, index) {
+                var paragraphIndex = index + 1; 
+                var boxId = "inline-comment-" + paragraphIndex;
+                
+                var wrapper = document.createElement("div");
+                wrapper.className = "story-paragraph-wrapper";
+                p.parentNode.insertBefore(wrapper, p);
+                wrapper.appendChild(p);
+                
+                var icon = document.createElement("span");
+                icon.className = "comment-icon";
+                icon.innerText = "💬";
+                icon.onclick = function() { toggleInlineComment(boxId); };
+                wrapper.appendChild(icon);
+                
+                var commentBox = document.createElement("div");
+                commentBox.className = "paragraph-comment-box";
+                commentBox.id = boxId;
+                commentBox.style.display = "none";
+                
+                commentBox.innerHTML = `
+                    <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
+                    <div class="old-comments-list">
+                        <p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p>
+                    </div>
+                    <form class="comment-form-inline" onsubmit="sendInlineComment(event, '${boxId}', 'Đoạn ${paragraphIndex}')">
+                        <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
+                        <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
+                        <button type="submit" class="inline-submit-btn">Gửi cmt</button>
+                        <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
+                    </form>
+                `;
+                wrapper.appendChild(commentBox);
+            });
+        });
+
+        function toggleInlineComment(id) {
+            var box = document.getElementById(id);
+            box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";
+        }
+
+        function sendInlineComment(event, boxId, paragraphLabel) {
+            event.preventDefault();
             var box = document.getElementById(boxId);
             var name = box.querySelector('.inline-input-name').value;
             var text = box.querySelector('.inline-textarea-text').value;
-            var fullLocation = "Tập 1 - Chương 1 (" + paragraphName + ")"; 
+            var fullLocation = currentChapterName + " (" + paragraphLabel + ")"; 
             
             var formData = new FormData();
             formData.append('entry.110222111', name);
             formData.append('entry.1515223589', text);
             formData.append('entry.1093378953', fullLocation);
             
-            fetch(globalFormUrl, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            }).then(function() {
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
                 box.querySelector('.inline-textarea-text').value = '';
                 var successMsg = box.querySelector('.inline-success-msg');
                 successMsg.style.display = 'block';
-                setTimeout(function() {
-                    successMsg.style.display = 'none';
-                }, 3000);
-            }).catch(function(error) {
-                alert('Có lỗi xảy ra, bạn gửi lại giúp mình nhé!');
-            });
+                setTimeout(function() { successMsg.style.display = 'none'; }, 3000);
+            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
         }
 
-        // 3. Hàm xử lý gửi bình luận TỔNG CUỐI CHƯƠNG
         function sendGeneralComment(event) {
             event.preventDefault();
-            
             var name = document.getElementById('commentName').value;
             var text = document.getElementById('commentText').value;
-            var fullLocation = "Tập 1 - Chương 1 (Tổng)";
+            var fullLocation = currentChapterName + " (Tổng)";
             
             var formData = new FormData();
             formData.append('entry.110222111', name);
             formData.append('entry.1515223589', text);
             formData.append('entry.1093378953', fullLocation);
             
-            fetch(globalFormUrl, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            }).then(function() {
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
                 document.getElementById('commentText').value = '';
                 document.getElementById('successMessage').style.display = 'block';
-                setTimeout(function() {
-                    document.getElementById('successMessage').style.display = 'none';
-                }, 4000);
-            }).catch(function(error) {
-                alert('Có lỗi xảy ra, bạn gửi lại giúp mình nhé!');
-            });
+                setTimeout(function() { document.getElementById('successMessage').style.display = 'none'; }, 4000);
+            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
         }
     </script>
 </body>
