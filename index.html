@@ -35,7 +35,7 @@
             margin-bottom: 30px;
         }
 
-     /* 3. Thanh Menu Thả Xuống Tinh Chỉnh */
+        /* 3. Thanh Menu Thả Xuống Tinh Chỉnh */
         .nav-bar {
             display: flex;
             justify-content: center;
@@ -70,7 +70,7 @@
             background-color: #7a5f4a;
         }
 
-        /* Nút Kho báu không bấm được thì đổi chuột thành dạng text/default và giữ nguyên màu khi hover */
+        /* Nút Kho báu không bấm được thì đổi chuột thành dạng default */
         span.nav-item {
             cursor: default;
         }
@@ -112,10 +112,6 @@
         /* Hiện menu khi rê chuột vào */
         .dropdown:hover .dropdown-content {
             display: block;
-        }
-        
-        .nav-item:hover {
-            background-color: #7a5f4a;
         }
 
         /* --- 4. Khung hành lang triển lãm Kho báu (Đã căn giữa, rộng 850px) --- */
@@ -233,7 +229,7 @@
         .social-galaxy {
             display: flex;
             justify-content: center;
-            gap: 40px; /* Khoảng cách giữa các nút */
+            gap: 40px; 
             flex-wrap: wrap;
         }
 
@@ -256,7 +252,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Icon tròn nhỏ giả lập hành tinh bên trong nút */
+        /* Icon ngôi sao nhỏ bên trong nút */
         .social-star::before {
             content: "✦";
             color: #5d4737;
@@ -264,17 +260,17 @@
             transition: transform 0.4s ease;
         }
 
-        /* Hiệu ứng khi rê chuột vào: Nhấc nhẹ lên và đổi màu lung linh */
+        /* Hiệu ứng khi rê chuột vào */
         .social-star:hover {
             background-color: #5d4737;
             color: #ffffff;
             box-shadow: 0px 0px 0px transparent;
-            transform: translateY(-5px); /* Bay nhẹ lên */
+            transform: translateY(-5px); 
         }
 
         .social-star:hover::before {
             color: #ffffff;
-            transform: rotate(180deg); /* Ngôi sao tự xoay */
+            transform: rotate(180deg); 
         }
     </style>
 </head>
@@ -288,7 +284,7 @@
         <h1 class="site-title">Little Mint's Galaxy</h1>
         <p class="site-slogan">Sinh tử tương hứa, khắc cốt tương tư</p>
 
-       <div class="nav-bar">
+        <div class="nav-bar">
             <div class="dropdown">
                 <a href="index.html" class="nav-item">Chủ nhà</a>
             </div>
@@ -380,7 +376,9 @@
                             <div class="title-box">Vì sao loại A này...</div>
                         </a>
                     </div>
- <div style="text-align: center; margin: 40px 0; padding: 0;">
+                </div>
+            </div>
+        </div> <div style="text-align: center; margin: 40px 0; padding: 0;">
             <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto;">
         </div>
 
@@ -400,5 +398,5 @@
             </div>
         </div>
 
-    </div> </div> </div> </body>
+    </div> </body>
 </html>
