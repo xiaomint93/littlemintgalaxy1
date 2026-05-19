@@ -74,6 +74,10 @@
             background-color: #7a5f4a;
         }
 
+        span.nav-item {
+            cursor: default;
+        }
+
         .dropdown-content {
             display: none;
             position: absolute;
@@ -111,13 +115,13 @@
             display: block;
         }
 
-        /* --- 4. Giao diện Toàn Bộ Khung Giấy Trắng Căn Giữa (Gồm cả Giới thiệu & Mục lục) --- */
+        /* --- 4. Giao diện Khung Giấy Trong Suốt Nhẹ Nhàng (0.4) --- */
         .novel-info-container {
             max-width: 850px;
             width: 90%;
             margin: 0 auto 60px;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.4); /* Nền giấy trắng sữa giữ trọn bọc mục lục */
+            background-color: rgba(255, 255, 255, 0.4); /* CHUẨN: Trong suốt mờ ảo thấy nền hoa hồng */
             border: 1px solid #8d7561;
             border-radius: 2px;
             box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -191,12 +195,13 @@
             text-align: justify;
         }
 
-        /* --- 5. Khung Danh Sách Chương Cải Tiến Thứ Tự --- */
+        /* --- 5. Khung Danh Sách Chương Trong Suốt Đồng Bộ --- */
         #chapter-list-container {
-            margin-top: 50px; 
-            padding-top: 30px;
+            margin-top: 20px; 
+            padding-top: 20px;
             border-top: 1px solid #5d4737;
             text-align: center;
+            background-color: transparent !important; /* Xóa bỏ mảng nền trắng sữa đè lỗi */
         }
 
         #chapter-label {
@@ -219,7 +224,7 @@
             margin: 0 20px; 
         }
 
-        /* Thiết lập lưới tự động: Máy tính chia 3 cột, tự xếp 01, 02, 03 đều sang ngang */
+        /* Thiết lập lưới tự động xếp chương tăng dần đều trên máy tính */
         .chapter-grid-new {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
@@ -239,13 +244,13 @@
 
         .chapter-link:hover {
             color: #5d4737;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.6);
             padding-left: 18px;
             border-bottom: 1px solid #5d4737;
             font-weight: bold;
         }
 
-        /* --- 6. RESPONSIVE ĐIỆN THOẠI (CHỐNG NHẢY CHƯƠNG & KHÔI PHỤC KHUNG) --- */
+        /* --- 6. RESPONSIVE BIẾN ĐỔI GIAO DIỆN TRÊN ĐIỆN THOẠI --- */
         @media screen and (max-width: 768px) {
             .site-title { font-size: 32px !important; }
             .site-slogan { font-size: 15px !important; }
@@ -267,7 +272,7 @@
                 font-size: 22px !important;
             }
 
-            /* Điện thoại tự thu về 2 cột tăng dần thẳng thớm ngọt ngào */
+            /* Điện thoại tự thu về thành 2 cột tăng dần thẳng thớm đẹp mắt */
             .chapter-grid-new {
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 10px 15px !important;
@@ -281,7 +286,7 @@
             }
         }
 
-        /* Màn hình điện thoại siêu nhỏ thì xếp thẳng 1 hàng dọc đứng */
+        /* Điện thoại màn hình rất nhỏ thì xếp thành 1 hàng dọc đứng */
         @media screen and (max-width: 420px) {
             .chapter-grid-new {
                 grid-template-columns: 1fr !important;
@@ -316,6 +321,7 @@
     </div>
 
     <div class="novel-info-container">
+        
         <div class="novel-layout-flex">
             <div class="novel-cover-cell">
                 <div class="novel-cover-frame">
@@ -359,7 +365,7 @@
             </div>
         </div>
 
-        <div style="text-align: center; margin: 40px 0 20px 0; padding: 0;">
+        <div style="text-align: center; margin: 60px 0 40px 0; padding: 20px 0; clear: both; display: block; width: 100%;">
             <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto;">
         </div>
 
@@ -467,8 +473,9 @@
                 <a href="s1-c98.html" class="chapter-link">Chương 98</a>
                 <a href="s1-c99.html" class="chapter-link">Chương 99</a>
                 <a href="s1-c100.html" class="chapter-link">Chương 100</a>
-                <a href="s1-c101.html" class="chapter-link">Ngoại truyện 1</a>
+                <a href="s1-c101.html" class="chapter-link">Chương 101</a>
             </div>
         </div>
+        
     </div> </body>
 </html>
