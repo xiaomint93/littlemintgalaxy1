@@ -4,17 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Little Mint's Galaxy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
     <style>
-        /* 1. Thiết lập nền ảnh hoa hồng */
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG */
+        :root {
+            --bg-image: url('background.jpg');
+            --container-bg: rgba(255, 255, 255, 0.4);
+            --gallery-bg: rgba(0, 0, 0, 0.02);
+            --text-color: #4a3728;
+            --header-color: #5d4737;
+            --border-color: #8d7561;
+            --card-border: #ffffff;
+            --star-bg: rgba(255, 255, 255, 0.4);
+            --star-shadow: #5d4737;
+        }
+
+        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
+        [data-theme="dark"] {
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg'); /* Phủ lớp tối lên ảnh nền hoa hồng */
+            --container-bg: rgba(35, 30, 27, 0.9); /* Khung giấy chuyển sang tone nâu đen dịu mắt */
+            --gallery-bg: rgba(0, 0, 0, 0.2);
+            --text-color: #e2d7cc; /* Chữ chuyển sang màu kem sáng chống mỏi mắt */
+            --header-color: #f1e6da;
+            --border-color: #5d4737;
+            --card-border: #2d2825;
+            --star-bg: rgba(45, 40, 37, 0.6);
+            --star-shadow: #f1e6da;
+        }
+
         body {
-            background-image: url('background.jpg'); 
+            background-image: var(--bg-image); 
             background-attachment: fixed; 
             background-size: cover;
             background-position: center;
-            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; 
-            color: #4a3728; 
+            font-family: 'Lora', Georgia, Serif; /* Đồng bộ font chữ đọc truyện xịn mịn */
+            color: var(--text-color); 
             margin: 0;
             padding: 0;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- NÚT BẤM MẶT TRĂNG CHUYỂN CHẾ ĐỘ (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background-color: #5d4737;
+            color: #ffffff;
+            border: 2px solid #8d7561;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            background-color: #7a5f4a;
         }
 
         /* 2. Khung Logo ở giữa */
@@ -27,15 +83,17 @@
             font-size: 45px;
             margin: 10px 0;
             font-weight: normal;
+            color: var(--header-color);
         }
 
         .site-slogan {
             font-style: italic;
             font-size: 18px;
             margin-bottom: 30px;
+            color: var(--text-color);
         }
 
-        /* 3. Thanh Menu Thả Xuống Tinh Chỉnh */
+        /* 3. Thanh Menu Thả Xuống */
         .nav-bar {
             display: flex;
             justify-content: center;
@@ -50,7 +108,6 @@
             display: inline-block;
         }
 
-        /* Nút menu chính */
         .nav-item {
             background-color: #5d4737; 
             color: #ffffff;
@@ -61,21 +118,18 @@
             text-transform: uppercase;
             border-radius: 2px;
             display: block;
-            font-family: 'Palatino Linotype', serif;
+            font-family: 'Lora', Georgia, Serif;
             border: none;
         }
         
-        /* Chỉ tạo hiệu ứng đổi màu cho nút có thể bấm (Chủ nhà) */
         a.nav-item:hover {
             background-color: #7a5f4a;
         }
 
-        /* Nút Kho báu không bấm được thì đổi chuột thành dạng default */
         span.nav-item {
             cursor: default;
         }
 
-        /* Hộp thả xuống chứa danh sách truyện */
         .dropdown-content {
             display: none;
             position: absolute;
@@ -109,22 +163,39 @@
             padding-left: 20px; 
         }
 
-        /* Hiện menu khi rê chuột vào */
         .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        /* --- 4. Khung hành lang triển lãm Kho báu (Đã căn giữa, rộng 850px) --- */
+        /* --- 4. Khung Giới thiệu Giấy Cũ bọc trọn vẹn nội dung --- */
+        .about-box-container {
+            max-width: 850px;
+            width: 90%;
+            margin: 0 auto 40px;
+            padding: 40px;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            line-height: 1.8;
+            color: var(--text-color);
+            text-align: center;
+            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* --- 5. Khung hành lang triển lãm Kho báu --- */
         #kho-bau-gallery {
             width: 850px; 
             max-width: 95%;
             margin: 60px auto; 
             padding: 40px 0;
-            border-top: 1px solid #5d4737;
-            border-bottom: 1px solid #5d4737;
-            background-color: rgba(0, 0, 0, 0.02);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--gallery-bg);
             position: relative;
             overflow: hidden;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         #gallery-label-new {
@@ -132,7 +203,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #5d4737;
+            color: var(--header-color);
             font-size: 18px;
             letter-spacing: 6px; 
             font-weight: bold;
@@ -140,16 +211,14 @@
             width: 100%;
         }
 
-        /* Tạo hai đường kẻ song song bằng code */
         #gallery-label-new::before,
         #gallery-label-new::after {
             content: "";
             flex: 1;
-            border-bottom: 1px solid #5d4737; 
+            border-bottom: 1px solid var(--border-color); 
             margin: 0 20px; 
         }
 
-        /* Hiệu ứng trôi ngang vô tận */
         @keyframes scrollInfinite {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -175,10 +244,11 @@
         .novel-card .frame {
             width: 180px;
             height: 270px;
-            border: 8px solid #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 8px solid var(--card-border);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
             overflow: hidden;
             margin: 0 auto;
+            transition: border-color 0.3s ease;
         }
 
         .novel-card img {
@@ -192,11 +262,12 @@
             color: #fff;
             padding: 5px 10px;
             margin-top: 15px;
-            font-size: 11px;
+            font-size: 12px;
             display: inline-block;
+            font-family: 'Lora', Georgia, Serif;
         }
         
-        /* --- 5. Khu vực Nơi Cư Ngụ Vintage --- */
+        /* --- 6. Khu vực Nơi Cư Ngụ Vintage --- */
         #noi-cu-ngu-container {
             width: 850px;
             max-width: 95%;
@@ -204,12 +275,11 @@
             text-align: center;
         }
 
-        /* Tiêu đề Nơi cư ngụ có 2 đường kẻ song song đồng bộ với Kho báu */
         #noi-cu-ngu-label {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #5d4737;
+            color: var(--header-color);
             font-size: 18px;
             letter-spacing: 6px;
             font-weight: bold;
@@ -221,11 +291,10 @@
         #noi-cu-ngu-label::after {
             content: "";
             flex: 1;
-            border-bottom: 1px solid #5d4737;
+            border-bottom: 1px solid var(--border-color);
             margin: 0 20px;
         }
 
-        /* Khung chứa các nút liên kết */
         .social-galaxy {
             display: flex;
             justify-content: center;
@@ -233,34 +302,31 @@
             flex-wrap: wrap;
         }
 
-        /* Thiết kế từng nút như một chiếc nhãn cổ điển */
         .social-star {
             display: flex;
             align-items: center;
             gap: 10px;
-            background-color: rgba(255, 255, 255, 0.4);
-            border: 1px solid #8d7561;
+            background-color: var(--star-bg);
+            border: 1px solid var(--border-color);
             padding: 12px 25px;
-            color: #5d4737;
+            color: var(--text-color);
             text-decoration: none;
             font-size: 14px;
             letter-spacing: 2px;
             font-weight: bold;
             text-transform: uppercase;
             border-radius: 2px;
-            box-shadow: 3px 3px 0px #5d4737;
+            box-shadow: 3px 3px 0px var(--star-shadow);
             transition: all 0.3s ease;
         }
 
-        /* Icon ngôi sao nhỏ bên trong nút */
         .social-star::before {
             content: "✦";
-            color: #5d4737;
+            color: var(--text-color);
             font-size: 12px;
             transition: transform 0.4s ease;
         }
 
-        /* Hiệu ứng khi rê chuột vào */
         .social-star:hover {
             background-color: #5d4737;
             color: #ffffff;
@@ -272,9 +338,28 @@
             color: #ffffff;
             transform: rotate(180deg); 
         }
+
+        /* RESPONSIVE TRÊN ĐIỆN THOẠI CHỐNG TRÀN */
+        @media screen and (max-width: 768px) {
+            .site-title { font-size: 32px !important; }
+            .site-slogan { font-size: 15px !important; }
+            .about-box-container { padding: 25px 20px !important; }
+            .social-galaxy { gap: 20px !important; }
+            .social-star { padding: 10px 18px !important; font-size: 12px !important; }
+            
+            .theme-toggle-btn {
+                top: 15px !important;
+                right: 15px !important;
+                width: 38px !important;
+                height: 38px !important;
+                font-size: 16px !important;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
 
     <div class="header-container">
         <div class="logo-box" style="border: none; background: none;">
@@ -299,20 +384,20 @@
             </div>
         </div>
 
-        <div style="max-width: 850px; margin: 0 auto 40px; padding: 40px; background-color: rgba(255, 255, 255, 0.4); border: 1px solid #8d7561; border-radius: 2px; line-height: 1.8; color: #4a3728; text-align: center; box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.2);">
-            <h2 style="font-size: 24px; margin-bottom: 25px; color: #5d4737; font-weight: normal; letter-spacing: 2px;">About xiaomint</h2>
+        <div class="about-box-container">
+            <h2 style="font-size: 24px; margin-bottom: 25px; color: var(--header-color); font-weight: normal; letter-spacing: 2px;">About xiaomint</h2>
             
-            <p style="font-style: italic; margin-bottom: 30px; font-size: 17px; color: #5d4737;">
+            <p style="font-style: italic; margin-bottom: 30px; font-size: 17px; color: var(--header-color);">
                 "Ở đây có một chiếc bạc hà nhỏ phiêu bạt giữa muôn ngàn vì tinh tú xa xôi."
             </p>
 
-            <div style="text-align: justify; font-size: 15px; border-top: 1px double #8d7561; padding-top: 25px;">
+            <div style="text-align: justify; font-size: 15px; border-top: 1px double var(--border-color); padding-top: 25px;">
                 Trong nhà chỉ có Mint tự edit tự beta, tự solo tự vui, hoan nghênh độc giả vô đọc truyện vui chung luôn, nhà chuyên edit truyện đam mỹ.<br>
                 Gặp nhau đã là duyên, rời đi không luyến tiếc!<br>
                 Cảm ơn mọi người đã ghé thăm ngôi nhà nhỏ này!<br><br>
 
-                <span style="font-weight: bold; color: #5d4737; border-bottom: 1px solid #5d4737;">Một số lưu ý:</span>
-                <ul style="padding-left: 20px; list-style-type: none; margin-top: 15px; text-align: left;">
+                <span style="font-weight: bold; color: var(--header-color); border-bottom: 1px solid var(--header-color);">Một số lưu ý:</span>
+                <ul style="padding-left: 20px; list-style-type: none; margin-top: 15px; text-align: left; line-height: 1.8;">
                     <li style="margin-bottom: 10px;">✦ Mình edit phi lợi nhuận, chỉ đăng trên wordpress Bachanhoxinh và wattpad Mint9323. Đăng trên các nền tảng khác đều là ăn cắp. Không chấp nhận chuyển ver hay reup.</li>
                     <li style="margin-bottom: 10px;">✦ Mọi thắc mắc mọi người có thể tìm mình qua page hoặc wattpad.</li>
                     <li style="margin-bottom: 10px;">✦ Vì là solo nên tốc độ ra truyện hơi lâu, nếu drop sẽ thông báo chứ không bỏ truyện.</li>
@@ -321,8 +406,6 @@
                     <li style="margin-bottom: 10px;">✦ Chấp nhận những lời góp ý văn minh, thiện chí. Đừng nặng lời với nhà, mình buồn.</li>
                     <li style="margin-bottom: 10px;">✦ Mình làm vì thích và đam mê nên có vấn đề gì thì xin góp ý thẳng với nhà, hạn chế drama.</li>
                 </ul>
-        
-                </p>
             </div>
         </div>
 
@@ -376,7 +459,9 @@
                     </div>
                 </div>
             </div>
-        </div> <div style="text-align: center; margin: 40px 0; padding: 0;">
+        </div> 
+
+        <div style="text-align: center; margin: 40px 0; padding: 0;">
             <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto;">
         </div>
 
@@ -396,5 +481,24 @@
             </div>
         </div>
 
-    </div> </body>
+    </div> 
+
+    <script>
+        function toggleTheme() {
+            var currentTheme = document.documentElement.getAttribute("data-theme");
+            var targetTheme = "light";
+            var btn = document.getElementById("themeToggleBtn");
+
+            if (currentTheme === "light" || !currentTheme) {
+                targetTheme = "dark";
+                btn.innerText = "☀️"; // Đổi sang hình mặt trời ở chế độ tối
+            } else {
+                targetTheme = "light";
+                btn.innerText = "🌙"; // Đổi sang hình mặt trăng ở chế độ sáng
+            }
+
+            document.documentElement.setAttribute("data-theme", targetTheme);
+        }
+    </script>
+</body>
 </html>
