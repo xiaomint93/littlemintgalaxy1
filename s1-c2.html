@@ -10,19 +10,70 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* 1. Thiết lập nền ảnh hoa hồng đồng bộ toàn hệ thống */
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG */
+        :root {
+            --bg-image: url('background.jpg');
+            --container-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #4a3728;
+            --header-color: #5d4737;
+            --border-color: #8d7561;
+            --box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            --comment-box-bg: rgba(255, 255, 255, 0.85);
+            --input-bg: #ffffff;
+            --input-text: #4a3728;
+        }
+
+        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
+        [data-theme="dark"] {
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg'); /* Phủ lớp tối lên ảnh nền */
+            --container-bg: rgba(35, 30, 27, 0.9); /* Khung giấy chuyển sang tone nâu đen dịu mắt */
+            --text-color: #e2d7cc; /* Chữ chuyển sang màu kem sáng chống mỏi mắt */
+            --header-color: #f1e6da;
+            --border-color: #5d4737;
+            --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
+            --comment-box-bg: rgba(45, 40, 37, 0.9);
+            --input-bg: #2d2825;
+            --input-text: #e2d7cc;
+        }
+
         body {
-            background-image: url('background.jpg'); 
+            background-image: var(--bg-image); 
             background-attachment: fixed; 
             background-size: cover;
             background-position: center;
             font-family: 'Lora', Georgia, Serif; 
-            color: #4a3728; 
+            color: var(--text-color); 
             margin: 0;
             padding: 0;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* 2. Thanh Menu Thả Xuống Tối Giản */
+        /* --- NÚT BẤM MẶT TRĂNG CHUYỂN CHẾ ĐỘ (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background-color: #5d4737;
+            color: #ffffff;
+            border: 2px solid #8d7561;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            background-color: #7a5f4a;
+        }
+
+        /* 2. Thanh Menu Tối Giản */
         .nav-bar {
             display: flex;
             justify-content: center;
@@ -84,17 +135,18 @@
             max-width: 800px;             
             width: 90%;                   
             margin: 40px auto;            
-            background-color: rgba(255, 255, 255, 0.4);
-            border: 1px solid #8d7561;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
             border-radius: 2px;
-            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--box-shadow);
             padding: 50px 60px;
             box-sizing: border-box;       
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .story-header {
             text-align: center;
-            border-bottom: 1px double #8d7561;
+            border-bottom: 1px double var(--border-color);
             padding-bottom: 20px;
             margin-bottom: 40px;
         }
@@ -103,14 +155,14 @@
             font-size: 18px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #5d4737;
+            color: var(--header-color);
             margin: 0 0 10px 0;
             font-weight: normal;
         }
 
         .chapter-title {
             font-size: 26px;
-            color: #5d4737;
+            color: var(--header-color);
             font-weight: normal;
             margin: 0;
         }
@@ -131,15 +183,6 @@
             margin: 0;
         }
 
-        .story-note {
-            font-size: 15px;
-            font-style: italic;
-            color: #6e5440;
-            display: block;
-            margin-top: 5px;
-            margin-bottom: 10px;
-        }
-
         /* Biểu tượng bóng chát mờ bên rìa phải */
         .comment-icon {
             position: absolute;
@@ -149,6 +192,7 @@
             cursor: pointer;
             opacity: 0;
             transition: 0.2s ease-in-out;
+            color: var(--text-color);
         }
 
         .story-paragraph-wrapper:hover .comment-icon {
@@ -161,27 +205,27 @@
 
         /* Khung chứa bình luận hạ xuống của từng đoạn */
         .paragraph-comment-box {
-            background-color: rgba(255, 255, 255, 0.85);
-            border: 1px solid #8d7561;
+            background-color: var(--comment-box-bg);
+            border: 1px solid var(--border-color);
             border-radius: 4px;
             padding: 15px;
             margin-top: 10px;
             margin-bottom: 20px;
             max-width: 650px;
-            box-shadow: 0 2px 8px rgba(93, 71, 55, 0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .old-comments-title {
             font-size: 13px;
             font-weight: bold;
-            color: #5d4737;
+            color: var(--header-color);
             margin: 0 0 8px 0;
         }
 
         .old-comments-list {
             max-height: 120px;
             overflow-y: auto;
-            border-bottom: 1px dashed rgba(141, 117, 97, 0.4);
+            border-bottom: 1px dashed var(--border-color);
             padding-bottom: 8px;
             margin-bottom: 12px;
         }
@@ -195,11 +239,11 @@
         .inline-input-name, .inline-textarea-text {
             padding: 8px 10px;
             font-size: 13px;
-            border: 1px solid #8d7561;
+            border: 1px solid var(--border-color);
             border-radius: 3px;
             font-family: inherit;
-            background-color: #fff;
-            color: #4a3728;
+            background-color: var(--input-bg);
+            color: var(--input-text);
         }
 
         .inline-textarea-text { resize: none; }
@@ -220,7 +264,7 @@
         .inline-submit-btn:hover { background-color: #7a5f4a; }
 
         .inline-success-msg {
-            color: #5d4737;
+            color: var(--header-color);
             font-weight: bold;
             font-size: 12px;
             margin: 4px 0 0 0;
@@ -233,7 +277,7 @@
             justify-content: space-between;
             align-items: center;
             margin-top: 50px;
-            border-top: 1px double #8d7561;
+            border-top: 1px double var(--border-color);
             padding-top: 30px;
         }
 
@@ -259,8 +303,8 @@
         }
 
         .chapter-discussion-box {
-            background-color: rgba(255, 255, 255, 0.5);
-            border: 1px solid #8d7561;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
             border-radius: 4px;
             padding: 30px;
             margin-top: 50px;
@@ -268,11 +312,11 @@
 
         .discussion-title {
             font-size: 18px;
-            color: #5d4737;
+            color: var(--header-color);
             letter-spacing: 1px;
             margin-top: 0;
             margin-bottom: 25px;
-            border-bottom: 1px solid #8d7561;
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
             font-weight: normal;
         }
@@ -302,10 +346,20 @@
                 opacity: 0.6 !important; 
                 right: 0px !important;
             }
+
+            .theme-toggle-btn {
+                top: 15px !important;
+                right: 15px !important;
+                width: 38px !important;
+                height: 38px !important;
+                font-size: 16px !important;
+            }
         }
     </style>
 </head>
 <body>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
 
     <div class="nav-bar">
         <div class="dropdown">
@@ -324,7 +378,7 @@
     <div class="reading-container">
         
         <div class="story-header">
-            <h2 class="story-title">Hôm Ngài Mèo Con Cũng Cứu Vớt Vai Ác</h2>
+            <h2 class="story-title">Hôm Nay Mèo Con Cũng Cứu Vớt Vai Ác</h2>
             <h1 class="chapter-title">Chương 02</h1>
         </div>
 
@@ -421,9 +475,7 @@
             
             <p class="story-text">Bởi vì sự xuất hiện của cậu nên Hạ Vọng không bị liệt chân, sẽ không yêu nhân vật chính, tính cách cũng sẽ không thay đổi theo chiều hướng tiêu cực, chỉ cần hắn không đối đầu với công chính thì sẽ không rơi vào kết cục bi thảm. Đến cuối cùng, vai ác sẽ trở thành người tốt, sẽ không phải chết.</p>
             
-            <div class="story-paragraph-wrapper">
-                <p class="story-text">1551: 【Bây giờ nhẹ nhõm thì còn quá sớm. Đến giờ Hạ Vọng vẫn còn chu cấp cho Diệp Kỳ An, rất có thể vì sự sắp đặt của định mệnh mà hắn sẽ yêu vai chính, nói không chừng vì sức mạnh tình yêu mà hắn sẽ càng điên cuồng hơn, cậu phải biết Diệp Kỳ An và Thẩm Thần Tư là CP trời định sẽ đi đến cuối cùng, Hạ Vọng mà yêu Diệp Kỳ An thì sẽ là một chuỗi bi kịch không hồi kết.】</p>
-            </div>
+            <p class="story-text">1551: 【Bây giờ nhẹ nhõm thì còn quá sớm. Đến giờ Hạ Vọng vẫn còn chu cấp cho Diệp Kỳ An, rất có thể vì sự sắp đặt của định mệnh mà hắn sẽ yêu vai chính, nói không chừng vì sức mạnh tình yêu mà hắn sẽ càng điên cuồng hơn, cậu phải biết Diệp Kỳ An và Thẩm Thần Tư là CP trời định sẽ đi đến cuối cùng, Hạ Vọng mà yêu Diệp Kỳ An thì sẽ là một chuỗi bi kịch không hồi kết.】</p>
             
             <p class="story-text">Diệp Kỳ An và Thẩm Thần Tư là tên của công thụ chính, cũng chính là con cưng của thế giới này. Cũng chỉ có đứa con may mắn mới có thể đối đầu với nhân vật phản diện.</p>
             
@@ -449,10 +501,7 @@
             
             <p class="story-text">Cậu tin chết liền!</p>
             
-            <div class="story-paragraph-wrapper">
-                <p class="story-text">1551 gấp gáp:【Thật đó! Lần này chỉ là sơ suất nhỏ thôi, lần sau đến các thế giới khác cậu sẽ có thân phận pháo hôi hợp lý, đến lúc đó cậu không OOC* là nhờ tôi đó.】</p>
-                <span class="story-note">*OOC (Out of Character): nhân vật cư xử khác với thiết lập tính cách ban đầu.</span>
-            </div>
+            <p class="story-text">1551 gấp gáp:【Thật đó! Lần này chỉ là sơ suất nhỏ thôi, lần sau đến các thế giới khác cậu sẽ có thân phận pháo hôi hợp lý, đến lúc đó cậu không OOC* là nhờ tôi đó.】</p>
             
             <p class="story-text">Nói xong lời cuối cùng, thanh âm của 1551 rõ ràng là kiêu ngạo hẳn lên.</p>
             
@@ -487,30 +536,28 @@
             <h3 class="discussion-title">💬 Thảo luận của chương này</h3>
             <form id="commentForm" onsubmit="sendGeneralComment(event)" style="max-width: 650px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px;">
                 <div style="display: flex; flex-direction: column; gap: 5px;">
-                    <label style="font-size: 14px; color: #5d4737; font-weight: bold;">Hãy cho xin danh tính</label>
+                    <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Hãy cho xin danh tính</label>
                     <input type="text" id="commentName" placeholder="Ví dụ: Aa..." required 
-                           style="padding: 10px; font-size: 14px; border: 1px solid #8d7561; border-radius: 3px; font-family: inherit; background-color: rgba(255,255,255,0.8); color: #4a3728;">
+                           style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text);">
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 5px;">
-                    <label style="font-size: 14px; color: #5d4737; font-weight: bold;">Bạn nói gì ó</label>
+                    <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Bạn nói gì ó</label>
                     <textarea id="commentText" rows="4" placeholder="Viết bình luận tại đây..." required
-                              style="padding: 10px; font-size: 14px; border: 1px solid #8d7561; border-radius: 3px; font-family: inherit; background-color: rgba(255,255,255,0.8); color: #4a3728; resize: none;"></textarea>
+                              style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); resize: none;"></textarea>
                 </div>
 
                 <button type="submit" id="submitBtn" style="background-color: #5d4737; color: white; border: none; padding: 10px 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: 'Lora', serif;">
                     Gửi bình luận
                 </button>
                 
-                <p id="successMessage" style="display: none; color: #5d4737; font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px;">
+                <p id="successMessage" style="display: none; color: var(--header-color); font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px;">
                     ✦ Bình luận của bạn đã được gửi thành công! Cảm ơn bạn nhé.
                 </p>
             </form>
 
-            <div style="margin-top: 40px; border-top: 1px dashed #8d7561; padding-top: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto;">
-                <p style="font-size: 14px; font-weight: bold; color: #5d4737; margin-bottom: 15px;">💬 Bàn tán gì ik</p>
-                <div style="background-color: rgba(255, 255, 255, 0.6); padding: 12px 15px; border-radius: 4px; margin-bottom: 15px; border: 1px solid rgba(141, 117, 97, 0.2);">
-                </div>
+            <div id="real-comments-area" style="margin-top: 40px; border-top: 1px dashed var(--border-color); padding-top: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 14px; font-weight: bold; color: var(--header-color); margin-bottom: 15px;">💬 Bàn tán gì ik</p>
             </div>
         </div>
 
@@ -520,8 +567,25 @@
         var currentChapterName = "Tập 1 - Chương 2"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
 
+        // HÀM CHUYỂN ĐỔI CHẾ ĐỘ SÁNG/TỐI (LIGHT/DARK MODE)
+        function toggleTheme() {
+            var currentTheme = document.documentElement.getAttribute("data-theme");
+            var targetTheme = "light";
+            var btn = document.getElementById("themeToggleBtn");
+
+            if (currentTheme === "light" || !currentTheme) {
+                targetTheme = "dark";
+                btn.innerText = "☀️"; // Chuyển sang nút mặt trời khi ở nền tối
+            } else {
+                targetTheme = "light";
+                btn.innerText = "🌙"; // Chuyển sang nút mặt trăng khi ở nền sáng
+            }
+
+            document.documentElement.setAttribute("data-theme", targetTheme);
+        }
+
+        // Tự động quét và chèn bóng chát từng đoạn văn
         document.addEventListener("DOMContentLoaded", function() {
-            // Chỉ quét các thẻ p.story-text nằm TRỰC TIẾP dưới #story-content-area
             var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
             
             paragraphs.forEach(function(p, index) {
