@@ -10,16 +10,63 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* 1. Thiết lập nền ảnh hoa hồng đồng bộ trang chủ */
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG */
+        :root {
+            --bg-image: url('background.jpg');
+            --container-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #4a3728;
+            --header-color: #5d4737;
+            --border-color: #8d7561;
+            --box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            --link-hover-bg: rgba(255, 255, 255, 0.6);
+        }
+
+        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
+        [data-theme="dark"] {
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg'); /* Phủ lớp tối lên ảnh nền hoa hồng */
+            --container-bg: rgba(35, 30, 27, 0.9); /* Khung giấy chuyển sang tone nâu đen dịu mắt */
+            --text-color: #e2d7cc; /* Chữ chuyển sang màu kem sáng chống mỏi mắt */
+            --header-color: #f1e6da;
+            --border-color: #5d4737;
+            --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
+            --link-hover-bg: rgba(255, 255, 255, 0.08);
+        }
+
         body {
-            background-image: url('background.jpg'); 
+            background-image: var(--bg-image); 
             background-attachment: fixed; 
             background-size: cover;
             background-position: center;
             font-family: 'Lora', Georgia, Serif; 
-            color: #4a3728; 
+            color: var(--text-color); 
             margin: 0;
             padding: 0;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- NÚT BẤM MẶT TRĂNG CHUYỂN CHẾ ĐỘ (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background-color: #5d4737;
+            color: #ffffff;
+            border: 2px solid #8d7561;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            background-color: #7a5f4a;
         }
 
         /* 2. Khung Logo và Header */
@@ -33,12 +80,14 @@
             font-size: 45px;
             margin: 10px 0;
             font-weight: normal;
+            color: var(--header-color);
         }
 
         .site-slogan {
             font-style: italic;
             font-size: 18px;
             margin-bottom: 30px;
+            color: var(--text-color);
         }
 
         /* 3. Thanh Menu Thả Xuống */
@@ -115,17 +164,18 @@
             display: block;
         }
 
-        /* --- 4. Giao diện Khung Giấy Trong Suốt Chung (0.4) --- */
+        /* --- 4. Giao diện Khung Giới Thiệu Truyện --- */
         .novel-info-container {
             max-width: 850px;
             width: 90%;
-            margin: 0 auto 30px; /* Khoảng cách dưới vừa phải */
+            margin: 0 auto 30px; 
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.4); 
-            border: 1px solid #8d7561;
+            background-color: var(--container-bg); 
+            border: 1px solid var(--border-color);
             border-radius: 2px;
-            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--box-shadow);
             box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .novel-layout-flex {
@@ -160,7 +210,7 @@
 
         .novel-title {
             font-size: 26px;
-            color: #5d4737;
+            color: var(--header-color);
             margin: 0 0 15px 0;
             font-weight: normal;
             letter-spacing: 1px;
@@ -171,18 +221,18 @@
             font-size: 14px;
             line-height: 1.8;
             margin-bottom: 20px;
-            border-bottom: 1px dashed #8d7561;
+            border-bottom: 1px dashed var(--border-color);
             padding-bottom: 15px;
         }
 
         .novel-details strong {
-            color: #5d4737;
+            color: var(--header-color);
         }
 
         .novel-summary-title {
             font-size: 16px;
             font-weight: bold;
-            color: #5d4737;
+            color: var(--header-color);
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -200,19 +250,20 @@
             width: 90%;
             margin: 0 auto 60px;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.4); 
-            border: 1px solid #8d7561;
+            background-color: var(--container-bg); 
+            border: 1px solid var(--border-color);
             border-radius: 2px;
-            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--box-shadow);
             box-sizing: border-box;
             text-align: center;
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         #chapter-label {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #5d4737;
+            color: var(--header-color);
             font-size: 18px;
             letter-spacing: 6px; 
             font-weight: bold;
@@ -224,7 +275,7 @@
         #chapter-label::after {
             content: "";
             flex: 1;
-            border-bottom: 1px solid #5d4737; 
+            border-bottom: 1px solid var(--border-color); 
             margin: 0 20px; 
         }
 
@@ -237,7 +288,7 @@
 
         .chapter-link {
             display: block;
-            color: #4a3728;
+            color: var(--text-color);
             text-decoration: none;
             font-size: 14px;
             padding: 8px 12px;
@@ -247,10 +298,10 @@
         }
 
         .chapter-link:hover {
-            color: #5d4737;
-            background-color: rgba(255, 255, 255, 0.6);
+            color: var(--header-color);
+            background-color: var(--link-hover-bg);
             padding-left: 18px;
-            border-bottom: 1px solid #5d4737;
+            border-bottom: 1px solid var(--header-color);
             font-weight: bold;
         }
 
@@ -287,6 +338,14 @@
             #chapter-label::before, #chapter-label::after {
                 margin: 0 10px !important;
             }
+
+            .theme-toggle-btn {
+                top: 15px !important;
+                right: 15px !important;
+                width: 38px !important;
+                height: 38px !important;
+                font-size: 16px !important;
+            }
         }
 
         /* Điện thoại màn hình rất nhỏ thì xếp thành 1 hàng dọc đứng */
@@ -298,6 +357,8 @@
     </style>
 </head>
 <body>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
 
     <div class="header-container">
         <div class="logo-box" style="border: none; background: none;">
@@ -332,7 +393,7 @@
             </div>
             
             <div class="novel-meta-cell">
-                <h2 class="novel-title">Hôm Nay Mèo Con Cũng Cứu Vớt Vai Ác</h2>
+                <h2 class="novel-title">Hôm Nay Mèo Con Cũng Cứu Vớt Vai Á起</h2>
                 
                 <div class="novel-details">
                     <strong>Tác giả:</strong> Trác Mễ <br>
@@ -366,7 +427,9 @@
                 </div>
             </div>
         </div>
-    </div> <div style="text-align: center; margin: 40px auto; padding: 10px 0; display: block; width: 100%;">
+    </div>
+
+    <div style="text-align: center; margin: 40px auto; padding: 10px 0; display: block; width: 100%;">
         <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: inline-block;">
     </div>
 
@@ -476,5 +539,24 @@
             <a href="s1-c100.html" class="chapter-link">Chương 100</a>
             <a href="s1-c101.html" class="chapter-link">Chương 101</a>
         </div>
-    </div> </body>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            var currentTheme = document.documentElement.getAttribute("data-theme");
+            var targetTheme = "light";
+            var btn = document.getElementById("themeToggleBtn");
+
+            if (currentTheme === "light" || !currentTheme) {
+                targetTheme = "dark";
+                btn.innerText = "☀️"; // Đổi sang icon Mặt Trời khi ở nền tối
+            } else {
+                targetTheme = "light";
+                btn.innerText = "🌙"; // Đổi sang icon Mặt Trăng khi ở nền sáng
+            }
+
+            document.documentElement.setAttribute("data-theme", targetTheme);
+        }
+    </script>
+</body>
 </html>
