@@ -23,11 +23,11 @@
             --input-text: #4a3728;
         }
 
-        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
+        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) */
         [data-theme="dark"] {
-            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg'); /* Phủ lớp tối lên ảnh nền */
-            --container-bg: rgba(35, 30, 27, 0.9); /* Khung giấy chuyển sang tone nâu đen dịu mắt */
-            --text-color: #e2d7cc; /* Chữ chuyển sang màu kem sáng chống mỏi mắt */
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
+            --container-bg: rgba(35, 30, 27, 0.9);
+            --text-color: #e2d7cc;
             --header-color: #f1e6da;
             --border-color: #5d4737;
             --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
@@ -48,7 +48,7 @@
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* --- NÚT BẤM MẶT TRĂNG ĐỔI CHẾ ĐỘ ĐỌC (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        /* NÚT BẤM MẶT TRĂNG ĐỔI CHẾ ĐỘ ĐỌC */
         .theme-toggle-btn {
             position: fixed;
             top: 25px;
@@ -73,7 +73,6 @@
             background-color: #7a5f4a;
         }
 
-        /* 2. Thanh Menu Điều Hướng */
         .nav-bar {
             display: flex;
             justify-content: center;
@@ -130,7 +129,6 @@
         .dropdown-content a:hover { background-color: #7a5f4a; }
         .dropdown:hover .dropdown-content { display: block; }
 
-        /* --- 3. Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
         .reading-container {
             max-width: 800px;             
             width: 90%;                   
@@ -151,15 +149,6 @@
             margin-bottom: 40px;
         }
 
-        .story-title {
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--header-color);
-            margin: 0 0 10px 0;
-            font-weight: normal;
-        }
-
         .chapter-title {
             font-size: 26px;
             color: var(--header-color);
@@ -167,7 +156,6 @@
             margin: 0;
         }
 
-        /* --- Cấu trúc đoạn văn truyện --- */
         .story-paragraph-wrapper {
             position: relative;
             margin-bottom: 25px;
@@ -183,28 +171,30 @@
             margin: 0;
         }
 
-        /* --- PHẦN CODE CHÚ THÍCH ẨN ĐĨA PETRI THEO YÊU CẦU --- */
-        .petri-trigger {
+        /* PHẦN CODE CHÚ THÍCH ẨN DƯỚI DÒNG THEO YÊU CẦU MỚI */
+        .petri-note-line {
+            font-size: 15px;
+            font-style: italic;
             color: #a86232;
-            font-weight: 600;
-            border-bottom: 1px dashed var(--border-color);
             cursor: pointer;
+            display: block;
+            margin: 5px 0 10px 0;
             user-select: none;
-            display: inline-block;
-            transition: color 0.2s;
+            text-decoration: underline dashed;
+            text-underline-offset: 4px;
         }
-        
-        .petri-trigger:hover {
-            color: #5d4737;
+
+        .petri-note-line:hover {
+            color: var(--header-color);
         }
 
         .petri-dropdown-container {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-out;
+            transition: max-height 0.5s ease-in-out;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 4px;
-            margin: 10px 0;
+            margin-bottom: 20px;
             text-align: center;
         }
 
@@ -221,7 +211,6 @@
             display: inline-block;
         }
 
-        /* Biểu tượng bóng chát mờ bên rìa phải */
         .comment-icon {
             position: absolute;
             right: 5px;
@@ -237,11 +226,8 @@
             opacity: 0.5;
         }
 
-        .comment-icon:hover {
-            opacity: 1 !important;
-        }
+        .comment-icon:hover { opacity: 1 !important; }
 
-        /* Khung chứa bình luận hạ xuống của từng đoạn */
         .paragraph-comment-box {
             background-color: var(--comment-box-bg);
             border: 1px solid var(--border-color);
@@ -253,63 +239,15 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .old-comments-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--header-color);
-            margin: 0 0 8px 0;
-        }
-
-        .old-comments-list {
-            max-height: 120px;
-            overflow-y: auto;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-        }
-
-        .comment-form-inline {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .inline-input-name, .inline-textarea-text {
-            padding: 8px 10px;
-            font-size: 13px;
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
-            font-family: inherit;
-            background-color: var(--input-bg);
-            color: var(--input-text);
-        }
-
+        .old-comments-title { font-size: 13px; font-weight: bold; color: var(--header-color); margin: 0 0 8px 0; }
+        .old-comments-list { max-height: 120px; overflow-y: auto; border-bottom: 1px dashed var(--border-color); padding-bottom: 8px; margin-bottom: 12px; }
+        .comment-form-inline { display: flex; flex-direction: column; gap: 8px; }
+        .inline-input-name, .inline-textarea-text { padding: 8px 10px; font-size: 13px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); }
         .inline-textarea-text { resize: none; }
-
-        .inline-submit-btn {
-            background-color: #5d4737;
-            color: white;
-            border: none;
-            padding: 5px 15px;
-            font-size: 12px;
-            border-radius: 2px;
-            cursor: pointer;
-            align-self: flex-end;
-            font-family: inherit;
-            font-weight: bold;
-        }
-
+        .inline-submit-btn { background-color: #5d4737; color: white; border: none; padding: 5px 15px; font-size: 12px; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: inherit; font-weight: bold; }
         .inline-submit-btn:hover { background-color: #7a5f4a; }
+        .inline-success-msg { color: var(--header-color); font-weight: bold; font-size: 12px; margin: 4px 0 0 0; text-align: center; }
 
-        .inline-success-msg {
-            color: var(--header-color);
-            font-weight: bold;
-            font-size: 12px;
-            margin: 4px 0 0 0;
-            text-align: center;
-        }
-
-        /* --- Thanh Chuyển Chương Tối Giản --- */
         .chapter-navigation {
             display: flex;
             justify-content: space-between;
@@ -331,7 +269,6 @@
             transition: 0.2s;
             font-weight: bold;
         }
-
         .nav-btn:hover { background-color: #7a5f4a; }
 
         .chapter-discussion-box {
@@ -342,50 +279,14 @@
             margin-top: 50px;
         }
 
-        .discussion-title {
-            font-size: 18px;
-            color: var(--header-color);
-            letter-spacing: 1px;
-            margin-top: 0;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            font-weight: normal;
-        }
+        .discussion-title { font-size: 18px; color: var(--header-color); letter-spacing: 1px; margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-weight: normal; }
 
-        /* --- ĐOẠN CODE ĐÁP ỨNG BIẾN ĐỔI TRÊN ĐIỆN THOẠI (RESPONSIVE) --- */
         @media screen and (max-width: 768px) {
-            .reading-container {
-                width: 95% !important;
-                padding: 30px 20px !important; 
-                margin: 20px auto !important; 
-                border-radius: 4px !important;
-            }
-
-            .story-text {
-                font-size: 16px !important; 
-                text-align: justify !important;
-                text-justify: inter-word !important;
-                display: block !important;
-            }
-            
-            .story-paragraph-wrapper {
-                padding-right: 35px !important;
-                margin-bottom: 20px !important;
-            }
-
-            .comment-icon {
-                opacity: 0.6 !important; 
-                right: 0px !important;
-            }
-
-            .theme-toggle-btn {
-                top: 15px !important;
-                right: 15px !important;
-                width: 38px !important;
-                height: 38px !important;
-                font-size: 16px !important;
-            }
+            .reading-container { width: 95% !important; padding: 30px 20px !important; margin: 20px auto !important; }
+            .story-text { font-size: 16px !important; }
+            .story-paragraph-wrapper { padding-right: 35px !important; }
+            .comment-icon { opacity: 0.6 !important; right: 0px !important; }
+            .theme-toggle-btn { top: 15px !important; right: 15px !important; width: 38px !important; height: 38px !important; font-size: 16px !important; }
         }
     </style>
 </head>
@@ -410,194 +311,106 @@
     <div class="reading-container">
         
         <div class="story-header">
-            <h2 class="story-title">Hôm Nay Mèo Con Cũng Cứu Vớt Vai Ác</h2>
             <h1 class="chapter-title">Chương 23</h1>
         </div>
 
         <div id="story-content-area">
             <p class="story-text">Một nhà nghiên cứu thiên tài nhưng lại mắc chứng tự kỷ chính là nhân vật lần này của Đường Hi.</p>
-            
             <p class="story-text">【Đây là thân phận có nhiều tiền mà cậu nói đó hả?】 Đường Hi ngờ vực bật dậy khỏi mặt đất, không quên chất vấn hệ thống.</p>
-            
             <p class="story-text">1551:【Đúng vậy, cha mẹ nguyên chủ đã qua đời hai năm trước, còn để lại rất nhiều tiền cho nguyên chủ, với lại cậu là nghiên cứu viên mà, chắc chắn sẽ không thiếu tiền.】</p>
-            
             <p class="story-text">【Trọng điểm không phải là cái này, thiết lập nhân vật không cho phép tôi xài số tiền này!】Đường Hi nghĩ đến ở thế giới này mình sẽ không thể ăn bánh kem nhỏ với thịt, lòng đau như cắt.</p>
-            
             <p class="story-text">Thế nên tới ly trà sữa cũng không có.</p>
-            
             <p class="story-text">Nguyên chủ là một đứa trẻ có khuynh hướng tự kỷ, mỗi ngày đều xác định rõ mình sẽ ăn cái gì cho nên không thể chủ động ăn cái khác.</p>
-            
             <p class="story-text">Khi Thượng Đế đóng một cánh cửa của bạn, ngài sẽ mở ra cho bạn một cánh cửa khác, nguyên chủ không chỉ là đơn thuần là một đứa trẻ tự kỷ, cậu ta còn là một thiên tài. Một thiên tài được đặc cách vào làm việc ở viện nghiên cứu khi mới vừa tròn mười tám tuổi.</p>
-            
             <p class="story-text">Vốn là một thiếu niên thiên tài, nhưng do chứng tự kỷ nên cảm giác tồn tại cực kỳ thấp, không giao tiếp với người khác, đến cả thí nghiệm cũng tự mình làm.</p>
-            
             <p class="story-text">Lúc đầu cha mẹ nguyên chủ là những doanh nhân giàu có, sau khi biết nguyên chủ bị bệnh tự kỷ, họ đã nỗ lực trải đường cho cậu. Đây cũng là lý do mà nguyên chủ không tham gia bất kỳ nhóm nghiên cứu nào, chỉ một mình làm thí nghiệm sau cánh cửa đóng kín, tự mình nghiên cứu, tự mình nhận lương.</p>
-            
             <p class="story-text">Đường Hi thở dài, đúng là vận mệnh thăng trầm lênh đênh.</p>
-            
             <p class="story-text">Thật ra với những nỗ lực không ngừng của cha mẹ nguyên chủ, bệnh tự kỷ của cậu đã tốt hơn rất nhiều, nhưng một năm trước cặp vợ chồng đáng thương này đã mất trong một vụ tai nạn máy bay, do đó chứng tự kỷ của nguyên chủ lại trở nên nghiêm trọng hơn.</p>
-            
             <p class="story-text">Cũng giống như con sò, một khi bị thế giới bên ngoài tổn thương sẽ tự động khép chặt cái vỏ nặng nề của mình lại, thu mình vào trong chiếc vỏ tăm tối, không để một tia sáng bên ngoài nào lọt vào.</p>
-            
             <p class="story-text">Đường Hi chậm rãi thở dài, việc đầu tiên làm là đi đến trước gương coi bản thân mình.</p>
-            
-            <p class="story-text">Thiếu niên thanh tú ngây thơ trong gương chính là bản thân cậu, một đôi mắt mèo mang theo vài phần hờ hững thờ ơ.</p>
-            
+            <p class="story-text">Thiếu niên thanh tú ngây thơ trong gương chính là bản thân cậu, một đôi mắt mèo mang theo vài phần hờ hững thờơ.</p>
             <p class="story-text">【Sao nguyên chủ lại giống y hệt tôi vậy?】</p>
-            
             <p class="story-text">Đường Hi cúi đầu sờ sờ, phát hiện đây chính là cơ thể của mình.</p>
-            
             <p class="story-text">1551 chột gia giải thích:【Bởi vì trong cốt truyện thì ba năm nữa nguyên chủ mới chết, bây giờ chúng ta không thể cưỡng ép linh hồn của cậu ta ra ngoài nên tôi đã đưa cậu ta đến một thế giới thích hợp với cậu ấy hơn, cho nên ở thế giới này mới phải dùng chính cơ thể của cậu.】</p>
-            
             <p class="story-text">Nhân tiện thì cũng thay đổi cả họ tên để việc thực hiện nhiệm vụ tốt hơn.</p>
-            
             <p class="story-text">【Vậy cũng tốt.】</p>
-            
             <p class="story-text">Đường Hi có chút ngạc nhiên:【Tại sao ba năm nữa nguyên chủ lại chết?】</p>
-            
             <p class="story-text">Cậu chỉ có thể nhìn thấy kí ức của nguyên chủ, còn những chi tiết về cốt truyện thì sau khi gặp nam chính hay nhân vật phản diện thì mới có thể thấy được.</p>
-            
             <p class="story-text">Ở nơi cậu không nhìn thấy được, 1551 đổ mồ hôi đầm đìa:【Đau dạ dày.】</p>
-            
             <p class="story-text">???</p>
-            
             <p class="story-text">Cuối cùng Đường Hi cũng đã hiểu trận quặn đau ở bụng khi nãy là gì rồi.</p>
-            
             <p class="story-text">Cho dù đây là thân thể của cậu chứ không phải của nguyên chủ nhưng những căn bệnh đó cũng đi theo cậu, không cho phép cậu có cơ hội OOC(1).</p>
-            
             <p class="story-text" style="font-style: italic; font-size: 15px; color: var(--header-color); padding-left: 15px; border-left: 2px solid var(--border-color);">(1)OOC: out of character, có nghĩa là nhân vật đã có những hành vi không phù hợp với bối cảnh của tác phẩm gốc, sai với thiết lập tính cách ban đầu.</p>
-            
             <p class="story-text">Cậu suy nghĩ một chút, phát hiện đã hai năm trời nguyên chủ không ăn sáng kể từ lúc cha mẹ qua đời, buổi trưa chỉ ăn một gói mì, sau đó buổi tối lại ăn một gói mì vị khác, đã duy trì thói quen này suốt một năm ròng rã.</p>
-            
             <p class="story-text">Chẳng trách lại bị đau dạ dày.</p>
-            
             <p class="story-text">Hơn nữa bởi vì chứng tự kỷ nên cậu ta cũng không muốn thay đổi thói quen ăn uống, cho nên thói quen này vẫn được duy trì ở ba năm tiếp theo.</p>
-            
             <p class="story-text">Nếu cậu không thay đổi tính cách này thì sẽ không có cơ hội thay đổi thói quen ăn uống.</p>
-            
             <p class="story-text">Mèo nhỏ sụp đổ.jpg</p>
-            
             <p class="story-text">Đường Hi không để ý tới hệ thống, cậu dựa theo thói quen của nguyên chủ đi tắm rửa sạch sẽ. Ký ức mà hệ thống truyền đến không chỉ ở não bộ mà còn là ký ức thân thể, thời gian cậu tắm rửa không lệch một giây so với nguyên chủ.</p>
-            
             <p class="story-text">Chỉ có lúc biến về thành mèo nhỏ chơi đùa ở trên giường cậu mới không bị chứng tự kỷ quấy nhiễu, thuận theo vòng tuần hoàn của nguyên chủ, mới mười giờ đêm mà cậu đã tắt đèn đi ngủ.</p>
-            
             <p class="story-text">Ngay cả lúc ngủ cũng nằm thẳng, hai tay đặt ngay ngắn trên bụng.</p>
-            
             <p class="story-text">Đường Hi: Tôi cảm thấy không phải mình đang ngủ mà là đang nằm trong quan tài mới đúng.</p>
-            
             <p class="story-text">. . .</p>
-            
             <p class="story-text">Không cần đồng hồ báo thức, sáu giờ rưỡi sáng cậu đã tự động tỉnh dậy. Việc đầu tiên làm là đi vào phòng vệ sinh đánh răng rửa mặt.</p>
-            
             <p class="story-text">Đánh răng sạch sẽ trong vòng năm phút, một giây cũng không thừa.</p>
-            
             <p class="story-text">Ngay cả lượng nước uống cũng vậy.</p>
-            
             <p class="story-text">Đường Hi mang theo cái bụng đói meo đi đến viện nghiên cứu, cha mẹ nguyên chủ đã cố tình mua một căn nhà gần đây cho cậu ta, cậu chỉ cần đi bộ mười lăm phút là đã đến nơi.</p>
-            
             <p class="story-text">Sau khi đến viện nghiên cứu, mọi người đều xem cậu như không khí, không có ai chào hỏi cậu, thậm chí khi đi ngang qua cũng không thèm nhìn.</p>
-            
             <p class="story-text">Không giống như những người bạn nhiệt tình ở thế giới trước, những nghiên cứu viên lớn tuổi này vô cùng nghiêm túc cũng như rất bận rộn, họ sẽ không để ý đến một tên tiểu bối, cho dù có nghiên cứu viên trẻ tuổi muốn thân thiện với nguyên chủ thì họ cũng sẽ nhanh chóng từ bỏ vì chứng tự kỷ của cậu ta.</p>
-            
             <p class="story-text">Hơn nữa nguyên chủ chỉ quan tâm đến nghiên cứu của mình, trong mắt nhiều người thì cậu ta chỉ là một tên lập dị đi cửa sau để kiếm cơm.</p>
-            
             <p class="story-text">Bọn họ không biết nguyên chủ bị bệnh tự kỷ, chỉ nghĩ cậu ta kiêu căng tự mãn không quan tâm đến những người xung quanh. Nhưng điều này lại tạo điều kiện thuận lợi cho Đường Hi, cũng là ưu điểm duy nhất của nguyên chủ.</p>
-            
             <p class="story-text">Cậu đi thẳng đến chỗ nghiên cứu của mình, bắt đầu nghiên cứu tiếp việc hôm qua chưa xong.</p>
-            
             <p class="story-text">Viện nghiên cứu có rất nhiều phòng nhưng mà Đường Hi chưa đủ năng lực để có phòng nghiên cứu riêng, cậu chỉ có thể ở khu vực công cộng để làm nghiên cứu, mặc dù nói là khu vực công cộng nhưng thật ra cũng phân chia chỗ riêng cho từng người, sẽ không làm phiền đến người khác, những người có phòng thí nghiệm riêng cũng rất ít khi lui tới khu vực này.</p>
-            
             <p class="story-text">“Đến đến đến, mọi người tập hợp một chút.”</p>
+            <p class="story-text">Đường Hi cảm thấy mình đã nhìn chằm chằm đĩa petri(1) đến hoa cả mắt, rốt cuộc cũng có người kêu dừng lại.</p>
             
-            <p class="story-text">Đường Hi cảm thấy mình đã nhìn chằm chằm <span class="petri-trigger" onclick="togglePetri()">đĩa petri(1)</span> đến hoa cả mắt, rốt cuộc cũng có người kêu dừng lại.</p>
-            
+            <span class="petri-note-line" onclick="togglePetri()">(1) đĩa petri</span>
             <div id="petriDropdown" class="petri-dropdown-container">
                 <img src="petri.jpg" alt="Đĩa Petri minh họa" class="petri-image">
                 <p style="font-size: 14px; font-style: italic; margin: 0 0 15px 0;">(1) Đĩa petri: Đĩa thí nghiệm bằng thủy tinh hoặc chất dẻo dạng hình trụ có nắp đậy mà các nhà sinh vật học sử dụng để nuôi cấy vi sinh vật.</p>
             </div>
             
             <p class="story-text">Một ông lão đầu tóc bạc trắng gương mặt hiền lành đứng ở giữa, ông ấy chính là viện trưởng viện nghiên cứu.</p>
-            
             <p class="story-text">Quét mắt nhìn mọi người, viện trưởng hài lòng gật đầu: “Giáo sư Đoàn Tư Phỉ muốn chọn một trợ lý, ai có hứng thú thì tập hợp lại đây một chút.”</p>
-            
             <p class="story-text">Cái tên Đoàn Tư Phỉ có thể ví như là sấm nổ bên tai, không chỉ nổi danh trong nghề mà những người ngoài giới cũng đánh giá rất cao về hắn.</p>
-            
             <p class="story-text">Đường Hi đương nhiên sẽ không tham gia náo nhiệt, cậu cúi đầu tiếp tục làm thí nghiệm. Chưa đến năm phút đồng hồ, cậu đã nghe thấy âm thanh huyên náo ở phía cửa.</p>
-            
             <p class="story-text">Đường Hi vô cùng tò mò, bản tính của mèo nhỏ khiến cậu rất muốn đi xem rốt cuộc là đã xảy ra chuyện gì, nhưng vì thiết lập tính cách nên cậu chỉ có thể để hệ thống tường thuật lại cho mình.</p>
-            
             <p class="story-text">Đây là lần đầu tiên cậu gọi hệ thống sau khi tức giận, 1551 lập tức vui vẻ truyền tin:【Là nhân vật phản diện, anh ta đích thân đến chọn người.】</p>
-            
             <p class="story-text">Nói là chọn trợ lý nhưng thật ra cũng giống như chọn một người may mắn làm học trò, cho nên có rất nhiều người muốn được chọn, bọn họ vô cùng nhiệt tình.</p>
-            
             <p class="story-text">Ở giới nghiên cứu khoa học này, tuổi tác không phải là cái để tham chiếu(2), những người tuổi đã lớn nhưng năng lực không đủ cũng sẵn sàng tranh cơ hội lần này.</p>
-            
             <p class="story-text" style="font-style: italic; font-size: 15px; color: var(--header-color); padding-left: 15px; border-left: 2px solid var(--border-color);">(2)Tham chiếu: căn cứ, dựa vào để tham khảo và đối chiếu.</p>
-            
             <p class="story-text">【Hình như anh ta vẫn chưa hài lòng, đang đi đến đây.】</p>
-            
             <p class="story-text">1551 nói xong câu đó lập tức truyền nội dung cốt truyện cho cậu.</p>
-            
             <p class="story-text">1551 chỉ có thể nhận được cốt truyện khi nhân vật chính xuất hiện trong phạm vi Đường Hi có thể nhìn thấy. Vì tiếp nhận toàn bộ nội dung cốt truyện nên cậu không thể không dừng động tác, hết sức chuyên chú phân tích cốt truyện.</p>
-            
             <p class="story-text">Cậu vốn nghĩ nhân vật phản diện lần này sẽ là một lão già hoặc là ông chú trung niên, nhưng thật ra thì người này cũng giống với Hạ Vọng ở thế giới trước, là một người tuổi trẻ tài cao, chỉ mới hai mươi tám tuổi.</p>
-            
             <p class="story-text">Đoàn Tư Phỉ vừa bước vào đã để mắt đến nghiên cứu viên ở trong góc, hắn lướt mắt qua tầng tầng lớp lớp người nhàm chán xung quanh, trong khoảnh khắc ấy hắn đã bắt gặp cậu.</p>
-            
             <p class="story-text">Thoạt nhìn cậu còn rất trẻ, trẻ đến mức làm hắn hoài nghi có phải viện nghiên cứu thuê lao động trẻ em hay không. Một mình yên lặng ngoan ngoãn làm việc thật khiến người ta muốn bắt nạt.</p>
-            
             <p class="story-text">Những suy nghĩ xấu xa xoay nhanh trong đầu Đoàn Tư Phỉ nhưng ngoài mặt hắn vẫn ôn hòa mỉm cười, chỉ tay vào Đường Hi: “Bạn nhỏ này.”</p>
-            
             <p class="story-text">Tuy gương mặt mang ý cười nhưng giọng điệu lại không cho phép cự tuyệt.</p>
-            
             <p class="story-text">Viện trưởng nhìn theo hướng hắn chỉ, ông có hơi khó xử nhưng vẫn cho gọi Đường Hi đến.</p>
-            
             <p class="story-text">Bị gọi tên, Đường Hi bỏ đồ vật trên tay xuống, nét mặt sững sờ pha lẫn chút không vui. Lúc cậu đang nghiên cứu thì không thích bị người khác quấy rầy, tất cả những sự việc bất ngờ làm gián đoạn công việc của cậu thì cậu sẽ theo bản năng mà chống lại hoặc lộ vẻ không vui.</p>
-            
             <p class="story-text">Có người ở bên cạnh Đoạn Tư Phỉ nhỏ giọng: “Người này có chút u ám, anh mà chọn cậu ta thì nhất định sẽ hối hận đó.”</p>
-            
             <p class="story-text">Đoàn Tư Phỉ mỉm cười quay đầu nhìn người đang nói chuyện với hắn.</p>
-            
             <p class="story-text">Chỉ một cái liếc mắt đã khiến người đó ngậm miệng lại.</p>
-            
             <p class="story-text">Trần Duẫn rụt cổ một cái, hắn không biết tại sao rõ ràng là nụ cười ôn hòa như vậy mà lại làm cho hắn lạnh cả sống lưng.</p>
-            
             <p class="story-text">Đường Hi không biết chuyện gì đang xảy ra, cậu chậm rãi đi đến trước mặt bọn họ, mím môi không nói lời nào, chỉ cúi đầu nhìn đôi giày của mình. Dường như cậu có thể nhìn thấy được những hoa văn trên đôi giày trắng tinh đó vậy.</p>
-            
             <p class="story-text">“Cậu có bằng lòng đi theo tôi không?” Đoàn Tư Phỉ nho nhã cúi người xuống hỏi, giọng điệu dịu dàng như đang dỗ trẻ con.</p>
-            
             <p class="story-text">Mèo nhỏ Đường Hi mắc chứng tự kỷ không hề trả lời hắn, cậu chuyển ánh mắt sang nhìn dây giày của mình.</p>
-            
             <p class="story-text">Đoàn Tư Phỉ không hề có một chút tức giận khi cậu không để ý đến hắn, trái lại còn khẽ bật cười. Hắn có gương mặt vô cùng điển trai, thường bị người khác nói đùa là có thể dựa vào gương mặt để kiếm cơm vậy mà lại phụ thuộc vào tài năng, hốc mắt sâu thẳm ẩn sau cặp kính gọng vàng, rõ ràng là lúc nào cũng nở nụ cười lịch sự nhưng lại tạo cho người khác cảm giác vô cùng áp bức ngột ngạt.</p>
-            
             <p class="story-text">Có người xung quanh muốn giục Đường Hi trả lời nhưng bị ngăn lại. Đoàn Tư Phỉ kiên trì lại hỏi mấy lần, cuối cùng Đường Hi cũng có phản ứng.</p>
-            
             <p class="story-text">“Không muốn.” Giọng nói nhỏ đến mức như cậu đang tự lẩm bẩm một mình.</p>
-            
             <p class="story-text">Do Đoàn Tư Phỉ đứng gần nên mới nghe rõ cậu nói gì, hắn cũng không thất vọng mà trái lại còn liếc mắt sâu xa nhìn cậu: “Thật đáng tiếc, hy vọng cậu sẽ suy nghĩ lại, chỉ cần cậu đồng ý thì cứ đến tìm tôi bất cứ lúc nào cũng được.”</p>
-            
             <p class="story-text">Bị cậu dứt khoát từ chối nhưng hắn vẫn giữ phong thái lịch thiệp của mình, không ép buộc cậu.</p>
-            
             <p class="story-text">Đường Hi không chút cảm kích, cậu quay lại bàn làm việc, không thèm quay đầu lại nhìn hắn. Cậu biết vai ác sẽ không buông tha cho mình dễ dàng như vậy.</p>
-            
             <p class="story-text">Nhân vật phản diện trong cốt truyện là một người có tính chiếm hữu rất mạnh, những thứ hắn coi trọng thì sẽ đoạt lấy cho bằng được. Khi hắn coi trọng thụ chính, sau đó cậu ta đối xử với hắn không gần không xa, đồng thời còn có mối quan hệ mập mờ với người khác.</p>
-            
             <p class="story-text">Vì thế hắn liền giết hết những người đó. Thủ đoạn cực kỳ tàn nhẫn, phương pháp gây án vô cùng hoàn hảo. Cảnh sát hoàn toàn không nghi ngờ đến hắn, mãi đến khi hắn ra tay với nguyên chủ.</p>
-            
             <p class="story-text">Nhưng nguyên chủ cũng là một người được số phận ưu ái, lúc bị hắn tấn công cũng không bị thương, thậm chí còn cho hắn một dao. Chính cây dao đó đã tố giác tội ác của hắn, hắn bị buộc tội giết người hàng loạt, sau đó bị kết án tử hình.</p>
-            
             <p class="story-text">Đây là một nhân vật phản diện có thể giết người, một nhân vật phản diện có thể giết cậu bất cứ lúc nào, bằng cách thức vô cùng hoàn hảo không để lại dấu vết.</p>
-            
             <p class="story-text">Tay Đường Hi run run cầm bản báo cáo nhưng cậu không thể để lộ ra, càng không thể để người khác nhìn thấy. Cậu nhất định không thể phân tâm trong lúc làm thí nghiệm. Dưới sự hướng dẫn của hệ thống, cậu từng bước từng bước tiến hành lại thí nghiệm.</p>
-            
-            <p class="story-text">In nội dung cốt truyện, Đoàn Tư Phỉ nhìn một vòng mà không có người hắn thuận mắt, sau đó mới bị nguyên chủ gợi lên hứng thú.</p>
-            
+            <p class="story-text">Trong nội dung cốt truyện, Đoàn Tư Phỉ nhìn một vòng mà không có người hắn thuận mắt, sau đó mới bị nguyên chủ gợi lên hứng thú.</p>
             <p class="story-text">Đường Hi không biết vì sao mình không làm gì mà nội dung cốt truyện lại lệch hướng, cậu chỉ biết mình không thể để Đoàn Tư Phỉ thích vai thụ chính được.</p>
-            
             <p class="story-text">Một khi hắn giết người, nhiệm vụ cứu vớt coi như thất bại.</p>
-            
             <p class="story-text">Ngoại trừ nhiệm vụ lần này, after khi tiếp nhận cốt truyện, cậu còn có một mục tiêu mới.</p>
-            
             <p class="story-text">—— Cậu muốn đoạt lại vinh quang chân chính thuộc về nguyên chủ.</p>
             
             <p class="story-text" style="font-style: italic; border-top: 1px dashed var(--border-color); padding-top: 15px; margin-top: 30px;">Tác giả có lời muốn nói: Liên quan đến việc mèo nhỏ tự kỷ, tất cả cũng vì phục vụ cho nội dung cốt truyện qwq, nói rộng ra là chứng tự kỷ ở thế giới song song không giống với ở trái đất. Trong thực tế, chứng tự kỷ rất khó để giao tiếp, vì thế chúng ta cần phải bao dung nhiều hơn.</p>
@@ -644,28 +457,24 @@
         var currentChapterName = "Tập 1 - Chương 23"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
 
-        // HÀM CHUYỂN ĐỔI CHẾ ĐỘ SÁNG/TỐI (LIGHT/DARK MODE)
+        // CHUYỂN ĐỔI CHẾ ĐỘ SÁNG/TỐI
         function toggleTheme() {
             var currentTheme = document.documentElement.getAttribute("data-theme");
             var targetTheme = "light";
             var btn = document.getElementById("themeToggleBtn");
-
             if (currentTheme === "light" || !currentTheme) {
-                targetTheme = "dark";
-                btn.innerText = "☀️"; 
+                targetTheme = "dark"; btn.innerText = "☀️"; 
             } else {
-                targetTheme = "light";
-                btn.innerText = "🌙"; 
+                targetTheme = "light"; btn.innerText = "🌙"; 
             }
-
             document.documentElement.setAttribute("data-theme", targetTheme);
         }
 
-        // HÀM XỬ LÝ ĐÓNG/MỞ ẨN CHÚ THÍCH ĐĨA PETRI MƯỢT MÀ
+        // HÀM XỬ LÝ ĐÓNG/MỞ ẨN CHÚ THÍCH ĐĨA PETRI MƯỢT MÀ THEO DÒNG RIÊNG
         function togglePetri() {
             var dropdown = document.getElementById("petriDropdown");
             if (dropdown.style.maxHeight === "0px" || dropdown.style.maxHeight === "") {
-                dropdown.style.maxHeight = "500px"; // Đặt chiều cao tối đa đủ chứa ảnh và văn bản chú thích
+                dropdown.style.maxHeight = "550px"; 
             } else {
                 dropdown.style.maxHeight = "0px";
             }
@@ -674,27 +483,22 @@
         // Tự động quét và chèn bóng chát từng đoạn văn
         document.addEventListener("DOMContentLoaded", function() {
             var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
-            
             paragraphs.forEach(function(p, index) {
                 var paragraphIndex = index + 1; 
                 var boxId = "inline-comment-" + paragraphIndex;
-                
                 var wrapper = document.createElement("div");
                 wrapper.className = "story-paragraph-wrapper";
                 p.parentNode.insertBefore(wrapper, p);
                 wrapper.appendChild(p);
-                
                 var icon = document.createElement("span");
                 icon.className = "comment-icon";
                 icon.innerText = "💬";
                 icon.onclick = function() { toggleInlineComment(boxId); };
                 wrapper.appendChild(icon);
-                
                 var commentBox = document.createElement("div");
                 commentBox.className = "paragraph-comment-box";
                 commentBox.id = boxId;
                 commentBox.style.display = "none";
-                
                 commentBox.innerHTML = `
                     <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
                     <div class="old-comments-list">
@@ -722,12 +526,10 @@
             var name = box.querySelector('.inline-input-name').value;
             var text = box.querySelector('.inline-textarea-text').value;
             var fullLocation = currentChapterName + " (" + paragraphLabel + ")"; 
-            
             var formData = new FormData();
             formData.append('entry.110222111', name);
             formData.append('entry.1515223589', text);
             formData.append('entry.1093378953', fullLocation);
-            
             fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
                 box.querySelector('.inline-textarea-text').value = '';
                 var successMsg = box.querySelector('.inline-success-msg');
@@ -741,12 +543,10 @@
             var name = document.getElementById('commentName').value;
             var text = document.getElementById('commentText').value;
             var fullLocation = currentChapterName + " (Tổng)";
-            
             var formData = new FormData();
             formData.append('entry.110222111', name);
             formData.append('entry.1515223589', text);
             formData.append('entry.1093378953', fullLocation);
-            
             fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
                 document.getElementById('commentText').value = '';
                 document.getElementById('successMessage').style.display = 'block';
