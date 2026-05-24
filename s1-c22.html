@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>s1-c22 - Little Mint's Galaxy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG */
+        :root {
+            --bg-image: url('background.jpg');
+            --container-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #4a3728;
+            --header-color: #5d4737;
+            --border-color: #8d7561;
+            --box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            --comment-box-bg: rgba(255, 255, 255, 0.85);
+            --input-bg: #ffffff;
+            --input-text: #4a3728;
+        }
+
+        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
+        [data-theme="dark"] {
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg'); /* Phủ lớp tối lên ảnh nền */
+            --container-bg: rgba(35, 30, 27, 0.9); /* Khung giấy chuyển sang tone nâu đen dịu mắt */
+            --text-color: #e2d7cc; /* Chữ chuyển sang màu kem sáng chống mỏi mắt */
+            --header-color: #f1e6da;
+            --border-color: #5d4737;
+            --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
+            --comment-box-bg: rgba(45, 40, 37, 0.9);
+            --input-bg: #2d2825;
+            --input-text: #e2d7cc;
+        }
+
+        body {
+            background-image: var(--bg-image); 
+            background-attachment: fixed; 
+            background-size: cover;
+            background-position: center;
+            font-family: 'Lora', Georgia, Serif; 
+            color: var(--text-color); 
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- NÚT BẤM MẶT TRĂNG ĐỔI CHẾ ĐỘ ĐỌC (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background-color: #5d4737;
+            color: #ffffff;
+            border: 2px solid #8d7561;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            background-color: #7a5f4a;
+        }
+
+        /* 2. Thanh Menu Điều Hướng */
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0 50px 0;
+            position: relative;
+            z-index: 999; 
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .nav-item {
+            background-color: #5d4737; 
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            display: block;
+            font-family: 'Lora', Georgia, Serif;
+            border: none;
+        }
+        
+        a.nav-item:hover { background-color: #7a5f4a; }
+        span.nav-item { cursor: default; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #5d4737;
+            min-width: 220px; 
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 2px;
+            top: 100%; left: 50%;
+            transform: translateX(-50%); 
+            padding: 5px 0;
+        }
+
+        .dropdown-content a {
+            color: #ffffff;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 13px;
+            text-align: left; 
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1); 
+        }
+
+        .dropdown-content a:hover { background-color: #7a5f4a; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* --- 3. Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
+        .reading-container {
+            max-width: 800px;             
+            width: 90%;                   
+            margin: 40px auto;            
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            box-shadow: var(--box-shadow);
+            padding: 50px 60px;
+            box-sizing: border-box;       
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .story-header {
+            text-align: center;
+            border-bottom: 1px double var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .story-title {
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--header-color);
+            margin: 0 0 10px 0;
+            font-weight: normal;
+        }
+
+        .chapter-title {
+            font-size: 26px;
+            color: var(--header-color);
+            font-weight: normal;
+            margin: 0;
+        }
+
+        /* --- Cấu trúc đoạn văn truyện --- */
+        .story-paragraph-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            padding-right: 45px; 
+        }
+
+        .story-text {
+            font-size: 17px;
+            line-height: 1.8;
+            text-align: justify;          
+            text-justify: inter-word;     
+            word-break: break-word;       
+            margin: 0;
+        }
+
+        /* Biểu tượng bóng chát mờ bên rìa phải */
+        .comment-icon {
+            position: absolute;
+            right: 5px;
+            top: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.2s ease-in-out;
+            color: var(--text-color);
+        }
+
+        .story-paragraph-wrapper:hover .comment-icon {
+            opacity: 0.5;
+        }
+
+        .comment-icon:hover {
+            opacity: 1 !important;
+        }
+
+        /* Khung chứa bình luận hạ xuống của từng đoạn */
+        .paragraph-comment-box {
+            background-color: var(--comment-box-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            max-width: 650px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .old-comments-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--header-color);
+            margin: 0 0 8px 0;
+        }
+
+        .old-comments-list {
+            max-height: 120px;
+            overflow-y: auto;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .comment-form-inline {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .inline-input-name, .inline-textarea-text {
+            padding: 8px 10px;
+            font-size: 13px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-family: inherit;
+            background-color: var(--input-bg);
+            color: var(--input-text);
+        }
+
+        .inline-textarea-text { resize: none; }
+
+        .inline-submit-btn {
+            background-color: #5d4737;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            font-size: 12px;
+            border-radius: 2px;
+            cursor: pointer;
+            align-self: flex-end;
+            font-family: inherit;
+            font-weight: bold;
+        }
+
+        .inline-submit-btn:hover { background-color: #7a5f4a; }
+
+        .inline-success-msg {
+            color: var(--header-color);
+            font-weight: bold;
+            font-size: 12px;
+            margin: 4px 0 0 0;
+            text-align: center;
+        }
+
+        /* --- Thanh Chuyển Chương Tối Giản --- */
+        .chapter-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 50px;
+            border-top: 1px double var(--border-color);
+            padding-top: 30px;
+        }
+
+        .nav-btn {
+            background-color: #5d4737;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 25px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+
+        .nav-btn:hover { background-color: #7a5f4a; }
+        
+        /* ĐÃ BỎ CLASS DISABLED ĐỂ NÚT CHUYỂN CHƯƠNG LUÔN HOẠT ĐỘNG */
+        .nav-btn.inactive {
+            background-color: #cccccc;
+            color: #888888;
+            cursor: not-allowed;
+            pointer-events: none; 
+        }
+
+        .chapter-discussion-box {
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .discussion-title {
+            font-size: 18px;
+            color: var(--header-color);
+            letter-spacing: 1px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            font-weight: normal;
+        }
+
+        /* --- ĐOẠN CODE ĐÁP ỨNG BIẾN ĐỔI TRÊN ĐIỆN THOẠI (RESPONSIVE) --- */
+        @media screen and (max-width: 768px) {
+            .reading-container {
+                width: 95% !important;
+                padding: 30px 20px !important; 
+                margin: 20px auto !important; 
+                border-radius: 4px !important;
+            }
+
+            .story-text {
+                font-size: 16px !important; 
+                text-align: justify !important;
+                text-justify: inter-word !important;
+                display: block !important;
+            }
+            
+            .story-paragraph-wrapper {
+                padding-right: 35px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .comment-icon {
+                opacity: 0.6 !important; 
+                right: 0px !important;
+            }
+
+            .theme-toggle-btn {
+                top: 15px !important;
+                right: 15px !important;
+                width: 38px !important;
+                height: 38px !important;
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
+
+    <div class="nav-bar">
+        <div class="dropdown">
+            <a href="index.html" class="nav-item">Chủ nhà</a>
+        </div>
+        <div class="dropdown">
+            <span class="nav-item">Kho báu ▾</span>
+            <div class="dropdown-content">
+                <a href="muc-luc-meo-con.html">Hôm nay mèo con cũng cứu vớt vai ác</a>
+                <a href="muc-luc-say.html">Yêu tựa hơi say</a>
+                <a href="muc-luc-vi-sao.html">Vì sao loại A này mà cũng có O</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="reading-container">
+        
+        <div class="story-header">
+            <h2 class="story-title">Hôm Nay Mèo Con Cũng Cứu Vớt Vai Ác</h2>
+            <h1 class="chapter-title">Chương 22</h1>
+        </div>
+
+        <div id="story-content-area">
+            <p class="story-text">Nếu nói một cách chính xác hơn thì người đó đang tiếp cận Hạ Vọng.</p>
+            
+            <p class="story-text">Lần đầu gặp mặt mà lại không có một thân hàng hiệu, Từ Uyển có chút ngượng ngùng với vẻ xuề xòa của mình. Cuối cùng cô ta cũng vất vả qua mặt được đám bảo vệ để đi vào, đã thế lại còn bị cười nhạo bởi mấy cô gái cô ta từng xem thường trước đây.</p>
+            
+            <p class="story-text">“Hạ tổng!” Âm thanh bén nhọn muốn xuyên thủng màng nhĩ của mọi người, Từ Uyển sắp bổ nhào vào Hạ Vọng thì đã bị ánh mắt lạnh lùng của hắn ngăn lại.</p>
+            
+            <p class="story-text">“Anh không thể làm như vậy với gia đình tôi được, tự nhiên anh lại cắt đứt hợp đồng làm chuỗi vốn của chúng tôi không thể tiếp tục được.” Từ Uyển khóc như mưa rồi ngã bệt xuống đất. Cô ta muốn dùng nước mắt của mình để giành được sự cảm thông của mọi người, quả thật là khóc đến lê hoa đái vũ.</p>
+            
+            <p class="story-text">Nhưng trước mặt cô ta lại là Hạ Vọng không có tình người. Thậm chí người đàn ông này còn không bố thí cho cô ta một ánh mắt.</p>
+            
+            <p class="story-text">Xung quanh có rất nhiều người đang xem kịch, tay nâng ly rượu xì xào bàn tán với người bên cạnh.</p>
+            
+            <p class="story-text">“Mấy ngày nữa chắc hẳn cảnh sát sẽ đến chào hỏi cha cô, tôi nghĩ cô nên dành chút thời gian để ở bên cạnh cha cô lần cuối đi.” Hạ Vọng dùng ánh mắt lạnh băng nhìn cô ta.</p>
+            
+            <p class="story-text">Từ Uyển sững người, xung quanh có rất nhiều ánh mắt chế giễu đang hướng về cô ta.</p>
+            
+            <p class="story-text">“Cảnh, cảnh sát gì? Sao cảnh sát lại đến nhà tôi?”</p>
+            
+            <p class="story-text">“Về việc xây dựng bất hợp pháp của công ty, và còn âm mưu giết chủ tịch Chu nữa.” Hạ Vọng bình tĩnh nói.</p>
+            
+            <p class="story-text">Câu nói nhẹ nhàng nhưng lại như giọt nước rơi xuống mặt hồ phẳng lặng, gợn sóng.</p>
+            
+            <p class="story-text">Mọi người đang nhỏ giọng bàn tán, đột nhiên lại phải tiếp thu tin tức chấn động thứ hai trong ngày hôm nay. Còn những người lúc đầu còn cho là Hạ Vọng lạnh lùng, không biết thương hoa tiếc ngọc, giờ đây đã nhanh chóng ngậm miệng, lẩn trong đám đông trốn mất dạng.</p>
+            
+            <p class="story-text">Người chủ trì buổi tiệc chỉ dám lại gần khi Hạ Vọng dẫn thiếu niên bỏ đi, không khách khí “mời” Từ Uyển ra ngoài.</p>
+            
+            <p class="story-text">Kẻ ác đứng đằng sau âm mưu cứ như vậy mà rớt đài, ánh mắt Đường Hi không khỏi sững sờ. Cậu đột nhiên ý thức được nhân vật phản diện ở thế giới này hình như đã không cần cậu cứu vớt nữa rồi.</p>
+            
+            <p class="story-text">Mọi thứ đã sắp đi vào quỹ đạo Điều này tất nhiên là chuyện tốt, nhưng cậu lại có cảm giác buồn bực không vui.</p>
+            
+            <p class="story-text">Hạ Vọng rất nhạy cảm with những biến đổi cảm xúc của cậu, trong khoảnh khắc đó hắn đã nhận ra.</p>
+            
+            <p class="story-text">“Em mệt à?” Hạ Vọng cân nhắc một chút, hắn cảm thấy mình hơi nóng vội khi đưa Đường Hi đến gặp mọi người để tuyên bố chủ quyền, chắc việc này đã dọa đến mèo nhỏ.</p>
+            
+            <p class="story-text">Những món điểm tâm tinh xảo được đưa đến trước mặt Đường Hi, cậu không chút nghĩ ngợi cho thẳng vào miệng, mơ hồ lắc đầu.</p>
+            
+            <p class="story-text">Hạ Vọng thấp giọng nói thêm vài câu, xác định cậu không có việc gì mới thả lỏng.</p>
+            
+            <p class="story-text">Những người có mặt trong buổi tiệc tựa như gặp quỷ, không ngờ cái vị ở trên thương trường hô mưa gọi gió này lại đi dỗ dành một thiếu niên.</p>
+            
+            <p class="story-text">Đã đến đây rồi thì không thể không đi xã giao chào hỏi, khi Hạ Vọng cùng người khác nói chuyện, Đường Hi mang theo dĩa bánh ngọt đi đến một góc yên lặng ăn. Cậu tập trung tinh thần ăn uống, thậm chí còn không phát hiện có người đến gần.</p>
+            
+            <p class="story-text">Nhìn Đường Hi vô tư trước mặt, Thẩm Thần Tư không khỏi cười khổ: “Cậu sướng nhỉ, đã bị lừa còn giúp họ đếm tiền.”</p>
+            
+            <p class="story-text">Đường Hi bị hết hồn, tay nhỏ cầm nĩa run lên, trợn tròn mắt: “Sao cậu lại ở đây?”</p>
+            
+            <p class="story-text">“Tôi không thể ở đây à?” Thẩm Thần Tư liếc mắt nhìn cậu, trở lại bộ dạng cà lơ phất phơ, “Cậu có muốn đi theo tôi không?”</p>
+            
+            <p class="story-text">Cũng không biết là nói đùa hay nghiêm túc, nhưng nếu Đường Hi thấy vẻ mặt Thẩm Thần Tư lúc này thì sẽ thấy được sự nghiêm túc chưa từng có của y.</p>
+            
+            <p class="story-text">“Theo cậu đi đâu?” Cậu nghi hoặc hỏi.</p>
+            
+            <p class="story-text">Thẩm Thần Tư vừa mở miệng định nói gì đó thì đã thấy Hạ Vọng đứng cách đó không xa. Trong nháy mắt, y có cảm giác như mình bị một con ác thú theo dõi, lập tức ngừng nói.</p>
+            
+            <p class="story-text">Đang nói chuyện cùng Hạ Vọng, ông Thẩm theo ánh mắt hắn thì thấy được con trai mình, ông cười vui vẻ: “Đó là con trai tôi, trước đây tôi kêu cỡ nào thì nó cũng không muốn tham dự mấy chỗ này, không biết sao hôm nay nó lại muốn đi.”</p>
+            
+            <p class="story-text">Đây là lần đầu tiên Thẩm Thần Tư có vẻ quan tâm đến công ty, điều này làm ông Thẩm vô cùng vui vẻ.</p>
+            
+            <p class="story-text">Giọng nói của Hạ Vọng đều đều, không nghe ra vui giận: “Tôi thấy ngài có thể suy xét đến việc cho Thẩm thiếu gia du học hai năm, có lẽ sau này sẽ càng có ích hơn cho việc quản lý công ty.”</p>
+            
+            <p class="story-text">Đâu ai nghĩ rằng Hạ Vọng và Thẩm Thần Tư có khúc mắc gì với nhau, chỉ cho rằng đó là một lời đề nghị chân thành của người đi trước dành cho lớp trẻ mà thôi.</p>
+            
+            <p class="story-text">Vừa vặn ông Thẩm cũng có ý định này, bây giờ nghe hắn nói vậy giống như tìm được tri âm, thở dài nói: “Tôi cũng nghĩ nhiều lần rồi, nhưng đứa nhỏ này từ khi trưởng thành thì đều có chủ ý riêng của nó, tôi không khuyên bảo được.”</p>
+            
+            <p class="story-text">“Ngài cũng là muốn tốt cho cậu ta, nếu nói thêm vài lần nữa cậu ta nhất định sẽ hiểu nỗi khổ tâm này thôi.” Hạ Vọng thuận miệng đề cử vài ngôi trường nổi tiếng về chuyên ngành tài chính.</p>
+            
+            <p class="story-text">Những lời đề cử này trong miệng Hạ Vọng rất có sức nặng, vẻ mặt ông Thẩm nghiêm túc nhớ kỹ, đồng thời trong lòng suy xét lại chuyện xuất ngoại của Thẩm Thần Tư.</p>
+            
+            <p class="story-text">Đạt được mục đích của mình, Hạ Vọng thoải mái đưa Đường Hi trở về.</p>
+            
+            <p class="story-text">…</p>
+            
+            <p class="story-text">Sau khi Đường Hi trở lại trường học, Thẩm Thần Tư đã chuyển ra nước ngoài, Diệp Kỳ An cũng chuyển lớp.</p>
+            
+            <p class="story-text">Hạ Vọng còn mời một huấn luyện viên riêng cho cậu, làm cậu mệt đến mức không thể đi tìm Diệp Kỳ An.</p>
+            
+            <p class="story-text">Hết năm cuối cùng của cấp ba, rốt cuộc cậu cũng biết được những vết đỏ kỳ lạ trên người cậu vào mỗi sáng xuất hiện như thế nào rồi.</p>
+            
+            <p class="story-text">Nhưng đã quá muộn, cậu từng bước bị vai ác ăn sạch sẽ không còn một mẩu xương. Vào đêm trước khi cậu vào đại học, 1551 bị chặn trong không gian hệ thống cả đêm.</p>
+            
+            <p class="story-text">Sau một đêm xuân rên rỉ, giọng nói của Đường Hi có chút khàn, cậu biến thành mèo nhỏ cuộn người trong ổ chăn. Đêm qua bị hắn lật tới lật lui đủ kiểu, cậu chưa bao giờ biết ơn vì mình là một con mèo như vậy, có thể thực hiện nhiều động tác đòi hỏi sự mềm dẻo cực cao.</p>
+            
+            <p class="story-text">Như mọi người đều biết, mèo là chất lỏng mà!</p>
+            
+            <p class="story-text">Có lẽ là do ánh mắt quá mức oán giận của mèo nhỏ, Hạ Vọng ôm cậu vào lòng, vuốt ve an ủi: “Anh xin lỗi, tại vì mai em đi rồi, anh chịu không nổi.” Nói xong, hắn cúi xuống đặt một nụ hôn lên tai cậu, còn ác ý cắn một cái.</p>
+            
+            <p class="story-text">Mỗi lần hắn làm như vậy thì đều được cậu tha thứ.</p>
+            
+            <p class="story-text">“Chỉ là học đại học gần đây thôi mà, thậm chí em vẫn là học sinh ngoại trú ưm…!” Đường Hi mới chỉ nói một nửa đã bị chặn miệng, bị hôn đến mềm nhũn.</p>
+            
+            <p class="story-text">Vẫn còn rất nhiều ý kiến trái chiều nghi ngờ tình cảm của hai người họ, nhưng Hạ Vọng lại không như bọn họ mong muốn, ngày ngày đều đặn phát cơm chó, người dân cả nước ăn đến phát nghẹn.</p>
+            
+            <p class="story-text">Chỉ cần việc Hạ Vọng chuyển toàn bộ tài sản của hắn sang danh nghĩa của Đường Hi thôi là đã biến cậu thành đối tượng được người người ngưỡng mộ, bán mạng mà chúc phúc.</p>
+            
+            <p class="story-text">Lần thứ hai oanh động cả nước là vào ngày tốt nghiệp đại học, hai người đã tổ chức hôn lễ, quy mô vô cùng lớn, được mệnh danh là hôn lễ lãng mạn nhất.</p>
+            
+            <p class="story-text">Trong hôn lễ, Đường Hi nhìn thấy Diệp Kỳ An và Thẩm Thần Tư, lúc còn học đại học, bọn họ đã cùng nhau hợp tác xây dựng một công ty. Sự nghiệp thuận lợi y như cốt truyện, nhưng mà tình cảm vẫn giậm chân tại chỗ, không có một chút tiến triển.</p>
+            
+            <p class="story-text">Trong lúc diễn ra hôn lễ, Thẩm Thần Tư chỉ đứng từ xa nhìn cậu, sau đó rời đi ngay.</p>
+            
+            <p class="story-text">Diệp Kỳ An thì ở lại gửi lời chúc phúc.</p>
+            
+            <p class="story-text">Diệp Kỳ An vẫn còn đẹp trai như năm ấy, nhưng nét trẻ con đã phai nhạt, thay vào đó là sự chững chạc trưởng thành, cậu ta nho nhã nâng ly che miệng, cười gượng: “Vốn nghĩ nếu tôi trở nên lợi hại hơn thì sẽ có thể bảo vệ được cậu, nhưng bây giờ cậu cũng đã có người bảo vệ cho mình rồi…”</p>
+            
+            <p class="story-text">Cậu ta không thể nói tiếp nữa, bởi vì Hạ Vọng đã đi lại đây, vô cùng chiếm hữu khoát tay ôm lấy eo nhỏ của Đường Hi.</p>
+            
+            <p class="story-text">“Hai người đang nói gì vậy?”</p>
+            
+            <p class="story-text">“Không có gì, chúc mừng hai người.” Diệp Kỳ An chậm rãi nói: “Cũng cảm ơn những năm qua chú đã giúp đỡ tôi.”</p>
+            
+            <p class="story-text">Diệp Kỳ An đã trả hết ân tình, công ty đã lập cùng Thẩm Thần Tư cũng có vị thế trên thương trường, tuy quy mô không bằng Hạ Vọng nhưng ai nghe qua cũng kinh hồn bạt vía.</p>
+            
+            <p class="story-text">Nhưng Diệp Kỳ An biết, cậu ta cùng Thẩm Thần Tư đều đã thua rồi.</p>
+            
+            <p class="story-text">Thua hoàn toàn.</p>
+            
+            <p class="story-text">“Tôi sẽ cố gắng phát triển công ty, nếu một ngày chú đối xử tệ với cậu ấy, tôi sẽ đưa cậu ấy đi.” Cuối cùng Diệp Kỳ An lưu lại mấy lời này, sau đó cũng rời đi.</p>
+            
+            <p class="story-text">Có lẽ là ban ngày Diệp Kỳ An và Thẩm Thần Tư đã kích thích tới Hạ Vọng nên vào đêm tân hôn, Đường Hi bị vai ác ghen tuông quá độ lăn lộn cả đêm không ngủ, cuối cùng cậu phải lăn ra khóc lóc ăn vạ.</p>
+            
+            <p class="story-text">…</p>
+            
+            <p class="story-text">【 đinh —— báo cáo đã tới.】1551 đột nhiên lên tiếng.</p>
+            
+            <p class="story-text">Lúc này, Đường Hi và Hạ Vọng đã bên nhau hai mươi năm, hai mươi năm này hắn nuông chiều cậu tận trời, thậm chí hắn còn học nấu ăn chỉ đơn giản là vì cậu rất thích ăn thôi.</p>
+            
+            <p class="story-text">Thời gian đối xử vô cùng dịu dàng với họ, chỉ vô tình lưu lại một vài bước chân năm tháng.</p>
+            
+            <p class="story-text">【Thẩm phán số 11 đã đánh giá nhiệm vụ lần này là cấp SSS, xin chuẩn bị sẵn sàng rời khỏi thế giới này, đếm ngược mười giây ——】</p>
+            
+            <p class="story-text">Còn chưa kịp chuẩn bị cái gì, mèo nhỏ Đường Hi vẫn đang tung tăng chạy nhảy trong sân vườn đột nhiên lại biến thành người.</p>
+            
+            <p class="story-text">Không một chút nghĩ ngợi, cậu lập tức chạy đến bên cạnh Hạ Vọng.</p>
+            
+            <p class="story-text">“Làm sao vậy?” Dường như Hạ Vọng cũng cảm nhận được điều gì đó, dịu dàng đặt tay lên đầu cậu.</p>
+            
+            <p class="story-text">Thời gian chỉ còn lại có năm giây. Đường Hi không nói lời nào, chỉ ôm chặt lấy hắn. Thời khắc sắp rời đi, cậu chỉ muốn ôm hắn vào lòng, thật chặt.</p>
+            
+            <p class="story-text">Hệ thống đếm ngược đến 0.</p>
+            
+            <p class="story-text">Đường Hi mở mắt đã nhìn thấy không gian hệ thống, cậu khôi phục lại hình dáng thiếu niên ban đầu, dấu vết của cậu ở thế giới kia cũng hoàn toàn biến mất.</p>
+            
+            <p class="story-text">Không biết vì sao mắt lại rơi lệ, cậu ngơ ngác ngồi giữa không gian trắng xóa.</p>
+            
+            <p class="story-text">Quả cầu nhỏ 1551 chuyển động qua lại cũng không thể thu hút được sự chú ý của cậu.</p>
+            
+            <p class="story-text">【Tôi có thể xóa trí nhớ của cậu.】1551 do dự mở miệng.</p>
+            
+            <p class="story-text">Không biết qua bao lâu, Đường Hi mới đáp lại:【 Không cần, tôi nhớ cậu từng nói, đến lúc tôi tích đủ điểm thì có thể thực hiện một nguyện vọng của tôi đúng không?】</p>
+            
+            <p class="story-text">【Đúng vậy.】</p>
+            
+            <p class="story-text">Nói đến vấn đề này, 1551 không còn mệt mỏi nữa, vô cùng phấn khích:【Đây là lần đầu tiên tôi thấy thẩm phán đánh giá điểm SSS, điều đó có nghĩa là nhiệm vụ cứu vớt lần này của cậu vô cùng đặc biệt, xưa nay chưa từng có, cậu không chỉ giúp cho vai ác không rơi vào kết cục bi thảm như trong cốt truyện gốc mà còn cho hắn một cái kết hoàn mỹ nhất nữa.】</p>
+            
+            <p class="story-text">Cho anh ấy một cái kết hoàn mỹ nhất sao…</p>
+            
+            <p class="story-text">Cái đuôi vô hình của Đường Hi run lên, những lời này đã xua tan đi mây mù trong lòng của cậu.</p>
+            
+            <p class="story-text">1551 tiếp tục nói:【Khấu trừ đi số điểm lần trước cậu nợ, vậy bây giờ cậu có 19000 điểm! Cậu từ nợ ngập đầu đã biến thành mèo nhỏ giàu có rồi nha!】</p>
+            
+            <p class="story-text">SSS là một cấp có số điểm rất cao, số điểm này xưa nay cũng chưa có ai đạt được.</p>
+            
+            <p class="story-text">Đường Hi hoàn toàn không bị dụ dỗ, nhảy lên: “Đi làm nhiệm vụ thôi! Đến thế giới tiếp theo, lần trước cậu đã hứa cho tôi một thân phận giàu có!”</p>
+            
+            <p class="story-text">Có thể dùng tiền của mình để mua đồ ăn ngon.</p>
+            
+            <p class="story-text">Ở thế giới trước, Hạ Vọng quản rất nghiêm mấy món đồ ăn vặt, mỗi ngày chỉ có thể ăn một lượng nhất định. Mèo nhỏ Đường Hi đã thề, đến thế giới tiếp theo cậu nhất định sẽ ăn một bữa no nê.</p>
+            
+            <p class="story-text">1551 nhìn thoáng qua nhân vật của cậu ở thế giới kế, có chút chột dạ:【Khụ khụ, chúng ta đi thôi...】</p>
+            
+            <p class="story-text">…</p>
+            
+            <p class="story-text">Thời điểm mở mắt ra, Đường Hi cảm nhận được một trận quặn đau ở bụng. Chờ đến khi cơn đau đi qua, cậu mới phát hiện bản thân đang ngất xỉu dưới sàn nhà lạnh băng.</p>
+            
+            <p class="story-text">Ở thế giới trước, do cậu không thích mang giày nên Hạ Vọng đã cho người trải thảm khắp nhà, bây giờ đột ngột thay đổi làm cậu không thích ứng kịp.</p>
+            
+            <p class="story-text">Hệ thống không cho cậu thời gian chuẩn bị, lập tức gửi ký ức về thân phận của cậu ở thế giới này.</p>
+            
+            <p class="story-text">Đường Hi tiếp cận ký ức xong liền quỳ xuống mặt đất, đang cố gắng chấp nhận sự thật...</p>
+            
+            <p class="story-text">Xin hỏi làm sao để biến hệ thống thành gậy trêu mèo? Online chờ gấp!</p>
+            
+            <p class="story-text" style="font-style: italic; border-top: 1px dashed var(--border-color); padding-top: 15px; margin-top: 30px;">Tác giả có lời muốn nói: Thế giới đầu tiên kết thúc ở đây, thế giới tiếp theo sẽ là giáo sư văn nhã bại hoại công x nhà nghiên cứu thiên tài tự kỷ thụ, đầu tư vào chắc chắn không lỗ! Cảm ơn các thiên thần đã ủng hộ mèo nhỏ Đường Hi. Mèo nhỏ làm nũng.jpg</p>
+            
+            <p class="story-text" style="font-style: italic;">Lời của Mint: Đã xong thế giới đầu rồi, tuy hơi tiếc vì kết quá nhanh, nhưng mong mọi người sẽ ủng hộ tác giả và editor tụi mình nhé! Hết chương 22</p>
+        </div>
+
+        <div class="chapter-navigation">
+            <a href="s1-c21.html" class="nav-btn">Chương trước</a>
+            <a href="muc-luc-meo-con.html" class="nav-btn">Mục lục</a>
+            <a href="s1-c23.html" class="nav-btn">Chương sau</a>
+        </div>
+
+        <div class="chapter-discussion-box">
+            <h3 class="discussion-title">💬 Thảo luận của chương này</h3>
+            <form id="commentForm" onsubmit="sendGeneralComment(event)" style="max-width: 650px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Hãy cho xin danh tính</label>
+                    <input type="text" id="commentName" placeholder="Ví dụ: Aa..." required 
+                           style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text);">
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Bạn nói gì ó</label>
+                    <textarea id="commentText" rows="4" placeholder="Viết bình luận tại đây..." required
+                              style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); resize: none;"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" style="background-color: #5d4737; color: white; border: none; padding: 10px 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: 'Lora', serif;">
+                    Gửi bình luận
+                </button>
+                
+                <p id="successMessage" style="display: none; color: var(--header-color); font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px;">
+                    ✦ Bình luận của bạn đã được gửi thành công! Cảm ơn bạn nhé.
+                </p>
+            </form>
+
+            <div id="real-comments-area" style="margin-top: 40px; border-top: 1px dashed var(--border-color); padding-top: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 14px; font-weight: bold; color: var(--header-color); margin-bottom: 15px;">💬 Bàn tán gì ik</p>
+            </div>
+        </div>
+
+    </div> 
+
+    <script>
+        var currentChapterName = "Tập 1 - Chương 22"; 
+        var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
+
+        // HÀM CHUYỂN ĐỔI CHẾ ĐỘ SÁNG/TỐI (LIGHT/DARK MODE)
+        function toggleTheme() {
+            var currentTheme = document.documentElement.getAttribute("data-theme");
+            var targetTheme = "light";
+            var btn = document.getElementById("themeToggleBtn");
+
+            if (currentTheme === "light" || !currentTheme) {
+                targetTheme = "dark";
+                btn.innerText = "☀️"; 
+            } else {
+                targetTheme = "light";
+                btn.innerText = "🌙"; 
+            }
+
+            document.documentElement.setAttribute("data-theme", targetTheme);
+        }
+
+        // Tự động quét và chèn bóng chát từng đoạn văn
+        document.addEventListener("DOMContentLoaded", function() {
+            var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
+            
+            paragraphs.forEach(function(p, index) {
+                var paragraphIndex = index + 1; 
+                var boxId = "inline-comment-" + paragraphIndex;
+                
+                var wrapper = document.createElement("div");
+                wrapper.className = "story-paragraph-wrapper";
+                p.parentNode.insertBefore(wrapper, p);
+                wrapper.appendChild(p);
+                
+                var icon = document.createElement("span");
+                icon.className = "comment-icon";
+                icon.innerText = "💬";
+                icon.onclick = function() { toggleInlineComment(boxId); };
+                wrapper.appendChild(icon);
+                
+                var commentBox = document.createElement("div");
+                commentBox.className = "paragraph-comment-box";
+                commentBox.id = boxId;
+                commentBox.style.display = "none";
+                
+                commentBox.innerHTML = `
+                    <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
+                    <div class="old-comments-list">
+                        <p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p>
+                    </div>
+                    <form class="comment-form-inline" onsubmit="sendInlineComment(event, '${boxId}', 'Đoạn ${paragraphIndex}')">
+                        <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
+                        <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
+                        <button type="submit" class="inline-submit-btn">Gửi cmt</button>
+                        <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
+                    </form>
+                `;
+                wrapper.appendChild(commentBox);
+            });
+        });
+
+        function toggleInlineComment(id) {
+            var box = document.getElementById(id);
+            box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";
+        }
+
+        function sendInlineComment(event, boxId, paragraphLabel) {
+            event.preventDefault();
+            var box = document.getElementById(boxId);
+            var name = box.querySelector('.inline-input-name').value;
+            var text = box.querySelector('.inline-textarea-text').value;
+            var fullLocation = currentChapterName + " (" + paragraphLabel + ")"; 
+            
+            var formData = new FormData();
+            formData.append('entry.110222111', name);
+            formData.append('entry.1515223589', text);
+            formData.append('entry.1093378953', fullLocation);
+            
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
+                box.querySelector('.inline-textarea-text').value = '';
+                var successMsg = box.querySelector('.inline-success-msg');
+                successMsg.style.display = 'block';
+                setTimeout(function() { successMsg.style.display = 'none'; }, 3000);
+            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
+        }
+
+        function sendGeneralComment(event) {
+            event.preventDefault();
+            var name = document.getElementById('commentName').value;
+            var text = document.getElementById('commentText').value;
+            var fullLocation = currentChapterName + " (Tổng)";
+            
+            var formData = new FormData();
+            formData.append('entry.110222111', name);
+            formData.append('entry.1515223589', text);
+            formData.append('entry.1093378953', fullLocation);
+            
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
+                document.getElementById('commentText').value = '';
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(function() { document.getElementById('successMessage').style.display = 'none'; }, 4000);
+            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
+        }
+    </script>
+</body>
+</html>
