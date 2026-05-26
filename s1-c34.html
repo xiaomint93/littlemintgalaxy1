@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chương 34 - Little Mint's Galaxy</title>
+    <title>s1-c34 - Little Mint's Galaxy</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -215,19 +215,16 @@
             display: inline-block;
         }
 
-        /* --- KHU VỰC CODE "DẤU CHÂN ĐÃ ĐẾN" CĂN PHẢI THEO Ý NGHI --- */
+        /* --- KHU VỰC CODE "DẤU CHÂN ĐÃ ĐẾN" ĐÃ SỬA CĂN TRÁI VÀ PHÂN DÒNG THEO Ý NGHI --- */
         .like-chapter-container {
-            text-align: right;
-            margin: 25px 0 15px 0;
-            font-size: 15px;
-            font-family: inherit;
+            text-align: left;
+            margin: 30px 0 20px 0;
             user-select: none;
+            font-family: inherit;
         }
 
         .like-chapter-wrapper {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            display: inline-block;
             cursor: pointer;
             color: var(--text-color);
             transition: transform 0.2s ease, color 0.2s ease;
@@ -235,22 +232,37 @@
 
         .like-chapter-wrapper:hover {
             color: #a86232;
-            transform: scale(1.03);
+            transform: scale(1.02);
+        }
+
+        .like-title-line {
+            font-size: 19px; /* Chữ to hơn hẳn */
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .like-sub-line {
+            font-size: 14px; /* Dòng dưới chữ nhỏ hơn */
+            color: inherit;
+            opacity: 0.85;
+            padding-left: 2px;
         }
 
         .like-paw-icon {
-            font-size: 18px;
+            font-size: 20px;
             display: inline-block;
             transition: transform 0.2s;
         }
 
         .like-chapter-wrapper.active {
             color: #a86232;
-            font-weight: bold;
         }
 
         .like-chapter-wrapper.active .like-paw-icon {
-            transform: scale(1.2);
+            transform: scale(1.2) rotate(-10deg);
         }
 
         /* Biểu tượng bóng chát mờ bên rìa phải */
@@ -368,7 +380,7 @@
             <p class="story-text">Chỉ là khoảng cách từ tẩm cung đến nơi thượng triều quá xa, lòng bàn chân mềm mại của Đường Hi đi đến phát đau, làn da của cậu còn mỏng manh hơn cả nguyên chủ, chỉ cần đi lâu một chút là sẽ rách da chảy máu.</p>
             <p class="story-text">Đột nhiên cậu có hơi hối hận khi lúc nãy không cho gọi kiệu, ở trong cung này người duy nhất có quyền ngồi kiệu đi lại chính là hoàng thượng. Lần đầu tiên được làm hoàng đế, cậu vẫn chưa thích ứng cảm giác được hưởng đặc quyền này.</p>
             <p class="story-text">Đến điện Kim Loan, Đường Hi nỗ lực căng gương mặt nhỏ để làm cho mình trông có vẻ uy quyền và nghiêm túc hơn một chút. Nhìn thấy đỉnh đầu của đám người dưới điện, chân cậu có chút run nhưng trên mặt vẫn bày ra vẻ thiếu kiên nhẫn, sau khi bọn họ hô xong hoàn thượng vạn tuế thì mới dịu đi đôi chút.</p>
-            <p class="story-text">Trên thực tế là cậu bị giật mình, thừa tướng cũng chính là nhân vật công chính đứng ở hàng đầu tiên, lúc cậu nhìn thấy hắn thì nội dung cốt truyện cũng được truyền vào đầu cậu.</p>
+            <p class="story-text">On thực tế là cậu bị giật mình, thừa tướng cũng chính là nhân vật công chính đứng ở hàng đầu tiên, lúc cậu nhìn thấy hắn thì nội dung cốt truyện cũng được truyền vào đầu cậu.</p>
             <p class="story-text">“Có tấu thì bẩm, không có bãi triều.” Giọng Đức công công lanh lảnh vang lên, mang theo nét uy nghiêm.</p>
             <p class="story-text">Đường Hi vô cùng vất vả tiếp thu toàn bộ nội dung cốt truyện, cậu vừa buông mắt nhìn xuống thì lập tức thấy được một vị triều thần đang liếc mắt ra hiệu với Thẩm Hành, sau khi được Thẩm Hành khẽ gật đầu mới đứng ra dâng sớ.</p>
             <p class="story-text">Đường Hi: Tôi thấy được hết chứ bộ!</p>
@@ -456,10 +468,13 @@
 
         <div class="like-chapter-container">
             <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
-                <span>Dấu chân đã đến</span>
-                <span class="like-paw-icon">🐾</span>
-                <span id="likeCountDisplay">23</span>
-                <span>dấu chân mèo</span>
+                <div class="like-title-line">
+                    <span>Dấu chân đã đến</span>
+                    <span class="like-paw-icon">🐾</span>
+                </div>
+                <div class="like-sub-line">
+                    <span id="likeCountDisplay"></span><span>dấu chân mèo</span>
+                </div>
             </div>
         </div>
 
@@ -525,17 +540,17 @@
             }
         }
 
-        // HÀM TỰ ĐỘNG TĂNG SỐ LƯỢT THÍCH "DẤU CHÂN ĐÃ ĐẾN" TẠM THỜI TRÊN TRÌNH DUYỆT
+        // HÀM TỰ ĐỘNG TĂNG SỐ LƯỢT THÍCH "DẤU CHÂN ĐÃ ĐẾN" VÀ HÈN SỐ KHÔNG NẾU CHƯA CÓ AI BẤM
         function handleLikeChapter() {
             var btn = document.getElementById("likeChapterBtn");
             var display = document.getElementById("likeCountDisplay");
-            var currentLikes = parseInt(display.innerText);
+            var currentLikes = display.innerText.trim() === "" ? 0 : parseInt(display.innerText);
 
             if (!btn.classList.contains("active")) {
                 btn.classList.add("active");
-                display.innerText = currentLikes + 1;
+                display.innerText = (currentLikes + 1) + " ";
                 
-                // Gửi dữ liệu ngầm lên Google Forms để Nghi theo dõi nếu cần
+                // Gửi dữ liệu ngầm lên Google Forms để Nghi theo dõi
                 var formData = new FormData();
                 formData.append('entry.110222111', 'Độc giả ẩn danh');
                 formData.append('entry.1515223589', 'Đã để lại dấu chân mèo thích chương truyện');
@@ -543,7 +558,8 @@
                 fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).catch(function(){});
             } else {
                 btn.classList.remove("active");
-                display.innerText = currentLikes - 1;
+                var newLikes = currentLikes - 1;
+                display.innerText = newLikes <= 0 ? "" : newLikes + " ";
             }
         }
 
