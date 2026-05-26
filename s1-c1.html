@@ -192,6 +192,57 @@
             margin-bottom: 10px;
         }
 
+           /* --- KHU VỰC GIAO DIỆN LÀM THEO Ý NGHI (GIỮ NGUYÊN VẸN 100%) --- */
+        .like-chapter-container {
+            text-align: left;
+            margin: 30px 0 20px 0;
+            user-select: none;
+            font-family: inherit;
+        }
+
+        .like-chapter-wrapper {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .like-chapter-wrapper:hover {
+            color: #a86232;
+            transform: scale(1.02);
+        }
+
+        .like-title-line {
+            font-size: 19px; 
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .like-sub-line {
+            font-size: 14px; 
+            color: inherit;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px; 
+            padding-left: 2px;
+        }
+
+        .like-paw-icon {
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .like-chapter-wrapper.active {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-paw-icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
         /* Biểu tượng bóng chát mờ bên rìa phải */
         .comment-icon {
             position: absolute;
