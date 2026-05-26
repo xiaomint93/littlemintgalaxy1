@@ -171,7 +171,7 @@
             text-align: justify;          
             text-justify: inter-word;     
             word-break: break-word;       
-            margin: 0;
+            margin: 0 0 20px 0; /* ĐÃ SỬA: Tạo khoảng giãn dòng cách nhau thoáng đãng cho truyện */
         }
 
         /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ THEO Ý NGHI --- */
@@ -467,7 +467,7 @@
             
             <p class="story-text">Chẳng trách vừa nãy khi da thịt cọ xát với quần áo cậu lại đau như vậy.</p>
             
-            <p class="story-text">Đường Hi ngơ ngác buông áo xuống, những suy nghĩ về Đoàn Tư Phỉ và Hạ Vọng rốt cuộc có phải là một người hay không lần nữa xuất hiện trong đầu cậu. Chắc chắn chính là anh ấy, chỉ có anh ấy mới làm cho cậu bánh quy hình cá nhỏ, cũng chỉ có anh ấy mới thích cắn cậu.</p>
+            <p class="story-text">Đường Hi ngơ ngác buông áo xuống, những suy nghĩ về Đoàn Tư Phỉ và Hạ Vọng rốt cuộc có phải là một người hay không lần nữa xuất hiện trong đầu cậu Chắc chắn chính là anh ấy, chỉ có anh ấy mới làm cho cậu bánh quy hình cá nhỏ, cũng chỉ có anh ấy mới thích cắn cậu.</p>
             
             <p class="story-text">Cậu không nhịn được hỏi hệ thống: 【Có khi nào nhân vật phản diện ở thế giới trước sẽ xuyên đến thế giới này không?】</p>
             
@@ -497,7 +497,7 @@
             
             <p class="story-text">Thời gian vừa đủ, Đường Hi lập tức bỏ bàn chải xuống.</p>
             
-            <p class="story-text">Mặc dù khóe miệng cậu có hơi nhếch lên nhưng cậu vẫn cố gắng duy trì vẻ mặt vô cảm của mình, diễn cho tròn vai nghiên cứu viên nhỏ rụtрэ mắc chứng tự kỷ.</p>
+            <p class="story-text">Mặc dù khóe miệng cậu có hơi nhếch lên nhưng cậu vẫn cố gắng duy trì vẻ mặt vô cảm của mình, diễn cho tròn vai nghiên cứu viên nhỏ rụt rè mắc chứng tự kỷ.</p>
             
             <p class="story-text">Vừa bước vào phòng khách, cậu lập tức ngửi thấy hương vị của bữa sáng, cháo hải sản toát ra hương thơm như dẫn dụ mèo nhỏ, bên trong nhất định là hắn đã cho thêm mấy con sò điệp to mà cậu thích rồi.</p>
             
@@ -597,7 +597,7 @@
             
             <p class="story-text">Đoàn Tư Phỉ lưu manh trêu đùa Đường Hi, sau đó mới đứng lên, đi ra ngoài mua cháo thịt bằm cho cậu.</p>
             
-            <p class="story-text">“Bạn học, anh cậu đối xử with cậu tốt ghê.”</p>
+            <p class="story-text">“Bạn học, anh cậu đối xử với cậu tốt ghê.”</p>
             
             <p class="story-text">Đoàn Tư Phỉ mới ra ngoài chưa được bao lâu thì đã có y tá bước vào, cô ghen tị nói với Đường Hi.</p>
             
@@ -640,7 +640,7 @@
             <a href="s1-c27.html" class="nav-btn">Chương sau</a>
         </div>
 
-       <div class="like-chapter-container">
+        <div class="like-chapter-container">
             <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
                 <div class="like-title-line">
                     <span>Meo meo có thích hong</span>
@@ -691,10 +691,12 @@
         var firebaseConfig = {
             databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
         };
-        firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         var database = firebase.database();
 
-        var currentChapterId = "s1-c26; // Khóa định danh riêng cho Chương 10 chuẩn chỉnh
+        var currentChapterId = "s1-c26"; // ĐÃ VÁ LỖI CÚ PHÁP: Định danh chuẩn xác cho Chương 26
         var currentChapterName = "Tập 1 - Chương 26"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
 
