@@ -171,6 +171,62 @@
             margin: 0;
         }
 
+        /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ THEO Ý NGHI --- */
+        .like-chapter-container {
+            text-align: left;
+            margin: 30px 0 20px 0;
+            user-select: none;
+            font-family: 'Lora', Georgia, Serif;
+        }
+
+        .like-chapter-wrapper {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--text-color, #4a3728);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .like-chapter-wrapper:hover {
+            color: #a86232;
+            transform: scale(1.02);
+        }
+
+        .like-title-line {
+            font-size: 19px; 
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+            color: var(--header-color, #5d4737);
+        }
+
+        .like-sub-line {
+            font-size: 14px; 
+            color: inherit;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px; 
+            padding-left: 2px;
+        }
+
+        .like-paw-icon {
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .like-chapter-wrapper.active {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-title-line {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-paw-icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
         /* PHẦN CODE CHÚ THÍCH ẨN DƯỚI DÒNG THEO YÊU CẦU MỚI */
         .petri-note-line {
             font-size: 15px;
@@ -422,6 +478,18 @@
             <a href="s1-c24.html" class="nav-btn">Chương sau</a>
         </div>
 
+     <div class="like-chapter-container">
+            <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
+                <div class="like-title-line">
+                    <span>Meo meo có thích hong</span>
+                </div>
+                <div class="like-sub-line">
+                    <span class="like-paw-icon">🐾</span>
+                    <span id="likeCountDisplay">0</span> <span>dấu chân mèo</span>
+                </div>
+            </div>
+        </div>
+
         <div class="chapter-discussion-box">
             <h3 class="discussion-title">💬 Thảo luận của chương này</h3>
             <form id="commentForm" onsubmit="sendGeneralComment(event)" style="max-width: 650px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px;">
@@ -452,53 +520,118 @@
         </div>
 
     </div> 
-
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
     <script>
+        // Cấu hình kết nối trực tiếp đến Realtime Database của Nghi
+        var firebaseConfig = {
+            databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var database = firebase.database();
+
+        var currentChapterId = "s1-c123; // Khóa định danh riêng cho Chương 10 chuẩn chỉnh
         var currentChapterName = "Tập 1 - Chương 23"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
 
-        // CHUYỂN ĐỔI CHẾ ĐỘ SÁNG/TỐI
+        // ĐỒNG BỘ SỐ LƯỢT THÍCH REALTIME TỪ FIREBASE LÊN MÀN HÌNH ĐỘC GIẢ
+        var likeRef = database.ref("likes/" + currentChapterId);
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            var btn = document.getElementById("likeChapterBtn");
+            var display = document.getElementById("likeCountDisplay");
+            
+            // 1. Kiểm tra trạng thái đã thích cục bộ của người dùng hiện tại
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+            if (userHasLiked === "true" && btn) {
+                btn.classList.add("active");
+            }
+
+            // 2. Lắng nghe sự thay đổi số lượng like liên tục trên Firebase toàn cầu
+            if (likeRef) {
+                likeRef.on("value", function(snapshot) {
+                    var count = snapshot.val() || 0;
+                    if (display) display.innerText = count;
+                });
+            }
+        });
+
+        // XỬ LÝ KHI ĐỘC GIẢ BẤM NÚT "MEO MEO CÓ THÍCH HONG"
+        function handleLikeChapter() {
+            var btn = document.getElementById("likeChapterBtn");
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+
+            if (userHasLiked !== "true") {
+                // Nếu chưa thích -> Thực hiện TĂNG LIKE trên database cho toàn mạng cùng thấy
+                likeRef.transaction(function(currentLikes) {
+                    return (currentLikes || 0) + 1;
+                }).then(function() {
+                    if (btn) btn.classList.add("active");
+                    localStorage.setItem("user_liked_" + currentChapterId, "true"); // Lưu vết riêng để tránh họ bấm spam liên tục
+                });
+
+                // Đồng bộ song song gửi dữ liệu thông báo về Google Forms của Nghi
+                var formData = new FormData();
+                formData.append('entry.110222111', 'Độc giả ẩn danh');
+                formData.append('entry.1515223589', 'Đã để lại dấu chân mèo thích chương truyện');
+                formData.append('entry.1093378953', currentChapterName + " (Thích Chương)");
+                fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).catch(function(){});
+                
+            } else {
+                // Nếu đã thích rồi bấm lại -> HỦY LIKE (GIẢM số đếm trên database)
+                likeRef.transaction(function(currentLikes) {
+                    var newLikes = (currentLikes || 0) - 1;
+                    return newLikes < 0 ? 0 : newLikes;
+                }).then(function() {
+                    if (btn) btn.classList.remove("active");
+                    localStorage.removeItem("user_liked_" + currentChapterId);
+                });
+            }
+        }
+
+        // HÀM CHUYỂN ĐỔI CHẾ ĐỘ SÁNG/TỐI (LIGHT/DARK MODE)
         function toggleTheme() {
             var currentTheme = document.documentElement.getAttribute("data-theme");
             var targetTheme = "light";
             var btn = document.getElementById("themeToggleBtn");
-            if (currentTheme === "light" || !currentTheme) {
-                targetTheme = "dark"; btn.innerText = "☀️"; 
-            } else {
-                targetTheme = "light"; btn.innerText = "🌙"; 
-            }
-            document.documentElement.setAttribute("data-theme", targetTheme);
-        }
 
-        // HÀM XỬ LÝ ĐÓNG/MỞ ẨN CHÚ THÍCH ĐĨA PETRI MƯỢT MÀ THEO DÒNG RIÊNG
-        function togglePetri() {
-            var dropdown = document.getElementById("petriDropdown");
-            if (dropdown.style.maxHeight === "0px" || dropdown.style.maxHeight === "") {
-                dropdown.style.maxHeight = "550px"; 
+            if (currentTheme === "light" || !currentTheme) {
+                targetTheme = "dark";
+                btn.innerText = "☀️"; 
             } else {
-                dropdown.style.maxHeight = "0px";
+                targetTheme = "light";
+                btn.innerText = "🌙"; 
             }
+
+            document.documentElement.setAttribute("data-theme", targetTheme);
         }
 
         // Tự động quét và chèn bóng chát từng đoạn văn
         document.addEventListener("DOMContentLoaded", function() {
             var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
+            
             paragraphs.forEach(function(p, index) {
                 var paragraphIndex = index + 1; 
                 var boxId = "inline-comment-" + paragraphIndex;
+                
                 var wrapper = document.createElement("div");
                 wrapper.className = "story-paragraph-wrapper";
                 p.parentNode.insertBefore(wrapper, p);
                 wrapper.appendChild(p);
+                
                 var icon = document.createElement("span");
                 icon.className = "comment-icon";
                 icon.innerText = "💬";
                 icon.onclick = function() { toggleInlineComment(boxId); };
                 wrapper.appendChild(icon);
+                
                 var commentBox = document.createElement("div");
                 commentBox.className = "paragraph-comment-box";
                 commentBox.id = boxId;
                 commentBox.style.display = "none";
+                
                 commentBox.innerHTML = `
                     <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
                     <div class="old-comments-list">
@@ -526,10 +659,12 @@
             var name = box.querySelector('.inline-input-name').value;
             var text = box.querySelector('.inline-textarea-text').value;
             var fullLocation = currentChapterName + " (" + paragraphLabel + ")"; 
+            
             var formData = new FormData();
             formData.append('entry.110222111', name);
             formData.append('entry.1515223589', text);
             formData.append('entry.1093378953', fullLocation);
+            
             fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
                 box.querySelector('.inline-textarea-text').value = '';
                 var successMsg = box.querySelector('.inline-success-msg');
@@ -543,10 +678,12 @@
             var name = document.getElementById('commentName').value;
             var text = document.getElementById('commentText').value;
             var fullLocation = currentChapterName + " (Tổng)";
+            
             var formData = new FormData();
             formData.append('entry.110222111', name);
             formData.append('entry.1515223589', text);
             formData.append('entry.1093378953', fullLocation);
+            
             fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
                 document.getElementById('commentText').value = '';
                 document.getElementById('successMessage').style.display = 'block';
