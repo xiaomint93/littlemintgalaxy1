@@ -231,6 +231,62 @@
             transform: scale(1.2) rotate(-10deg);
         }
 
+        /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ THEO Ý NGHI --- */
+        .like-chapter-container {
+            text-align: left;
+            margin: 30px 0 20px 0;
+            user-select: none;
+            font-family: 'Lora', Georgia, Serif;
+        }
+
+        .like-chapter-wrapper {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--text-color, #4a3728);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .like-chapter-wrapper:hover {
+            color: #a86232;
+            transform: scale(1.02);
+        }
+
+        .like-title-line {
+            font-size: 19px; 
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+            color: var(--header-color, #5d4737);
+        }
+
+        .like-sub-line {
+            font-size: 14px; 
+            color: inherit;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px; 
+            padding-left: 2px;
+        }
+
+        .like-paw-icon {
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .like-chapter-wrapper.active {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-title-line {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-paw-icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
         /* Biểu tượng bóng chát mờ bên rìa phải */
         .comment-icon {
             position: absolute;
@@ -607,7 +663,7 @@
             <a href="s1-c33.html" class="nav-btn">Chương sau</a>
         </div>
 
-      <div class="like-chapter-container">
+     <div class="like-chapter-container">
             <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
                 <div class="like-title-line">
                     <span>Meo meo có thích hong</span>
@@ -661,8 +717,8 @@
         firebase.initializeApp(firebaseConfig);
         var database = firebase.database();
 
-        var currentChapterId = "s1-c31"; // Khóa định danh riêng cho Chương 10 chuẩn chỉnh
-        var currentChapterName = "Tập 1 - Chương 31"; 
+        var currentChapterId = "s1-c32"; // Khóa định danh riêng cho Chương 10 chuẩn chỉnh
+        var currentChapterName = "Tập 1 - Chương 32"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
 
         // ĐỒNG BỘ SỐ LƯỢT THÍCH REALTIME TỪ FIREBASE LÊN MÀN HÌNH ĐỘC GIẢ
