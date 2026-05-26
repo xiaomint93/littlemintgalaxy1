@@ -215,7 +215,7 @@
             display: inline-block;
         }
 
-        /* --- KHU VỰC CODE "DẤU CHÂN ĐÃ ĐẾN" ĐÃ CẬP NHẬT CÂU HỎI VÀ BIỂU TƯỢNG THEO Ý NGHI --- */
+        /* --- KHU VỰC CODE "DẤU CHÂN ĐÃ ĐẾN" THEO THIẾT KẾ ĐÃ CHỈNH SỬA CỦA NGHI --- */
         .like-chapter-container {
             text-align: left;
             margin: 30px 0 20px 0;
@@ -236,19 +236,19 @@
         }
 
         .like-title-line {
-            font-size: 19px; /* Chữ to, đậm nét */
+            font-size: 19px; 
             font-weight: 600;
             margin-bottom: 4px;
             display: block;
         }
 
         .like-sub-line {
-            font-size: 14px; /* Dòng dưới chữ nhỏ hơn */
+            font-size: 14px; 
             color: inherit;
             opacity: 0.9;
             display: flex;
             align-items: center;
-            gap: 6px; /* Khoảng cách giữa icon và chữ */
+            gap: 6px; 
             padding-left: 2px;
         }
 
@@ -512,6 +512,7 @@
     </div> 
 
     <script>
+        var currentChapterId = "s1-c34"; // Khóa định danh riêng cho chương này để lưu trữ bộ nhớ
         var currentChapterName = "Tập 1 - Chương 34"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
 
@@ -542,17 +543,32 @@
             }
         }
 
-        // HÀM TỰ ĐỘNG TĂNG SỐ LƯỢT THÍCH "DẤU CHÂN ĐÃ ĐẾN" VÀ HÈN SỐ KHÔNG NẾU CHƯA CÓ AI BẤM
+        // HÀM XỬ LÝ LƯU TRỮ VÀ KHỞI TẠO LƯỢT THÍCH VĨNH VIỄN TRÊN TRÌNH DUYỆT ĐỘC GIẢ
+        document.addEventListener("DOMContentLoaded", function() {
+            var btn = document.getElementById("likeChapterBtn");
+            var display = document.getElementById("likeCountDisplay");
+            
+            // Lấy trạng thái đã bấm thích từ bộ nhớ máy độc giả (localStorage)
+            var hasLiked = localStorage.getItem("liked_" + currentChapterId);
+            
+            if (hasLiked === "true") {
+                btn.classList.add("active");
+                display.innerText = "1 ";
+            } else {
+                display.innerText = "";
+            }
+        });
+
         function handleLikeChapter() {
             var btn = document.getElementById("likeChapterBtn");
             var display = document.getElementById("likeCountDisplay");
-            var currentLikes = display.innerText.trim() === "" ? 0 : parseInt(display.innerText);
 
             if (!btn.classList.contains("active")) {
                 btn.classList.add("active");
-                display.innerText = (currentLikes + 1) + " ";
+                display.innerText = "1 ";
+                localStorage.setItem("liked_" + currentChapterId, "true"); // Găm trạng thái "Đã thích" vào máy độc giả
                 
-                // Gửi dữ liệu ngầm lên Google Forms để Nghi theo dõi
+                // Gửi dữ liệu đồng bộ ngầm lên Google Forms hậu trường của Nghi
                 var formData = new FormData();
                 formData.append('entry.110222111', 'Độc giả ẩn danh');
                 formData.append('entry.1515223589', 'Đã để lại dấu chân mèo thích chương truyện');
@@ -560,8 +576,8 @@
                 fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).catch(function(){});
             } else {
                 btn.classList.remove("active");
-                var newLikes = currentLikes - 1;
-                display.innerText = newLikes <= 0 ? "" : newLikes + " ";
+                display.innerText = "";
+                localStorage.removeItem("liked_" + currentChapterId); // Xóa khỏi bộ nhớ máy khi họ hủy thích
             }
         }
 
