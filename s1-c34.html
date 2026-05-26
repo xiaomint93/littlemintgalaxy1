@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>s1-c34 - Little Mint's Galaxy</title>
+    <title>Chương 34 - Little Mint's Galaxy</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,7 +74,7 @@
             background-color: #7a5f4a;
         }
 
-        /* 2. Thanh Menu Điều Hướng */
+        /* Thanh Menu Điều Hướng */
         .nav-bar {
             display: flex;
             justify-content: center;
@@ -131,7 +131,7 @@
         .dropdown-content a:hover { background-color: #7a5f4a; }
         .dropdown:hover .dropdown-content { display: block; }
 
-        /* --- 3. Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
+        /* --- Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
         .reading-container {
             max-width: 800px;             
             width: 90%;                   
@@ -175,7 +175,7 @@
             margin: 0;
         }
 
-        /* PHẦN CODE CHÚ THÍCH ẨN DƯỚI DÒNG THEO YÊU CẦU MỚI */
+        /* PHẦN CODE CHÚ THÍCH ẨN DƯỚI DÒNG */
         .food-note-line {
             font-size: 15px;
             font-style: italic;
@@ -215,6 +215,44 @@
             display: inline-block;
         }
 
+        /* --- KHU VỰC CODE "DẤU CHÂN ĐÃ ĐẾN" CĂN PHẢI THEO Ý NGHI --- */
+        .like-chapter-container {
+            text-align: right;
+            margin: 25px 0 15px 0;
+            font-size: 15px;
+            font-family: inherit;
+            user-select: none;
+        }
+
+        .like-chapter-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .like-chapter-wrapper:hover {
+            color: #a86232;
+            transform: scale(1.03);
+        }
+
+        .like-paw-icon {
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .like-chapter-wrapper.active {
+            color: #a86232;
+            font-weight: bold;
+        }
+
+        .like-chapter-wrapper.active .like-paw-icon {
+            transform: scale(1.2);
+        }
+
         /* Biểu tượng bóng chát mờ bên rìa phải */
         .comment-icon {
             position: absolute;
@@ -231,11 +269,8 @@
             opacity: 0.5;
         }
 
-        .comment-icon:hover {
-            opacity: 1 !important;
-        }
+        .comment-icon:hover { opacity: 1 !important; }
 
-        /* Khung chứa bình luận hạ xuống của từng đoạn */
         .paragraph-comment-box {
             background-color: var(--comment-box-bg);
             border: 1px solid var(--border-color);
@@ -247,63 +282,15 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .old-comments-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--header-color);
-            margin: 0 0 8px 0;
-        }
-
-        .old-comments-list {
-            max-height: 120px;
-            overflow-y: auto;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-        }
-
-        .comment-form-inline {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .inline-input-name, .inline-textarea-text {
-            padding: 8px 10px;
-            font-size: 13px;
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
-            font-family: inherit;
-            background-color: var(--input-bg);
-            color: var(--input-text);
-        }
-
+        .old-comments-title { font-size: 13px; font-weight: bold; color: var(--header-color); margin: 0 0 8px 0; }
+        .old-comments-list { max-height: 120px; overflow-y: auto; border-bottom: 1px dashed var(--border-color); padding-bottom: 8px; margin-bottom: 12px; }
+        .comment-form-inline { display: flex; flex-direction: column; gap: 8px; }
+        .inline-input-name, .inline-textarea-text { padding: 8px 10px; font-size: 13px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); }
         .inline-textarea-text { resize: none; }
-
-        .inline-submit-btn {
-            background-color: #5d4737;
-            color: white;
-            border: none;
-            padding: 5px 15px;
-            font-size: 12px;
-            border-radius: 2px;
-            cursor: pointer;
-            align-self: flex-end;
-            font-family: inherit;
-            font-weight: bold;
-        }
-
+        .inline-submit-btn { background-color: #5d4737; color: white; border: none; padding: 5px 15px; font-size: 12px; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: inherit; font-weight: bold; }
         .inline-submit-btn:hover { background-color: #7a5f4a; }
+        .inline-success-msg { color: var(--header-color); font-weight: bold; font-size: 12px; margin: 4px 0 0 0; text-align: center; }
 
-        .inline-success-msg {
-            color: var(--header-color);
-            font-weight: bold;
-            font-size: 12px;
-            margin: 4px 0 0 0;
-            text-align: center;
-        }
-
-        /* --- Thanh Chuyển Chương Tối Giản --- */
         .chapter-navigation {
             display: flex;
             justify-content: space-between;
@@ -325,7 +312,6 @@
             transition: 0.2s;
             font-weight: bold;
         }
-
         .nav-btn:hover { background-color: #7a5f4a; }
 
         .chapter-discussion-box {
@@ -333,53 +319,17 @@
             border: 1px solid var(--border-color);
             border-radius: 4px;
             padding: 30px;
-            margin-top: 50px;
+            margin-top: 30px;
         }
 
-        .discussion-title {
-            font-size: 18px;
-            color: var(--header-color);
-            letter-spacing: 1px;
-            margin-top: 0;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            font-weight: normal;
-        }
+        .discussion-title { font-size: 18px; color: var(--header-color); letter-spacing: 1px; margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-weight: normal; }
 
-        /* --- ĐOẠN CODE ĐÁP ỨNG BIẾN ĐỔI TRÊN ĐIỆN THOẠI (RESPONSIVE) --- */
         @media screen and (max-width: 768px) {
-            .reading-container {
-                width: 95% !important;
-                padding: 30px 20px !important; 
-                margin: 20px auto !important; 
-                border-radius: 4px !important;
-            }
-
-            .story-text {
-                font-size: 16px !important; 
-                text-align: justify !important;
-                text-justify: inter-word !important;
-                display: block !important;
-            }
-            
-            .story-paragraph-wrapper {
-                padding-right: 35px !important;
-                margin-bottom: 20px !important;
-            }
-
-            .comment-icon {
-                opacity: 0.6 !important; 
-                right: 0px !important;
-            }
-
-            .theme-toggle-btn {
-                top: 15px !important;
-                right: 15px !important;
-                width: 38px !important;
-                height: 38px !important;
-                font-size: 16px !important;
-            }
+            .reading-container { width: 95% !important; padding: 30px 20px !important; margin: 20px auto !important; }
+            .story-text { font-size: 16px !important; }
+            .story-paragraph-wrapper { padding-right: 35px !important; }
+            .comment-icon { opacity: 0.6 !important; right: 0px !important; }
+            .theme-toggle-btn { top: 15px !important; right: 15px !important; width: 38px !important; height: 38px !important; font-size: 16px !important; }
         }
     </style>
 </head>
@@ -409,171 +359,92 @@
 
         <div id="story-content-area">
             <p class="story-text">Một nhóm cung nữ diện cung y hồng lam nối đuôi nhau đi vào, trên tay bưng mâm đựng đồ vật muốn hầu hạ cậu thay long bào.</p>
-            
             <p class="story-text">Làm hoàng đế thì phải quen thói được người khác hầu hạ nhưng Đường Hi lại không quen, ít nhất thì áo lót trắng tuyết cũng không cần cung nữ đổi, nguyên chủ không thích tiếp xúc da thịt với bất kỳ người nào.</p>
-            
             <p class="story-text">Bởi vì y sợ bị người ta cười nhạo làn da còn mềm mại hơn cả nữ nhân của mình.</p>
-            
             <p class="story-text">Các cung nữ cũng rất thận trọng, động tác vô cùng nhanh nhẹn, sợ rề rà lâu trước mặt vị hoàng đế nhỏ này thì sẽ chọc giận đến y. Lúc ấy bị mấy chục đại bảng đánh xuống người thì không chết cũng tàn.</p>
-            
-            <p class="story-text">Lòng tự trọng không thể giải thích được của nguyên chủ một lần nữa tạo điều kiện cho Đường Hi. Ngoại trừ có cung nữ lúng túng khi nhìn thấy dạ minh châu trên giường của mình thì tất cả mọi việc trước khi vào triều đều vô cùng thuận lợi.</p>
-            
+            <p class="story-text">Lòng tự trọng không thể giải thích được của nguyên chủ một lần nữa tạo điều kiện cho Đường Hi. Ngoại trừ có cung nữ lúng thúng khi nhìn thấy dạ minh châu trên giường của mình thì tất cả mọi việc trước khi vào triều đều vô cùng thuận lợi.</p>
             <p class="story-text">Vẫn chưa nhìn thấy nhân vật chính trong cốt truyện nên không thể nào phát động được nội dung của thế giới này, Đường Hi bất đắc dĩ mang theo đầu óc mơ hồ mà đi thượng triều.</p>
-            
             <p class="story-text">Lúc đi thượng triều, có tận mười mấy thái giám và cung nữ theo phía sau cậu, trông vô cùng khoa trương.</p>
-            
             <p class="story-text">Chỉ là khoảng cách từ tẩm cung đến nơi thượng triều quá xa, lòng bàn chân mềm mại của Đường Hi đi đến phát đau, làn da của cậu còn mỏng manh hơn cả nguyên chủ, chỉ cần đi lâu một chút là sẽ rách da chảy máu.</p>
-            
             <p class="story-text">Đột nhiên cậu có hơi hối hận khi lúc nãy không cho gọi kiệu, ở trong cung này người duy nhất có quyền ngồi kiệu đi lại chính là hoàng thượng. Lần đầu tiên được làm hoàng đế, cậu vẫn chưa thích ứng cảm giác được hưởng đặc quyền này.</p>
-            
             <p class="story-text">Đến điện Kim Loan, Đường Hi nỗ lực căng gương mặt nhỏ để làm cho mình trông có vẻ uy quyền và nghiêm túc hơn một chút. Nhìn thấy đỉnh đầu của đám người dưới điện, chân cậu có chút run nhưng trên mặt vẫn bày ra vẻ thiếu kiên nhẫn, sau khi bọn họ hô xong hoàn thượng vạn tuế thì mới dịu đi đôi chút.</p>
-            
             <p class="story-text">Trên thực tế là cậu bị giật mình, thừa tướng cũng chính là nhân vật công chính đứng ở hàng đầu tiên, lúc cậu nhìn thấy hắn thì nội dung cốt truyện cũng được truyền vào đầu cậu.</p>
-            
             <p class="story-text">“Có tấu thì bẩm, không có bãi triều.” Giọng Đức công công lanh lảnh vang lên, mang theo nét uy nghiêm.</p>
-            
             <p class="story-text">Đường Hi vô cùng vất vả tiếp thu toàn bộ nội dung cốt truyện, cậu vừa buông mắt nhìn xuống thì lập tức thấy được một vị triều thần đang liếc mắt ra hiệu với Thẩm Hành, sau khi được Thẩm Hành khẽ gật đầu mới đứng ra dâng sớ.</p>
-            
             <p class="story-text">Đường Hi: Tôi thấy được hết chứ bộ!</p>
-            
             <p class="story-text">Quả nhiên là con rối, vốn dĩ những người này và Thẩm Hành không đặt hoàng đế nhỏ vào trong mắt, những triều thần kia sau khi được Thẩm Hành chấp thuận mới dám đứng ra nói chuyện.</p>
-            
             <p class="story-text">Đại thần: “Khởi bẩm bệ hạ, thần muốn khởi tấu…”</p>
-            
             <p class="story-text">Vốn dĩ Đường Hi có hơi tò mò, sau khi nghe xong lại không biết nên nói gì, ngay cả cái chuyện vặt vãnh này mà cũng phải được sự đồng ý của Thẩm Hành mới được dâng lên.</p>
-            
             <p class="story-text">Thật ra cậu cũng không quan tâm đến việc Hoàng tiểu tướng quân có đi thanh lâu làm hỏng thanh danh hay không. Ở đây ngoại trừ Hoàng tiểu tướng quân mới bị điểm danh thì cũng không có ai lộ ra thần sắc dị thường.</p>
-            
             <p class="story-text">Xem ra hoàng đế nhỏ mỗi lần vào triều đều phải xử lý những chuyện vặt vãnh cỏn con này, những triều thần cũng cũng đã lấy làm quen, khó trách nguyên chủ lại không thích thượng triều.</p>
-            
             <p class="story-text">Đường Hi thuận theo đại thần kia nhẹ nhàng mắng Hoàng tiểu tướng quân hai câu, nháy mắt thấy được gương mặt hắn đỏ lên, cứ như là đang cực kì tức giận vậy.</p>
-            
             <p class="story-text">Đường Hi nhịn không được cảm thán, người trẻ tuổi quả nhiên thật dễ bị kích động.</p>
-            
             <p class="story-text">Hoàng Bồi Phạm không biết mình bị trúng tà gì, trong lúc vô tình ngẩng đầu lên nhìn vị hoàng đế ngồi ngay ngắn trên long ỷ cao cao kia liền trông thấy một đôi mắt mèo lấp lánh lướt ngang qua người hắn, bỗng nhiên hắn lại cảm thấy ngượng ngùng. Đây cũng không phải là lần đầu tiên hắn diện kiến long tôn, vậy mà lần này lại đỏ mặt, trống tim đánh loạn.</p>
-            
             <p class="story-text">Đã vậy lại còn bị khiển trách vì chuyện này, hắn vô cùng bối rối. Những ý nghĩ bất mãn ban đầu hoàn toàn tiêu tán trong ánh mắt ngọt ngào kia, ngược lại trong lòng hắn còn xuất hiện một loại cảm giác khó mà tả được.</p>
-            
             <p class="story-text">Hoàng đế nhỏ rõ ràng là đang khiển trách hắn nhưng âm thanh lại mềm mại như thế, y không biết âm thanh này của y không có một chút lực uy hiếp nào à?</p>
-            
             <p class="story-text">Hoàng Bồi Phạm vậy mà lại bị mắng đến thất thần đỏ mặt, cái miệng nhỏ thoạt nhìn mềm mại như vậy, từng câu từng chữ thoát ra cũng mềm đến vô cùng.</p>
-            
             <p class="story-text">Đường Hi mắng xong thì cho hắn lui về vị trí cũ.</p>
-            
             <p class="story-text">Sau khi tiếp thu cốt truyện, cậu nhận ra vị Hoàng tiểu tướng quân này là người của Nhiếp Nhung, vừa mới lĩnh chức không được bao lâu, mà sau này cũng sẽ trở thành một đại tướng đắc lực của nhân vật phản diện.</p>
-            
             <p class="story-text">Nhưng cậu cũng không ngờ là tiếp theo lại có mấy triều thần ra dâng tấu, mà mấy chuyện này một chút cũng không liên quan đến quốc gia đại sự, bọn họ toàn nhắm đến người bên phe Nhiếp Nhung để gây phiền phức.</p>
-            
             <p class="story-text">Thẩm đảng và Nhiếp Nhung là hai đảng phái như nước với lửa, nhưng bình thường bọn họ cũng không công kích nhau như thế này, đã có chuyện gì xảy ra sao?</p>
-            
             <p class="story-text">Đường Hi chọt chọt 1551.</p>
-            
             <p class="story-text">1551:【Là do ngày mai Nhiếp Nhung trở về.】</p>
-            
             <p class="story-text">【Ngày mai?!】Suýt chút nữa Đường Hi đã ở trước mặt các triều thần mà bật cười, cậu run run cố gắng nhịn xuống.</p>
-            
             <p class="story-text">Cậu cũng có dự cảm là nhân viên dọn phân sẽ cùng cậu xuyên đến thế giới này nhưng cậu không nghĩ rằng sẽ gặp lại nhau sớm như vậy.</p>
-            
             <p class="story-text">Đường Hi cong cong mắt, khóe miệng lén lút nhếch lên thành một vòng cung nhỏ.</p>
-            
             <p class="story-text">Thẩm Hành vừa ngẩng đầu lên thì đã thấy hoàng đế nhỏ đang cười đến ngọt ngào vô cùng. Cho dù vốn không thích cái gối thêu hoa nhưng thời khắc này hắn không thể phủ nhận hoàng đế nhỏ có gương mặt thật xinh đẹp, sao trước đây hắn không nhận ra nhỉ?</p>
-            
             <p class="story-text">Tuy rằng nhan sắc của nguyên chủ cũng rất dễ nhìn nhưng lại có phần hơi mềm mại nữ tính, after khi Đường Hi xuyên qua phần nào đã thay đổi đường nét của nguyên chủ, ít đi vài phần nữ tính thêm vào đó là nét ngoan ngoãn, thoạt nhìn không giống bạo quân chút nào mà trông giống như là tiểu công tử nhà ai hơn.</p>
-            
             <p class="story-text">Thẩm Hành vốn định bước lên làm một tràng dâng sớ nhưng tâm tư khẽ chuyển, hắn yên lặng lui về.</p>
-            
             <p class="story-text">Xác định không có triều thần nào muốn dâng tấu nữa, Đức công công phẩy tay áo lớn giọng nói: “Bãi triều.”</p>
-            
             <p class="story-text">Đường Hi đang muốn đi lại bị Thẩm Hành mời lại.</p>
-            
             <p class="story-text">Nhân vật công chính này có chuyện gì à, sao lúc nãy thượng triều không nói luôn đi mà nhất định phải nói riêng with cậu cơ chứ.</p>
-            
             <p class="story-text">Đường Hi dừng bước, nội dung trong cốt truyện sẽ không đề cập chi tiết đến hoàng đế bù nhìn này cho nên cậu cũng không biết Thẩm Hành lén lút tìm cậu là để nói chuyện gì.</p>
-            
             <p class="story-text">Nhưng cậu vẫn không vui, hất hất cằm nhỏ: “Có lời gì thì đợi trẫm ăn sáng xong rồi nói.”</p>
-            
             <p class="story-text">“Nếu không thì ái khanh cùng trẫm dùng bữa đi.” Hoàng đế nhỏ này tính khí thất thường thật.</p>
-            
             <p class="story-text">Thẩm Hành cười híp mắt thưa vâng, vốn dĩ hắn nhất thời hứng lên muốn tìm hoàng đế nhỏ này bàn chuyện một chút, bây giờ được dùng bữa cùng y xem ra cũng không tệ lắm.</p>
-            
             <p class="story-text">Bản thân hắn không thê không thiếp bởi vì hắn biết mình chỉ thích nam tử, hắn cũng không nghĩ mình sẽ thích tên hoàng đế ngu ngốc này nhưng chỉ đơn thuần là ngắm mỹ nhân thôi thì cũng không đến nỗi nào.</p>
-            
             <p class="story-text">Bữa sáng của hoàng đế vô cùng phong phú, hai mắt Đường Hi lập tức sáng lấp lánh.</p>
-            
             <p class="story-text">Liếc mắt một cái là đã thấy được đĩa xíu mại ở gần cậu nhất, Đường Hi vươn tay ra hiệu cho Đức công công đang muốn tiến lên giúp cậu gắp thức ăn, cậu vui vẻ tự mình vươn đũa gắp một cái trực tiếp cho vào miệng.</p>
-            
             <p class="story-text">Một cái miệng nhỏ nhét đầy thức ăn.</p>
-            
             <p class="story-text">Tuy người khác không dám nhìn thẳng lúc hoàng đế nhỏ đang dùng bữa nhưng Thẩm Hành lại dám, nhưng hắn cũng không dám nhìn quá lộ liễu, lúc uống sữa đậu nành cố ý quét mắt một cái nhìn hoàng đế nhỏ.</p>
-            
             <p class="story-text">Lúc ăn hoàng đế nhỏ trông rất đáng đáng yêu, nhìn y ăn như vậy vô thức cũng làm người khác thèm ăn.</p>
-            
             <p class="story-text">Hắn còn chưa phát hiện chỉ vỏn vẹn có một ngày mà hắn đã dán cho cái người ngu ngốc vẫn luôn nhìn không vừa mắt này thật nhiều cái nhãn.</p>
-            
             <p class="story-text">Lúc dùng bữa hoàng đế nhỏ không thích bị người khác quấy rầy, nói đúng ra là không có người nào dám quấy rầy y. Đường Hi ăn liên tục mấy dĩa xíu mại và điểm tâm nhỏ, đợi đến lúc hệ thống nhắc nhở mới lưu luyến buông đũa xuống.</p>
-            
             <p class="story-text">Đồ ăn trong cung chính là mỹ vị nhân gian, trang trí tinh xảo nhưng lại rất ít, một cái đĩa chỉ có một ít, trang trí đẹp đến mấy thì cũng không đủ no.</p>
-            
             <p class="story-text">Lúc dọn đồ ăn lên thì đầy một bàn nhưng Đường Hi lại không thể ăn nhiều, một khi ăn nhiều quá thì đĩa sẽ thấy đáy, giống như cậu ăn nhiều lắm vậy.</p>
-            
             <p class="story-text">Đường Hi ăn chưa đã thèm lau lau miệng, ánh mắt bình tĩnh dời khỏi đĩa thịt chiên giấm(1).</p>
             
-            <span class="food-note-line" onclick="toggleFood()">(1) Thịt chiên giấm</span>
+            <span class="food-note-line" onclick="toggleFood()">(1) đĩa thịt chiên giấm</span>
             <div id="foodDropdown" class="food-dropdown-container">
                 <img src="thitchiengiam.jpg" alt="Thịt chiên giấm Phúc Kiến" class="food-image">
                 <p style="font-size: 14px; font-style: italic; margin: 0 0 15px 0;">(1) Thịt chiên giấm: là một món ăn nhẹ độc đáo ở miền nam Phúc Kiến, món này được chế biến theo kiểu thịt lợn sau khi ngâm giấm sẽ đem đi chiên giòn, bên ngoài vàng giòn, bên trong mềm mại có hương thơm nhẹ của giấm.</p>
             </div>
 
             <p class="story-text">Thẩm Hành cũng để đũa xuống, nhẹ nhàng lau miệng.</p>
-            
             <p class="story-text">“Khi nãy Thẩm ái khanh muốn nói gì với trẫm?” Sau khi ăn xong Đường Hi mới để ý đến hắn.</p>
-            
             <p class="story-text">Thẩm Hành đứng lên đáp lời: “Thần muốn bàn với bệ hạ về công vụ nghênh đón Nhiếp tướng quân vào ngày mai, còn có thiết đãi yến tiệc. Thần cảm thấy lần này Nhiếp tướng quân đã mở rộng lãnh thổ nơi biên cương cho đất nước ta, yến tiệc đón gió tẩy trần cho hắn nên tổ chức long trọng, dân chúng cũng vô cùng chờ mong ngày Nhiếp tướng quân trở về.”</p>
-            
             <p class="story-text">Đường Hi hơi ngẩn người:【1551, bọn họ không phải là kẻ thù đối đầu với nhau à, sao lần này Thẩm Hành lại quan tâm đến vai ác như vậy?】 Còn cố tình muốn tổ chức long trọng cho hắn nữa.</p>
-            
             <p class="story-text">1551 đột nhiên cảm thấy vui mừng vì con mèo ngốc này không có một chút tâm cơ nào, diễn vai hoàng đế ngốc nghếch rất chuyên nghiệp:【Đương nhiên là hắn sẽ không nói tốt thay Nhiếp Nhung, hắn cố ý nói như vậy là để cậu sinh ra lòng bất mãn đối với Nhiếp Nhung đó】.</p>
-            
             <p class="story-text">Công cao chấn chủ(2) là việc mà hoàng đế nghi kỵ nhất, đã vậy thanh danh của Nhiếp Nhung lại vô cùng tốt trong mắt bình dân bá tánh.</p>
-            
             <p class="story-text" style="font-style: italic; font-size: 15px; color: var(--header-color); padding-left: 15px; border-left: 2px solid var(--border-color);">(2)Công cao chấn chủ: nghĩa là công lao, tín nhiệm quá lớn sẽ đe dọa đến địa vị của quân vương.</p>
-            
             <p class="story-text">Mặc dù nhìn hắn hung ác đến mức có thể dọa khóc cả trẻ nhỏ nhưng chiến tích đánh đâu thắng đó của hắn đã biến hắn thành Chiến thần trong lòng bách tính toàn thành.</p>
-            
             <p class="story-text">Thậm chí dân gian còn lưu truyền bài đồng dao ca ngợi hắn, đại ý đơn giản chính là đất nước này được hắn bảo vệ quả đúng là chuyện tốt nhất trên thế gian.</p>
-            
             <p class="story-text">Hoàng đế nhỏ làm sao mà nhịn được, vậy nên Thẩm Hành thường xuyên đưa cho hoàng đế nhỏ loại thuốc nhỏ mắt này(3).</p>
-            
             <p class="story-text" style="font-style: italic; font-size: 15px; color: var(--header-color); padding-left: 15px; border-left: 2px solid var(--border-color);">(3)Ý nói hoàng đế ghen tị đỏ mắt.</p>
-            
             <p class="story-text">Để cho phe Hoàng đảng Nhiếp Nhung này hoàn toàn trở thành cái đinh trong mắt, cái gai trong thịt của hoàng đế nhỏ.</p>
-            
             <p class="story-text">Mặc dù không hiểu lắm nhưng Đường Hi vẫn lựa chọn tin tưởng hệ thống. Thẩm Hành quả nhiên là một con hồ ly, tâm tư bên trong xoắn xuýt như vậy cũng không sợ bị thắt nút.</p>
-            
             <p class="story-text">Đường Hi bày ra dáng vẻ lo lắng vì những lời của hắn, “Cứ theo ý của Thẩm ái khanh mà làm, trẫm tin tưởng ngươi.” Rặt một kiểu không muốn quan tâm.</p>
-            
             <p class="story-text">Thẩm Hành đạt được mục đích cũng không lập tức rời đi, ngược lại còn câu có câu không cùng cậu hàn huyên.</p>
-            
             <p class="story-text">Đường Hi trơ mắt nhìn mỹ vị bỏ chạy, tâm trạng đau buồn mà lại còn phải qua loa nói chuyện với Thẩm Hành.</p>
-            
             <p class="story-text">Bộ dạng ân cần hỏi han của Thẩm Hành ở trong mắt cậu đặc biệt dối trá giả tạo.</p>
-            
             <p class="story-text">Tuy rằng hắn rất biết cách tán gẫu, nói toàn chuyện mà nguyên chủ cảm thấy hứng thú, vậy nên cho dù Đường Hi qua loa đáp lại hắn vẫn có thể nhanh chóng nói tiếp, hoàn toàn không để cho sân khấu vắng lặng.</p>
-            
             <p class="story-text">Dường như hắn cảm nhận được hoàng đế nhỏ hôm nay không quá cao hứng, sau khi miễn cưỡng trò chuyện một hồi lập tức chủ động cáo lui.</p>
-            
             <p class="story-text">Ngay khi hắn vừa đi, Đức công công cẩn trọng từng li từng tí ở trước mặt Đường Hi nói tốt thay Nhiếp Nhung. Dù sao Đức công công cũng có thể coi là lão nhân trong cung, bao nhiêu ẩn ý giấu trong câu nói của Thẩm Hành đều bị ông nhìn thấu.</p>
-            
             <p class="story-text">Ông có cái nhìn rất tốt về Nhiếp Nhung, biết đây là người không có dã tâm đối với ngôi vị hoàng đế, cho nên ông không mong hoàng đế nhỏ sẽ vì lời xúi giục ly gián của người khác mà có khoảng cách với Nhiếp tướng quân.</p>
-            
             <p class="story-text">Có lẽ do tính tình của hoàng đế nhỏ vui giận thất thường nên ông cũng không dám nói thẳng, chỉ đành tốt bụng mà làm chuyện xấu, nói bóng nói gió rằng Nhiếp tướng quân ở nơi biên thùy sống cũng không dễ dàng.</p>
-            
             <p class="story-text">Đường Hi: "Trẫm biết, trẫm sẽ không làm khó Nhiếp tướng quân."</p>
-            
             <p class="story-text">Đức công công vui mừng: "Bệ hạ trưởng thành rồi."</p>
-            
             <p class="story-text">Đường Hi tỏ vẻ khó chịu hừ một tiếng, phất tay áo rời đi. Đức công công ở sau lưng cười ha hả nhanh chóng đuổi theo, ông cảm thấy dường như hoàng đế nhỏ có hơi khác so với ngày thường.</p>
-            
             <p class="story-text" style="font-style: italic; border-top: 1px dashed var(--border-color); padding-top: 15px; margin-top: 30px;">Tác giả có lời muốn nói: Có thể vương triều này sẽ có nhiều âm mưu ẩn giấu ~ hy vọng các thiên thần nhỏ không cần để ý chi tiết quá đau bởi vì tôi cũng không được thông minh cho lắm qwq.</p>
         </div>
 
@@ -581,6 +452,15 @@
             <a href="s1-c33.html" class="nav-btn">Chương trước</a>
             <a href="muc-luc-meo-con.html" class="nav-btn">Mục lục</a>
             <a href="s1-c35.html" class="nav-btn">Chương sau</a>
+        </div>
+
+        <div class="like-chapter-container">
+            <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
+                <span>Dấu chân đã đến</span>
+                <span class="like-paw-icon">🐾</span>
+                <span id="likeCountDisplay">23</span>
+                <span>dấu chân mèo</span>
+            </div>
         </div>
 
         <div class="chapter-discussion-box">
@@ -642,6 +522,28 @@
                 dropdown.style.maxHeight = "550px"; 
             } else {
                 dropdown.style.maxHeight = "0px";
+            }
+        }
+
+        // HÀM TỰ ĐỘNG TĂNG SỐ LƯỢT THÍCH "DẤU CHÂN ĐÃ ĐẾN" TẠM THỜI TRÊN TRÌNH DUYỆT
+        function handleLikeChapter() {
+            var btn = document.getElementById("likeChapterBtn");
+            var display = document.getElementById("likeCountDisplay");
+            var currentLikes = parseInt(display.innerText);
+
+            if (!btn.classList.contains("active")) {
+                btn.classList.add("active");
+                display.innerText = currentLikes + 1;
+                
+                // Gửi dữ liệu ngầm lên Google Forms để Nghi theo dõi nếu cần
+                var formData = new FormData();
+                formData.append('entry.110222111', 'Độc giả ẩn danh');
+                formData.append('entry.1515223589', 'Đã để lại dấu chân mèo thích chương truyện');
+                formData.append('entry.1093378953', currentChapterName + " (Thích Chương)");
+                fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).catch(function(){});
+            } else {
+                btn.classList.remove("active");
+                display.innerText = currentLikes - 1;
             }
         }
 
