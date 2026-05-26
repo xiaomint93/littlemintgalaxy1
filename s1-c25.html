@@ -130,7 +130,7 @@
         .dropdown-content a:hover { background-color: #7a5f4a; }
         .dropdown:hover .dropdown-content { display: block; }
 
-        /* --- 3. Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
+        /* --- 3. Khung Đọc Truyện Giấy Cũ --- */
         .reading-container {
             max-width: 800px;             
             width: 90%;                   
@@ -171,7 +171,18 @@
             text-align: justify;          
             text-justify: inter-word;     
             word-break: break-word;       
-            margin: 0;
+            margin: 0 0 20px 0; /* ĐÃ SỬA: Tạo khoảng giãn dòng thoáng mắt cho văn bản */
+        }
+
+        /* Thết lập riêng cho dòng chú thích tránh xung đột bóng chát */
+        .story-note-style {
+            font-size: 15px;
+            font-style: italic;
+            color: var(--header-color);
+            padding-left: 15px;
+            border-left: 2px solid var(--border-color);
+            margin: 0 0 20px 0;
+            text-align: justify;
         }
 
         /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ THEO Ý NGHI --- */
@@ -348,7 +359,7 @@
             border: 1px solid var(--border-color);
             border-radius: 4px;
             padding: 30px;
-            margin-top: 50px;
+            margin-top: 30px;
         }
 
         .discussion-title {
@@ -425,7 +436,7 @@
         <div id="story-content-area">
             <p class="story-text">Đường Hi sợ đến mức muốn biến về thành mèo nhỏ để trốn đi. Chắc vai ác sẽ không ở chỗ này đại khai sát giới đâu nhỉ?</p>
             
-            <p class="story-text">Nhưng đây chỉ là chuyện trong nháy mắt, Đoàn Tư Phỉ nhanh chóng thu lại luồng sát khí vừa rồi, khôi phục lại bộ dáng nho nhã lễ độ.</p>
+            <p class="story-text">But đây chỉ là chuyện trong nháy mắt, Đoàn Tư Phỉ nhanh chóng thu lại luồng sát khí vừa rồi, khôi phục lại bộ dáng nho nhã lễ độ.</p>
             
             <p class="story-text">“Chỉ là tôi mới thu trợ lý kiêm học trò thôi.”</p>
             
@@ -453,7 +464,7 @@
             
             <p class="story-text">Cứ như vậy, mưa và sương(1) bị “buộc” thấm lên từng món ăn.</p>
             
-            <p class="story-text" style="font-style: italic; font-size: 15px; color: var(--header-color); padding-left: 15px; border-left: 2px solid var(--border-color);">(1)Từ gốc là 雨露, còn có nghĩa ẩn dụ là chỉ ân tình.</p>
+            <p class="story-note-style">(1)Từ gốc là 雨露, còn có nghĩa ẩn dụ là chỉ ân tình.</p>
             
             <p class="story-text">Đoàn Tư Phỉ cũng cảm thấy quá trình này vô cùng thú vị, thấy cậu đã ăn no đặt đũa xuống, hắn lộ ra vẻ thất vọng.</p>
             
@@ -503,7 +514,7 @@
             
             <p class="story-text">Đoàn Tư Phỉ sống ở tầng cao nhất của một tiểu khu giàu có, công tác an ninh rất nghiêm ngặt.</p>
             
-            <p class="story-text">Cho đến khi bước vào thang máy, Đường Hi mới hoàn hồn lại, cậu nhìn thang máy không ngừng hướng lên tầng trên, hỏi hệ thống:【Anh ta ở tầng cao nhất sao?】</p>
+            <p class="story-text">Cho đến khi bước vào thang máy, Đường Hi mới hoàn hoàn hồn lại, cậu nhìn thang máy không ngừng hướng lên tầng trên, hỏi hệ thống:【Anh ta ở tầng cao nhất sao?】</p>
             
             <p class="story-text">Hắn cũng giống như Hạ Vọng, đều thích ở trên tầng cao nhất.</p>
             
@@ -581,7 +592,7 @@
             
             <p class="story-text">Một suy nghĩ gần như hoang đường đang quẩn quanh trong đầu cậu.</p>
             
-            <p class="story-text">Do qua mức khiếp sơ nên đến tận khi tác dụng thuốc có hiệu lực, cậu mới phát hiện ra bánh quy này có chút không đúng. Lúc này đã quá muộn, giây cuối cùng trước khi ngất đi, cậu thấy được đôi mắt hoa đào kia dần dần âm trầm nguy hiểm.</p>
+            <p class="story-text">Do qua mức khiếp sợ nên đến tận khi tác dụng thuốc có hiệu lực, cậu mới phát hiện ra bánh quy này có chút không đúng. Lúc này đã quá muộn, giây cuối cùng trước khi ngất đi, cậu thấy được đôi mắt hoa đào kia dần dần âm trầm nguy hiểm.</p>
             
             <p class="story-text">. . .</p>
             
@@ -618,7 +629,7 @@
             <a href="s1-c26.html" class="nav-btn">Chương sau</a>
         </div>
 
-       <div class="like-chapter-container">
+        <div class="like-chapter-container">
             <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
                 <div class="like-title-line">
                     <span>Meo meo có thích hong</span>
@@ -669,10 +680,12 @@
         var firebaseConfig = {
             databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
         };
-        firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         var database = firebase.database();
 
-        var currentChapterId = "s1-c25"; // Khóa định danh riêng cho Chương 10 chuẩn chỉnh
+        var currentChapterId = "s1-c25"; // Định danh chuẩn xác cho Chương 25
         var currentChapterName = "Tập 1 - Chương 25"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
 
@@ -728,6 +741,16 @@
                     if (btn) btn.classList.remove("active");
                     localStorage.removeItem("user_liked_" + currentChapterId);
                 });
+            }
+        }
+
+        // HÀM XỬ LÝ ĐÓNG/MỞ ẨN CHÚ THÍCH ĐĨA PETRI MƯỢT MÀ
+        function togglePetri() {
+            var dropdown = document.getElementById("petriDropdown");
+            if (dropdown.style.maxHeight === "0px" || dropdown.style.maxHeight === "") {
+                dropdown.style.maxHeight = "550px"; 
+            } else {
+                dropdown.style.maxHeight = "0px";
             }
         }
 
