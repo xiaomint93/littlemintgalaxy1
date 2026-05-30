@@ -180,7 +180,7 @@
             text-align: justify;          
             text-justify: inter-word;     
             word-break: break-word;       
-            margin: 0;
+            margin: 0 0 20px 0; /* ĐÃ SỬA: Cách khoảng 20px mượt mà giữa các đoạn */
         }
 
         .story-note {
@@ -192,7 +192,7 @@
             margin-bottom: 10px;
         }
 
-           /* --- KHU VỰC GIAO DIỆN LÀM THEO Ý NGHI (GIỮ NGUYÊN VẸN 100%) --- */
+        /* --- KHU VỰC GIAO DIỆN LÀM THEO Ý NGHI (GIỮ NGUYÊN VẸN 100%) --- */
         .like-chapter-container {
             text-align: left;
             margin: 30px 0 20px 0;
@@ -470,8 +470,7 @@
             
             <p class="story-text">Sau khi tan làm, Đường Hi cũng không đi đến chỗ hẹn như người khác nghĩ mà thay vào đó, cậu linh hoạt rẽ trái rẽ phải đến một ngõ nhỏ vắng vẻ, không một bóng người, cậu lắc người một cái, chợt biến thành một con mèo.</p>
             
-            <div class="story-paragraph-wrapper">
-                <p class="story-text">Kiên nhẫn mò mẫm đi vào sâu trong con hẻm, cậu đang chờ cô gái kia xuất hiện, mấy hôm trước cậu vô tình gặp được cô gái ấy rồi giả vờ làm nũng, sau đó chạy vào con hẻm này rồi biến mất, cô quả nhiên bị lừa, mỗi ngày đều mang thức ăn đến hẻm nhỏ này xem một cái, muốn gặp lại mèo con.</p>
+            <p class="story-text">Kiên nhẫn mò mẫm đi vào sâu trong con hẻm, cậu đang chờ cô gái kia xuất hiện, mấy hôm trước cậu vô tình gặp được cô gái ấy rồi giả vờ làm nũng, sau đó chạy vào con hẻm này rồi biến mất, cô quả nhiên bị lừa, mỗi ngày đều mang thức ăn đến hẻm nhỏ này xem một cái, muốn gặp lại mèo con.</p>
                
             <p class="story-text">Bàn về lừa ăn lừa uống thì cậu đây chính là một mèo chuyên nghiệp.</p>
             
@@ -551,17 +550,17 @@
             <a href="s1-c2.html" class="nav-btn">Chương sau</a>
         </div>
 
-<div class="like-chapter-container">
-    <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
-        <div class="like-title-line">
-            <span>Meo meo có thích hong</span>
+        <div class="like-chapter-container">
+            <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
+                <div class="like-title-line">
+                    <span>Meo meo có thích hong</span>
+                </div>
+                <div class="like-sub-line">
+                    <span class="like-paw-icon">🐾</span>
+                    <span id="likeCountDisplay">0</span> <span>dấu chân mèo</span>
+                </div>
+            </div>
         </div>
-        <div class="like-sub-line">
-            <span class="like-paw-icon">🐾</span>
-            <span id="likeCountDisplay">0</span> <span>dấu chân mèo</span>
-        </div>
-    </div>
-</div>
         
         <div class="chapter-discussion-box">
             <h3 class="discussion-title">💬 Thảo luận của chương này</h3>
@@ -591,83 +590,70 @@
                 <p style="font-size: 14px; font-weight: bold; color: var(--header-color); margin-bottom: 15px;">💬 Bàn tán gì ik</p>
             </div>
         </div>
-
     </div> 
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // 1. Cấu hình kết nối trực tiếp đến Realtime Database của Nghi
-var firebaseConfig = {
-    databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
-};
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
-var database = firebase.database();
+        var firebaseConfig = {
+            databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        var database = firebase.database();
 
-// 2. ĐỊNH DANH RIÊNG CHO TỪNG CHƯƠNG (Nghi nhớ sửa số chương tương ứng khi dán vào file cũ nha)
-var currentChapterId = "s1-c1"; // Thay bằng số chương tương ứng, ví dụ: s1-c33, s1-c32...
-var currentChapterName = "Tập 1 - Chương 1"; // Thay bằng tên chương tương ứng để gửi về Google Forms
-var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
-
-// 3. ĐỒNG BỘ SỐ LƯỢT THÍCH REALTIME TỪ FIREBASE LÊN MÀN HÌNH ĐỘC GIẢ
-var likeRef = database.ref("likes/" + currentChapterId);
-
-document.addEventListener("DOMContentLoaded", function() {
-    var btn = document.getElementById("likeChapterBtn");
-    var display = document.getElementById("likeCountDisplay");
-    
-    // Kiểm tra xem máy độc giả này trước đó đã từng bấm thích chương này chưa
-    var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
-    if (userHasLiked === "true") {
-        btn.classList.add("active");
-    }
-
-    // Lắng nghe số like thay đổi liên tục trên Firebase toàn cầu để cập nhật ra màn hình
-    likeRef.on("value", function(snapshot) {
-        var count = snapshot.val() || 0;
-        if(display) display.innerText = count;
-    });
-});
-
-// 4. XỬ LÝ KHI ĐỘC GIẢ BẤM NÚT LƯỢT THÍCH CHÂN MÈO
-function handleLikeChapter() {
-    var btn = document.getElementById("likeChapterBtn");
-    var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
-
-    if (userHasLiked !== "true") {
-        // Nếu chưa thích -> TĂNG 1 LIKE trên database toàn cầu
-        likeRef.transaction(function(currentLikes) {
-            return (currentLikes || 0) + 1;
-        }).then(function() {
-            btn.classList.add("active");
-            localStorage.setItem("user_liked_" + currentChapterId, "true"); // Khóa chống spam liên tục
-        });
-
-        // Gửi thông báo song song về Google Forms quản trị của Nghi
-        var formData = new FormData();
-        formData.append('entry.110222111', 'Độc giả ẩn danh');
-        formData.append('entry.1515223589', 'Đã để lại dấu chân mèo thích chương truyện');
-        formData.append('entry.1093378953', currentChapterName + " (Thích Chương)");
-        fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).catch(function(){});
-        
-    } else {
-        // Nếu đã thích rồi mà bấm lại -> HỦY THÍCH (GIẢM 1 số like trên database)
-        likeRef.transaction(function(currentLikes) {
-            var newLikes = (currentLikes || 0) - 1;
-            return newLikes < 0 ? 0 : newLikes;
-        }).then(function() {
-            btn.classList.remove("active");
-            localStorage.removeItem("user_liked_" + currentChapterId);
-        });
-    }
-}
+        var currentChapterId = "s1-c1"; 
         var currentChapterName = "Tập 1 - Chương 1"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
 
-        // HÀM CHUYỂN ĐỔI CHẾ ĐỘ SÁNG/TỐI (LIGHT/DARK MODE)
+        var likeRef = database.ref("likes/" + currentChapterId);
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var btn = document.getElementById("likeChapterBtn");
+            var display = document.getElementById("likeCountDisplay");
+            
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+            if (userHasLiked === "true" && btn) {
+                btn.classList.add("active");
+            }
+
+            likeRef.on("value", function(snapshot) {
+                var count = snapshot.val() || 0;
+                if(display) display.innerText = count;
+            });
+        });
+
+        function handleLikeChapter() {
+            var btn = document.getElementById("likeChapterBtn");
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+
+            if (userHasLiked !== "true") {
+                likeRef.transaction(function(currentLikes) {
+                    return (currentLikes || 0) + 1;
+                }).then(function() {
+                    if (btn) btn.classList.add("active");
+                    localStorage.setItem("user_liked_" + currentChapterId, "true");
+                });
+
+                var formData = new FormData();
+                formData.append('entry.110222111', 'Độc giả ẩn danh');
+                formData.append('entry.1515223589', 'Đã để lại dấu chân mèo thích chương truyện');
+                formData.append('entry.1093378953', currentChapterName + " (Thích Chương)");
+                fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).catch(function(){});
+                
+            } else {
+                likeRef.transaction(function(currentLikes) {
+                    var newLikes = (currentLikes || 0) - 1;
+                    return newLikes < 0 ? 0 : newLikes;
+                }).then(function() {
+                    if (btn) btn.classList.remove("active");
+                    localStorage.removeItem("user_liked_" + currentChapterId);
+                });
+            }
+        }
+
         function toggleTheme() {
             var currentTheme = document.documentElement.getAttribute("data-theme");
             var targetTheme = "light";
@@ -675,16 +661,15 @@ function handleLikeChapter() {
 
             if (currentTheme === "light" || !currentTheme) {
                 targetTheme = "dark";
-                btn.innerText = "☀️"; // Đổi icon sang Mặt Trời ở nền tối
+                btn.innerText = "☀️"; 
             } else {
                 targetTheme = "light";
-                btn.innerText = "🌙"; // Đổi icon sang Mặt Trăng ở nền sáng
+                btn.innerText = "🌙"; 
             }
 
             document.documentElement.setAttribute("data-theme", targetTheme);
         }
 
-        // Tự động quét và chèn bóng chát từng đoạn văn
         document.addEventListener("DOMContentLoaded", function() {
             var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
             
@@ -715,7 +700,7 @@ function handleLikeChapter() {
                     </div>
                     <form class="comment-form-inline" onsubmit="sendInlineComment(event, '${boxId}', 'Đoạn ${paragraphIndex}')">
                         <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
-                        <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
+                        <textarea class="comment-form-inline inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
                         <button type="submit" class="inline-submit-btn">Gửi cmt</button>
                         <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
                     </form>
