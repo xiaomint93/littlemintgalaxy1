@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>s1-c61 - Little Mint's Galaxy</title>
+    
+    <!-- Nhúng phông chữ Lora xịn mịn chuyên dụng đọc truyện từ Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG */
+        :root {
+            --bg-image: url('background.jpg');
+            --container-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #4a3728;
+            --header-color: #5d4737;
+            --border-color: #8d7561;
+            --box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            --comment-box-bg: rgba(255, 255, 255, 0.85);
+            --input-bg: #ffffff;
+            --input-text: #4a3728;
+        }
+
+        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
+        [data-theme="dark"] {
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
+            --container-bg: rgba(35, 30, 27, 0.9);
+            --text-color: #e2d7cc;
+            --header-color: #f1e6da;
+            --border-color: #5d4737;
+            --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
+            --comment-box-bg: rgba(45, 40, 37, 0.9);
+            --input-bg: #2d2825;
+            --input-text: #e2d7cc;
+        }
+
+        body {
+            background-image: var(--bg-image); 
+            background-attachment: fixed; 
+            background-size: cover;
+            background-position: center;
+            font-family: 'Lora', Georgia, Serif; 
+            color: var(--text-color); 
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- NÚT BẤM MẶT TRĂNG ĐỔI CHẾ ĐỘ ĐỌC (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background-color: #5d4737;
+            color: #ffffff;
+            border: 2px solid #8d7561;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+            box-sizing: border-box;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            background-color: #7a5f4a;
+        }
+
+        /* Thanh Menu Điều Hướng */
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0 50px 0;
+            position: relative;
+            z-index: 999; 
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .nav-item {
+            background-color: #5d4737; 
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            display: block;
+            font-family: 'Lora', Georgia, Serif;
+            border: none;
+        }
+        
+        a.nav-item:hover { background-color: #7a5f4a; }
+        span.nav-item { cursor: default; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #5d4737;
+            min-width: 220px; 
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 2px;
+            top: 100%; left: 50%;
+            transform: translateX(-50%); 
+            padding: 5px 0;
+        }
+
+        .dropdown-content a {
+            color: #ffffff;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 13px;
+            text-align: left; 
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1); 
+        }
+
+        .dropdown-content a:hover { background-color: #7a5f4a; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* Khung Đọc Truyện CĂN GIỮA TUYỆT ĐỐI */
+        .reading-container {
+            max-width: 800px;             
+            width: 90%;                   
+            margin: 40px auto;            
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            box-shadow: var(--box-shadow);
+            padding: 50px 60px;
+            box-sizing: border-box;       
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .story-header {
+            text-align: center;
+            border-bottom: 1px double var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .chapter-title {
+            font-size: 26px;
+            color: var(--header-color);
+            font-weight: normal;
+            margin: 0;
+        }
+
+        /* Cấu trúc đoạn văn truyện */
+        .story-paragraph-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            padding-right: 45px; 
+        }
+
+        .story-text {
+            font-size: 17px;
+            line-height: 1.8;
+            text-align: justify;          
+            text-justify: inter-word;     
+            word-break: break-word;       
+            margin: 0 0 20px 0; 
+        }
+
+        /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ --- */
+        .like-chapter-container {
+            text-align: left;
+            margin: 30px 0 20px 0;
+            user-select: none;
+            font-family: 'Lora', Georgia, Serif;
+        }
+
+        .like-chapter-wrapper {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--text-color, #4a3728);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .like-chapter-wrapper:hover {
+            color: #a86232;
+            transform: scale(1.02);
+        }
+
+        .like-title-line {
+            font-size: 19px; 
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+            color: var(--header-color, #5d4737);
+        }
+
+        .like-sub-line {
+            font-size: 14px; 
+            color: inherit;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px; 
+            padding-left: 2px;
+        }
+
+        .like-paw-icon {
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .like-chapter-wrapper.active {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-title-line {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-paw-icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        /* Biểu tượng bóng chát mờ bên rìa phải */
+        .comment-icon {
+            position: absolute;
+            right: 5px;
+            top: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.2s ease-in-out;
+            color: var(--text-color);
+        }
+
+        .story-paragraph-wrapper:hover .comment-icon {
+            opacity: 0.5;
+        }
+
+        .comment-icon:hover { opacity: 1 !important; }
+
+        .paragraph-comment-box {
+            background-color: var(--comment-box-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            max-width: 650px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .old-comments-title { font-size: 13px; font-weight: bold; color: var(--header-color); margin: 0 0 8px 0; }
+        .old-comments-list { max-height: 120px; overflow-y: auto; border-bottom: 1px dashed var(--border-color); padding-bottom: 8px; margin-bottom: 12px; }
+        .comment-form-inline { display: flex; flex-direction: column; gap: 8px; }
+        .inline-input-name, .inline-textarea-text { padding: 8px 10px; font-size: 13px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); }
+        .inline-textarea-text { resize: none; }
+        .inline-submit-btn { background-color: #5d4737; color: white; border: none; padding: 5px 15px; font-size: 12px; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: inherit; font-weight: bold; }
+        .inline-submit-btn:hover { background-color: #7a5f4a; }
+        .inline-success-msg { color: var(--header-color); font-weight: bold; font-size: 12px; margin: 4px 0 0 0; text-align: center; }
+
+        .chapter-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 50px;
+            border-top: 1px double var(--border-color);
+            padding-top: 30px;
+        }
+
+        .nav-btn {
+            background-color: #5d4737;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 25px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .nav-btn:hover { background-color: #7a5f4a; }
+
+        .chapter-discussion-box {
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .discussion-title { font-size: 18px; color: var(--header-color); letter-spacing: 1px; margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-weight: normal; }
+
+        @media screen and (max-width: 768px) {
+            .reading-container { width: 95% !important; padding: 30px 20px !important; margin: 20px auto !important; }
+            .story-text { font-size: 16px !important; }
+            .story-paragraph-wrapper { padding-right: 35px !important; }
+            .comment-icon { opacity: 0.6 !important; right: 0px !important; }
+            .theme-toggle-btn { top: 15px !important; right: 15px !important; width: 38px !important; height: 38px !important; font-size: 16px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
+
+    <div class="nav-bar">
+        <div class="dropdown">
+            <a href="index.html" class="nav-item">Chủ nhà</a>
+        </div>
+        <div class="dropdown">
+            <span class="nav-item">Kho báu ▾</span>
+            <div class="dropdown-content">
+                <a href="muc-luc-meo-con.html">Hôm nay mèo con cũng cứu vớt vai ác</a>
+                <a href="muc-luc-say.html">Yêu tựa hơi say</a>
+                <a href="muc-luc-vi-sao.html">Vì sao loại A này mà cũng có O</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="reading-container">
+        
+        <div class="story-header">
+            <h1 class="chapter-title">Chương 61</h1>
+        </div>
+
+        <div id="story-content-area">
+            <p class="story-text">Mồ hôi lạnh của Vương Học Bình lập tức túa ra, bây giờ ông ta mới nhận ra mình đã bị người đàn ông này gài bẫy.</p>
+            <p class="story-text">“Điền Nhu Nhu nào, tôi không biết!”</p>
+            <p class="story-text">Quý Phược Thanh không quan tâm đến thái độ gượng gạo của ông ta, hắn chậm rãi nói tiếp: “Ông chỉ mới làm hiệu trưởng của trường này được năm sáu năm thì làm sao biết được tên của nữ sinh đã chết mười mấy năm trước chứ.”</p>
+            <p class="story-text">Ông ta bình tĩnh lại, vô cùng tự nhiên tiếp thu cái tên Điền Nhu Nhu.</p>
+            <p class="story-text">Vương Học Bình: “Tôi chính là hiệu trưởng, trường học này từng có người chết thì tôi không có quyền biết tên sao?”</p>
+            <p class="story-text">Bạch Kiều Sinh nhanh chóng bật lại: “Vậy tại sao ban nãy ông lại giả vờ không biết, hơn nữa những giáo viên kì cựu trong trường cũng đã nói tòa nhà kia bị bỏ hoang cũng không phải là do có người tự tử.”</p>
+            <p class="story-text">Trong trường từng có học sinh bị bạo lực học đường lại còn tự sát, chuyện lớn như vậy thì làm sao có thể bịt miệng tất cả mọi người được.</p>
+            <p class="story-text">Dù sao Vương Học Bình cũng là con cáo già lão luyện, ngoại trừ lúc nãy bị Quý Phược Thanh gài bẫy thì bây giờ ông ta cũng đã bình tĩnh trở lại, bày ra vẻ mặt giả tạo: “Chẳng lẽ các thầy nghi ngờ tôi sao? Tôi cũng là người bị hại mà, với lại dù sao chuyện của Điền Nhu Nhu đã trôi qua tận mười năm trước rồi, tôi chỉ mới nhậm chức có sáu năm thôi.”</p>
+            <p class="story-text">Quý Tử Ngang lạnh lùng nói: “Nói tóm lại mười mấy năm trước Điền Nhu Nhu không phải bị bạo lực học đường ép chết mà rất có thể là người khác. Còn chuyện kinh dị này là do nhà trường tự bịa ra để đề phòng học sinh đi vào tòa nhà cũ đó, đồng thời cũng cảnh cáo học sinh không được bạo lực học đường.”</p>
+            <p class="story-text">Tòa nhà đó đã quá cũ kỹ, nếu học sinh đi vào trong đó đùa giỡn thì rất có thể sẽ gặp nguy hiểm, cho nên mười mấy năm trước các giáo viên đã bịa ra một lời nói dối để hù dọa đám học sinh không sợ trời không sợ đất này.</p>
+            <p class="story-text">Đây cũng là lý do vì sao mà các phiên bản trong miệng các học sinh đều giống hệt nhau. Có điều trường học nào cũng đều lưu truyền các loại truyền thuyết kinh dị, mà truyền thuyết này khi qua miệng của hàng trăm nghìn người thì biến thành muôn hình vạn trạng, nhưng câu chuyện kinh dị của trường Thường Thanh do có người nhúng tay vào nên mới không bị bóp méo.”</p>
+            <p class="story-text">Đôi môi của Vương Học Bình run lên: “Cậu có chứng cứ gì!”</p>
+            <p class="story-text">Quý Phược Thanh chọt chọt mèo nhỏ đang nằm trong lòng hắn đánh nhau với người giấy, giọng đều đều không chút gợn sóng, cứ như chỉ đang trần thuật lại một sự việc hiển nhiên: “Quỷ khí của Điền Nhu Nhu chỉ có sáu năm.”</p>
+            <p class="story-text">Hắn là chứng cứ.</p>
+            <p class="story-text">Vương Học Bình hoảng loạn, không cẩn thận ngã khỏi ghế, suýt nữa là đã làm gãy chân ghế.</p>
+            <p class="story-text">Đường Hi vốn đang hung hăng bắt nạt người giấy nhỏ, dùng đệm thịt mềm mại đạp đạp lên nó, vừa nghe Quý Phược Thanh nói thì ngẩng phắt đầu lên: “Meo meo meo?!” Anh đã sớm biết Điền Nhu Nhu không phải là nạn nhân trong câu chuyện mười mấy năm trước sao?</p>
+            <p class="story-text">Quý Phược Thanh nhẹ nhàng nâng ngón tay trỏ, người giấy vốn nằm yên bất động bỗng nhiên tràn đầy sức sống, trốn thoát khỏi đệm thịt của Đường Hi. Mèo nhỏ vẫn đang tức giận chất vấn lập tức bị phân tán lực chú ý, vươn móng đè người giấy nhỏ đang muốn chạy trốn xuống, hưng phấn nhìn nó té lộn nhào.</p>
+            <p class="story-text">Dễ dỗ dành quá đi, chỉ cần một tờ giấy là đã có thể xoa dịu cơn giận của mèo nhỏ. Quý Tử Ngang không nhịn được nhìn về phía mèo con, trong đầu nổi lên suy nghĩ, ác quỷ này một chút cũng không giống quỷ, nếu như đây chỉ là ngụy trang thì cũng quá cao siêu rồi.</p>
+            <p class="story-text">Mấy con quỷ khác có ngoan ngoãn như cậu ta không nhỉ? Sau khi được thuần phục thì bọn chúng sẽ nghe lời như vậy sao? Bản tính trời sinh chán ghét quỷ của y một lần nữa lại dâng lên ý nghĩ muốn thuần dưỡng thức quỷ.</p>
+            <p class="story-text">Vương Học Bình trấn tĩnh lại, ánh mắt liếc đến tiểu hòa thượng đang yên lặng đứng ở một góc, nhất thời ông ta như cảm thấy mình có chỗ dựa, nói: “Các thầy đều là bạn của Lạc đại sư, sao lại làm mất mặt tôi ở đây được chứ, các thầy muốn tiền sao, tôi sẽ đưa mà.”</p>
+            <p class="story-text">Ông ta thấy bọn họ không phản ứng thì dần dần lấn tới: “Quả thật tôi có biết người tên Điền Nhu Nhu, nhưng nếu như lúc đó em ấy không liều chết chống cự thì cũng sẽ không hoảng loạn mà nhảy lầu, tôi cũng vì muốn tốt cho em ấy mà thôi.”</p>
+            <p class="story-text">Ông ta không biết Bạch Kiều Sinh đang phát sóng trực tiếp nên cũng không giữ mồm giữ miệng, tự động bại lộ bản chất thật của mình.</p>
+            <p class="story-text">Nghe được những lời kinh tởm buồn nôn này, Đường Hi dừng móng không chơi đùa với người giấy nhỏ nữa, cậu ngẩng đầu nhìn về phía Vương Học Bình.</p>
+            <p class="story-text">Mèo nhỏ tức giận đến mức không chỉ xù lông mà mấy móng vuốt sắc nhọn vốn giấu trong đệm thịt cũng lộ ra, hận không thể nhào lên cào nát bản mặt của ông ta.</p>
+            <p class="story-text">Do quá tức giận nên u hỏa xanh lam lại xuất hiện sau lưng Đường Hi, trước khi để những người khác phát hiện thì linh khí của Quý Phược Thanh đã nhanh một bước hấp thu hết sạch đám u hỏa này.</p>
+            <p class="story-text">After khi u hỏa bị hấp thu, Đường Hi dần bình tĩnh lại, cậu ở trong đầu chọt chọt hệ thống.</p>
+            <p class="story-text">【1551, Vương Học Bình đã hại chết Điền Nhu Nhu phải không?】</p>
+            <p class="story-text">1551 keng một tiếng:【Chúc mừng ký chủ, chúc mừng ký chủ, nhiệm vụ phụ đã hoàn thành!】</p>
+            <p class="story-text">Sau đó 1551 chủ động gửi cho cậu một đoạn hồi ức.</p>
+            <p class="story-text">Đây là hồi ức khi còn sống của Điền Nhu Nhu, cô là một nữ sinh rất xinh đẹp, từ nhỏ đã học múa, không chỉ xinh đẹp mà nhân duyên cũng rất tốt, có thể nói cô trưởng thành trong sự ngây thơ hồn nhiên, nhưng ngay thời khắc quan trọng của lớp mười hai thì cô đã bị Vương Học Bình chú ý.</p>
+            <p class="story-text">Vương Học Bình thèm nhỏ dãi Điền Nhu Nhu tuổi trẻ xinh đẹp, vào một đêm nọ, rốt cuộc ông ta cũng dùng danh nghĩa hiệu trưởng để giữ chân cô lại, thiếu nữ lại ngây thơ dễ lừa gạt, cô không chút sợ hãi đi theo ông ta đến tòa nhà bỏ hoang kia, cuối cùng bị cưỡng hiếp ngay trong lớp 12-6.</p>
+            <p class="story-text">Cuối cùng cô lựa chọn đứng trên cửa sổ lớp 12-6 nhảy xuống, ngày đó cô mặc một bộ đồ trắng tinh khiết, đây là bộ cô thích nhất, tựa như cánh hồ điệp thuần khiết nhẹ nhàng đáp xuống, như một đóa huyết hoa nở rộ trên nền đất tối tăm lạnh lẽo.</p>
+            <p class="story-text">Cô chấm dứt đời mình ở tuổi thanh xuân đẹp nhất.</p>
+            <p class="story-text">Khó trách ngày đó bọn họ nhìn thấy bàn ghế của lớp 12-6 đều bị di chuyển, ở giữa chừa ra một khoảng trống.</p>
+            <p class="story-text">Đường Hi phẫn nộ kêu meo meo, cậu có chút ghét bỏ cơ thể nhỏ bé của mình, hận không thể biến về thành quỷ để hù chết Vương Học Bình.</p>
+            <p class="story-text">Vương Học Bình không thèm giữ mồm giữ miệng, ông ta biết Lạc đại sư cũng chẳng phải người tốt lành gì, mà những người này đều là bạn của Lạc đại sư thì có thể “cao thượng” đến đâu chứ, đều là người chung đường cả thôi.</p>
+            <p class="story-text">Nhất định là bọn họ muốn đòi tiền để bịt miệng chuyện này.</p>
+            <p class="story-text">Ánh mắt Vương Học Bình càng thêm kiên định, sau đó thấy người đàn ông ôm mèo đứng lên, không biết người này đã yểm bùa chú gì mà cơ thể ông ta bỗng nhiên cứng đờ không thể cử động được, chỉ có con ngươi là có thể lay động được thôi.</p>
+            <p class="story-text">Quý Tử Ngang chán ghét nhìn Vương Học Bình, y ghét ác quỷ, dĩ nhiên cũng ghét thể loại người như thế này, nếu không phải có kẻ làm việc ác thì làm sao trên đời này lại có nhiều ác quỷ như vậy được.</p>
+            <p class="story-text">Ác quỷ trên thế gian này, một nửa là chấp niệm bản thân, mà nửa còn lại chính là oán khí.</p>
+            <p class="story-text">Quý Tử Ngang: “Ông ở đây đợi cảnh sát đến đi.”</p>
+            <p class="story-text">Sống trên đời có nhân cũng phải có quả, cũng có luật pháp, có một số việc thầy pháp bọn họ không thể can thiệp vào được.</p>
+            <p class="story-text">Y để ý đến khi nãy Quý lão tổ mới truyền một tia quỷ khí của Điền Nhu Nhu vào người Vương Học Bình, đợi đến khi ông ta chết rồi thì hồn phách của ông ta cũng sẽ không ngày nào yên ổn, phải chịu đựng trăm năm hỏa đốt rồi hồn phi phách tán.</p>
+            <p class="story-text">Điều này trong giới trừ tà bọn họ bị xem là trái quy tắc, nhưng Quý Phược Thanh là ai chứ? Hắn là thần của giới trừ tà, hắn làm gì thì có ai cản được sao.</p>
+            <p class="story-text">Quý Tử Ngang mắt nhìn mũi, mũi nhìn tim, giả vờ không thấy.</p>
+            <p class="story-text">Sau khi được ôm ra ngoài thì Đường Hi vẫn còn rất tức giận, đến người giấy nhỏ cũng không thèm chơi.</p>
+            <p class="story-text">Quý Phược Thanh lấy miếng ngọc xanh lục từ trong móng cậu ra, phân tán lực chú ý của mèo nhỏ: “Đây là tà ngọc, được luyện chế từ mười chín thi thể anh nhi mà thành.”</p>
+            <p class="story-text">“Meo?!” Mèo nhỏ hết hồn co lại thành một cục chui vào trong tay áo của hắn.</p>
+            <p class="story-text">Vậy mà nãy giờ cậu chơi với một miếng ngọc kinh khủng như vậy ư?!</p>
+            <p class="story-text">Quý Tử Ngang thay hắn giải thích, sẵn tiện phô bày tri thức trừ tà phong phú của mình: “Trước đây loại ngọc này bị cấm sử dụng, còn mấy người luyện chế được loại ngọc này là do tìm được con đường hợp pháp để thu thập thi thể trẻ con trong bệnh viện, nhưng có rất ít người làm được. Vì để không ngộ thương những đứa trẻ vô tội nên loại luyện chế này bị cấm tiệt. Tuy khi bị ác quỷ quấn thân thì loại ngọc này sẽ giúp bọn họ đỡ được một đòn trí mạng, nhưng do oán khí của anh linh rất dễ phản phệ lên người dùng, bây giờ cũng chỉ có mấy tên trừ tà bàng môn tà đạo mới đi luyện chế cái này.”</p>
+            <p class="story-text">Thầy trừ tà bàng môn tà đạo, thế thì không phải là Lạc đại sư, người đã bán miếng tà ngọc cho Vương Học Bình thì còn ai vào đây nữa.</p>
+            <p class="story-text">Quý Phược Thanh đột nhiên dừng lại trước cửa một căn phòng, cười giễu: “Thực lực yếu kém chỉ biết trốn trốn tránh tránh, nhưng mà công phu chạy trốn lại không tồi.”</p>
+            <p class="story-text">Lúc mèo nhỏ tức giận xuất hiện u hỏa xanh lam thì tên đó đã phát hiện ra, lập tức nhân cơ hội chạy trốn.</p>
+            <p class="story-text">Quý Tử Ngang cau mày, y bước lên phá cửa, nhưng phải mất một ít thời gian mới có thể phá kết giới chặn cửa được, lúc mở ra thì bên trong đã trống rỗng.</p>
+            <p class="story-text">Quý Tử Ngang đập tay lên tường: “Hắn chạy rồi!”</p>
+            <p class="story-text">Đường Hi dáo dác nhìn vào trong phòng, đột nhiên cậu cảm nhận được một luồng nhiệt hỏa bỏng rát đập vào mặt. Nhưng mà trước một giây cậu cảm thấy khó chịu thì đợt công kích này đã bị phá giải.</p>
+            <p class="story-text">Quý Phược Thanh sa sầm nét mặt, khí tràng quanh thân vẫn luôn bất biến mà bây giờ lại dần biến đổi vì mèo nhỏ trong lòng suýt chút nữa đã bị tấn công.</p>
+            <p class="story-text">Linh khí xung quanh hắn rung chuyển. Dễ nhận thấy nhất chính là Bạch Kiều Sinh đứng bên cạnh hắn, cậu ta xém nữa là đã cong chân quỳ xuống luôn rồi.</p>
+            <p class="story-text">“Meo.” Em không sao hết.</p>
+            <p class="story-text">Cảm nhận được nội tâm dao động của nhân viên dọn phân, Đường Hi hiểu chuyện vươn móng vuốt ra vỗ vỗ an ủi hắn, từng chút từng chút một bò đến cổ của Quý Phược Thanh, biến thành một quả cầu lông mập mạp nằm bên cổ của hắn.</p>
+            <p class="story-text">Quý Phược Thanh thu linh khí bức người lại, hắn xoa xoa mèo nhỏ, xác định quả cầu lông vàng rực này không bị thương thì mới yên lòng.</p>
+            <p class="story-text">Hắn vuốt ve mèo nhỏ lông xù, trong giọng nói bình tĩnh ẩn giấu muôn ngàn sát ý: “Tôi sẽ tìm ra hắn.” Tìm được thì sẽ giải quyết hắn luôn.</p>
+            <p class="story-text">Đường Hi gật gật đầu: “Meo!” Em tin anh mà!</p>
+            <p class="story-text">Sắc mặt Quý Phược Thanh dần dần dịu đi.</p>
+            <p class="story-text">Đường Hi cũng không nghi ngờ gì nhiều, cậu nghĩ là do mình quá yếu nên mới bị tấn công, căn bản cậu không suy nghĩ sâu hơn.</p>
+            <p class="story-text">“Meo meo meo?” Vậy bây giờ phải làm sao mới có thể siêu độ cho Trần Nhu Nhu?</p>
+            <p class="story-text">So với tình trạng bản thân hiện tại thì cậu lo lắng cho Điền Nhu Nhu hơn. Cậu vô cùng đau lòng vì những chuyện đã xảy ra với cô bé.</p>
+            <p class="story-text">Quý Phược Thanh: “Muốn siêu độ ác quỷ thì chỉ cần tìm được bất kỳ bộ phận của cơ thể cô ta, với lại biết được nguyên nhân cái chết là được.”</p>
+            <p class="story-text">Trước mắt thì đã biết được nguyên nhân cái chết, chỉ còn thiếu bộ phận cơ thể.</p>
+            <p class="story-text">Đường Hi không biết thi thể của cô bị giấu ở đâu, cậu chỉ đoán được chắc hẳn là đã bị Vương Học Bình xử lý rồi. Vương Học Bình giấu giếm chuyện này sáu năm, chắc chắn thi thể cũng bị ông ta hoàn hảo giấu đi.</p>
+            <p class="story-text">Thi thể... Điền Nhu Nhu… Những học sinh may mắn sống sót... Nơi cô ấy không dám đi vào...</p>
+            <p class="story-text">Hình ảnh hai học sinh trốn trong nhà vệ sinh lập tức hiện lên trong đầu cậu.</p>
+            <p class="story-text">Đường Hi đột nhiên meo một tiếng, cậu cắn lấy cổ áo của Quý Phược Thanh, làm động tác kéo đi.</p>
+            <p class="story-text">“Meo meo meo!” Đi nhanh lên! Em biết thi thể của cô ấy bị giấu ở đâu rồi!</p>
+
+            <!-- KHU VỰC ĐÓNG GÓI LỜI TÁC GIẢ AN TOÀN -->
+            <div class="author-note-box" style="border-top: 1px dashed var(--border-color); padding-top: 15px; margin-top: 30px; font-size: 15px; font-style: italic; color: var(--header-color); text-align: justify; line-height: 1.8;">
+                <strong style="color: var(--header-color);">Tác giả có lời muốn nói:</strong><br>
+                Mèo nhỏ: Tui chỉ mún làm việc thiện thui mà... 🐾
+            </div>
+        </div>
+
+        <!-- Thanh Chuyển Chương -->
+        <div class="chapter-navigation">
+            <a href="s1-c60.html" class="nav-btn">Chương trước</a>
+            <a href="muc-luc-meo-con.html" class="nav-btn">Mục lục</a>
+            <a href="s1-c62.html" class="nav-btn">Chương sau</a>
+        </div>
+
+        <!-- NÚT LIKE REALTIME CHÂN MÈO -->
+        <div class="like-chapter-container">
+            <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
+                <div class="like-title-line">
+                    <span>Meo meo có thích hong</span>
+                </div>
+                <div class="like-sub-line">
+                    <span class="like-paw-icon">🐾</span>
+                    <span id="likeCountDisplay">0</span> <span>dấu chân mèo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- KHUNG THẢO LUẬN BÌNH LUẬN TỔNG -->
+        <div class="chapter-discussion-box">
+            <h3 class="discussion-title">💬 Thảo luận của chương này</h3>
+            <form id="commentForm" onsubmit="sendGeneralComment(event)" style="max-width: 650px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Hãy cho xin danh tính</label>
+                    <input type="text" id="commentName" placeholder="Ví dụ: Aa..." required 
+                           style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text);">
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Bạn nói gì ó</label>
+                    <textarea id="commentText" rows="4" placeholder="Viết bình luận tại đây..." required
+                              style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); resize: none;"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" style="background-color: #5d4737; color: white; border: none; padding: 10px 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: 'Lora', serif;">
+                    Gửi bình luận
+                </button>
+                
+                <p id="successMessage" style="display: none; color: var(--header-color); font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px;">
+                    ✦ Bình luận của bạn đã được gửi thành công! Cảm ơn bạn nhé.
+                </p>
+            </form>
+
+            <div id="real-comments-area" style="margin-top: 40px; border-top: 1px dashed var(--border-color); padding-top: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 14px; font-weight: bold; color: var(--header-color); margin-bottom: 15px;">💬 Bàn tán gì ik</p>
+            </div>
+        </div>
+
+    </div> 
+
+    <!-- TOÀN BỘ ĐOẠN JAVASCRIPT ĐỒNG BỘ REALTIME FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
+    <script>
+        var firebaseConfig = {
+            databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        var database = firebase.database();
+
+        var currentChapterId = "s1-c61"; // Định danh vĩnh viễn chính xác cho Chương 61
+        var currentChapterName = "Tập 1 - Chương 61"; 
+        var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
+
+        var likeRef = database.ref("likes/" + currentChapterId);
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            var btn = document.getElementById("likeChapterBtn");
+            var display = document.getElementById("likeCountDisplay");
+            
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+            if (userHasLiked === "true" && btn) {
+                btn.classList.add("active");
+            }
+
+            if (likeRef) {
+                likeRef.on("value", function(snapshot) {
+                    var count = snapshot.val() || 0;
+                    if (display) display.innerText = count;
+                });
+            }
+        });
+
+        function handleLikeChapter() {
+            var btn = document.getElementById("likeChapterBtn");
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+
+            if (userHasLiked !== "true") {
+                likeRef.transaction(function(currentLikes) {
+                    return (currentLikes || 0) + 1;
+                }).then(function() {
+                    if (btn) btn.classList.add("active");
+                    localStorage.setItem("user_liked_" + currentChapterId, "true");
+                });
+
+                var formData = new FormData();
+                formData.append('entry.110222111', 'Độc giả ẩn danh');
+                formData.append('entry.1515223589', 'Đã để lại dấu chân mèo thích chương truyện');
+                formData.append('entry.1093378953', currentChapterName + " (Thích Chương)");
+                fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function(){}).catch(function(){});
+                
+            } else {
+                likeRef.transaction(function(currentLikes) {
+                    var newLikes = (currentLikes || 0) - 1;
+                    return newLikes < 0 ? 0 : newLikes;
+                }).then(function() {
+                    if (btn) btn.classList.remove("active");
+                    localStorage.removeItem("user_liked_" + currentChapterId);
+                });
+            }
+        }
+
+        function toggleTheme() {
+            var currentTheme = document.documentElement.getAttribute("data-theme");
+            var targetTheme = "light";
+            var btn = document.getElementById("themeToggleBtn");
+
+            if (currentTheme === "light" || !currentTheme) {
+                targetTheme = "dark";
+                btn.innerText = "☀️"; 
+            } else {
+                targetTheme = "light";
+                btn.innerText = "🌙"; 
+            }
+            document.documentElement.setAttribute("data-theme", targetTheme);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
+            
+            paragraphs.forEach(function(p, index) {
+                var paragraphIndex = index + 1; 
+                var boxId = "inline-comment-" + paragraphIndex;
+                
+                var wrapper = document.createElement("div");
+                wrapper.className = "story-paragraph-wrapper";
+                p.parentNode.insertBefore(wrapper, p);
+                wrapper.appendChild(p);
+                
+                var icon = document.createElement("span");
+                icon.className = "comment-icon";
+                icon.innerText = "💬";
+                icon.onclick = function() { toggleInlineComment(boxId); };
+                wrapper.appendChild(icon);
+                
+                var commentBox = document.createElement("div");
+                commentBox.className = "paragraph-comment-box";
+                commentBox.id = boxId;
+                commentBox.style.display = "none";
+                
+                commentBox.innerHTML = `
+                    <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
+                    <div class="old-comments-list">
+                        <p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p>
+                    </div>
+                    <form class="comment-form-inline" onsubmit="sendInlineComment(event, '${boxId}', 'Đoạn ${paragraphIndex}')">
+                        <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
+                        <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
+                        <button type="submit" class="inline-submit-btn">Gửi cmt</button>
+                        <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
+                    </form>
+                `;
+                wrapper.appendChild(commentBox);
+            });
+        });
+
+        function toggleInlineComment(id) {
+            var box = document.getElementById(id);
+            box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";
+        }
+
+        function sendInlineComment(event, boxId, paragraphLabel) {
+            event.preventDefault();
+            var box = document.getElementById(boxId);
+            var name = box.querySelector('.inline-input-name').value;
+            var text = box.querySelector('.inline-textarea-text').value;
+            var fullLocation = currentChapterName + " (" + paragraphLabel + ")"; 
+            
+            var formData = new FormData();
+            formData.append('entry.110222111', name);
+            formData.append('entry.1515223589', text);
+            formData.append('entry.1093378953', fullLocation);
+            
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
+                box.querySelector('.inline-textarea-text').value = '';
+                var successMsg = box.querySelector('.inline-success-msg');
+                successMsg.style.display = 'block';
+                setTimeout(function() { successMsg.style.display = 'none'; }, 3000);
+            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
+        }
+
+        function sendGeneralComment(event) {
+            event.preventDefault();
+            var name = document.getElementById('commentName').value;
+            var text = document.getElementById('commentText').value;
+            var fullLocation = currentChapterName + " (Tổng)";
+            
+            var formData = new FormData();
+            formData.append('entry.110222111', name);
+            formData.append('entry.1515223589', text);
+            formData.append('entry.1093378953', fullLocation);
+            
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
+                document.getElementById('commentText').value = '';
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(function() { document.getElementById('successMessage').style.display = 'none'; }, 4000);
+            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
+        }
+    </script>
+</body>
+</html>
