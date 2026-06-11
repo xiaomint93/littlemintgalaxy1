@@ -183,6 +183,62 @@
             margin: 0;
         }
 
+        /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ --- */
+        .like-chapter-container {
+            text-align: left;
+            margin: 30px 0 20px 0;
+            user-select: none;
+            font-family: 'Lora', Georgia, Serif;
+        }
+
+        .like-chapter-wrapper {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--text-color, #4a3728);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .like-chapter-wrapper:hover {
+            color: #a86232;
+            transform: scale(1.02);
+        }
+
+        .like-title-line {
+            font-size: 19px; 
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+            color: var(--header-color, #5d4737);
+        }
+
+        .like-sub-line {
+            font-size: 14px; 
+            color: inherit;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px; 
+            padding-left: 2px;
+        }
+
+        .like-paw-icon {
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .like-chapter-wrapper.active {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-title-line {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-paw-icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
         /* Biểu tượng bóng chát mờ bên rìa phải */
         .comment-icon {
             position: absolute;
@@ -413,7 +469,7 @@
             
             <p class="story-text">Tuy không hiểu tiếng mèo nhưng khi Hạ Vọng đối mặt với mèo nhỏ đang nhìn mình không chớp mắt thì có chút hưởng thụ.</p>
             
-            <p class="story-text">Khi hắn đi ra cũng không quên xách theo mèo con.</p>
+            <p class="story-text">Khi hắn hắn đi ra cũng không quên xách theo mèo con.</p>
             
             <p class="story-text">Được bàn tay to lớn lại có vết chai này ôm thì cũng không được thoải mái lắm, hiển nhiên trước kia chủ nhân của bàn tay này chưa từng ôm vật nhỏ lông xù nào, động tác có chút vụng về.</p>
             
@@ -421,7 +477,7 @@
             
             <p class="story-text">"Meo!" Anh làm gì đó!?</p>
             
-            <p class="story-text">Đường Hi không thể tin được ngẩng đầu nhìn tên lưu manh mang vẻ mặt vô cảm này. Đối diện với sự không vui của mèo con, Hạ Vọng không chỉ không áy náy mà còn cảm thấy xúc cảm lúc sờ rất tốt.</p>
+            <p class="story-text">Đường Hi không thể tin được ngẩng đầu nhìn tên lưu manh mang vẻ mặt vô cảm này. Đối diện với sự không vui của mèo con, Hạ Vọng không chỉ không áy nay mà còn cảm thấy xúc cảm lúc sờ rất tốt.</p>
             
             <p class="story-text">Mấy chiếc xe hơi màu đen kiểu dáng giống hệt nhau dừng lại trước mặt bọn họ, cắt ngang hành động lên án của mèo nhỏ.</p>
             
@@ -466,7 +522,6 @@
             <p class="story-text">Trợ lý Vương: "Anh có bị thương không?"</p>
             
             <p class="story-text">"Không sao. Phanh xe bị người khác động tay, trước mắt đừng rút dây động rừng, để bọn họ bắt đầu tra từ Từ gia."</p>
-            
             <p class="story-text">"Vâng."</p>
             
             <p class="story-text">Không hổ là nhân vật phản diện trùm cuối, sau khi bị tai nạn xe như vậy mà vẫn có thể bình tĩnh phân tích xem ai hãm hại mình.</p>
@@ -532,6 +587,18 @@
             <a href="s1-c3.html" class="nav-btn">Chương sau</a>
         </div>
 
+        <div class="like-chapter-container">
+            <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
+                <div class="like-title-line">
+                    <span>Meo meo có thích hong</span>
+                </div>
+                <div class="like-sub-line">
+                    <span class="like-paw-icon">🐾</span>
+                    <span id="likeCountDisplay">0</span> <span>dấu chân mèo</span>
+                </div>
+            </div>
+        </div>
+
         <div class="chapter-discussion-box">
             <h3 class="discussion-title">💬 Thảo luận của chương này</h3>
             <form id="commentForm" onsubmit="sendGeneralComment(event)" style="max-width: 650px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px;">
@@ -563,9 +630,63 @@
 
     </div> 
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script>
+        var firebaseConfig = {
+            databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        var database = firebase.database();
+
+        var currentChapterId = "s1-c2"; // Định danh vĩnh viễn chính xác cho Chương 02
         var currentChapterName = "Tập 1 - Chương 2"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
+
+        var likeRef = database.ref("likes/" + currentChapterId);
+
+        // Tải trạng thái và số lượng like khi trang được mở
+        document.addEventListener("DOMContentLoaded", function() {
+            var btn = document.getElementById("likeChapterBtn");
+            var display = document.getElementById("likeCountDisplay");
+            
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+            if (userHasLiked === "true" && btn) {
+                btn.classList.add("active");
+            }
+
+            if (likeRef) {
+                likeRef.on("value", function(snapshot) {
+                    var count = snapshot.val() || 0;
+                    if (display) display.innerText = count;
+                });
+            }
+        });
+
+        // Hàm xử lý Like sạch lỗi, chỉ đẩy lên Firebase và lưu LocalStorage
+        function handleLikeChapter() {
+            var btn = document.getElementById("likeChapterBtn");
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+
+            if (userHasLiked !== "true") {
+                likeRef.transaction(function(currentLikes) {
+                    return (currentLikes || 0) + 1;
+                }).then(function() {
+                    if (btn) btn.classList.add("active");
+                    localStorage.setItem("user_liked_" + currentChapterId, "true");
+                });
+            } else {
+                likeRef.transaction(function(currentLikes) {
+                    var newLikes = (currentLikes || 0) - 1;
+                    return newLikes < 0 ? 0 : newLikes;
+                }).then(function() {
+                    if (btn) btn.classList.remove("active");
+                    localStorage.removeItem("user_liked_" + currentChapterId);
+                });
+            }
+        }
 
         // HÀM CHUYỂN ĐỔI CHẾ ĐỘ SÁNG/TỐI (LIGHT/DARK MODE)
         function toggleTheme() {
