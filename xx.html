@@ -98,10 +98,6 @@
         </div>
     </div>
     
-<div style="text-align: center; margin: 40px auto; display: block; width: 100%;">
-        <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9;">
-    </div>
-    
     <div class="novel-info-container">
         <div class="novel-layout-flex">
             <div class="novel-cover-cell"><div class="novel-cover-frame"><img src="bia1.png" alt="Bìa"></div></div>
@@ -125,7 +121,11 @@
             </div>
         </div>
     </div>
-
+    
+<div style="text-align: center; margin: 40px auto; display: block; width: 100%;">
+        <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9;">
+    </div>
+    
     <div class="novel-chapters-container">
         <div id="chapter-label">DANH SÁCH CHƯƠNG</div>
         <div class="chapter-grid-new">
@@ -235,18 +235,55 @@
     <div class="like-chapter-container">
         <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
             <div class="like-title-line"><span>Meo meo có thích hong</span></div>
-            <div class="like-sub-line"><span class="like-paw-icon">🐾</span> <span id="likeCountDisplay">0</span> <span>dấu chân mèo thích truyện</span></div>
+            <div class="like-sub-line"><span class="like-paw-icon">🐾</span> <span id="likeCountDisplay">0</span> <span>dấu chân mèo</span></div>
         </div>
     </div>
 
-    <div class="chapter-discussion-box">
+  <div class="page-card chapter-discussion-box">
         <h3 class="discussion-title">💬 Thảo luận về bộ truyện này</h3>
-        </div>
+        <form id="commentForm" onsubmit="sendGeneralComment(event)">
+            <input type="text" id="commentName" placeholder="Tên của bạn..." required style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            <textarea id="commentText" placeholder="Cảm nhận của bạn..." required style="width: 100%; padding: 10px;"></textarea>
+            <button type="submit">Gửi bình luận</button>
+        </form>
+        <div id="real-comments-area" style="margin-top: 20px;"></div>
+    </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script>
-        // Logic Like (chỉ Firebase) và Bình luận ở đây
+        var firebaseConfig = { databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/" };
+        firebase.initializeApp(firebaseConfig);
+        var database = firebase.database();
+        var currentChapterId = "s1-index";
+        var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
+
+        // Hàm Like
+        function handleLikeChapter() {
+            var likeRef = database.ref("likes/" + currentChapterId);
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+            if (userHasLiked !== "true") {
+                likeRef.transaction(c => (c || 0) + 1).then(() => localStorage.setItem("user_liked_" + currentChapterId, "true"));
+            } else {
+                likeRef.transaction(c => (c || 0) - 1).then(() => localStorage.removeItem("user_liked_" + currentChapterId));
+            }
+        }
+        
+        // Hàm Bình luận
+        function sendGeneralComment(event) {
+            event.preventDefault();
+            var formData = new FormData();
+            formData.append('entry.110222111', document.getElementById('commentName').value);
+            formData.append('entry.1515223589', document.getElementById('commentText').value);
+            formData.append('entry.1093378953', "Giới thiệu bộ 1 (Tổng)");
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(() => alert("Đã gửi!"));
+        }
+        
+        // Theme
+        function toggleTheme() {
+            var theme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", theme);
+        }
     </script>
 </body>
 </html>
