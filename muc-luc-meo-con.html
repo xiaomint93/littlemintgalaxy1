@@ -1,3 +1,5 @@
+mục lục
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -19,23 +21,17 @@
             --border-color: #8d7561;
             --box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
             --link-hover-bg: rgba(255, 255, 255, 0.6);
-            --comment-box-bg: rgba(255, 255, 255, 0.85);
-            --input-bg: #ffffff;
-            --input-text: #4a3728;
         }
 
         /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
         [data-theme="dark"] {
-            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
-            --container-bg: rgba(35, 30, 27, 0.9);
-            --text-color: #e2d7cc;
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg'); /* Phủ lớp tối lên ảnh nền hoa hồng */
+            --container-bg: rgba(35, 30, 27, 0.9); /* Khung giấy chuyển sang tone nâu đen dịu mắt */
+            --text-color: #e2d7cc; /* Chữ chuyển sang màu kem sáng chống mỏi mắt */
             --header-color: #f1e6da;
             --border-color: #5d4737;
             --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
             --link-hover-bg: rgba(255, 255, 255, 0.08);
-            --comment-box-bg: rgba(45, 40, 37, 0.9);
-            --input-bg: #2d2825;
-            --input-text: #e2d7cc;
         }
 
         body {
@@ -254,7 +250,7 @@
         .novel-chapters-container {
             max-width: 850px;
             width: 90%;
-            margin: 0 auto 30px;
+            margin: 0 auto 60px;
             padding: 40px;
             background-color: var(--container-bg); 
             border: 1px solid var(--border-color);
@@ -285,6 +281,7 @@
             margin: 0 20px; 
         }
 
+        /* Thiết lập lưới tự động xếp chương tăng dần đều trên máy tính */
         .chapter-grid-new {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
@@ -310,93 +307,6 @@
             font-weight: bold;
         }
 
-        /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE VÀ BÌNH LUẬN --- */
-        .like-chapter-container {
-            text-align: left;
-            margin: 20px 0;
-            user-select: none;
-            font-family: 'Lora', Georgia, Serif;
-        }
-
-        .like-chapter-wrapper {
-            display: inline-block;
-            cursor: pointer;
-            color: var(--text-color, #4a3728);
-            transition: transform 0.2s ease, color 0.2s ease;
-        }
-
-        .like-chapter-wrapper:hover {
-            color: #a86232;
-            transform: scale(1.02);
-        }
-
-        .like-title-line {
-            font-size: 19px; 
-            font-weight: 600;
-            margin-bottom: 4px;
-            display: block;
-            color: var(--header-color, #5d4737);
-        }
-
-        .like-sub-line {
-            font-size: 14px; 
-            color: inherit;
-            opacity: 0.9;
-            display: flex;
-            align-items: center;
-            gap: 6px; 
-            padding-left: 2px;
-        }
-
-        .like-paw-icon {
-            font-size: 18px;
-            display: inline-block;
-            transition: transform 0.2s;
-        }
-
-        .like-chapter-wrapper.active {
-            color: #a86232;
-        }
-
-        .like-chapter-wrapper.active .like-title-line {
-            color: #a86232;
-        }
-
-        .like-chapter-wrapper.active .like-paw-icon {
-            transform: scale(1.2) rotate(-10deg);
-        }
-
-        .chapter-discussion-box {
-            max-width: 850px;
-            width: 90%;
-            margin: 0 auto 60px;
-            background-color: var(--container-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 2px;
-            padding: 40px;
-            box-sizing: border-box;
-            box-shadow: var(--box-shadow);
-            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .discussion-title { 
-            font-size: 18px; 
-            color: var(--header-color); 
-            letter-spacing: 1px; 
-            margin-top: 0; 
-            margin-bottom: 25px; 
-            border-bottom: 1px solid var(--border-color); 
-            padding-bottom: 10px; 
-            font-weight: normal; 
-            text-align: left;
-        }
-
-        /* Cấu trúc mới: Các khối độc lập */
-        .page-section { max-width: 850px; width: 90%; margin: 0 auto 30px; padding: 40px; background-color: var(--container-bg); border: 1px solid var(--border-color); border-radius: 2px; box-shadow: var(--box-shadow); box-sizing: border-box; }
-        
-        .header-container { text-align: center; padding: 50px 0 30px; }
-        .site-title { font-size: 45px; margin: 10px 0; color: var(--header-color); }
-
         /* --- 6. RESPONSIVE ĐIỆN THOẠI --- */
         @media screen and (max-width: 768px) {
             .site-title { font-size: 32px !important; }
@@ -409,7 +319,7 @@
             .novel-cover-cell {
                 margin-bottom: 15px;
             }
-            .novel-info-container, .novel-chapters-container, .chapter-discussion-box {
+            .novel-info-container, .novel-chapters-container {
                 padding: 30px 20px !important;
                 width: 95% !important;
             }
@@ -418,6 +328,24 @@
                 font-size: 22px !important;
             }
 
+            /* Khung nét gãy bo tròn cho lời nhắn */
+        .notice-frame {
+            border: 2px dashed var(--border-color);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            background-color: rgba(93, 71, 55, 0.05);
+        }
+
+        .notice-text {
+            font-style: italic;
+            font-weight: bold;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+            /* Điện thoại tự thu về thành 2 cột tăng dần thẳng thớm đẹp mắt */
             .chapter-grid-new {
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 10px 15px !important;
@@ -436,6 +364,13 @@
                 width: 38px !important;
                 height: 38px !important;
                 font-size: 16px !important;
+            }
+        }
+
+        /* Điện thoại màn hình rất nhỏ thì xếp thành 1 hàng dọc đứng */
+        @media screen and (max-width: 420px) {
+            .chapter-grid-new {
+                grid-template-columns: 1fr !important;
             }
         }
     </style>
@@ -468,7 +403,7 @@
         </div>
     </div>
 
-<div class="page-section novel-info-container">
+    <div class="novel-info-container">
         <div class="novel-layout-flex">
             <div class="novel-cover-cell">
                 <div class="novel-cover-frame">
@@ -508,19 +443,18 @@
                     Công từ đầu đến cuối chỉ có một người, công và thụ từ thể xác đến linh hồn chỉ có lẫn nhau.<br><br>
                     <strong>Một câu tóm tắt:</strong> Tôi chỉ là một con mèo con thôi nha!<br>
                     <strong>Mục đích:</strong> Đưa than ngày tuyết, nắm tay cùng nhau truyền năng lượng tích cực.
-                    <div class="notice-frame" style="border: 2px dashed #8d7561; border-radius: 15px; padding: 15px; margin-top: 20px; text-align: center; background-color: rgba(93, 71, 55, 0.05);">
-                        <p class="notice-text" style="font-style: italic; font-weight: bold; color: #4a3728; font-size: 14px;"><i><b>Khuyến khích đọc trên trình duyệt Chrome hoặc Google để không bị lỗi giao diện và chức năng.</b></i></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+                 <div class="notice-frame">
+        <p class="notice-text"><i><b>Khuyến khích đọc trên trình duyệt Chrome hoặc Google để không bị lỗi giao diện và chức năng.</b></i></p>
+    </div>
+</div>
 
     <div style="text-align: center; margin: 40px auto; padding: 10px 0; display: block; width: 100%;">
         <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: inline-block;">
     </div>
 
-<div class="page-section novel-chapters-container">
+    <div class="novel-chapters-container">
         <div id="chapter-label">DANH SÁCH CHƯƠNG</div>
+        
         <div class="chapter-grid-new">
             <a href="s1-c1.html" class="chapter-link">Chương 01</a>
             <a href="s1-c2.html" class="chapter-link">Chương 02</a>
@@ -621,120 +555,24 @@
             <a href="s1-c97.html" class="chapter-link">Chương 97</a>
             <a href="s1-c98.html" class="chapter-link">Chương 98</a>
             <a href="s1-c99.html" class="chapter-link">Chương 99</a>
-            <a href="s1-c100.html" class="chapter-link">Chương 100</a>
-        </div>
+            <a href="s1-c100.html" class="chapter-link">Chương 100</a>        </div>
     </div>
 
-         <div class="page-section like-chapter-container">
-        <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
-            <div class="like-title-line"><span>Meo meo có thích hong</span></div>
-            <div class="like-sub-line"><span class="like-paw-icon">🐾</span> <span id="likeCountDisplay">0</span> <span>dấu chân mèo</span></div>
-        </div>
-    </div>
-
-   <div class="page-section chapter-discussion-box">
-        <h3 class="discussion-title">💬 Thảo luận về bộ truyện này</h3>
-        <form id="commentForm" onsubmit="sendGeneralComment(event)" style="max-width: 650px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px;">
-            <div style="display: flex; flex-direction: column; gap: 5px;">
-                <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Hãy cho xin danh tính</label>
-                <input type="text" id="commentName" placeholder="Ví dụ: Aa..." required 
-                       style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text);">
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 5px;">
-                <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Bạn có cảm nhận gì về truyện ó</label>
-                <textarea id="commentText" rows="4" placeholder="Viết cảm nhận hoặc lời nhắn tại đây..." required
-                          style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); resize: none;"></textarea>
-            </div>
-
-            <button type="submit" id="submitBtn" style="background-color: #5d4737; color: white; border: none; padding: 10px 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: 'Lora', serif;">
-                Gửi bình luận
-            </button>
-            
-            <p id="successMessage" style="display: none; color: var(--header-color); font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px;">
-                ✦ Bình luận của bạn đã được gửi thành công! Cảm ơn bạn nhé.
-            </p>
-        </form>
-
-        <div id="real-comments-area" style="margin-top: 40px; border-top: 1px dashed var(--border-color); padding-top: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto;">
-            <p style="font-size: 14px; font-weight: bold; color: var(--header-color); margin-bottom: 15px;">💬 Bàn tán gì ik</p>
-        </div>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-    
     <script>
-        var firebaseConfig = {
-            databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
-        };
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        var database = firebase.database();
-
-        var currentChapterId = "s1-index"; 
-        var currentChapterName = "Giới thiệu bộ 1"; 
-        var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
-
-        var likeRef = database.ref("likes/" + currentChapterId);
-        
-        document.addEventListener("DOMContentLoaded", function() {
-            var display = document.getElementById("likeCountDisplay");
-            if (likeRef) {
-                likeRef.on("value", function(snapshot) {
-                    var count = snapshot.val() || 0;
-                    if (display) display.innerText = count;
-                });
-            }
-        });
-
-        function handleLikeChapter() {
-            var btn = document.getElementById("likeChapterBtn");
-            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
-
-            if (userHasLiked !== "true") {
-                likeRef.transaction(function(currentLikes) {
-                    return (currentLikes || 0) + 1;
-                }).then(function() {
-                    if (btn) btn.classList.add("active");
-                    localStorage.setItem("user_liked_" + currentChapterId, "true");
-                });
-            } else {
-                likeRef.transaction(function(currentLikes) {
-                    var newLikes = (currentLikes || 0) - 1;
-                    return newLikes < 0 ? 0 : newLikes;
-                }).then(function() {
-                    if (btn) btn.classList.remove("active");
-                    localStorage.removeItem("user_liked_" + currentChapterId);
-                });
-            }
-        }
-
         function toggleTheme() {
             var currentTheme = document.documentElement.getAttribute("data-theme");
-            var targetTheme = (currentTheme === "light" || !currentTheme) ? "dark" : "light";
+            var targetTheme = "light";
             var btn = document.getElementById("themeToggleBtn");
-            btn.innerText = (targetTheme === "dark") ? "☀️" : "🌙";
-            document.documentElement.setAttribute("data-theme", targetTheme);
-        }
 
-        function sendGeneralComment(event) {
-            event.preventDefault();
-            var name = document.getElementById('commentName').value;
-            var text = document.getElementById('commentText').value;
-            var fullLocation = currentChapterName + " (Tổng)";
-            
-            var formData = new FormData();
-            formData.append('entry.110222111', name);
-            formData.append('entry.1515223589', text);
-            formData.append('entry.1093378953', fullLocation);
-            
-            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
-                document.getElementById('commentText').value = '';
-                document.getElementById('successMessage').style.display = 'block';
-                setTimeout(function() { document.getElementById('successMessage').style.display = 'none'; }, 4000);
-            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
+            if (currentTheme === "light" || !currentTheme) {
+                targetTheme = "dark";
+                btn.innerText = "☀️"; // Đổi sang icon Mặt Trời khi ở nền tối
+            } else {
+                targetTheme = "light";
+                btn.innerText = "🌙"; // Đổi sang icon Mặt Trăng khi ở nền sáng
+            }
+
+            document.documentElement.setAttribute("data-theme", targetTheme);
         }
     </script>
 </body>
