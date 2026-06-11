@@ -26,9 +26,9 @@
 
         /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
         [data-theme="dark"] {
-            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg'); /* Phủ lớp tối lên ảnh nền hoa hồng */
-            --container-bg: rgba(35, 30, 27, 0.9); /* Khung giấy chuyển sang tone nâu đen dịu mắt */
-            --text-color: #e2d7cc; /* Chữ chuyển sang màu kem sáng chống mỏi mắt */
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
+            --container-bg: rgba(35, 30, 27, 0.9);
+            --text-color: #e2d7cc;
             --header-color: #f1e6da;
             --border-color: #5d4737;
             --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
@@ -170,23 +170,6 @@
             display: block;
         }
 
-        /* Khung nét gãy bo tròn cho lời nhắn */
-        .notice-frame {
-            border: 2px dashed var(--border-color);
-            border-radius: 15px;
-            padding: 15px;
-            margin-top: 20px;
-            text-align: center;
-            background-color: rgba(93, 71, 55, 0.05);
-        }
-
-        .notice-text {
-            font-style: italic;
-            font-weight: bold;
-            color: var(--text-color);
-            font-size: 14px;
-        }
-
         /* --- 4. Giao diện Khung Giới Thiệu Truyện --- */
         .novel-info-container {
             max-width: 850px;
@@ -302,7 +285,6 @@
             margin: 0 20px; 
         }
 
-        /* Thiết lập lưới tự động xếp chương tăng dần đều trên máy tính */
         .chapter-grid-new {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
@@ -430,7 +412,6 @@
                 font-size: 22px !important;
             }
 
-            /* Điện thoại tự thu về thành 2 cột tăng dần thẳng thớm đẹp mắt */
             .chapter-grid-new {
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 10px 15px !important;
@@ -449,13 +430,6 @@
                 width: 38px !important;
                 height: 38px !important;
                 font-size: 16px !important;
-            }
-        }
-
-        /* Điện thoại màn hình rất nhỏ thì xếp thành 1 hàng dọc đứng */
-        @media screen and (max-width: 420px) {
-            .chapter-grid-new {
-                grid-template-columns: 1fr !important;
             }
         }
     </style>
@@ -528,10 +502,12 @@
                     Công từ đầu đến cuối chỉ có một người, công và thụ từ thể xác đến linh hồn chỉ có lẫn nhau.<br><br>
                     <strong>Một câu tóm tắt:</strong> Tôi chỉ là một con mèo con thôi nha!<br>
                     <strong>Mục đích:</strong> Đưa than ngày tuyết, nắm tay cùng nhau truyền năng lượng tích cực.
-                    <div class="notice-frame">
-        <p class="notice-text"><i><b>Khuyến khích đọc trên trình duyệt Chrome hoặc Google để không bị lỗi giao diện và chức năng.</b></i></p>
-    </div>
-</div>
+                    <div class="notice-frame" style="border: 2px dashed #8d7561; border-radius: 15px; padding: 15px; margin-top: 20px; text-align: center; background-color: rgba(93, 71, 55, 0.05);">
+                        <p class="notice-text" style="font-style: italic; font-weight: bold; color: #4a3728; font-size: 14px;"><i><b>Khuyến khích đọc trên trình duyệt Chrome hoặc Google để không bị lỗi giao diện và chức năng.</b></i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="like-chapter-container">
             <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
@@ -552,7 +528,6 @@
 
     <div class="novel-chapters-container">
         <div id="chapter-label">DANH SÁCH CHƯƠNG</div>
-        
         <div class="chapter-grid-new">
             <a href="s1-c1.html" class="chapter-link">Chương 01</a>
             <a href="s1-c2.html" class="chapter-link">Chương 02</a>
@@ -654,6 +629,7 @@
             <a href="s1-c98.html" class="chapter-link">Chương 98</a>
             <a href="s1-c99.html" class="chapter-link">Chương 99</a>
             <a href="s1-c100.html" class="chapter-link">Chương 100</a>
+            <a href="s1-c101.html" class="chapter-link">Chương 101</a>
         </div>
     </div>
 
@@ -698,21 +674,14 @@
         }
         var database = firebase.database();
 
-        var currentChapterId = "s1-index"; // Định danh duy nhất cho trang giới thiệu/mục lục bộ 1
+        var currentChapterId = "s1-index"; 
         var currentChapterName = "Giới thiệu bộ 1"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
 
         var likeRef = database.ref("likes/" + currentChapterId);
         
         document.addEventListener("DOMContentLoaded", function() {
-            var btn = document.getElementById("likeChapterBtn");
             var display = document.getElementById("likeCountDisplay");
-            
-            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
-            if (userHasLiked === "true" && btn) {
-                btn.classList.add("active");
-            }
-
             if (likeRef) {
                 likeRef.on("value", function(snapshot) {
                     var count = snapshot.val() || 0;
@@ -721,7 +690,6 @@
             }
         });
 
-        // Hàm xử lý Like sạch lỗi, chỉ đẩy lên Firebase và lưu LocalStorage (Đã xóa đoạn fetch Google Form dư thừa)
         function handleLikeChapter() {
             var btn = document.getElementById("likeChapterBtn");
             var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
@@ -746,16 +714,9 @@
 
         function toggleTheme() {
             var currentTheme = document.documentElement.getAttribute("data-theme");
-            var targetTheme = "light";
+            var targetTheme = (currentTheme === "light" || !currentTheme) ? "dark" : "light";
             var btn = document.getElementById("themeToggleBtn");
-
-            if (currentTheme === "light" || !currentTheme) {
-                targetTheme = "dark";
-                btn.innerText = "☀️"; 
-            } else {
-                targetTheme = "light";
-                btn.innerText = "🌙"; 
-            }
+            btn.innerText = (targetTheme === "dark") ? "☀️" : "🌙";
             document.documentElement.setAttribute("data-theme", targetTheme);
         }
 
