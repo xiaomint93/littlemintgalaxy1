@@ -723,23 +723,13 @@
             var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
 
             if (userHasLiked !== "true") {
-                // Nếu chưa thích -> Thực hiện TĂNG LIKE trên database cho toàn mạng cùng thấy
                 likeRef.transaction(function(currentLikes) {
                     return (currentLikes || 0) + 1;
                 }).then(function() {
                     if (btn) btn.classList.add("active");
-                    localStorage.setItem("user_liked_" + currentChapterId, "true"); // Lưu vết riêng để tránh họ bấm spam liên tục
+                    localStorage.setItem("user_liked_" + currentChapterId, "true");
                 });
-
-                // Đồng bộ song song gửi dữ liệu thông báo về Google Forms của Nghi
-                var formData = new FormData();
-                formData.append('entry.110222111', 'Độc giả ẩn danh');
-                formData.append('entry.1515223589', 'Đã để lại dấu chân mèo thích chương truyện');
-                formData.append('entry.1093378953', currentChapterName + " (Thích Chương)");
-                fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).catch(function(){});
-                
             } else {
-                // Nếu đã thích rồi bấm lại -> HỦY LIKE (GIẢM số đếm trên database)
                 likeRef.transaction(function(currentLikes) {
                     var newLikes = (currentLikes || 0) - 1;
                     return newLikes < 0 ? 0 : newLikes;
