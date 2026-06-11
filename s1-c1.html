@@ -636,13 +636,6 @@
                     if (btn) btn.classList.add("active");
                     localStorage.setItem("user_liked_" + currentChapterId, "true");
                 });
-
-                var formData = new FormData();
-                formData.append('entry.110222111', 'Độc giả ẩn danh');
-                formData.append('entry.1515223589', 'Đã để lại dấu chân mèo thích chương truyện');
-                formData.append('entry.1093378953', currentChapterName + " (Thích Chương)");
-                fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).catch(function(){});
-                
             } else {
                 likeRef.transaction(function(currentLikes) {
                     var newLikes = (currentLikes || 0) - 1;
