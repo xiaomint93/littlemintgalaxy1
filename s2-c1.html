@@ -421,7 +421,7 @@
             <p class="story-text">Kết quả còn phải “trai giới”?</p>
             <p class="story-text">Cho dù trong lòng khó chịu nhưng đây là địa bàn của người ta, sẽ không ai quan tâm đến cảm xúc của cậu. Tuy Cố Văn Hi có chút tính thiếu gia nhưng vẫn hiểu đạo lý nhập gia tùy tục. Cậu do dự nhìn thực đơn một hồi rồi chọn pizza cà chua và cháo bí đỏ.</p>
             <p class="story-text">Đỗ Vân Nghiên chẳng nói lời nào, cầm thực đơn đi vào cánh cửa kế bên quầy bar, Cố Văn Hi nghĩ đó là phòng bếp.</p>
-            <p class="story-text">Anh ấy tự nấu sao?</p>
+            <p class="story-text">Khẩu vị của Cố Văn Hi vốn rất kén chọn, anh ấy tự nấu sao?</p>
             <p class="story-text">Từ khi đến nhà trọ dân, trừ ông chủ thì cậu không thấy người nào khác. Chắc là đã tháng mười một rồi nên sẽ không có khách đến, nếu thuê người làm thì chắc sẽ không có lời.</p>
             <p class="story-text">Cố Văn Hi tiếp tục quan sát cảnh vật xung quanh, dưới chân là sàn gỗ mỏng màu nâu, màu sắc đồ dùng cũng nhạt, ánh chiều tà đã bao trùm khung cảnh bên ngoài cửa sổ thủy tinh sát đất. Khi đồ ăn được dọn lên, cậu vẫn đang ngẩn người nhìn bên ngoài, nơi này hoàn toàn khác xa so với nơi cậu sống.</p>
             <p class="story-text">“Cứ dùng từ từ.”</p>
@@ -461,7 +461,7 @@
                 <div style="display: flex; flex-direction: column; gap: 5px;">
                     <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Bạn nói gì ó</label>
                     <textarea id="commentText" rows="4" placeholder="Viết bình luận tại đây..." required
-                              style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); resize: none CONTAINER;"></textarea>
+                              style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); resize: none;"></textarea>
                 </div>
 
                 <button type="submit" id="submitBtn" style="background-color: #5d4737; color: white; border: none; padding: 10px 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: 'Lora', serif;">
@@ -492,7 +492,7 @@
         }
         var database = firebase.database();
 
-        var currentChapterId = "s2-c1"; // Định danh vĩnh viễn chính xác cho S2 Chương 1
+        var currentChapterId = "s2-c1"; // Định danh chính xác cho S2 Chương 1 trên Firebase
         var currentChapterName = "Tập 2 - Chương 1"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSciXpmJoHrGIh2Gizdj8nI0SqxicyXKoqpAQglHltORRQwG-w/formResponse";
 
@@ -515,7 +515,6 @@
             }
         });
 
-        // Hàm xử lý Like sạch lỗi, chỉ đẩy lên Firebase và lưu LocalStorage
         function handleLikeChapter() {
             var btn = document.getElementById("likeChapterBtn");
             var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
@@ -606,9 +605,9 @@
             var fullLocation = currentChapterName + " (" + paragraphLabel + ")"; 
             
             var formData = new FormData();
-            formData.append('entry.834045654', name);
-            formData.append('entry.1706680783', text);
-            formData.append('entry.1491873177', fullLocation);
+            formData.append('entry.300949374', name);
+            formData.append('entry.1314952314', text);
+            formData.append('entry.483800760', fullLocation);
             
             fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
                 box.querySelector('.inline-textarea-text').value = '';
@@ -625,9 +624,9 @@
             var fullLocation = currentChapterName + " (Tổng)";
             
             var formData = new FormData();
-            formData.append('entry.834045654', name);
-            formData.append('entry.1706680783', text);
-            formData.append('entry.1491873177', fullLocation);
+            formData.append('entry.300949374', name);
+            formData.append('entry.1314952314', text);
+            formData.append('entry.483800760', fullLocation);
             
             fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
                 document.getElementById('commentText').value = '';
