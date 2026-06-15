@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>s2-c18 - Little Mint's Galaxy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG */
+        :root {
+            --bg-image: url('background.jpg');
+            --container-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #4a3728;
+            --header-color: #5d4737;
+            --border-color: #8d7561;
+            --box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            --comment-box-bg: rgba(255, 255, 255, 0.85);
+            --input-bg: #ffffff;
+            --input-text: #4a3728;
+        }
+
+        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
+        [data-theme="dark"] {
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
+            --container-bg: rgba(35, 30, 27, 0.9);
+            --text-color: #e2d7cc;
+            --header-color: #f1e6da;
+            --border-color: #5d4737;
+            --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
+            --comment-box-bg: rgba(45, 40, 37, 0.9);
+            --input-bg: #2d2825;
+            --input-text: #e2d7cc;
+        }
+
+        body {
+            background-image: var(--bg-image); 
+            background-attachment: fixed; 
+            background-size: cover;
+            background-position: center;
+            font-family: 'Lora', Georgia, Serif; 
+            color: var(--text-color); 
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- NÚT BẤM MẶT TRĂNG ĐỔI CHẾ ĐỘ ĐỌC (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background-color: #5d4737;
+            color: #ffffff;
+            border: 2px solid #8d7561;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+            box-sizing: border-box;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            background-color: #7a5f4a;
+        }
+
+        /* Thanh Menu Điều Hướng */
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0 50px 0;
+            position: relative;
+            z-index: 999; 
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .nav-item {
+            background-color: #5d4737; 
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            display: block;
+            font-family: 'Lora', Georgia, Serif;
+            border: none;
+        }
+        
+        a.nav-item:hover { background-color: #7a5f4a; }
+        span.nav-item { cursor: default; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #5d4737;
+            min-width: 220px; 
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 2px;
+            top: 100%; left: 50%;
+            transform: translateX(-50%); 
+            padding: 5px 0;
+        }
+
+        .dropdown-content a {
+            color: #ffffff;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 13px;
+            text-align: left; 
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1); 
+        }
+
+        .dropdown-content a:hover { background-color: #7a5f4a; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* Khung Đọc Truyện CĂN GIỮA TUYỆT ĐỐI */
+        .reading-container {
+            max-width: 800px;             
+            width: 90%;                    
+            margin: 40px auto;            
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            box-shadow: var(--box-shadow);
+            padding: 50px 60px;
+            box-sizing: border-box;       
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .story-header {
+            text-align: center;
+            border-bottom: 1px double var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .story-title {
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--header-color);
+            margin: 0 0 10px 0;
+            font-weight: normal;
+        }
+
+        .chapter-title {
+            font-size: 26px;
+            color: var(--header-color);
+            font-weight: normal;
+            margin: 0;
+        }
+
+        /* Cấu trúc đoạn văn truyện */
+        .story-paragraph-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            padding-right: 45px; 
+        }
+
+        .story-text {
+            font-size: 17px;
+            line-height: 1.8;
+            text-align: justify;          
+            text-justify: inter-word;     
+            word-break: break-word;       
+            margin: 0 0 20px 0; 
+        }
+
+        /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ --- */
+        .like-chapter-container {
+            text-align: left;
+            margin: 30px 0 20px 0;
+            user-select: none;
+            font-family: 'Lora', Georgia, Serif;
+        }
+
+        .like-chapter-wrapper {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--text-color, #4a3728);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .like-chapter-wrapper:hover {
+            color: #a86232;
+            transform: scale(1.02);
+        }
+
+        .like-title-line {
+            font-size: 19px; 
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+            color: var(--header-color, #5d4737);
+        }
+
+        .like-sub-line {
+            font-size: 14px; 
+            color: inherit;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px; 
+            padding-left: 2px;
+        }
+
+        .like-paw-icon {
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .like-chapter-wrapper.active {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-title-line {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-paw-icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        /* Biểu tượng bóng chát mờ bên rìa phải */
+        .comment-icon {
+            position: absolute;
+            right: 5px;
+            top: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.2s ease-in-out;
+            color: var(--text-color);
+        }
+
+        .story-paragraph-wrapper:hover .comment-icon {
+            opacity: 0.5;
+        }
+
+        .comment-icon:hover { opacity: 1 !important; }
+
+        .paragraph-comment-box {
+            background-color: var(--comment-box-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            max-width: 650px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .old-comments-title { font-size: 13px; font-weight: bold; color: var(--header-color); margin: 0 0 8px 0; }
+        .old-comments-list { max-height: 120px; overflow-y: auto; border-bottom: 1px dashed var(--border-color); padding-bottom: 8px; margin-bottom: 12px; }
+        .comment-form-inline { display: flex; flex-direction: column; gap: 8px; }
+        .inline-input-name, .inline-textarea-text { padding: 8px 10px; font-size: 13px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); }
+        .inline-textarea-text { resize: none; }
+        .inline-submit-btn { background-color: #5d4737; color: white; border: none; padding: 5px 15px; font-size: 12px; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: inherit; font-weight: bold; }
+        .inline-submit-btn:hover { background-color: #7a5f4a; }
+        .inline-success-msg { color: var(--header-color); font-weight: bold; font-size: 12px; margin: 4px 0 0 0; text-align: center; }
+
+        .chapter-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 50px;
+            border-top: 1px double var(--border-color);
+            padding-top: 30px;
+        }
+
+        .nav-btn {
+            background-color: #5d4737;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 25px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .nav-btn:hover { background-color: #7a5f4a; }
+        .nav-btn.disabled {
+            background-color: #cccccc;
+            color: #888888;
+            cursor: not-allowed;
+            pointer-events: none; 
+        }
+
+        .chapter-discussion-box {
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .discussion-title { font-size: 18px; color: var(--header-color); letter-spacing: 1px; margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-weight: normal; }
+
+        @media screen and (max-width: 768px) {
+            .reading-container { width: 95% !important; padding: 30px 20px !important; margin: 20px auto !important; }
+            .story-text { font-size: 16px !important; }
+            .story-paragraph-wrapper { padding-right: 35px !important; }
+            .comment-icon { opacity: 0.6 !important; right: 0px !important; }
+            .theme-toggle-btn { top: 15px !important; right: 15px !important; width: 38px !important; height: 38px !important; font-size: 16px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
+
+    <div class="nav-bar">
+        <div class="dropdown">
+            <a href="index.html" class="nav-item">Chủ nhà</a>
+        </div>
+        <div class="dropdown">
+            <span class="nav-item">Kho báu ▾</span>
+            <div class="dropdown-content">
+                <a href="muc-luc-meo-con.html">Hôm nay mèo con cũng cứu vớt vai ác</a>
+                <a href="muc-luc-say.html">Yêu tựa hơi say</a>
+                <a href="muc-luc-vi-sao.html">Vì sao loại A này mà cũng có O</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="reading-container">
+        
+        <div class="story-header">
+            <h2 class="story-title">Yêu tựa hơi say</h2>
+            <h1 class="chapter-title">Chương 18: Hoàng hôn</h1>
+        </div>
+
+        <div id="story-content-area">
+            <p class="story-text">Mấy ngày tiếp theo, Cố Văn Hi không gặp Vân Hàn ở nhà trọ nữa, cũng không biết Đỗ Vân Nghiên có đi gặp cậu ta hay không. Đỗ Vân Nghiên sẽ không nói với cậu mình đã đi đâu, nhưng cậu lại không thể kìm được việc mình để ý đến chuyện của hai người họ, trong lúc vô tình ánh mắt nhìn Đỗ Vân Nghiên càng thường xuyên hơn, thậm chí còn để đối phương phát hiện.</p>
+            <p class="story-text">“Cậu nhìn gì vậy?” Đỗ Vân Nghiên đang giặt ga giường ở trong sân, không cần quay đầu lại cũng biết ai đang đứng sau lưng mình.</p>
+            <p class="story-text">“Không có gì,” Sau khi bị anh phát hiện, Cố Văn Hi cũng chẳng ngượng ngùng, “Sao anh không giặt bằng máy?”</p>
+            <p class="story-text">Đỗ Vân Nghiên trải tấm ga lên ván giặt đồ, lại cầm lấy bàn chải: “Dính mực nước nên máy giặt không sạch được.” Ga giường màu trắng lấm lem vài vết mực đen nhỏ.</p>
+            <p class="story-text">Giặt đồ phải dùng nước lạnh, tay anh lại rất trắng, ngâm nước một chút thì dần ửng đỏ lên. Cố Văn Hi chăm chú nhìn đôi tay đỏ ửng ấy, cậu tưởng tượng nếu đó là mình thì chắc phải đau lắm.</p>
+            <p class="story-text">Đỗ Vân Nghiên lại nhúng tấm ga vào trong nước, đôi tay cũng chìm vào theo.</p>
+            <p class="story-text">“Tôi giặt phụ anh nha?” Lời vừa ra khỏi miệng, Cố Văn Hi cũng không ngờ mình lại chủ động ôm cái công việc này vào người, tay cậu sợ lạnh, vào mùa đông mà rửa chén hay rửa rau thì có thói quen dùng nước ấm.</p>
+            <p class="story-text">“Không cần đâu,” Đỗ Vân Nghiên chẳng để ý, “cậu giặt không sạch.”</p>
+            <p class="story-text">Cố Văn Hi không lên tiếng, cậu ngồi xổm xuống bên cạnh anh, kéo tay áo lên rồi thăm dò nước trong thau, lúc tay chạm tới nước, bên trong lạnh băng hệt như cậu nghĩ. Đỗ Vân Nghiên buông lỏng tay ra.</p>
+            <p class="story-text">“Để tôi thử đi.” Cậu nói, cổ tay mạnh mẽ lấy đồ từ trong tay đối phương. Nước rất lạnh, lông tơ trên da lộ ra ngoài mặt nước dựng hết cả lên, cậu có chút hối hận vì hành động cậy mạnh của mình.</p>
+            <p class="story-text">Đỗ Vân Nghiên cũng không kiên trì, để cậu ngồi ở chỗ của anh rồi đứng dậy đi vào nhà, chưa đến một phút thì lại xách ra một bình nước ấm.</p>
+            <p class="story-text">“Nâng tay lên một chút.” Anh nói với Cố Văn Hi rồi mở bình ra, rót nước ấm đổ vào thau.</p>
+            <p class="story-text">Dòng nước ấm áp nhanh chóng tản ra, cái tay vừa lạnh đến chết lặng của Cố Văn Hi cũng dần ấm lên, cậu bắt đầu nghiêm túc giặt sạch chỗ dơ.</p>
+            <p class="story-text">“Sao có nước ấm mà anh lại không dùng?” Cậu cúi đầu hỏi.</p>
+            <p class="story-text">“Tôi quen rồi.” Đỗ Vân Nghiên đậy nắp bình lại rồi lấy một cái ghế nhỏ qua ngồi bên cạnh cậu, hệt như là muốn giám sát cậu làm việc.</p>
+            <p class="story-text">“Anh còn không yên tâm à?” Cố Văn Hi đã quan sát cả nửa ngày, đã biết phải làm như thế nào.</p>
+            <p class="story-text">“Thật ra cũng không phải,” Hai tay Đỗ Vân Nghiên đặt trên đầu gối, “tôi cảm thấy cậu không cần phải tranh cái này với tôi.”</p>
+            <p class="story-text">Cố Văn Hi thoáng ngẩng đầu nhưng cũng không nhìn anh: “Anh nghĩ tôi đang tranh với anh cái gì?”</p>
+            <p class="story-text">“Tôi cũng không biết… Chứng minh bản thân?” Đỗ Vân Nghiên châm chước nói, “Nhưng chúng ta không phải là cùng một kiểu người.”</p>
+            <p class="story-text">“Trong mắt của anh thì có phải tôi vô dụng lắm không?” Bàn chải trong tay Cố Văn Hi sột soạt cọ vang.</p>
+            <p class="story-text">Đuôi mắt của Đỗ Vân Nghiên khẽ cong: “Không phải tôi mới nói có mấy lần sao, sao cậu lại hẹp hòi như vậy chứ!”</p>
+            <p class="story-text">“Tôi mới không có…”</p>
+            <p class="story-text">“Nhưng ban đầu cậu trong tưởng tượng của tôi cũng không quá giống,” Anh nói tiếp, “tôi rất ít gặp kiểu đại thiếu gia như cậu.”</p>
+            <p class="story-text">Kiểu nào? Cố Văn Hi kéo ga giường lên một chút, dưới ánh mặt trời ẩn hiện một chút vết bẩn.</p>
+            <p class="story-text">“Tôi không muốn nói, nói rồi cậu lại kiêu ngạo.” Đỗ Vân Nghiên đứng lên, “Nếu nước không đủ ấm thì tự đi lấy thêm đi, tôi đi nấu cơm trước.”</p>
+            <p class="story-text">Trên mặt của Cố Văn Hi có chút nóng, liếc mắt nhìn về hướng anh mới rời đi: “Còn có thể giả bộ à.”</p>
+            <p class="story-text">Vết bẩn trên ga giường hẳn là vừa mới bị dính, sau khi kịp thời đem giặt thì cuối cùng vết mực cũng biến mất, giặt xong thì Cố Văn Hi phơi nó trong sân.</p>
+            <p class="story-text">“Chú Cố!”</p>
+            <p class="story-text">Nghe tiếng gọi, Cố Văn Hi lót đầu ra từ sau ga giường, không bất ngờ khi thấy Nghiên Nghiên nhảy nhót chạy đến, trên tay bé còn ôm cái nón bảo hiểm, vừa nhìn đã biết là có người chở đến.</p>
+            <p class="story-text">“Nghiên nghiên! Sao hôm nay lại đến đây?” Cậu nhớ đến hôm nay là chủ nhật, lúc sáng Đỗ Vân Nghiên đã nói muốn hầm thịt.</p>
+            <p class="story-text">“Mẹ con làm bánh bò,” Bé vui vẻ nói, “Nói con đem đến cho hai chú!”</p>
+            <p class="story-text">“Mẹ của con ——” Cố Văn Hi theo lời bé nói mà quay đầu lại, ngoài hàng rào có một người phụ nữ đang gác chân chống xe máy vẫy tay với bọn họ.</p>
+            <p class="story-text">Cố Văn Hi chưa từng thấy mẹ của Nghiên Nghiên, đang do dự có nên vào kêu Đỗ Vân Nghiên ra chào hỏi người ta hay không thì bé đã chạy về bên xe: “Chú ơi, con đi lên trấn trước nha!”</p>
+            <p class="story-text">“Cảm ơn con, tạm biệt!”</p>
+            <p class="story-text">Cố Văn Hi xách túi bánh bò đi vào phòng bếp.</p>
+            <p class="story-text">“Mẹ Nghiên Nghiên cho?” Đỗ Vân Nghiên chỉ cần liếc mắt một cái là đã biết, dường như đã quen rồi.</p>
+            <p class="story-text">“Ừm,” Cố Văn Hi đặt đồ lên kệ bếp, lúc sờ còn ấm ấm, vừa mở túi ra thì thấy những miếng bánh hình thoi màu trắng, nhìn vô cùng quen mắt, “A, cái này hình như lúc tới đây được hai ngày tôi đã ăn có phải không?”</p>
+            <p class="story-text">“Cậu còn nhớ à?” Đỗ Vân Nghiên rửa tay sạch sẽ, lấy một miếng bẻ thành hai chia với cậu, “Đúng rồi, lần trước cũng là Nghiên Nghiên đưa qua.”</p>
+            <p class="story-text">“Nhân duyên anh tốt thật.” Bánh được làm từ gạo nếp và bột mì vô cùng dính, vị ngọt ngọt thanh thanh, cái này đúng là khẩu vị yêu thích của Cố Văn Hi.</p>
+            <p class="story-text">“Người trong thôn với nhau đều vậy,” Đỗ Vân Nghiên không để ý, “Với lại có khi tôi sẽ giảng bài cho Nghiên Nghiên.”</p>
+            <p class="story-text">“Có phải Vân Hàn cũng thường hay đến nhà trọ phụ anh không?” Cố Văn Hi còn chưa kịp uốn lưỡi bảy lần thì đã hỏi, vừa hỏi xong lập tức hối hận, căng thẳng nhìn về phía đối phương.</p>
+            <p class="story-text">“... Ừm,” Đỗ Vân Nghiên gật đầu, xoay người đi, “mùa đắt khách thì em ấy sẽ đến.”</p>
+            <p class="story-text">Nhưng sau này thanh niên kia sẽ đi đến thành phố S, có lẽ sẽ không đến nữa đâu nhỉ? Tầm mắt Cố Văn Hi khóa chặt theo bóng dáng Đỗ Vân Nghiên, muốn tìm ra một chút dấu vết hiu quạnh, lát sau lại cảm thấy thay người khác đa sầu đa cảm thật là tào lao.</p>
+            <p class="story-text">“Thật ra nơi này khá tốt,” Cậu vốn chỉ muốn kéo lại đề tài lúc đầu nhưng lại bất chợt nghĩ đến quyết định ở lại vào một tháng trước của mình, “lúc trước tôi định đi rồi, ai ngờ chiều hôm đó tôi thấy hoàng hôn từ cửa sổ phòng tôi, lại nghĩ chẳng muốn đi nữa.”</p>
+            <p class="story-text">“Hoàng hôn?” Đỗ Vân Nghiên quay đầu lại, vẻ mặt có hơi ngạc nhiên.</p>
+            <p class="story-text">“Đúng rồi, có phải anh nghĩ mỗi lần tôi quyết định làm gì đó thì đều mất não hay không?” Cậu dựa vào tủ chén, “Lúc tôi mới đến đây thì vừa cãi nhau với ba một trận, còn chia tay với bạn gái, hệt như một thằng đào ngũ. Thật ra tôi rất vui, vui vì lựa chọn của mình.”</p>
+            <p class="story-text">“Vậy à…” Đỗ Vân Nghiên múc đồ ăn từ trong nồi ra, “Đúng rồi, buổi chiều cậu có rảnh không?”</p>
+            <p class="story-text">“Chỉ cần anh không sắp xếp nhiệm vụ thì tôi rảnh!” Cố Văn Hi cười nói.</p>
+            <p class="story-text">“Hôm nay không có chuyện để làm, buổi chiều đi với tôi đến một nơi đi.”</p>
+            <p class="story-text">“Chỗ nào?”</p>
+            <p class="story-text">“Gấp cái gì,” Đỗ Vân Nghiên hiếm khi thừa nước đục thả câu, “tới đó rồi biết.”</p>
+            <p class="story-text">Trong nồi đang nấu thịt kho tàu, âm thanh ùng ục không ngừng vang lên, hương thơm bay ra, Cố Văn Hi liều mạng nuốt nước miếng, nghĩ xem khi nào thì tới giờ ăn cơm.</p>
+            <p class="story-text">Nhưng mà rốt cuộc anh ấy muốn dẫn mình đi đâu?</p>
+            <p class="story-text">Dựa theo tính tình của Đỗ Vân Nghiên thì chắc là không phải nơi để chơi bời gì, nhưng có lẽ cũng đáng để chờ mong.</p>
+            <p class="story-text">…</p>
+            <p class="story-text">“Cậu đã đến nơi này chưa?” Đỗ Vân Nghiên dẫn cậu đến một con đường mòn hẻo lánh ít dấu chân người.</p>
+            <p class="story-text">“Chưa.”</p>
+            <p class="story-text">Bọn họ từ nhà trọ đã đi được một quãng dài, Đỗ Vân Nghiên nói không cần lái xe, Cố Văn Hi còn tưởng là một nơi rất gần, nhưng đã đi được một tiếng rồi, hình như là đi ngang qua ngọn núi không thấy điểm cuối, xung quanh cỏ cây um tùm, còn đang đi trên sườn núi, không thể đoán được đích đến là nơi nào.</p>
+            <p class="story-text">Đỗ Vân Nghiên nghiêng người nhìn về phía trước, cũng không quay đầu lại, hỏi: “Bực phân biệt phương hướng không?”</p>
+            <p class="story-text">“Anh đang kiểm tra tôi à?” Cố Văn Hi ngẩng đầu nhìn lên trời, thời tiết hôm nay rất đẹp, cậu chỉ về một hướng, “Bây giờ mặt trời đang xuống núi, cho nên bên đó là hướng Tây Nam.”</p>
+            <p class="story-text">“Cũng chưa ngốc lắm.”</p>
+            <p class="story-text">Cố Văn Hi trợn trắng mắt, còn đang muốn phản bác thì người nọ lại nói: “Sắp tới rồi.” Bọn họ bước lên một vùng nhô cao, tầm nhìn lập tức trống trải, dưới chân núi là con sông đang lượn lờ trôi, mặt sông lấp lánh ánh bạc.</p>
+            <p class="story-text">“Nơi này là?”</p>
+            <p class="story-text">“Nơi ngắm hoàng hôn đẹp nhất.”</p>
+            <p class="story-text">Tuy rằng vào lúc này thì mặt trời đã dần lặn xuống nhưng còn chưa lặn hẳn, viền mây phía Tây như được nạm một vòng viền vàng, rực rỡ chói lọi.</p>
+            <p class="story-text">“Anh dẫn tôi đi ngắm hoàng hôn?” Cố Văn Hi vô cùng ngạc nhiên.</p>
+            <p class="story-text">“Cậu không thích à?” Đỗ Vân Nghiên tìm một nơi có cỏ tương đối bằng phẳng rồi bảo cậu, “Ngồi xuống đây một lát đi.”</p>
+            <p class="story-text">Thấy anh ngồi xuống rồi thì Cố Văn Hi cũng không chậm chạp nữa, cùng ngồi trên đỉnh sườn núi. Con sông phía dưới có lẽ là đoạn sông mà cậu đã từng thấy, xung quanh cỏ dại nhiều hơn, nhưng do theo mùa nên khô vàng hết, dưới ánh nắng chiều thì càng trở nên nổi bật, hệt như một sóng lúa sáng rực.</p>
+            <p class="story-text">“Sao anh phát hiện ra nơi này?” Đã lướt qua ảnh chụp trên vòng bạn bè nhưng Cố Văn Hi chẳng có chút ấn tượng nào về triền núi này, có lẽ ngoại trừ hai người họ thì cũng không có ai đến đây nữa.</p>
+            <p class="story-text">“Tôi đã biết từ lâu rồi….” Đỗ Vân Nghiên hơi ngửa đầu ra sau, “Trước kia có dẫn Vân Hàn đến nhưng em ấy cũng không hứng thú lắm, sau này thì thường tới đây ngồi một mình.”</p>
+            <p class="story-text">Thời tiết hôm nay không tồi, những đám mây lướt ngang qua đỉnh đầu, tựa như chỉ cần đưa tay là có thể với tới.</p>
+            <p class="story-text">“Đỗ Vân Nghiên,” Cố Văn Hi ôm đầu gối nhìn về phía trước, “tôi có chỗ không hiểu, tại sao lúc trước anh lại muốn mở nhà trọ?”</p>
+            <p class="story-text">“Nhìn tôi không giống như người sẽ làm việc này à?”</p>
+            <p class="story-text">“Không giống.” Không thích truyền bá, không có hứng thú kiếm tiền, tính cách lại không nhiệt tình…. Nhìn kiểu nào cũng như đang chuốc khổ vào mình.</p>
+            <p class="story-text">“Nhà trọ này là giấc mơ của mẹ tôi.” Thanh âm Đỗ Vân Nghiên nhẹ như mây, “Trước đêm khai trương bà qua đời, tôi muốn giúp bà kéo dài giấc mơ này.”</p>
+            <p class="story-text">Nghe anh nói vậy, Cố Văn Hi chợt nhớ đến tên nhà trọ như tên của một người con gái nào đó: “Vậy tên của nhà trọ ——”</p>
+            <p class="story-text">“Ừm, là tên của bà.”</p>
+            <p class="story-text">“Anh thực hiện ước mơ của mẹ anh…” Đỗ Vân Nghiên ở mức nào đó đã lật đổ ấn tượng về anh của cậu, “Vậy của anh thì sao? Anh thật sự cam tâm tình nguyện ——” cho dù tình mẹ con sâu đậm nhưng cuối cùng người cũng đã về với trời rồi.</p>
+            <p class="story-text">“Vốn dĩ tôi mắc nợ bà,” Giọng điệu anh như thuận theo mệnh trời, chẳng hề có chút oán giận trách cứ, “nếu không có tôi thì cuộc sống của bà sẽ tốt hơn rất nhiều.”</p>
+            <p class="story-text">Cảm giác khó giải thích được đang lan đến tận đáy lòng Cố Văn Hi, hệt như cảm xúc bị đè nén trong bệnh viện lần trước lại ngóc đầu trỗi dậy, hơn nữa càng ngày càng nghiêm trọng.</p>
+            <p class="story-text">Cậu từng cho rằng quan hệ của Đỗ Vân Nghiên và mẹ ruột cũng từa tựa như mình, bây giờ xem ra cũng không hẳn là vậy. Ít nhất thì Cố Văn Hi cũng không ôm nỗi hổ thẹn với mẹ Ôn Nam của mình.</p>
+            <p class="story-text">Cha mẹ của cậu là kết quả sai lầm của một cuộc hứa hôn từ phụ huynh, tiếc là một người thật sự động lòng, còn người kia thì vẫn không thay đổi sơ tâm. Sau khi Ôn Nam biết Cố Dục Thanh vẫn luôn yêu tha thiết người khác thì bà kiên quyết dứt bỏ mối duyên sai lầm này. Nhưng bà chưa từng hối hận khi nuôi dưỡng Cố Văn Hi, bao dung hết thảy ý kiến và tính tình của con trai, tuyệt đối không cho phép cậu vì ý kiến riêng của bậc trên mà thỏa hiệp. Mấy năm ở bên cạnh Ôn Nam là những ngày tháng vui vẻ nhất của Cố Văn Hi.</p>
+            <p class="story-text">Có lẽ đề tài này quá nặng nề, Đỗ Vân Nghiên bổ sung một câu: “Đương nhiên, cuộc sống ở nơi này —— cũng không giống vậy.”</p>
+            <p class="story-text">Anh không nói rõ là không giống nơi nào, Cố Văn Hi cũng không hỏi.</p>
+            <p class="story-text">Mặt trời lặn xuống rất nhanh, lúc nãy phía Tây mới còn một màu vàng rực mà giờ đây đã bị màu ráng cam bao trùm, dãy núi xa xa nửa sáng nửa tối.</p>
+            <p class="story-text">“Sắp rơi xuống rồi.” Cố Văn Hi chỉ vào con sông bên kia, nói với anh.</p>
+            <p class="story-text">Dường như trên đó được vẽ lên ánh mặt trời chẳng hề lóa mắt, tia sáng kia như được rọi đến từ một thế giới khác, hư hư ảo ảo chẳng thật, vô cùng mỹ lệ. Sắc nước nhiễm đỏ hồng, màu dần sẫm lại, xua tan đi muôn vàn ánh sáng đang nhảy nhót trên kia.</p>
+            <p class="story-text">Quả thật nơi này có thể ngắm được hoàng hôn đẹp nhất.</p>
+        </div>
+
+        <div class="chapter-navigation">
+            <a href="s2-c17.html" class="nav-btn">Chương trước</a>
+            <a href="muc-luc-say.html" class="nav-btn">Mục lục</a>
+            <a href="s2-c19.html" class="nav-btn">Chương sau</a>
+        </div>
+
+        <div class="like-chapter-container">
+            <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
+                <div class="like-title-line">
+                    <span>Meo meo có thích hong</span>
+                </div>
+                <div class="like-sub-line">
+                    <span class="like-paw-icon">🐾</span>
+                    <span id="likeCountDisplay">0</span> <span>dấu chân mèo</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chapter-discussion-box">
+            <h3 class="discussion-title">💬 Thảo luận của chương này</h3>
+            <form id="commentForm" onsubmit="sendGeneralComment(event)" style="max-width: 650px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Hãy cho xin danh tính</label>
+                    <input type="text" id="commentName" placeholder="Ví dụ: Aa..." required 
+                           style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text);">
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Bạn nói gì ó</label>
+                    <textarea id="commentText" rows="4" placeholder="Viết bình luận tại đây..." required
+                              style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); resize: none;"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" style="background-color: #5d4737; color: white; border: none; padding: 10px 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: 'Lora', serif;">
+                    Gửi bình luận
+                </button>
+                
+                <p id="successMessage" style="display: none; color: var(--header-color); font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px;">
+                    ✦ Bình luận của bạn đã được gửi thành công! Cảm ơn bạn nhé.
+                </p>
+            </form>
+
+            <div id="real-comments-area" style="margin-top: 40px; border-top: 1px dashed var(--border-color); padding-top: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 14px; font-weight: bold; color: var(--header-color); margin-bottom: 15px;">💬 Bàn tán gì ik</p>
+            </div>
+        </div>
+
+    </div> 
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
+    <script>
+        var firebaseConfig = {
+            databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        var database = firebase.database();
+
+        var currentChapterId = "s2-c18"; // Định danh chính xác cho S2 Chương 18 trên Firebase
+        var currentChapterName = "Tập 2 - Chương 18"; 
+        var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSciXpmJoHrGIh2Gizdj8nI0SqxicyXKoqpAQglHltORRQwG-w/formResponse";
+
+        var likeRef = database.ref("likes/" + currentChapterId);
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            var btn = document.getElementById("likeChapterBtn");
+            var display = document.getElementById("likeCountDisplay");
+            
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+            if (userHasLiked === "true" && btn) {
+                btn.classList.add("active");
+            }
+
+            if (likeRef) {
+                likeRef.on("value", function(snapshot) {
+                    var count = snapshot.val() || 0;
+                    if (display) display.innerText = count;
+                });
+            }
+        });
+
+        function handleLikeChapter() {
+            var btn = document.getElementById("likeChapterBtn");
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+
+            if (userHasLiked !== "true") {
+                likeRef.transaction(function(currentLikes) {
+                    return (currentLikes || 0) + 1;
+                }).then(function() {
+                    if (btn) btn.classList.add("active");
+                    localStorage.setItem("user_liked_" + currentChapterId, "true");
+                });
+            } else {
+                likeRef.transaction(function(currentLikes) {
+                    var newLikes = (currentLikes || 0) - 1;
+                    return newLikes < 0 ? 0 : newLikes;
+                }).then(function() {
+                    if (btn) btn.classList.remove("active");
+                    localStorage.removeItem("user_liked_" + currentChapterId);
+                });
+            }
+        }
+
+        function toggleTheme() {
+            var currentTheme = document.documentElement.getAttribute("data-theme");
+            var targetTheme = "light";
+            var btn = document.getElementById("themeToggleBtn");
+
+            if (currentTheme === "light" || !currentTheme) {
+                targetTheme = "dark";
+                btn.innerText = "☀️"; 
+            } else {
+                targetTheme = "light";
+                btn.innerText = "🌙"; 
+            }
+            document.documentElement.setAttribute("data-theme", targetTheme);
+        }
+
+        // Tự động quét và chèn bóng chát từng đoạn văn
+        document.addEventListener("DOMContentLoaded", function() {
+            var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
+            
+            paragraphs.forEach(function(p, index) {
+                var paragraphIndex = index + 1; 
+                var boxId = "inline-comment-" + paragraphIndex;
+                
+                var wrapper = document.createElement("div");
+                wrapper.className = "story-paragraph-wrapper";
+                p.parentNode.insertBefore(wrapper, p);
+                wrapper.appendChild(p);
+                
+                var icon = document.createElement("span");
+                icon.className = "comment-icon";
+                icon.innerText = "💬";
+                icon.onclick = function() { toggleInlineComment(boxId); };
+                wrapper.appendChild(icon);
+                
+                var commentBox = document.createElement("div");
+                commentBox.className = "paragraph-comment-box";
+                commentBox.id = boxId;
+                commentBox.style.display = "none";
+                
+                commentBox.innerHTML = `
+                    <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
+                    <div class="old-comments-list">
+                        <p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p>
+                    </div>
+                    <form class="comment-form-inline" onsubmit="sendInlineComment(event, '${boxId}', 'Đoạn ${paragraphIndex}')">
+                        <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
+                        <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
+                        <button type="submit" class="inline-submit-btn">Gửi cmt</button>
+                        <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
+                    </form>
+                `;
+                wrapper.appendChild(commentBox);
+            });
+        });
+
+        function toggleInlineComment(id) {
+            var box = document.getElementById(id);
+            box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";
+        }
+
+        function sendInlineComment(event, boxId, paragraphLabel) {
+            event.preventDefault();
+            var box = document.getElementById(boxId);
+            var name = box.querySelector('.inline-input-name').value;
+            var text = box.querySelector('.inline-textarea-text').value;
+            var fullLocation = currentChapterName + " (" + paragraphLabel + ")"; 
+            
+            var formData = new FormData();
+            formData.append('entry.300949374', name);
+            formData.append('entry.1314952314', text);
+            formData.append('entry.483800760', fullLocation);
+            
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
+                box.querySelector('.inline-textarea-text').value = '';
+                var successMsg = box.querySelector('.inline-success-msg');
+                successMsg.style.display = 'block';
+                setTimeout(function() { successMsg.style.display = 'none'; }, 3000);
+            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
+        }
+
+        function sendGeneralComment(event) {
+            event.preventDefault();
+            var name = document.getElementById('commentName').value;
+            var text = document.getElementById('commentText').value;
+            var fullLocation = currentChapterName + " (Tổng)";
+            
+            var formData = new FormData();
+            formData.append('entry.300949374', name);
+            formData.append('entry.1314952314', text);
+            formData.append('entry.483800760', fullLocation);
+            
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
+                document.getElementById('commentText').value = '';
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(function() { document.getElementById('successMessage').style.display = 'none'; }, 4000);
+            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
+        }
+    </script>
+</body>
+</html>
