@@ -168,7 +168,7 @@
             margin: 0;
         }
 
-        /* KHU VỰC THIẾT LẬP NÚT PHÁT NHẠC NGẦM CAN GIỮA TRONG SUỐT */
+        /* KHU VỰC NÚT PHÁT NHẠC NGẦM CAN GIỮA TRONG SUỐT */
         .music-embed-trigger-container {
             text-align: center;
             margin-bottom: 35px;
@@ -193,6 +193,18 @@
             font-style: italic;
             font-size: 14px;
             opacity: 0.85;
+        }
+
+        /* CSS ĐẶC BIỆT ĐỂ GIẤU TRÌNH PHÁT YOUTUBE HOÀN TOÀN NHƯNG VẪN HOẠT ĐỘNG HOÀN HẢO TRÊN DI ĐỘNG */
+        #hiddenYoutubePlayerContainer {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+            left: -9999px;
+            top: -9999px;
+            overflow: hidden;
         }
 
         /* Cấu trúc đoạn văn truyện */
@@ -392,11 +404,14 @@
         </div>
 
         <div class="music-embed-trigger-container">
-            <span id="musicTriggerBtn" class="music-clickable-text" onclick="triggerInvisibleMusic()" title="Bấm vào để nghe nhạc nền">
-                ♫ <strong>Sứ Thanh Hoa</strong> ♫ <em>(ấn vào để nghe nhạc)</em>
+            <span id="musicTriggerBtn" class="music-clickable-text" onclick="toggleInvisibleMusic()" title="Bấm vào để nghe/dừng nhạc nền">
+                🎵 <strong>Sứ Thanh Hoa</strong> 🎵 <em>(ấn vào để nghe nhạc)</em>
             </span>
         </div>
-        <iframe id="hiddenYoutubeIframePlayer" style="display: none;" src="" allow="autoplay"></iframe>
+        
+        <div id="hiddenYoutubePlayerContainer">
+            <div id="hiddenNativePlayer"></div>
+        </div>
 
         <div id="story-content-area">
             <p class="story-text">Ngày ấy Cố Văn Hi từ nhà hàng trở về, cậu đặt quyển《 Biên thành 》đã mua trong hiệu sách lên tủ đầu giường, lật lật hai trang. Nội dung trong tiểu thuyết thật sự không nhiều, cậu cảm thấy có hơi nhạt nhẽo, nhưng cũng có chỗ cậu thấy hứng thú, đó là cảnh đã nửa đêm rồi mà em trai lại đứng cách khe suối hát cho cô gái nghe, trong mơ cô gái còn hái được một nhành cỏ tai hổ.</p>
@@ -452,7 +467,7 @@
             <p class="story-text">Hai người ngồi cạnh nhau toàn tuôn ra những lời thô tục, bỉ ổi cuồn cuộn rót vào tai những người ngồi xung quanh.</p>
             <p class="story-text">“Điện thoại hả… Chuyện đó không sớm thì muộn thôi, nói cho mày nghe, bây giờ mấy đứa con gái thích trai hư một chút, mày càng không đứng đắn thì càng câu mấy cô ấy mê hồn ——”</p>
             <p class="story-text">“Đủ rồi!”</p>
-            <p class="story-text">Một tiếng “cạch” lanh lảnh vang lên, Cố Văn Hi dùng sức đặt mạnh ly thủy tinh hình vuông lên bàn thấp. Cả đám nín thinh nhìn cậu, Du Lạc căng thẳng kéo kéo tay áo cậu: “Anh Cố ——”</p>
+            <p class="story-text">Một tiếng “cạch” lanh lảnh vang lên, Cố Văn Hi dùng sức đặt mạnh ly thủy tinh hình vuông lên bàn thấp. Cả đám nín thinh nhìn cậu, Du Lạc căng thẳng kéo kéo tay áo cậu: "Anh Cố ——”</p>
             <p class="story-text">Ánh mắt sắc lạnh như dao của Cố Văn Hi liếc ngang qua Cảnh Nhiên và tên đàn em của hắn: “Nói xong chưa? Trong đầu không có thứ gì khác phải không?”</p>
             <p class="story-text">Cảnh Nhiên nhìn chằm chằm cậu rồi lại sờ cằm, nhấp môi hai lần, vui vẻ nói: “Anh Cố, anh hài hước thật. Bây giờ lại giả vờ ngây thơ rồi à? Tôi nghe nói Cố đại thiếu gia thay người yêu như thay áo —— à, cũng không đúng lắm, lần trước cũng không phải anh đá người ta mà bị chính anh em mình cắm cho cái sừng phải không? Ha ha ha ha ha…”</p>
             <p class="story-text">Du Lạc liều mạng nháy mắt ra hiệu với Cảnh Nhiên, đối phương lại chẳng thèm để ý, tiếp tục đổ dầu lên đầu Cố Văn Hi: “Cố thiếu chắc tức điên lắm nhỉ? Có muốn theo tôi học hỏi một chút không?”</p>
@@ -536,6 +551,8 @@
 
     </div> 
 
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     
@@ -548,17 +565,48 @@
         }
         var database = firebase.database();
 
-        var currentChapterId = "s2-c29"; // Định danh chính xác cho S2 Chương 29 trên Firebase
+        var currentChapterId = "s2-c29"; 
         var currentChapterName = "Tập 2 - Chương 29"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSciXpmJoHrGIh2Gizdj8nI0SqxicyXKoqpAQglHltORRQwG-w/formResponse";
 
-        // Hàm kích hoạt nhạc nhúng ẩn phát ngầm
-        function triggerInvisibleMusic() {
-            var player = document.getElementById('hiddenYoutubeIframePlayer');
-            player.src = "https://www.youtube.com/embed/VoWH6bPetpc?autoplay=1";
+        // TOÀN BỘ LOGIC ĐIỀU KHIỂN NÚT NHẠC THÔNG MINH TRÊN CẢ DI ĐỘNG VÀ MÁY TÍNH
+        var nativePlayer;
+        var apiReady = false;
+
+        // Khởi tạo Player ngầm từ API ngay khi load trang
+        function onYouTubeIframeAPIReady() {
+            nativePlayer = new YT.Player('hiddenNativePlayer', {
+                height: '1',
+                width: '1',
+                videoId: 'VoWH6bPetpc',
+                playerVars: {
+                    'playlist': 'VoWH6bPetpc',
+                    'loop': 1
+                },
+                events: {
+                    'onReady': function() {
+                        apiReady = true;
+                    }
+                }
+            });
+        }
+
+        // Hàm kiểm soát trạng thái bấm bật / tạm dừng / chạy tiếp thông minh
+        function toggleInvisibleMusic() {
+            if (!apiReady || !nativePlayer) return;
             
+            var playerState = nativePlayer.getPlayerState();
             var btnText = document.getElementById('musicTriggerBtn');
-            btnText.innerHTML = "🎵 <strong>Sứ Thanh Hoa</strong> 🎵 <span style='font-weight:normal; font-style:italic; opacity:0.75;'>(đang phát nhạc nền...)</span>";
+            
+            // Nếu nhạc đang chạy (state = 1), tiến hành tạm dừng ngắt quãng
+            if (playerState === 1) { 
+                nativePlayer.pauseVideo();
+                btnText.innerHTML = "🎵 <strong>Sứ Thanh Hoa</strong> 🎵 <span style='font-weight:normal; font-style:italic; opacity:0.75;'>(đã tạm dừng, ấn để nghe tiếp)</span>";
+            } else {
+                // Các trạng thái khác (chưa chạy, tạm dừng, kết thúc) đều bấm để phát tiếp tục
+                nativePlayer.playVideo();
+                btnText.innerHTML = "🎵 <strong>Sứ Thanh Hoa</strong> 🎵 <span style='font-weight:normal; font-style:italic; opacity:0.75;'>(đang phát nhạc nền...)</span>";
+            }
         }
 
         var likeRef = database.ref("likes/" + currentChapterId);
