@@ -241,6 +241,78 @@
             background-color: #7a5f4a;
         }
 
+        /* --- KHU VỰC SỬA LỖI: THÊM ĐẦY ĐỦ CSS VINTAGE CHO NƠI CƯ NGỤ --- */
+        #noi-cu-ngu-container {
+            width: 850px;
+            max-width: 95%;
+            margin: 60px auto;
+            text-align: center;
+        }
+
+        #noi-cu-ngu-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--header-color);
+            font-size: 18px;
+            letter-spacing: 6px;
+            font-weight: bold;
+            margin: 0 0 40px 0;
+            width: 100%;
+        }
+
+        #noi-cu-ngu-label::before,
+        #noi-cu-ngu-label::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+            margin: 0 20px;
+        }
+
+        .social-galaxy {
+            display: flex;
+            justify-content: center;
+            gap: 40px; 
+            flex-wrap: wrap;
+        }
+
+        .social-star {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--star-bg);
+            border: 1px solid var(--border-color);
+            padding: 12px 25px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            box-shadow: 3px 3px 0px var(--star-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .social-star::before {
+            content: "✦";
+            color: var(--text-color);
+            font-size: 12px;
+            transition: transform 0.4s ease;
+        }
+
+        .social-star:hover {
+            background-color: #5d4737;
+            color: #ffffff;
+            box-shadow: 0px 0px 0px transparent;
+            transform: translateY(-5px); 
+        }
+
+        .social-star:hover::before {
+            color: #ffffff;
+            transform: rotate(180deg); 
+        }
+
         /* RESPONSIVE CHO THIẾT BỊ DI ĐỘNG */
         @media screen and (max-width: 768px) {
             .site-title { font-size: 32px !important; }
@@ -251,6 +323,8 @@
             .novel-title-text { font-size: 14px !important; }
             .novel-author-text { font-size: 12px !important; }
             .read-button-custom { padding: 8px 10px !important; font-size: 12px !important; }
+            .social-galaxy { gap: 20px !important; }
+            .social-star { padding: 10px 18px !important; font-size: 12px !important; }
             
             .theme-toggle-btn {
                 top: 15px !important;
@@ -383,3 +457,6 @@
     </script>
 </body>
 </html>
+eof
+
+Trang `kho-bau.html` bây giờ đã hoàn hảo không tì vết, mọi thành phần từ logo, thanh điều hướng đến khu vực "Nơi cư ngụ" đều đã đồng bộ tuyệt đối về mặt mỹ thuật rồi đó Bé Chiêu nhen! 🥰🐾
