@@ -73,7 +73,7 @@
             background-color: #7a5f4a;
         }
 
-        /* 2. Thanh Menu Điều Hướng */
+        /* Thanh Menu Điều Hướng */
         .nav-bar {
             display: flex;
             justify-content: center;
@@ -81,11 +81,6 @@
             margin: 30px 0 50px 0;
             position: relative;
             z-index: 999; 
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
         }
 
         .nav-item {
@@ -100,40 +95,15 @@
             display: block;
             font-family: 'Lora', Georgia, Serif;
             border: none;
+            transition: background-color 0.2s;
         }
         
         a.nav-item:hover { background-color: #7a5f4a; }
-        span.nav-item { cursor: default; }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #5d4737;
-            min-width: 220px; 
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            border-radius: 2px;
-            top: 100%; left: 50%;
-            transform: translateX(-50%); 
-            padding: 5px 0;
-        }
-
-        .dropdown-content a {
-            color: #ffffff;
-            padding: 10px 15px;
-            text-decoration: none;
-            display: block;
-            font-size: 13px;
-            text-align: left; 
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.1); 
-        }
-
-        .dropdown-content a:hover { background-color: #7a5f4a; }
-        .dropdown:hover .dropdown-content { display: block; }
-
-        /* --- 3. Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
+        /* --- Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
         .reading-container {
             max-width: 800px;             
-            width: 90%;                   
+            width: 90%;                    
             margin: 40px auto;            
             background-color: var(--container-bg);
             border: 1px solid var(--border-color);
@@ -327,7 +297,7 @@
             text-align: center;
         }
 
-        /* --- Thanh Chuyển Chương Tối Giản --- */
+        /* --- Thanh Chuyển Chương Tối Giản dàn đều --- */
         .chapter-navigation {
             display: flex;
             justify-content: space-between;
@@ -418,9 +388,9 @@
     <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
 
     <div class="nav-bar">
-    <a href="index.html" class="nav-item">Chủ nhà</a>
-    <a href="kho-bau.html" class="nav-item">Kho báu</a>
-</div>
+        <a href="index.html" class="nav-item">Chủ nhà</a>
+        <a href="kho-bau.html" class="nav-item">Kho báu</a>
+    </div>
 
     <div class="reading-container">
         
@@ -538,7 +508,7 @@
             
             <p class="story-text">Sắc mặt Hạ Vọng trầm lặng, không còn một chút dịu dàng như khi đối diện với mèo con. Hắn đứng trên ban công, chờ gió đêm mang đi hết mùi thuốc lá trên người rồi mới trở về giường.</p>
             
-            <p class="story-text">Mặc dù trên người bị gió đêm thổi lạnh nhưng cơ thể người đàn ông vẫn nhanh chóng ấm lên, mèo nhỏ Đường Hi say ngủ vô thức tiến sát lại gần nguồn nhiệt ấm áp này. </p>
+            <p class="story-text">Mặc dù trên người bị gió đêm thổi lạnh nhưng cơ thể người đàn ông vẫn nhanh chóng ấm lên, mèo nhỏ Đường Hi say ngủ vô thức tiến sát lại gần nguồn nhiệt ấm áp này.</p>
             
             <p class="story-text">Sau đó bị một cánh tay dài ôm vào trong lòng.</p>
             
@@ -549,12 +519,12 @@
             <p class="story-text">“Hạ tổng, đây là tư liệu ngài muốn.” Trợ lý Vương không hiểu tại sao ông chủ lại kêu anh ta đi điều tra thông tin của mấy học sinh cấp ba, nhưng anh vẫn tận tâm hoàn thành nhiệm vụ.</p>
             
             <p class="story-text">Trong tài liệu còn có Thẩm Thần Tư, người thừa kế của Thẩm Thẩm gia và Diệp Kỳ An, người được ông chủ giúp đỡ. Hơn nữa còn có một điểm chung là mấy ngày nay đã kết thân với một thiếu niên tên Đường Hi.</p>
-             
+            
             <p class="story-text">Hạ Vọng dập tắt thuốc, giọng đều đều: "Mang lại đây."</p>
             
             <p class="story-text">Lật lật vài trang đầu tiên, tầm mắt hắn dừng lại trên tờ của Thẩm Thần Tư. Trên đó ghi chi tiết ngày đó y và Đường Hi bị đám lưu manh vây đánh như thế nào.</p>
             
-            <p class="story-text">Trốn học, đi ăn bánh ngọt,... </p>
+            <p class="story-text">Trốn học, đi ăn bánh ngọt,...</p>
             
             <p class="story-text">Tốt lắm.</p>
             
@@ -596,13 +566,13 @@
             
             <p class="story-text">Mèo nhỏ Đường Hi đi đi lại lại, một bộ vừa muốn đến gần vừa không muốn. Bởi vì trên người vai ác không chỉ có mùi rượu mà còn có thêm khí chất âm trầm đáng sợ.</p>
             
-            <p class="story-text">Hạ Vọng vẫy tay ra hiệu cho quản gia đi xuống, tự mình đi lên lầu, sau lưng còn có một con mèo nhỏ tung tăng chạy theo.</p>
+            <p class="story-text">Hạ Vọng vẫy tay ra hiệu cho quản gia đi xuống, tựmiền đi lên lầu, sau lưng còn có một con mèo nhỏ tung tăng chạy theo.</p>
             
             <p class="story-text">Đường Hi tròn mắt nhìn hắn đỡ trán ngồi trên sô pha, cậu ngẩng đầu nhìn lên thì chỉ có thể thấy xương hàm của người đàn ông đang căng chặt.</p>
             
             <p class="story-text">Dường như rất khó chịu.</p>
             
-            <p class="story-text">【1551, tối nay vai ác đi đâu vậy?】 </p>
+            <p class="story-text">【1551, tối nay vai ác đi đâu vậy?】</p>
             
             <p class="story-text">1551 kiểm tra một chút:【Cùng một tên nhà giàu mới nổi đi uống rượu xã giao.】</p>
             
@@ -630,7 +600,8 @@
             
             <p class="story-text">Một bàn tay to lớn, khớp xương rõ ràng nắm chặt lấy cổ tay mảnh khảnh trắng nõn kia.</p>
             
-            <p class="story-text">Cậu ngơ ngác ngẩng đầu lên, nhìn thấy Hạ Vọng vốn phải say như chết giờ đang mở to mắt nhìn cậu, ánh mắt vô cùng tỉnh táo, trong con ngươi còn để lộ ra một chút… nghiền ngẫm.</p
+            <p class="story-text">Cậu ngơ ngác ngẩng đầu lên, nhìn thấy Hạ Vọng vốn phải say như chết giờ đang mở to mắt nhìn cậu, ánh mắt vô cùng tỉnh táo, trong con ngươi còn để lộ ra một chút… nghiền ngẫm.</p>
+        </div>
 
         <div class="chapter-navigation">
             <a href="s1-c16.html" class="nav-btn">Chương trước</a>
@@ -638,7 +609,7 @@
             <a href="s1-c18.html" class="nav-btn">Chương sau</a>
         </div>
 
-    <div class="like-chapter-container">
+        <div class="like-chapter-container">
             <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
                 <div class="like-title-line">
                     <span>Meo meo có thích hong</span>
