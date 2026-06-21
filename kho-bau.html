@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kho báu - Little Mint's Galaxy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --bg-image: url('background.jpg');
+            --container-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #4a3728;
+            --header-color: #5d4737;
+            --border-color: #8d7561;
+            --box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.65);
+            --card-hover-bg: rgba(255, 255, 255, 0.85);
+            --badge-bg-pending: #fdf2e9;
+            --badge-text-pending: #a86232;
+            --badge-bg-done: #e6f4ea;
+            --badge-text-done: #137333;
+        }
+
+        [data-theme="dark"] {
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
+            --container-bg: rgba(35, 30, 27, 0.9);
+            --text-color: #e2d7cc;
+            --header-color: #f1e6da;
+            --border-color: #5d4737;
+            --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
+            --card-bg: rgba(53, 45, 40, 0.6);
+            --card-hover-bg: rgba(65, 55, 48, 0.8);
+            --badge-bg-pending: rgba(168, 98, 50, 0.2);
+            --badge-text-pending: #f8a170;
+            --badge-bg-done: rgba(19, 115, 51, 0.25);
+            --badge-text-done: #81c995;
+        }
+
+        body {
+            background-image: var(--bg-image); 
+            background-attachment: fixed; 
+            background-size: cover;
+            background-position: center;
+            font-family: 'Lora', Georgia, Serif; 
+            color: var(--text-color); 
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Khung bo logo cổ điển giống ảnh mẫu */
+        .classic-logo-border {
+            border: 1px solid var(--border-color);
+            position: relative;
+            padding: 8px 24px;
+            display: inline-block;
+        }
+        .classic-logo-border::before, .classic-logo-border::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .classic-logo-border::before {
+            top: -4px; left: -4px;
+            border-right: none; border-bottom: none;
+        }
+        .classic-logo-border::after {
+            bottom: -4px; right: -4px;
+            border-left: none; border-top: none;
+        }
+
+        .theme-toggle-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background-color: #5d4737;
+            color: #ffffff;
+            border: 2px solid #8d7561;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+            box-sizing: border-box;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            background-color: #7a5f4a;
+        }
+    </style>
+</head>
+<body class="min-height-screen pb-16">
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
+
+    <header class="text-center pt-16 pb-8 px-4">
+        <!-- Logo cổ điển -->
+        <div class="mb-4">
+            <div class="classic-logo-border">
+                <span class="text-sm tracking-widest uppercase font-semibold" style="color: var(--header-color);">Little Mint's Galaxy</span>
+            </div>
+        </div>
+        <!-- Tên nhà và Slogan -->
+        <h1 class="text-4xl md:text-5xl font-normal mt-2 tracking-wide" style="color: var(--header-color);">Little Mint's Galaxy</h1>
+        <p class="text-sm italic mt-2 opacity-80" style="color: var(--text-color);">Sinh tử tương hứa, khắc cốt tương tư</p>
+
+        <!-- Thanh Menu Điều Hướng mới không còn Menu thả (Dropdown) -->
+        <div class="flex justify-center gap-4 mt-8">
+            <a href="index.html" class="nav-item">Chủ nhà</a>
+            <a href="kho-bau.html" class="nav-item" style="background-color: #7a5f4a;">Kho báu</a>
+        </div>
+    </header>
+
+    <main class="max-w-5xl w-11/12 mx-auto mt-6">
+        
+        <div class="p-6 md:p-8 rounded-lg" style="background-color: var(--container-bg); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            
+            <!-- Phần tiêu đề phong cách "Sọt Khoai" -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-6 mb-8" style="border-color: var(--border-color);">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-3xl">📦</span>
+                        <h2 class="text-3xl font-normal" style="color: var(--header-color);">Kho báu</h2>
+                    </div>
+                    <p class="text-sm italic mt-1 opacity-80">Nơi cất giữ những hành tinh nhỏ trong dải ngân hà.</p>
+                </div>
+                <!-- Khung tổng số truyện -->
+                <div class="mt-4 md:mt-0 p-4 rounded-lg border flex flex-col items-center justify-center min-w-[120px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                    <span class="text-xs uppercase tracking-wider font-semibold opacity-70">Số báu vật</span>
+                    <span class="text-3xl font-bold mt-1" style="color: #a86232;">03</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- TRUYỆN 1: Hôm nay mèo con cũng cứu vớt vai ác -->
+                <div class="rounded-xl overflow-hidden border flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                    <div>
+                        <!-- Bìa truyện thiết kế sẵn hoặc fallback -->
+                        <div class="h-64 bg-stone-300 relative overflow-hidden flex items-center justify-center">
+                            <img src="bia1.jpg" alt="Hôm nay mèo con cũng cứu vớt vai ác" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/8d7561/ffffff?text=Meo+Con'">
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-semibold leading-snug mb-2" style="color: var(--header-color);">[S1] Hôm nay mèo con cũng cứu vớt vai ác</h3>
+                            <p class="text-xs opacity-80 mb-3">Tác giả: Vân Điện</p>
+                            <!-- Badge Trạng thái Đang cập nhật -->
+                            <span class="inline-block text-xs px-2.5 py-1 rounded-full font-semibold" style="background-color: var(--badge-bg-pending); color: var(--badge-text-pending);">
+                                Đã hoàn thành
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="muc-luc-meo-con.html" class="block w-full text-center py-2.5 text-xs font-semibold rounded-lg text-white transition-colors hover:opacity-85" style="background-color: #5d4737;">
+                            Đọc truyện
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TRUYỆN 2: Yêu tựa hơi say -->
+                <div class="rounded-xl overflow-hidden border flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                    <div>
+                        <div class="h-64 bg-stone-300 relative overflow-hidden flex items-center justify-center">
+                            <img src="bia2.jpg" alt="Yêu tựa hơi say" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/8d7561/ffffff?text=Yeu+Tua+Hoi+Say'">
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-semibold leading-snug mb-2" style="color: var(--header-color);">[S2] Yêu tựa hơi say</h3>
+                            <p class="text-xs opacity-80 mb-3">Tác giả: Thời Túy</p>
+                            <!-- Badge Trạng thái Đang cập nhật -->
+                            <span class="inline-block text-xs px-2.5 py-1 rounded-full font-semibold" style="background-color: var(--badge-bg-pending); color: var(--badge-text-pending);">
+                                Đang cập nhật
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="muc-luc-say.html" class="block w-full text-center py-2.5 text-xs font-semibold rounded-lg text-white transition-colors hover:opacity-85" style="background-color: #5d4737;">
+                            Đọc truyện
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TRUYỆN 3: Vì sao loại A này mà cũng có O -->
+                <div class="reading-container-fix item-box tile" style="display:contents;">
+                    <div class="story-paragraph-wrapper" style="margin-bottom:0; padding-right:0; display:flex; flex-direction:column; flex:1;">
+                        <div style="background-color: var(--container-bg); border: 1px solid var(--border-color); border-radius: 2px; box-shadow: var(--box-shadow); display:flex; flex-direction:column; justify-content:space-between; height:100%; transition:transform 0.3s; transform:none; overflow:hidden;" class="hover:-translate-y-1 hover:shadow-lg">
+                            <div>
+                                <div class="h-64 bg-stone-300 relative overflow-hidden flex items-center justify-center">
+                                    <img src="bia3.jpg" alt="Vì sao loại A này mà cũng có O" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/8d7561/ffffff?text=Vi+Sao+Loai+A'">
+                                </div>
+                                <div class="p-5">
+                                    <h3 class="text-lg font-semibold leading-snug mb-2" style="color: var(--header-color);">[S4] Vì sao loại A này mà cũng có O</h3>
+                                    <p class="text-xs opacity-80 mb-3">Tác giả: Đồ Nam Kình</p>
+                                    <!-- Badge Trạng thái Hoàn thành -->
+                                    <span class="inline-block text-xs px-2.5 py-1 rounded-full font-semibold" style="background-color: var(--badge-bg-done); color: var(--badge-text-done);">
+                                        Hoàn thành
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-5 pt-0">
+                                <a href="muc-luc-vi-sao.html" class="block w-full text-center py-2.5 text-xs font-semibold rounded-lg text-white transition-colors hover:opacity-85" style="background-color: #5d4737;">
+                                    Đọc truyện
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var currentTheme = localStorage.getItem("user_theme") || "light";
+            document.documentElement.setAttribute("data-theme", currentTheme);
+            updateToggleButton(currentTheme);
+        });
+
+        function toggleTheme() {
+            var currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+            var targetTheme = currentTheme === "light" ? "dark" : "light";
+            
+            document.documentElement.setAttribute("data-theme", targetTheme);
+            localStorage.setItem("user_theme", targetTheme);
+            updateToggleButton(targetTheme);
+        }
+
+        function updateToggleButton(theme) {
+            var btn = document.getElementById("themeToggleBtn");
+            if (btn) {
+                btn.innerText = theme === "light" ? "🌙" : "☀️";
+            }
+        }
+    </script>
+</body>
+</html>
