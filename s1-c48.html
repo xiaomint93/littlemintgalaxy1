@@ -135,7 +135,7 @@
         /* --- 3. Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
         .reading-container {
             max-width: 800px;             
-            width: 90%;                   
+            width: 90%;                    
             margin: 40px auto;            
             background-color: var(--container-bg);
             border: 1px solid var(--border-color);
@@ -281,6 +281,7 @@
         .inline-submit-btn:hover { background-color: #7a5f4a; }
         .inline-success-msg { color: var(--header-color); font-weight: bold; font-size: 12px; margin: 4px 0 0 0; text-align: center; }
 
+        /* --- Thanh Chuyển Chương Tối Giản --- */
         .chapter-navigation {
             display: flex;
             justify-content: space-between;
@@ -303,6 +304,12 @@
             font-weight: bold;
         }
         .nav-btn:hover { background-color: #7a5f4a; }
+        .nav-btn.disabled {
+            background-color: #cccccc;
+            color: #888888;
+            cursor: not-allowed;
+            pointer-events: none; 
+        }
 
         .chapter-discussion-box {
             background-color: var(--container-bg);
@@ -327,10 +334,10 @@
 
     <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
 
-   <div class="nav-bar">
-    <a href="index.html" class="nav-item">Chủ nhà</a>
-    <a href="kho-bau.html" class="nav-item">Kho báu</a>
-</div>
+    <div class="nav-bar">
+        <a href="index.html" class="nav-item">Chủ nhà</a>
+        <a href="kho-bau.html" class="nav-item">Kho báu</a>
+    </div>
 
     <div class="reading-container">
         
@@ -353,7 +360,7 @@
             <p class="story-text">Lòng dân đều đặt trên người Nhiếp Nhung, cho dù triều đình thay đổi một nửa thì dân chúng cũng chỉ thở dài cảm thán, nên sống như thế nào thì cứ sống như thế ấy.</p>
             <p class="story-text">Trong nội dung cốt truyện, những người vốn đứng lên bạo loạn vì bị nạn đói dày vò giờ đây đã có Diệp Bạch Thương đề ra giải pháp thích hợp để cứu trợ nạn dân.</p>
             <p class="story-text">Hơn nữa cũng vì lòng tham lam của mình mà Thẩm Hành đã bại dưới tay Nhiếp Nhung, không còn dê đầu đàn, những người còn lại cũng hoàn toàn vô dụng, nhanh chóng bị một lưới bắt hết, xóa sổ tận gốc.</p>
-            <p class="story-text">Sự việc kết thúc, Đường Hi ngồi trên long ỷ bộc phát tính tình hung hãn y như nguyên chủ, sau đó lung tung chỉ định những triều thần lên thay thế những tên đã bị cách chức.</p>
+            <p class="story-text">Sự việc kết thúc, Đường Hi ngồi trên long ỷ bộc phát tính tinh hung hãn y như nguyên chủ, sau đó lung tung chỉ định những triều thần lên thay thế những tên đã bị cách chức.</p>
             <p class="story-text">Thoạt nhìn như là bạo quân chỉ tùy tiện làm loạn nhưng thật ra cậu đã cân nhắc kỹ lưỡng những người tận trung với hoàng triều do hệ thống đề cử.</p>
             <p class="story-text">Cậu chột dạ liếc mắt nhìn xuống nhân viên dọn phân, sợ vì mình quá tùy ý nên hắn sẽ không vui, nhưng cậu lại phát hiện nhân viên dọn phân vậy mà đang thất thần.</p>
             <p class="story-text">Quả thật Nhiếp Nhung đang ngây người, trong đầu nghĩ về hoàng đế nhỏ đến xuất thần. Hắn ngẩng đầu nhìn hoàng đế nhỏ, một thân long bào vàng rực rỡ, gương mặt nhỏ xinh đẹp ngồi trên long ỷ cao xa.</p>
@@ -439,10 +446,11 @@
             <p class="story-text">1551 vô cùng vui vẻ:【Nhà ma!】</p>
             </div>
 
+            <!-- Tác giả note của s1-c48 định dạng kiểu nghiêng chuẩn scannable -->
             <p class="story-note-style" style="border-top: 1px dashed var(--border-color); padding-top: 15px; margin-top: 30px;">Tác giả có lời muốn nói: <br>Lúc mèo nhỏ Đường Hi còn đang nghĩ cách đoạt lại quyền lực thì Nhiếp Nhung đã trải sẵn đường cho cậu rồi. <br>Chương tiếp theo sẽ kết thúc thế giới này~</p>
         </div>
 
-        <!-- 3. Thanh Chuyển Chương -->
+        <!-- 3. Thanh Chuyển Chương đã được mang trở lại vào bên trong .reading-container để dàn đều tuyệt đẹp -->
         <div class="chapter-navigation">
             <a href="s1-c47.html" class="nav-btn">Chương trước</a>
             <a href="muc-luc-meo-con.html" class="nav-btn">Mục lục</a>
@@ -531,38 +539,24 @@
         });
 
         function handleLikeChapter() {
-    var btn = document.getElementById("likeChapterBtn");
-    var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+            var btn = document.getElementById("likeChapterBtn");
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
 
-    if (userHasLiked !== "true") {
-        // Hệ thống chỉ tăng số lượng trên Firebase Realtime Database như cũ
-        likeRef.transaction(function(currentLikes) {
-            return (currentLikes || 0) + 1;
-        }).then(function() {
-            if (btn) btn.classList.add("active");
-            localStorage.setItem("user_liked_" + currentChapterId, "true");
-        });
-
-        // === ĐẠO ĐOẠN FETCH GỬI LÊN GOOGLE FORM TẠI ĐÂY ĐÃ ĐƯỢC XÓA BỎ BẢO ĐẢM KHÔNG LOẠN SHEET ===
-
-    } else {
-        // Giảm số lượng trên Firebase khi người đọc bấm hủy thích
-        likeRef.transaction(function(currentLikes) {
-            var newLikes = (currentLikes || 0) - 1;
-            return newLikes < 0 ? 0 : newLikes;
-        }).then(function() {
-            if (btn) btn.classList.remove("active");
-            localStorage.removeItem("user_liked_" + currentChapterId);
-        });
-    }
-}
-        /* HÀM ĐÓNG MỞ CHÚ THÍCH */
-        function toggleDapda() {
-            var dropdown = document.getElementById("dapdaDropdown");
-            if (dropdown.style.maxHeight === "0px" || dropdown.style.maxHeight === "") {
-                dropdown.style.maxHeight = "550px"; 
+            if (userHasLiked !== "true") {
+                likeRef.transaction(function(currentLikes) {
+                    return (currentLikes || 0) + 1;
+                }).then(function() {
+                    if (btn) btn.classList.add("active");
+                    localStorage.setItem("user_liked_" + currentChapterId, "true");
+                });
             } else {
-                dropdown.style.maxHeight = "0px";
+                likeRef.transaction(function(currentLikes) {
+                    var newLikes = (currentLikes || 0) - 1;
+                    return newLikes < 0 ? 0 : newLikes;
+                }).then(function() {
+                    if (btn) btn.classList.remove("active");
+                    localStorage.removeItem("user_liked_" + currentChapterId);
+                });
             }
         }
 
