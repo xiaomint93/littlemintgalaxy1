@@ -22,7 +22,6 @@
             --comment-box-bg: rgba(255, 255, 255, 0.85);
             --input-bg: #ffffff;
             --input-text: #4a3728;
-            --player-bg: rgba(93, 71, 55, 0.08);
         }
 
         /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
@@ -36,7 +35,6 @@
             --comment-box-bg: rgba(45, 40, 37, 0.9);
             --input-bg: #2d2825;
             --input-text: #e2d7cc;
-            --player-bg: rgba(241, 230, 218, 0.08);
         }
 
         body {
@@ -141,38 +139,43 @@
             margin: 0;
         }
 
-        /* --- TRÌNH PHÁT NHẠC VINTAGE GỌN ĐẸP TRÊN ĐẦU TRANG --- */
-        .music-player-container {
-            background-color: var(--player-bg);
-            border: 1px dashed var(--border-color);
-            border-radius: 4px;
-            padding: 15px;
-            margin: -10px auto 35px auto;
-            max-width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            box-sizing: border-box;
+        /* KHU VỰC NÚT PHÁT NHẠC NGẦM CAN GIỮA TRONG SUỐT */
+        .music-embed-trigger-container {
+            text-align: center;
+            margin-bottom: 35px;
+            user-select: none;
         }
 
-        .music-player-info {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            font-family: 'Lora', Georgia, Serif;
-        }
-
-        .music-player-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--header-color);
-        }
-
-        .music-player-subtitle {
-            font-size: 12px;
-            opacity: 0.8;
+        .music-clickable-text {
+            font-size: 16px;
+            cursor: pointer;
             color: var(--text-color);
+            transition: color 0.2s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .music-clickable-text:hover {
+            color: #a86232;
+            transform: scale(1.02);
+        }
+
+        .music-clickable-text em {
+            font-weight: normal;
+            font-style: italic;
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* CSS ĐẶC BIỆT ĐỂ GIẤU TRÌNH PHÁT YOUTUBE HOÀN TOÀN NHƯNG VẪN HOẠT ĐỘNG HOÀN HẢO TRÊN DI ĐỘNG */
+        #hiddenYoutubePlayerContainer {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+            left: -9999px;
+            top: -9999px;
+            overflow: hidden;
         }
 
         /* --- Cấu trúc đoạn văn truyện --- */
@@ -331,8 +334,6 @@
             .story-paragraph-wrapper { padding-right: 35px !important; }
             .comment-icon { opacity: 0.6 !important; right: 0px !important; }
             .theme-toggle-btn { top: 15px !important; right: 15px !important; width: 38px !important; height: 38px !important; font-size: 16px !important; }
-            .music-player-container { flex-direction: column; text-align: center; }
-            .music-player-info { text-align: center; }
         }
     </style>
 </head>
@@ -352,14 +353,15 @@
             <h1 class="chapter-title">Chương 63: Cùng đua với gió</h1>
         </div>
 
-        <!-- --- TRÌNH PHÁT NHẠC EMBED YOUTUBE HOẠT ĐỘNG CHUẨN XÁC --- -->
-        <div class="music-player-container">
-            <div class="music-player-info">
-                <span class="music-player-title">♫ Nhạc nền của chương ♫</span>
-                <span class="music-player-subtitle">Điên cuồng vì yêu</span>
-            </div>
-            <!-- Trình phát nhỏ gọn ẩn hình để vừa đọc truyện vừa phát nhạc trực tiếp -->
-            <iframe width="180" height="40" style="border-radius: 4px;" src="https://www.youtube.com/embed/8LvjNcfFYW8?autoplay=0&loop=1&playlist=8LvjNcfFYW8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <!-- --- KHU VỰC NÚT PHÁT NHẠC NGẦM CAN GIỮA TRONG SUỐT --- -->
+        <div class="music-embed-trigger-container">
+            <span id="musicTriggerBtn" class="music-clickable-text" onclick="toggleInvisibleMusic()" title="Bấm vào để nghe/dừng nhạc nền">
+                ♫ <strong>Điên cuồng vì yêu</strong> ♫ <em>(ấn vào để nghe nhạc)</em>
+            </span>
+        </div>
+        
+        <div id="hiddenYoutubePlayerContainer">
+            <div id="hiddenNativePlayer"></div>
         </div>
 
         <div id="story-content-area">
@@ -439,7 +441,7 @@
             <p class="story-text">“Không cần,” Lục Trường Minh dừng bước, “Cố Văn Hi, cậu đang hạ nhục tôi đấy à?”</p>
             <p class="story-text">“Bác quá lời rồi,” Cố Văn Hi thu lại giọng điệu châm chọc, nghiêm túc nói, “chỉ là do bác một hai trộn lẫn tình cảm và lợi ích, dĩ nhiên con phải đáp ứng yêu cầu của bác để cho người yêu của con yên tâm.”</p>
             <p class="story-text">Lục Trường Minh đưa lưng về phía cậu, không nói lời nào, cũng đứng yên tại chỗ.</p>
-            <p class="story-text">Cố Văn Hi không nhìn ông ta nữa, rời khỏi sân thượng. Ánh trăng tròn chiếu rọi lên áo sơ mi của cậu, một mảnh bàng bạc.</p>
+            <p class="story-text">Cố Văn Hi không nhìn ông ta nữa, rời khỏi sân thượng. Áy trăng tròn chiếu rọi lên áo sơ mi của cậu, một mảnh bàng bạc.</p>
             <p class="story-text">…</p>
             <p class="story-text">Cố thị xây dựng công ty mới ở trên thị trấn để khai thác du lịch, sau khi Cố Văn Hi bắt đầu phụ trách công việc của nơi này thì mỗi ngày đều có thể về thôn, cùng Đỗ Vân Nghiên vẽ lên dấu chấm trong cuộc sống của bọn họ.</p>
             <p class="story-text">Chớp mắt đã gần tới cuối năm, nhiệt độ dần giảm xuống. Sau khi Cố Văn Hi kết thúc công việc, xoa xoa tay chuẩn bị lái xe về, còn chưa đi xuống lầu thì đã nhận được điện thoại của Đỗ Vân Nghiên: “Em tan làm chưa?”</p>
@@ -526,6 +528,9 @@
 
     </div> <!-- Closes .reading-container correctly at the very bottom -->
 
+    <!-- API YOUTUBE CHẠY NGẦM -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <!-- TOÀN BỘ ĐOẠN JAVASCRIPT ĐỒNG BỘ REALTIME FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -542,6 +547,46 @@
         var currentChapterId = "s2-c63"; // Định danh riêng chuẩn xác cho Tập 2 Chương 63
         var currentChapterName = "Tập 2 - Chương 63"; 
         var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSciXpmJoHrGIh2Gizdj8nI0SqxicyXKoqpAQglHltORRQwG-w/formResponse";
+
+        // TOÀN BỘ LOGIC ĐIỀU KHIỂN NÚT NHẠC THÔNG MINH TRÊN CẢ DI ĐỘNG VÀ MÁY TÍNH
+        var nativePlayer;
+        var apiReady = false;
+
+        // Khởi tạo Player ngầm từ API ngay khi load trang
+        function onYouTubeIframeAPIReady() {
+            nativePlayer = new YT.Player('hiddenNativePlayer', {
+                height: '1',
+                width: '1',
+                videoId: '8LvjNcfFYW8',
+                playerVars: {
+                    'playlist': '8LvjNcfFYW8',
+                    'loop': 1
+                },
+                events: {
+                    'onReady': function() {
+                        apiReady = true;
+                    }
+                }
+            });
+        }
+
+        // Hàm kiểm soát trạng thái bấm bật / tạm dừng / chạy tiếp thông minh
+        function toggleInvisibleMusic() {
+            if (!apiReady || !nativePlayer) return;
+            
+            var playerState = nativePlayer.getPlayerState();
+            var btnText = document.getElementById('musicTriggerBtn');
+            
+            // Nếu nhạc đang chạy (state = 1), tiến hành tạm dừng ngắt quãng
+            if (playerState === 1) { 
+                nativePlayer.pauseVideo();
+                btnText.innerHTML = "🎵 <strong>Điên cuồng vì yêu</strong> 🎵 <span style='font-weight:normal; font-style:italic; opacity:0.75;'>(đã tạm dừng, ấn để nghe tiếp)</span>";
+            } else {
+                // Các trạng thái khác (chưa chạy, tạm dừng, kết thúc) đều bấm để phát tiếp tục
+                nativePlayer.playVideo();
+                btnText.innerHTML = "🎵 <strong>Điên cuồng vì yêu</strong> 🎵 <span style='font-weight:normal; font-style:italic; opacity:0.75;'>(đang phát nhạc nền...)</span>";
+            }
+        }
 
         var likeRef = database.ref("likes/" + currentChapterId);
         
