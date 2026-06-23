@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục lục: Vì sao loại A này mà cũng có O - Little Mint's Galaxy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG */
+        :root {
+            --bg-image: url('background.jpg');
+            --container-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #4a3728;
+            --header-color: #5d4737;
+            --border-color: #8d7561;
+            --box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            --link-hover-bg: rgba(255, 255, 255, 0.6);
+        }
+
+        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
+        [data-theme="dark"] {
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg'); /* Phủ lớp tối lên ảnh nền hoa hồng */
+            --container-bg: rgba(35, 30, 27, 0.9); /* Khung giấy chuyển sang tone nâu đen dịu mắt */
+            --text-color: #e2d7cc; /* Chữ chuyển sang màu kem sáng chống mỏi mắt */
+            --header-color: #f1e6da;
+            --border-color: #5d4737;
+            --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
+            --link-hover-bg: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-image: var(--bg-image); 
+            background-attachment: fixed; 
+            background-size: cover;
+            background-position: center;
+            font-family: 'Lora', Georgia, Serif; 
+            color: var(--text-color); 
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- NÚT BẤM MẶT TRĂNG CHUYỂN CHẾ ĐỘ (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background-color: #5d4737;
+            color: #ffffff;
+            border: 2px solid #8d7561;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            background-color: #7a5f4a;
+        }
+
+        /* 2. Khung Logo và Header */
+        .header-container {
+            text-align: center;
+            padding-top: 50px;
+            padding-bottom: 30px; 
+        }
+
+        .site-title {
+            font-size: 45px;
+            margin: 10px 0;
+            font-weight: normal;
+            color: var(--header-color);
+        }
+
+        .site-slogan {
+            font-style: italic;
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        /* 3. Thanh Menu Thả Xuống */
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 999; 
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .nav-item {
+            background-color: #5d4737; 
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            display: block;
+            font-family: 'Lora', Georgia, Serif;
+            border: none;
+        }
+        
+        a.nav-item:hover {
+            background-color: #7a5f4a;
+        }
+
+        span.nav-item {
+            cursor: default;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #5d4737;
+            min-width: 220px; 
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 2px;
+            top: 100%; 
+            left: 50%;
+            transform: translateX(-50%); 
+            padding: 5px 0;
+        }
+
+        .dropdown-content a {
+            color: #ffffff;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 13px;
+            text-align: left; 
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1); 
+            transition: 0.2s;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #7a5f4a;
+            padding-left: 20px; 
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- 4. Giao diện Khung Giới Thiệu Truyện --- */
+        .novel-info-container {
+            max-width: 850px;
+            width: 90%;
+            margin: 0 auto 30px; 
+            padding: 40px;
+            background-color: var(--container-bg); 
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            box-shadow: var(--box-shadow);
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .novel-layout-flex {
+            display: flex;
+            gap: 30px;
+        }
+
+        .novel-cover-cell {
+            width: 220px;
+            flex-shrink: 0;
+        }
+
+        .novel-meta-cell {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .novel-cover-frame {
+            width: 220px;
+            height: 330px;
+            border: 8px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .novel-cover-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .novel-title {
+            font-size: 26px;
+            color: var(--header-color);
+            margin: 0 0 15px 0;
+            font-weight: normal;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+
+        .novel-details {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .novel-details strong {
+            color: var(--header-color);
+        }
+
+        .novel-summary-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--header-color);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .novel-summary-text {
+            font-size: 15px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* --- 5. Khung Danh Sách Chương Riêng Biệt --- */
+        .novel-chapters-container {
+            max-width: 850px;
+            width: 90%;
+            margin: 0 auto 60px;
+            padding: 40px;
+            background-color: var(--container-bg); 
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            box-shadow: var(--box-shadow);
+            box-sizing: border-box;
+            text-align: center;
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #chapter-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--header-color);
+            font-size: 18px;
+            letter-spacing: 6px; 
+            font-weight: bold;
+            margin: 0 0 40px 0; 
+            width: 100%;
+        }
+
+        #chapter-label::before,
+        #chapter-label::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid var(--border-color); 
+            margin: 0 20px; 
+        }
+
+        /* Thiết lập lưới tự động xếp chương tăng dần đều trên máy tính */
+        .chapter-grid-new {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 12px 20px;
+        }
+
+        .chapter-link {
+            display: block;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-bottom: 1px dashed rgba(93, 71, 55, 0.2);
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .chapter-link:hover {
+            color: var(--header-color);
+            background-color: var(--link-hover-bg);
+            padding-left: 18px;
+            border-bottom: 1px solid var(--header-color);
+            font-weight: bold;
+        }
+
+        /* --- 6. RESPONSIVE ĐIỆN THOẠI --- */
+        @media screen and (max-width: 768px) {
+            .site-title { font-size: 32px !important; }
+            .site-slogan { font-size: 15px !important; }
+
+            .novel-layout-flex {
+                flex-direction: column;
+                align-items: center;
+            }
+            .novel-cover-cell {
+                margin-bottom: 15px;
+            }
+            .novel-info-container, .novel-chapters-container {
+                padding: 30px 20px !important;
+                width: 95% !important;
+            }
+            .novel-title {
+                text-align: center;
+                font-size: 22px !important;
+            }
+
+            /* Điện thoại tự thu về thành 2 cột tăng dần thẳng thớm đẹp mắt */
+            .chapter-grid-new {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px 15px !important;
+            }
+            #chapter-label {
+                font-size: 16px !important;
+                letter-spacing: 3px !important;
+            }
+            #chapter-label::before, #chapter-label::after {
+                margin: 0 10px !important;
+            }
+
+            .theme-toggle-btn {
+                top: 15px !important;
+                right: 15px !important;
+                width: 38px !important;
+                height: 38px !important;
+                font-size: 16px !important;
+            }
+        }
+
+        /* Điện thoại màn hình rất nhỏ thì xếp thành 1 hàng dọc đứng */
+        @media screen and (max-width: 420px) {
+            .chapter-grid-new {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
+
+    <div class="header-container">
+        <div class="logo-box" style="border: none; background: none;">
+            <img src="logo.png" alt="Logo" style="max-width: 200px; height: auto;">
+        </div>
+
+        <h1 class="site-title">Little Mint's Galaxy</h1>
+        <p class="site-slogan">Sinh tử tương hứa, khắc cốt tương tư</p>
+
+           <div class="nav-bar">
+    <a href="index.html" class="nav-item">Chủ nhà</a>
+    <a href="kho-bau.html" class="nav-item">Kho báu</a>
+</div>
+    </div>
+
+    <div class="novel-info-container">
+        <div class="novel-layout-flex">
+            <div class="novel-cover-cell">
+                <div class="novel-cover-frame">
+                    <img src="bia2.png" alt="Bìa Vì sao loại A này mà cũng có O">
+                </div>
+            </div>
+            
+            <div class="novel-meta-cell">
+                <h2 class="novel-title">[S4] Vì sao loại A này mà cũng có O</h2>
+                
+                <div class="novel-details">
+                    <strong>Tác giả:</strong> Đồ Nam Kình <br>
+                    <strong>Thể loại:</strong> Nguyên sang, đam mỹ, hiện đại, HE, tình cảm, ABO, niên thượng, cưới trước yêu sau, ấm áp, chủ công<br>
+                    <strong>Tình trạng:</strong> Hoàn thành (100 chương + 9 ngoại truyện)<br>
+                    <strong>Editor & Beta:</strong> Bạc hà team
+                </div>
+
+                <div class="novel-summary-title">Giới thiệu</div>
+                <div class="novel-summary-text">
+                   Nhật ký chăm sóc O<br><br>
+
+Một anh bác sĩ đẹp trai làm phẫu thuật liên tục trong vòng 18 giờ đã đột tử trên bàn phẫu thuật, lúc tỉnh lại thì phát hiện mình xuyên vào người của một tên alpha.<br><br>
+
+Một omega đáng thương đang nằm nhoài người bên mép giường, thấy anh tỉnh dậy thì gương mặt nhỏ vốn trắng lại càng thêm trắng!<br><br>
+
+Tưởng Vân Thư: Trước đây anh đối xử rất tệ với em?<br><br>
+
+Bạch Đường run rẩy không dám nói lời nào.<br><br>
+
+Tưởng Vân Thư: …<br><br>
+
+Tưởng Vân Thư: Sau này sẽ không như vậy nữa.<br><br>
+
+Tưởng Vân Thư phát hiện trên người Bạch Đường phủ kín vết bầm, cánh tay trái còn bị nứt xương.<br><br>
+
+Tưởng Vân Thư: Trước đây anh đánh em?<br><br>
+
+Sắc mặt Bạch Đường trắng bệch, nghẹn ngào nói: Không có…<br><br>
+
+Tưởng Vân Thư: …<br><br>
+
+Tưởng Vân Thư: Sau này sẽ không như vậy nữa.<br><br>
+
+Tưởng Vân Thư phát hiện, khi ở nhà thì Bạch Đường không dám ngồi trên bàn ăn cơm, bởi vì nguyên chủ không cho.<br><br>
+
+Không được ăn thịt, bởi vì nguyên chủ nói sẽ có mùi.<br><br>
+
+Không được lên giường ngủ, bởi vì nguyên chủ không thích cậu.<br><br>
+
+Tưởng Vân Thư còn cmn phát hiện ra vấn đề của Bạch Đường, các tuyến thể đều bị thương.<br><br>
+
+Tưởng Vân Thư: …<br><br>
+
+Tưởng Vân Thư gần như chưa bao giờ chửi thề: Đệt.<br><br>
+
+Sau này Tưởng Vân Thư mới biết được, mỗi lần nguyên chủ ngược đãi Bạch Đường xong thì đều nói “Sau này sẽ không như vậy nữa”, nhưng lần sau còn đánh ác hơn lần trước.<br><br>
+
+Tưởng Vân Thư: …<br><br>
+
+Tưởng Vân Thư: Súc sinh!!!<br><br>
+
+Nhưng may mắn thay, Tưởng Vân Thư vô cùng kiên nhẫn, là một bác sĩ, anh vẫn có thể chậm rãi chăm sóc omega xinh đẹp bị tàn phá này trở lại như xưa.<br><br>
+
+Thậm chí anh sẽ dùng cả đời để nói cho Bạch Đường biết cái gọi là sau này sẽ không như vậy nữa.<br><br>
+
+                    ———————–<br><br>
+                  1. Thụ sẽ biết công đổi người.<br><br>
+
+2. Giai đoạn trước công đơn phương cứu rỗi thụ.<br><br>
+
+3. Không phải sảng văn cũng không phải áng văn ngọt ngào, chấn thương tâm lý rất khó để chữa lành.<br><br>
+
+                    ———————–<br><br>
+                    <strong>Khuyến khích đọc trên trình duyệt Chrome hoặc Google để không bị lỗi giao diện và các chức năng khác.</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 40px auto; padding: 10px 0; display: block; width: 100%;">
+        <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: inline-block;">
+    </div>
+
+    <div class="novel-chapters-container">
+        <div id="chapter-label">DANH SÁCH CHƯƠNG</div>
+        
+        <div class="chapter-grid-new">
+            <a href="s4-c1.html" class="chapter-link">Chương 01</a>
+            <a href="s4-c2.html" class="chapter-link">Chương 02</a>
+            <a href="s4-c3.html" class="chapter-link">Chương 03</a>
+            <a href="s4-c4.html" class="chapter-link">Chương 04</a>
+            <a href="s4-c5.html" class="chapter-link">Chương 05</a>
+            <a href="s4-c6.html" class="chapter-link">Chương 06</a>
+            <a href="s4-c7.html" class="chapter-link">Chương 07</a>
+            <a href="s4-c8.html" class="chapter-link">Chương 08</a>
+            <a href="s4-c9.html" class="chapter-link">Chương 09</a>
+            <a href="s4-c10.html" class="chapter-link">Chương 10</a>
+            <a href="s4-c11.html" class="chapter-link">Chương 11</a>
+            <a href="s4-c12.html" class="chapter-link">Chương 12</a>
+            <a href="s4-c13.html" class="chapter-link">Chương 13</a>
+            <a href="s4-c14.html" class="chapter-link">Chương 14</a>
+            <a href="s4-c15.html" class="chapter-link">Chương 15</a>
+            <a href="s4-c16.html" class="chapter-link">Chương 16</a>
+            <a href="s4-c17.html" class="chapter-link">Chương 17</a>
+            <a href="s4-c18.html" class="chapter-link">Chương 18</a>
+            <a href="s4-c19.html" class="chapter-link">Chương 19</a>
+            <a href="s4-c20.html" class="chapter-link">Chương 20</a>
+            <a href="s4-c21.html" class="chapter-link">Chương 21</a>
+            <a href="s4-c22.html" class="chapter-link">Chương 22</a>
+            <a href="s4-c23.html" class="chapter-link">Chương 23</a>
+            <a href="s4-c24.html" class="chapter-link">Chương 24</a>
+            <a href="s4-c25.html" class="chapter-link">Chương 25</a>
+            <a href="s4-c26.html" class="chapter-link">Chương 26</a>
+            <a href="s4-c27.html" class="chapter-link">Chương 27</a>
+            <a href="s4-c28.html" class="chapter-link">Chương 28</a>
+            <a href="s4-c29.html" class="chapter-link">Chương 29</a>
+            <a href="s4-c30.html" class="chapter-link">Chương 30</a>
+            <a href="s4-c31.html" class="chapter-link">Chương 31</a>
+            <a href="s4-c32.html" class="chapter-link">Chương 32</a>
+            <a href="s4-c33.html" class="chapter-link">Chương 33</a>
+            <a href="s4-c34.html" class="chapter-link">Chương 34</a>
+            <a href="s4-c35.html" class="chapter-link">Chương 35</a>
+            <a href="s4-c36.html" class="chapter-link">Chương 36</a>
+            <a href="s4-c37.html" class="chapter-link">Chương 37</a>
+            <a href="s4-c38.html" class="chapter-link">Chương 38</a>
+            <a href="s4-c39.html" class="chapter-link">Chương 39</a>
+            <a href="s4-c40.html" class="chapter-link">Chương 40</a>
+            <a href="s4-c41.html" class="chapter-link">Chương 41</a>
+            <a href="s4-c42.html" class="chapter-link">Chương 42</a>
+            <a href="s4-c43.html" class="chapter-link">Chương 43</a>
+            <a href="s4-c44.html" class="chapter-link">Chương 44</a>
+            <a href="s4-c45.html" class="chapter-link">Chương 45</a>
+            <a href="s4-c46.html" class="chapter-link">Chương 46</a>
+            <a href="s4-c47.html" class="chapter-link">Chương 47</a>
+            <a href="s4-c48.html" class="chapter-link">Chương 48</a>
+            <a href="s4-c49.html" class="chapter-link">Chương 49</a>
+            <a href="s4-c50.html" class="chapter-link">Chương 50</a>
+            <a href="s4-c51.html" class="chapter-link">Chương 51</a>
+            <a href="s4-c52.html" class="chapter-link">Chương 52</a>
+            <a href="s4-c53.html" class="chapter-link">Chương 53</a>
+            <a href="s4-c54.html" class="chapter-link">Chương 54</a>
+            <a href="s4-c55.html" class="chapter-link">Chương 55</a>
+            <a href="s4-c56.html" class="chapter-link">Chương 56</a>
+            <a href="s4-c57.html" class="chapter-link">Chương 57</a>
+            <a href="s4-c58.html" class="chapter-link">Chương 58</a>
+            <a href="s4-c59.html" class="chapter-link">Chương 59</a>
+            <a href="s4-c60.html" class="chapter-link">Chương 60</a>
+            <a href="s4-c61.html" class="chapter-link">Chương 61</a>
+            <a href="s4-c62.html" class="chapter-link">Chương 62</a>
+            <a href="s4-c63.html" class="chapter-link">Chương 63</a>
+            <a href="s4-c64.html" class="chapter-link">Chương 64</a>
+            <a href="s4-c65.html" class="chapter-link">Chương 65</a>
+            <a href="s4-c66.html" class="chapter-link">Chương 66</a>
+            <a href="s4-c67.html" class="chapter-link">Chương 67</a>
+            <a href="s4-c68.html" class="chapter-link">Chương 68</a>
+            <a href="s4-c69.html" class="chapter-link">Chương 69</a>
+            <a href="s4-c70.html" class="chapter-link">Chương 70</a>
+            <a href="s4-c71.html" class="chapter-link">Chương 71</a>
+            <a href="s4-c72.html" class="chapter-link">Chương 72</a>
+            <a href="s4-c73.html" class="chapter-link">Chương 73</a>
+            <a href="s4-c74.html" class="chapter-link">Chương 74</a>
+            <a href="s4-c75.html" class="chapter-link">Chương 75</a>
+            <a href="s4-c76.html" class="chapter-link">Chương 76</a>
+            <a href="s4-c77.html" class="chapter-link">Chương 77</a>
+            <a href="s4-c78.html" class="chapter-link">Chương 78</a>
+            <a href="s4-c79.html" class="chapter-link">Chương 79</a>
+            <a href="s4-c80.html" class="chapter-link">Chương 80</a>
+            <a href="s4-c81.html" class="chapter-link">Chương 81</a>
+            <a href="s4-c82.html" class="chapter-link">Chương 82</a>
+            <a href="s4-c83.html" class="chapter-link">Chương 83</a>
+            <a href="s4-c84.html" class="chapter-link">Chương 84</a>
+            <a href="s4-c85.html" class="chapter-link">Chương 85</a>
+            <a href="s4-c86.html" class="chapter-link">Chương 86</a>
+            <a href="s4-c87.html" class="chapter-link">Chương 87</a>
+            <a href="s4-c88.html" class="chapter-link">Chương 88</a>
+            <a href="s4-c89.html" class="chapter-link">Chương 89</a>
+            <a href="s4-c90.html" class="chapter-link">Chương 90</a>
+            <a href="s4-c91.html" class="chapter-link">Chương 91</a>
+            <a href="s4-c92.html" class="chapter-link">Chương 92</a>
+            <a href="s4-c93.html" class="chapter-link">Chương 93</a>
+            <a href="s4-c94.html" class="chapter-link">Chương 94</a>
+            <a href="s4-c95.html" class="chapter-link">Chương 95</a>
+            <a href="s4-c96.html" class="chapter-link">Chương 96</a>
+            <a href="s4-c97.html" class="chapter-link">Chương 97</a>
+            <a href="s4-c98.html" class="chapter-link">Chương 98</a>
+            <a href="s4-c99.html" class="chapter-link">Chương 99</a>
+            <a href="s4-c100.html" class="chapter-link">Chương 100</a> 
+            <a href="s4-c101.html" class="chapter-link">Ngoại truyện 1</a>
+            <a href="s4-c102.html" class="chapter-link">Ngoại truyện 2</a>
+            <a href="s4-c103.html" class="chapter-link">Ngoại truyện 3</a>
+            <a href="s4-c104.html" class="chapter-link">Ngoại truyện 4</a>
+            <a href="s4-c105.html" class="chapter-link">Ngoại truyện 5</a>
+            <a href="s4-c106.html" class="chapter-link">Ngoại truyện 6</a>
+            <a href="s4-c107.html" class="chapter-link">Ngoại truyện 7</a>
+            <a href="s4-c108.html" class="chapter-link">Ngoại truyện 8</a>
+            <a href="s4-c109.html" class="chapter-link">Ngoại truyện 9</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            var currentTheme = document.documentElement.getAttribute("data-theme");
+            var targetTheme = "light";
+            var btn = document.getElementById("themeToggleBtn");
+
+            if (currentTheme === "light" || !currentTheme) {
+                targetTheme = "dark";
+                btn.innerText = "☀️"; // Đổi sang icon Mặt Trời khi ở nền tối
+            } else {
+                targetTheme = "light";
+                btn.innerText = "🌙"; // Đổi sang icon Mặt Trăng khi ở nền sáng
+            }
+
+            document.documentElement.setAttribute("data-theme", targetTheme);
+        }
+    </script>
+</body>
+</html>
