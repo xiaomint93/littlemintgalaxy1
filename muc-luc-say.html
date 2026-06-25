@@ -19,6 +19,8 @@
             --border-color: #8d7561;
             --box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
             --link-hover-bg: rgba(255, 255, 255, 0.6);
+            --star-bg: rgba(255, 255, 255, 0.4);
+            --star-shadow: #5d4737;
         }
 
         /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
@@ -30,6 +32,8 @@
             --border-color: #5d4737;
             --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
             --link-hover-bg: rgba(255, 255, 255, 0.08);
+            --star-bg: rgba(45, 40, 37, 0.6);
+            --star-shadow: #f1e6da;
         }
 
         body {
@@ -244,7 +248,89 @@
             text-align: justify;
         }
 
-        /* --- 5. Khung Danh Sách Chương Riêng Biệt --- */
+        /* --- 5. Khung Cổng Dịch Chuyển Khác (MỚI) --- */
+        .portal-container {
+            max-width: 850px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            box-shadow: var(--box-shadow);
+            box-sizing: border-box;
+            text-align: center;
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #portal-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--header-color);
+            font-size: 18px;
+            letter-spacing: 6px;
+            font-weight: bold;
+            margin: 0 0 35px 0;
+            width: 100%;
+        }
+
+        #portal-label::before,
+        #portal-label::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+            margin: 0 20px;
+        }
+
+        .portal-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .portal-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--star-bg);
+            border: 1px solid var(--border-color);
+            padding: 12px 25px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            box-shadow: 3px 3px 0px var(--star-shadow);
+            transition: all 0.3s ease;
+            width: 200px;
+            box-sizing: border-box;
+        }
+
+        .portal-btn::before {
+            content: "✦";
+            color: var(--text-color);
+            font-size: 12px;
+            transition: transform 0.4s ease;
+        }
+
+        .portal-btn:hover {
+            background-color: #5d4737;
+            color: #ffffff;
+            box-shadow: 0px 0px 0px transparent;
+            transform: translateY(-5px); 
+        }
+
+        .portal-btn:hover::before {
+            color: #ffffff;
+            transform: rotate(180deg); 
+        }
+
+        /* --- 6. Khung Danh Sách Chương Riêng Biệt --- */
         .novel-chapters-container {
             max-width: 850px;
             width: 90%;
@@ -305,7 +391,7 @@
             font-weight: bold;
         }
 
-        /* --- 6. RESPONSIVE ĐIỆN THOẠI --- */
+        /* --- 7. RESPONSIVE ĐIỆN THOẠI --- */
         @media screen and (max-width: 768px) {
             .site-title { font-size: 32px !important; }
             .site-slogan { font-size: 15px !important; }
@@ -317,13 +403,21 @@
             .novel-cover-cell {
                 margin-bottom: 15px;
             }
-            .novel-info-container, .novel-chapters-container {
+            .novel-info-container, .portal-container, .novel-chapters-container {
                 padding: 30px 20px !important;
                 width: 95% !important;
             }
             .novel-title {
                 text-align: center;
                 font-size: 22px !important;
+            }
+
+            #portal-label {
+                font-size: 16px !important;
+                letter-spacing: 3px !important;
+            }
+            #portal-label::before, #portal-label::after {
+                margin: 0 10px !important;
             }
 
             /* Điện thoại tự thu về thành 2 cột tăng dần thẳng thớm đẹp mắt */
@@ -369,11 +463,12 @@
         <p class="site-slogan">Sinh tử tương hứa, khắc cốt tương tư</p>
 
         <div class="nav-bar">
-    <a href="index.html" class="nav-item">Chủ nhà</a>
-    <a href="kho-bau.html" class="nav-item">Kho báu</a>
-</div>
+            <a href="index.html" class="nav-item">Chủ nhà</a>
+            <a href="kho-bau.html" class="nav-item">Kho báu</a>
+        </div>
     </div>
 
+    <!-- Khung Giới Thiệu Truyện -->
     <div class="novel-info-container">
         <div class="novel-layout-flex">
             <div class="novel-cover-cell">
@@ -395,24 +490,24 @@
                 <div class="novel-summary-title">Giới thiệu</div>
                 <div class="novel-summary-text">
                     CP: Dịu dàng đạm bạc mỹ công (Đỗ Vân Nghiên) X Phong lưu đẹp trai phú nhị đại thụ (Cố Văn Hi)<br><br>
-                   Cãi nhau với ba, bạn gái cặp kè với bạn thân… Mọi việc không suôn sẻ khiến cho thiếu gia nhà giàu Cố Văn Hi bỏ nhà đi, xách ba lô đến một sơn thôn nhỏ để gột rửa tâm hồn. Tại đây, cậu gặp được ông chủ nhà trọ dân có dung mạo xinh đẹp nhưng bí ẩn Đỗ Vân Nghiên, không lâu sau đó thẻ tín dụng cũng bị đóng băng nên cậu liền mặt dày xin đối phương cho mình ở lại nhà trọ dân để làm công.<br><br>
+                    Cải nhau với ba, bạn gái cặp kè với bạn thân… Mọi việc không suôn sẻ khiến cho thiếu gia nhà giàu Cố Văn Hi bỏ nhà đi, xách ba lô đến một sơn thôn nhỏ để gột rửa tâm hồn. Tại đây, cậu gặp được ông chủ nhà trọ dân có dung mạo xinh đẹp nhưng bí ẩn Đỗ Vân Nghiên, không lâu sau đó thẻ tín dụng cũng bị đóng băng nên cậu liền mặt dày xin đối phương cho mình ở lại nhà trọ dân để làm công.<br><br>
 
-Đỗ Vân Nghiên cẩn thận tỉ mỉ, Cố Văn Hi tùy tiện phóng khoáng, trải qua một mùa đông gập ghềnh, ấy vậy mà trong lòng hai người đã xảy ra biến hóa vi diệu. Nhưng vào lúc này, Cố Văn Hi lại nhận được tin nhắn từ người thân giục cậu mau trở về…<br><br>
+                    Đỗ Vân Nghiên cẩn thận tỉ mỉ, Cố Văn Hi tùy tiện phóng khoáng, trải qua một mùa đông gập ghềnh, ấy vậy mà trong lòng hai người đã xảy ra biến hóa vi diệu. Nhưng vào lúc này, Cố Văn Hi lại nhận được tin nhắn từ người thân giục cậu mau trở về…<br><br>
 
-“Giữa chúng ta, như vậy cũng rất tốt.”<br><br>
+                    “Giữa chúng ta, như vậy cũng rất tốt.”<br><br>
 
-“Nếu tôi trở về thì sao? Anh có thể nói hết những lời hôm nay không?”<br><br>
+                    “Nếu tôi trở về thì sao? Anh có thể nói hết những lời hôm nay không?”<br><br>
 
-“Cậu sẽ không quay lại đây, cũng đừng làm chuyện vô ích nữa.”<br><br>
+                    “Cậu sẽ không quay lại đây, cũng đừng làm chuyện vô ích nữa.”<br><br>
 
                     ———————–<br><br>
                     <strong>Thuyết minh:</strong><br><br>
 
-1. Hoàn cảnh địa lý của sơn thôn phương nam là hư cấu, địa danh tự đặt không có thật.<br><br>
+                    1. Hoàn cảnh địa lý của sơn thôn phương nam là hư cấu, địa danh tự đặt không có thật.<br><br>
 
-2. Lúc đầu công có thích người khác (không có ở bên nhau) / thụ đã từng có bạn gái / có một tên pháo hôi (đất diễn trong cốt truyện không nhiều)<br><br>
+                    2. Lúc đầu công có thích người khác (không có ở bên nhau) / thụ đã từng có bạn gái / có một tên pháo hôi (đất diễn trong cốt truyện không nhiều)<br><br>
 
-3. Công 29 tuổi, thụ 26 tuổi, giả thiết công thấp hơn thụ.<br><br>
+                    3. Công 29 tuổi, thụ 26 tuổi, giả thiết công thấp hơn thụ.<br><br>
 
                     ———————–<br><br>
                     <strong>Khuyến khích đọc trên trình duyệt Chrome hoặc Google để không bị lỗi giao diện và các chức năng khác.</strong>
@@ -421,10 +516,30 @@
         </div>
     </div>
 
+    <!-- GIF Moon ngăn cách giữa Giới thiệu và Cổng dịch chuyển khác -->
     <div style="text-align: center; margin: 40px auto; padding: 10px 0; display: block; width: 100%;">
         <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: inline-block;">
     </div>
 
+    <!-- --- 5. Khung Cổng Dịch Chuyển Khác (MỚI) --- -->
+    <div class="portal-container">
+        <div id="portal-label">CỔNG DỊCH CHUYỂN KHÁC</div>
+        <div class="portal-wrapper">
+            <a href="https://www.wattpad.com/story/294724651-%C4%91m-s2-y%C3%AAu-t%E1%BB%B1a-h%C6%A1i-say" target="_blank" class="portal-btn">
+                Wattpad
+            </a>
+            <a href="https://bachanhoxinh.wordpress.com/2022/02/01/s2-yeu-tua-hoi-say/" target="_blank" class="portal-btn">
+                Wordpress
+            </a>
+        </div>
+    </div>
+
+    <!-- GIF Moon ngăn cách giữa Cổng dịch chuyển khác và Mục lục -->
+    <div style="text-align: center; margin: 40px auto; padding: 10px 0; display: block; width: 100%;">
+        <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: inline-block;">
+    </div>
+
+    <!-- Khung Mục Lục -->
     <div class="novel-chapters-container">
         <div id="chapter-label">DANH SÁCH CHƯƠNG</div>
         
@@ -493,7 +608,7 @@
             <a href="s2-c62.html" class="chapter-link">Chương 62</a>
             <a href="s2-c63.html" class="chapter-link">Chương 63</a>
             <a href="s2-c64.html" class="chapter-link">Chương 64</a>     
-            </div>
+        </div>
     </div>
 
     <script>
