@@ -239,7 +239,7 @@
             transform: scale(1.2) rotate(-10deg);
         }
 
-        /* Biểu tượng bóng chát mờ bên rìa phải */
+        /* Biểu tượng bóng chát mờ bên rìa phải nguyên bản */
         .comment-icon {
             position: absolute;
             right: 5px;
@@ -493,7 +493,7 @@
             
             <p class="story-text">...</p>
             
-            <p class="story-text">Hắn chỉ lên diễn đàn trường làm sáng tỏ, nhưng chỉ vỏn vẹn một ngày, tin tức đã bị lan truyền tới trên mạng. Rõ ràng có thể dập tắt độ hot ngay lập tức, nhưng Hạ Vọng lại lựa chọn mặc kệ, để sự việc càng ngày càng lan rộng.</p>
+            <p class="story-text">Hằn chỉ lên diễn đàn trường làm sáng tỏ, nhưng chỉ vỏn vẹn một ngày, tin tức đã bị lan truyền tới trên mạng. Rõ ràng có thể dập tắt độ hot ngay lập tức, nhưng Hạ Vọng lại lựa chọn mặc kệ, để sự việc càng ngày càng lan rộng.</p>
             
             <p class="story-text">Cốc cốc cốc.</p>
             
@@ -775,8 +775,8 @@
                     `;
                 }
                 
-                // Nếu có bình luận hiển thị số, chưa có hiển thị dấu cộng mời thảo luận
-                icon.innerText = commentCount > 0 ? commentCount : "+";
+                // Nếu có bình luận hiển thị số, chưa có thì hiển thị bóng chat trơn rỗng đúng hình ảnh mẫu
+                icon.innerText = commentCount > 0 ? commentCount : "";
                 icon.onclick = function() { toggleInlineComment(boxId); };
                 wrapper.appendChild(icon);
                 
