@@ -133,7 +133,7 @@
         /* --- 3. Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
         .reading-container {
             max-width: 800px;             
-            width: 90%;                   
+            width: 90%;                    
             margin: 40px auto;            
             background-color: var(--container-bg);
             border: 1px solid var(--border-color);
@@ -244,11 +244,36 @@
             position: absolute;
             right: 5px;
             top: 4px;
-            font-size: 14px;
             cursor: pointer;
             opacity: 0;
             transition: 0.2s ease-in-out;
-            color: var(--text-color);
+            
+            /* Tạo hình bong bóng chat xịn sò giống ảnh mẫu của Chiêu */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--border-color);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: bold;
+            font-family: sans-serif;
+            padding: 2px 6px;
+            border-radius: 4px;
+            min-width: 18px;
+            height: 16px;
+            box-sizing: border-box;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Tạo đuôi nhọn cho bong bóng chat */
+        .comment-icon::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            right: 5px;
+            border-width: 3px 3px 0 0;
+            border-style: solid;
+            border-color: var(--border-color) transparent transparent transparent;
         }
 
         .story-paragraph-wrapper:hover .comment-icon {
@@ -418,9 +443,9 @@
     <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
 
     <div class="nav-bar">
-    <a href="index.html" class="nav-item">Chủ nhà</a>
-    <a href="kho-bau.html" class="nav-item">Kho báu</a>
-</div>
+        <a href="index.html" class="nav-item">Chủ nhà</a>
+        <a href="kho-bau.html" class="nav-item">Kho báu</a>
+    </div>
 
     <div class="reading-container">
         
@@ -440,7 +465,7 @@
             
             <p class="story-text">Hạ Vọng lấy di động từ trong túi ra, hờ hững nói: “Không cần, nếu muốn làm sáng tỏ thì để tôi là được.” Đối với loại người này thì hắn luôn có cách để xử lí, còn thái độ cố gắng cứu vớt khi chuyện đã xảy ra rồi thì thật là vô nghĩa.</p>
             
-            <p class="story-text">Hắn giơ di động chụp một bức tay đan tay của hắn và Đường Hi.</p>
+            <p class="story-text">Hằn giơ di động chụp một bức tay đan tay của hắn và Đường Hi.</p>
             
             <p class="story-text">Vừa chụp xong lập tức đăng lên, còn ghi trạng thái —— chỉ đưa bạn trai đi học mà thôi.</p>
             
@@ -456,7 +481,7 @@
             
             <p class="story-text">Đường Hi tức giận thở phì phò, quyết định không để ý đến hệ thống nữa.</p>
             
-            <p class="story-text">Sau khi ầm ĩ với hệ thống, Đường Hi cũng quên tránh khỏi bàn tay đang nắm của Hạ Vọng, cho nên lúc Diệp Kỳ An và Thẩm Thần Tư cùng nhau đến đây đã thấy một màn cơm chó chói mù mắt này.</p>
+            <p class="story-text">After khi ầm ĩ với hệ thống, Đường Hi cũng quên tránh khỏi bàn tay đang nắm của Hạ Vọng, cho nên lúc Diệp Kỳ An và Thẩm Thần Tư cùng nhau đến đây đã thấy một màn cơm chó chói mù mắt này.</p>
             
             <p class="story-text">Diệp Kỳ An kìm nén cảm giác chua xót của mình, đồng thời cũng ngăn Thẩm Thần Tư đang muốn xông lên tách hai người kia ra lại.</p>
             
@@ -541,113 +566,59 @@
             <p class="story-text">“Bây giờ chúng ta đã là người yêu của nhau rồi.” Giọng Hạ Vọng quả quyết, cứ như chuyện này vốn dĩ phải như vậy.</p>
             
             <p class="story-text">Đường Hi muốn lắc đầu, nhưng ánh mắt Hạ Vọng như kiểu nếu cậu dám lắc đầu thì hắn hắn sẽ hôn thêm lần nữa.</p>
-            
             <p class="story-text">Mèo nhỏ miễn cưỡng gật đầu.</p>
-            
-            <p class="story-text">Mãi cho đến khi bị ôm về phòng ngủ, cậu mới mơ màng ý thức được sự việc đang phát triển sai hướng mất rồi.</p>
-            
+            <p class="story-text">Mới đầu cậu chưa hiểu hết ý của hắn, nhưng sau khi được bế về phòng ngủ, Đường Hi bỗng nhận ra rằng mọi chuyện dường như đã bị đẩy đi quá xa.</p>
             <p class="story-text">...</p>
-            
             <p class="story-text">【 Trần Định Ninh thôi học rồi.】1551 đột nhiên mở miệng.</p>
-            
             <p class="story-text">Đêm qua nó đi kiểm tra định kỳ của thẩm phán, đến khi trở về mới phát hiện con mèo ngốc và nhân vật phản diện đang hôn nhau, thân là hệ thống vị thành niên, nó chỉ có thể bị nhốt trong không gian hệ thống.</p>
-            
             <p class="story-text">Bầu không khí buổi sáng hôm nay đã thay đổi rồi.</p>
-            
             <p class="story-text">Đường Hi đang ăn sandwich, nghe hệ thống nói nên dừng lại một chút, sau đó đáp lại một tiếng rồi tiếp tục ăn. Người này đã xóa bài đăng, cũng đã bị nhà trường nghiêm phạt, những chuyện sau này cũng không có liên quan đến cậu nữa.</p>
-            
             <p class="story-text">Hoàn toàn không quan tâm.</p>
-            
             <p class="story-text">Cậu vừa ăn vừa đưa tay kéo cổ áo.</p>
-            
             <p class="story-text">Sáng nay, lúc soi gương, cậu thấy trên cổ mình có vài nốt đỏ rất lạ, giống như bị muỗi đốt vậy. Hạ Vọng nói không cần để ý, nhưng lúc ăn sáng lại liên tục nhìn qua, ánh mắt mang theo tia quái dị làm cậu có chút sợ hãi không giải thích được.</p>
-            
             <p class="story-text">Đường Hi nhịn không được rụt rụt cổ.</p>
-            
             <p class="story-text">Sau khi ăn xong, cậu theo Hạ Vọng đến công ty. Đây là lần đầu tiên cậu dùng hình người đến công ty hắn, để chứng minh những suy đoán linh tinh trên mạng, Hạ Vọng không hề sợ bị hiểu lầm, thân mật cùng cậu đi vào công ty.</p>
-            
             <p class="story-text">Vì thế, công ty lại một lần nữa nổ tung, so với lúc cậu dùng nguyên hình đến đây còn chấn động hơn.</p>
-            
             <p class="story-text">Thiếu niên cùng Hạ Vọng vô cùng thân mật, thân phận không cần nói cũng tự hiểu.</p>
-            
             <p class="story-text">Bọn họ sôi nổi suy đoán con mèo nhỏ kia là do thiếu niên nuôi.</p>
-            
             <p class="story-text">Bí ẩn về mèo đã được giải đáp, nhưng xong rồi thì lại còn một bí ẩn lớn hơn nữa.</p>
-            
             <p class="story-text">Tại sao vị tổng tài hung hãn kia lại dụ dỗ được một thiếu niên vừa xinh đẹp lại vừa ngoan ngoãn như vậy???</p>
-            
             <p class="story-text">Đường Hi không biết nỗi niềm thắc mắc của bọn họ, cậu cũng không phải lần đầu đến công ty, thoải mái ngồi trên sô pha cầm máy tính bảng chơi game.</p>
-            
             <p class="story-text">Thư ký Hoàng đem bánh kem và nước chanh lại cho thiếu niên, sau đó cô thu hoạch được nụ cười ngoan ngoãn và tiếng cảm ơn lễ phép của cậu.</p>
-            
             <p class="story-text">Cô nở nụ cười chuyên nghiệp, nói cậu đừng khách sáo, nhưng trong lòng đã gào thét như marmota, hận không thể xông lên xoa xoa gương mặt trắng nõn của cậu.</p>
-            
             <p class="story-text">Ngay cả trợ lý Vương, người luôn điềm tĩnh cẩn trọng, giờ đây cũng nhịn không được lên trên diễn đàn hóng chuyện. Sau đó anh ta bị gọi đến văn phòng, tiếng thông báo tin nhắn chưa kịp tắt liên tục vang lên.</p>
-            
             <p class="story-text">“Tôi xin lỗi.” Trợ lý Vương bình tĩnh lấy di động ra bật chế độ yên lặng.</p>
-            
             <p class="story-text">Ngoại trừ có hơi căng thẳng thì một chút cũng không nhìn ra đây là người mới đi hóng chuyện bát quái trên diễn đàn.</p>
-            
             <p class="story-text">“Chờ đã.” Hạ Vọng đưa tay chỉ vào di động.</p>
-            
             <p class="story-text">Trợ lý Vương lập tức hiểu ý, gật đầu: “Tôi sẽ bảo bọn họ không nói nhảm nữa, một chút tiếng gió cũng sẽ không lọt ra…”</p>
-            
-            <p class="story-text">Thanh âm Hạ Vọng đều đều cắt ngang anh ta: “Nói bọn họ truyền đi”</p>
-            
+            <p class="story-text">“Nói bọn họ truyền đi”</p>
             <p class="story-text">“Dạ?” Trợ lý Vương bị cắt ngang, xém chút nữa là đã cắn trúng đầu lưỡi của mình.</p>
-            
             <p class="story-text">Là một người có tố chất tâm lý vững vàng, anh ta chỉ cho phép mình hoài nghi nhân sinh trong vài giây, sau đó nhanh chóng sửa miệng: “Vâng, Hạ tổng.”</p>
-            
             <p class="story-text">Vì thế, còn chưa đến nửa ngày, một bộ ảnh đã chễm chệ nằm trên hotsearch.</p>
-            
-            <p class="story-text">Người đàn ông có thân hình cao lớn cùng thiếu niên nhìn nhau mỉm cười, hai người cùng mặc đồ đôi, nhìn vào đúng là mỹ cảnh nhân gian.</p>
-            
+            <p class="story-text">Nhà thiết kế đã chụp được bức ảnh người đàn ông có thân hình cao lớn cùng thiếu niên nhìn nhau mỉm cười, hai người cùng mặc đồ đôi, nhìn vào đúng là mỹ cảnh nhân gian.</p>
             <p class="story-text">Trong phút chốc, những âm thanh nghị luận nghi ngờ đều nhỏ đi, bởi vì những ảnh chụp này đều là do nhân viên Hạ thị lan truyền ra. Nhưng vẫn có một số ít người cố chấp bình luận, đơn giản là cắn chặt lấy giới tính và thân phận không xứng đôi của hai người không buông.</p>
-            
             <p class="story-text">Lại có một ít tài khoản tiếp thị không sợ chết mà thêm mắm dặm muối, hướng gió của câu chuyện đột nhiên bị chệch đi, Đường Hi biến thành không xứng so với địa vị của Hạ Vọng.</p>
-            
             <p class="story-text">Cuối cùng, tài khoản chính thức của Hạ thị đã phát ra thông báo, xác nhận đây là bạn trai nhỏ của tổng giám đốc.</p>
-            
             <p class="story-text">Lại còn chọn mấy tên bình luận xốc nổi để trả lời, để bọn họ tự vả sưng mặt mới thôi.</p>
-            
             <p class="story-text">Đúng là cho cả thế giới thấy dáng vẻ cưng chiều không giới hạn của Hạ Tổng.</p>
-            
             <p class="story-text">Những tài khoản tiếp thị đó biết Hạ Vọng không dễ chọc vào, sợ bị báo cáo nên xóa sạch hết video, thay vào đó là đăng bài ngưỡng mộ tình yêu thần tiên quyến lữ của bọn họ. Còn chưa đến một ngày, cả nước đều biết đến tình yêu của hai người.</p>
-            
             <p class="story-text">Hạ Vọng hài lòng đặt điện thoại xuống, nhìn thiếu niên bên cạnh đang say mê ăn bánh, khóe miệng dính đầy kem, hắn không kìm lòng được khom lưng hôn lên bờ môi ngọt ngào ấy, muốn nếm thử vị kem trên môi cậu</p>
-            
             <p class="story-text">Gương mặt nhỏ của Đường Hi đỏ hồng, muốn chôn mình vào ghế sô pha.</p>
-            
             <p class="story-text">“Đừng ăn nhiều quá, buổi tối anh đưa em đi dự tiệc.”</p>
-            
             <p class="story-text">Hắn không chỉ muốn cho cư dân mạng biết mà còn muốn cho người trong giới biết thái độ của hắn.</p>
-            
             <p class="story-text">“Tiệc tối thì sẽ có gì?” Đường Hi mềm mại hỏi.</p>
-            
             <p class="story-text">“Có rất nhiều bánh ngọt.” Hạ Vọng như con sói xám to lừa gạt bạn nhỏ.</p>
-            
             <p class="story-text">Bạn nhỏ bị lừa gạt hai mắt sáng rực: “Em cũng muốn đi!” Không hề có một chút do dự nhảy vào hố do con sối đào sẵn.</p>
-            
             <p class="story-text">Sau đó cậu ngoan ngoãn đặt ly nước chanh xuống, muốn để dành bụng tham dự tiệc tối.</p>
-            
             <p class="story-text">Hạ Vọng cho người làm mang lễ phục đến, kiểu dáng đều giống nhau, màu sắc lại là một đen một trắng, vừa nhìn đã biết là một đôi.</p>
-            
             <p class="story-text">Tây trang màu trắng khoác trên người Đường Hi càng khiến cậu như một tinh linh không vương bụi trần.</p>
-            
             <p class="story-text">Bọn họ tham dự một bữa tiệc từ thiện, thông thường khi dự loại tiệc này, mọi người đều có đôi có cặp, chỉ có Hạ Vọng trước giờ đều đi một mình.</p>
-             
             <p class="story-text">Đây là lần đầu tiên hắn dẫn theo người đến. Vào khoảnh khắc Đường Hi lộ mặt, ánh mắt mọi người dường như đều dừng trên người cậu.</p>
-            
             <p class="story-text">Không giống như nhân viên công ty và bạn học, ánh mắt này càng nhiều thêm vài phần trần trụi. Nhưng do e ngại Hạ Vọng, cho dù bọn họ có tò mò thì cũng không dám thì thầm bàn tán ở đây.</p>
-            
             <p class="story-text">Đường Hi:【1551, tôi bị lừa QAQ.】</p>
-            
             <p class="story-text">Cậu rụt rè nép sau lưng Hạ vọng.</p>
-            
             <p class="story-text">1551 trầm mặc một chút rồi nói: 【Thì hắn cũng đâu có nói nơi này chỉ có bánh ngọt, con mèo ngốc.】</p>
-            
             <p class="story-text">Đường Hi đang muốn miêu thân công kích để phản bác hệ thống, nhưng cậu lại thấy được một bóng dáng quen thuộc đang đi đến gần mình.</p>
-            
             <p class="story-text" style="font-style: italic; border-top: 1px dashed var(--border-color); padding-top: 15px; margin-top: 30px;">Tác giả có lời muốn nói: Chính thức công khai rồi!</p>
         </div>
 
@@ -657,7 +628,7 @@
             <a href="s1-c22.html" class="nav-btn">Chương sau</a>
         </div>
 
-      <div class="like-chapter-container">
+        <div class="like-chapter-container">
             <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
                 <div class="like-title-line">
                     <span>Meo meo có thích hong</span>
@@ -698,37 +669,36 @@
             </div>
         </div>
 
-    </div> 
-    
+    </div>
+
+    <!-- TOÀN BỘ ĐOẠN JAVASCRIPT ĐỒNG BỘ REALTIME FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     
     <script>
-        // Cấu hình kết nối trực tiếp đến Realtime Database của Nghi
         var firebaseConfig = {
             databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
         };
-        firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         var database = firebase.database();
 
-        var currentChapterId = "s1-c21"; // Khóa định danh riêng cho Chương 10 chuẩn chỉnh
+        var currentChapterId = "s1-c21"; 
         var currentChapterName = "Tập 1 - Chương 21"; 
-        var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSergYNwq-6oR46XvfuaVLNLQ2-IJC99KGe--WLT5nSOUoljvA/formResponse";
+        var globalFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSciXpmJoHrGIh2Gizdj8nI0SqxicyXKoqpAQglHltORRQwG-w/formResponse";
 
-        // ĐỒNG BỘ SỐ LƯỢT THÍCH REALTIME TỪ FIREBASE LÊN MÀN HÌNH ĐỘC GIẢ
         var likeRef = database.ref("likes/" + currentChapterId);
         
         document.addEventListener("DOMContentLoaded", function() {
             var btn = document.getElementById("likeChapterBtn");
             var display = document.getElementById("likeCountDisplay");
             
-            // 1. Kiểm tra trạng thái đã thích cục bộ của người dùng hiện tại
             var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
             if (userHasLiked === "true" && btn) {
                 btn.classList.add("active");
             }
 
-            // 2. Lắng nghe sự thay đổi số lượng like liên tục trên Firebase toàn cầu
             if (likeRef) {
                 likeRef.on("value", function(snapshot) {
                     var count = snapshot.val() || 0;
@@ -737,34 +707,28 @@
             }
         });
 
-        // XỬ LÝ KHI ĐỘC GIẢ BẤM NÚT "MEO MEO CÓ THÍCH HONG"
         function handleLikeChapter() {
-    var btn = document.getElementById("likeChapterBtn");
-    var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+            var btn = document.getElementById("likeChapterBtn");
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
 
-    if (userHasLiked !== "true") {
-        // Hệ thống chỉ tăng số lượng trên Firebase Realtime Database như cũ
-        likeRef.transaction(function(currentLikes) {
-            return (currentLikes || 0) + 1;
-        }).then(function() {
-            if (btn) btn.classList.add("active");
-            localStorage.setItem("user_liked_" + currentChapterId, "true");
-        });
+            if (userHasLiked !== "true") {
+                likeRef.transaction(function(currentLikes) {
+                    return (currentLikes || 0) + 1;
+                }).then(function() {
+                    if (btn) btn.classList.add("active");
+                    localStorage.setItem("user_liked_" + currentChapterId, "true");
+                });
+            } else {
+                likeRef.transaction(function(currentLikes) {
+                    var newLikes = (currentLikes || 0) - 1;
+                    return newLikes < 0 ? 0 : newLikes;
+                }).then(function() {
+                    if (btn) btn.classList.remove("active");
+                    localStorage.removeItem("user_liked_" + currentChapterId);
+                });
+            }
+        }
 
-        // === ĐẠO ĐOẠN FETCH GỬI LÊN GOOGLE FORM TẠI ĐÂY ĐÃ ĐƯỢC XÓA BỎ BẢO ĐẢM KHÔNG LOẠN SHEET ===
-
-    } else {
-        // Giảm số lượng trên Firebase khi người đọc bấm hủy thích
-        likeRef.transaction(function(currentLikes) {
-            var newLikes = (currentLikes || 0) - 1;
-            return newLikes < 0 ? 0 : newLikes;
-        }).then(function() {
-            if (btn) btn.classList.remove("active");
-            localStorage.removeItem("user_liked_" + currentChapterId);
-        });
-    }
-}
-        // HÀM CHUYỂN ĐỔI CHẾ ĐỘ SÁNG/TỐI (LIGHT/DARK MODE)
         function toggleTheme() {
             var currentTheme = document.documentElement.getAttribute("data-theme");
             var targetTheme = "light";
@@ -777,11 +741,10 @@
                 targetTheme = "light";
                 btn.innerText = "🌙"; 
             }
-
             document.documentElement.setAttribute("data-theme", targetTheme);
         }
 
-        // Tự động quét và chèn bóng chát từng đoạn văn
+        // Tự động quét và chèn bóng chát từng đoạn văn (chèn bình luận tĩnh)
         document.addEventListener("DOMContentLoaded", function() {
             var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
             
@@ -796,7 +759,24 @@
                 
                 var icon = document.createElement("span");
                 icon.className = "comment-icon";
-                icon.innerText = "💬";
+                
+                // MẶC ĐỊNH BÌNH LUẬN RỖNG
+                var commentCount = 0;
+                var customCommentsHTML = '<p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p>';
+                
+                // NẾU LÀ ĐOẠN 43 THÌ THÊM CMT CỦA MEO MEO ĐÚNG Ý CHIÊU
+                if (paragraphIndex === 43) {
+                    commentCount = 1;
+                    customCommentsHTML = `
+                        <div style="margin-bottom: 8px; font-size: 13px; text-align: left;">
+                            <strong style="color: var(--header-color);">Meo meo:</strong> 
+                            <span style="color: var(--text-color);">Ảnh gài ẻm cỡ đó</span>
+                        </div>
+                    `;
+                }
+                
+                // Nếu có bình luận hiển thị số, chưa có hiển thị dấu cộng mời thảo luận
+                icon.innerText = commentCount > 0 ? commentCount : "+";
                 icon.onclick = function() { toggleInlineComment(boxId); };
                 wrapper.appendChild(icon);
                 
@@ -808,7 +788,7 @@
                 commentBox.innerHTML = `
                     <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
                     <div class="old-comments-list">
-                        <p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p>
+                        ${customCommentsHTML}
                     </div>
                     <form class="comment-form-inline" onsubmit="sendInlineComment(event, '${boxId}', 'Đoạn ${paragraphIndex}')">
                         <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
