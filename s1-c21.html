@@ -243,36 +243,36 @@
         .comment-icon {
             position: absolute;
             right: 5px;
-            top: 4px;
+            top: 6px;
             cursor: pointer;
             opacity: 0;
             transition: 0.2s ease-in-out;
             
-            /* Tạo hình bong bóng chat bo tròn hoàn hảo giống hệt ảnh mẫu của Chiêu */
+            /* Tạo hình bong bóng chat bo tròn hoàn hảo giống hệt ảnh mẫu của Chiêu - Điều chỉnh nhỏ gọn hơn */
             display: inline-flex;
             align-items: center;
             justify-content: center;
             background-color: var(--border-color);
             color: #ffffff;
-            font-size: 11px;
+            font-size: 9px;       /* Thu nhỏ cỡ chữ số bên trong bóng chat */
             font-weight: bold;
             font-family: sans-serif;
-            padding: 2px 6px;
-            border-radius: 12px; /* Thiết lập bo tròn bầu dục capsule mượt mà */
-            min-width: 24px;     /* Rộng 24px bảo đảm chứa dấu ba chấm "..." cân đối */
-            height: 18px;        /* Cao 18px */
+            padding: 1px 4px;     /* Thu nhỏ khoảng đệm của bóng chat */
+            border-radius: 10px;  /* Bo tròn góc nhỏ hơn để mượt mà */
+            min-width: 20px;      /* Thu nhỏ chiều rộng tối thiểu */
+            height: 15px;         /* Thu nhỏ chiều cao tối thiểu */
             box-sizing: border-box;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             line-height: 1;      /* Căn giữa chữ hoàn hảo */
         }
 
-        /* Tạo đuôi nhọn cho bong bóng chat */
+        /* Tạo đuôi nhọn cho bong bóng chat nhỏ gọn */
         .comment-icon::after {
             content: "";
             position: absolute;
-            bottom: -3px;
-            right: 5px;
-            border-width: 3px 3px 0 0;
+            bottom: -2px;
+            right: 4px;
+            border-width: 2px 2px 0 0;
             border-style: solid;
             border-color: var(--border-color) transparent transparent transparent;
         }
@@ -606,7 +606,7 @@
             <p class="story-text">Hạ Vọng hài lòng đặt điện thoại xuống, nhìn thiếu niên bên cạnh đang say mê ăn bánh, khóe miệng dính đầy kem, hắn không kìm lòng được khom lưng hôn lên bờ môi ngọt ngào ấy, muốn nếm thử vị kem trên môi cậu</p>
             <p class="story-text">Gương mặt nhỏ của Đường Hi đỏ hồng, muốn chôn mình vào ghế sô pha.</p>
             <p class="story-text">“Đừng ăn nhiều quá, buổi tối anh đưa em đi dự tiệc.”</p>
-            <p class="story-text">Hắn không chỉ muốn cho cư dân mạng biết mà còn muốn cho người trong giới biết thái độ của hắn.</p>
+            <p class="story-text">Hán không chỉ muốn cho cư dân mạng biết mà còn muốn cho người trong giới biết thái độ của hắn.</p>
             <p class="story-text">“Tiệc tối thì sẽ có gì?” Đường Hi mềm mại hỏi.</p>
             <p class="story-text">“Có rất nhiều bánh ngọt.” Hạ Vọng như con sói xám to lừa gạt bạn nhỏ.</p>
             <p class="story-text">Bạn nhỏ bị lừa gạt hai mắt sáng rực: “Em cũng muốn đi!” Không hề có một chút do dự nhảy vào hố do con sối đào sẵn.</p>
