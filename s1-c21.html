@@ -248,7 +248,7 @@
             opacity: 0;
             transition: 0.2s ease-in-out;
             
-            /* Tạo hình bong bóng chat xịn sò giống ảnh mẫu của Chiêu */
+            /* Tạo hình bong bóng chat bo tròn hoàn hảo giống hệt ảnh mẫu của Chiêu */
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -258,11 +258,12 @@
             font-weight: bold;
             font-family: sans-serif;
             padding: 2px 6px;
-            border-radius: 4px;
-            min-width: 18px;
-            height: 16px;
+            border-radius: 12px; /* Thiết lập bo tròn bầu dục capsule mượt mà */
+            min-width: 24px;     /* Rộng 24px bảo đảm chứa dấu ba chấm "..." cân đối */
+            height: 18px;        /* Cao 18px */
             box-sizing: border-box;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            line-height: 1;      /* Căn giữa chữ hoàn hảo */
         }
 
         /* Tạo đuôi nhọn cho bong bóng chat */
@@ -493,7 +494,7 @@
             
             <p class="story-text">...</p>
             
-            <p class="story-text">Hằn chỉ lên diễn đàn trường làm sáng tỏ, nhưng chỉ vỏn vẹn một ngày, tin tức đã bị lan truyền tới trên mạng. Rõ ràng có thể dập tắt độ hot ngay lập tức, nhưng Hạ Vọng lại lựa chọn mặc kệ, để sự việc càng ngày càng lan rộng.</p>
+            <p class="story-text">Hắn chỉ lên diễn đàn trường làm sáng tỏ, nhưng chỉ vỏn vẹn một ngày, tin tức đã bị lan truyền tới trên mạng. Rõ ràng có thể dập tắt độ hot ngay lập tức, nhưng Hạ Vọng lại lựa chọn mặc kệ, để sự việc càng ngày càng lan rộng.</p>
             
             <p class="story-text">Cốc cốc cốc.</p>
             
@@ -567,7 +568,7 @@
             
             <p class="story-text">Đường Hi muốn lắc đầu, nhưng ánh mắt Hạ Vọng như kiểu nếu cậu dám lắc đầu thì hắn hắn sẽ hôn thêm lần nữa.</p>
             <p class="story-text">Mèo nhỏ miễn cưỡng gật đầu.</p>
-            <p class="story-text">Mới đầu cậu chưa hiểu hết ý của hắn, nhưng sau khi được bế về phòng ngủ, Đường Hi bỗng nhận ra rằng mọi chuyện dường như đã bị đẩy đi quá xa.</p>
+            <p class="story-text">Mãi cho đến khi bị ôm về phòng ngủ, cậu mới mơ màng ý thức được sự việc đang phát triển sai hướng mất rồi.</p>
             <p class="story-text">...</p>
             <p class="story-text">【 Trần Định Ninh thôi học rồi.】1551 đột nhiên mở miệng.</p>
             <p class="story-text">Đêm qua nó đi kiểm tra định kỳ của thẩm phán, đến khi trở về mới phát hiện con mèo ngốc và nhân vật phản diện đang hôn nhau, thân là hệ thống vị thành niên, nó chỉ có thể bị nhốt trong không gian hệ thống.</p>
@@ -744,7 +745,7 @@
             document.documentElement.setAttribute("data-theme", targetTheme);
         }
 
-        // Tự động quét và chèn bóng chát từng đoạn văn (chèn bình luận tĩnh)
+        // Tự động quét và chèn bóng chát từng đoạn văn
         document.addEventListener("DOMContentLoaded", function() {
             var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
             
@@ -776,7 +777,7 @@
                 }
                 
                 // Nếu có bình luận hiển thị số, chưa có thì hiển thị bóng chat trơn rỗng đúng hình ảnh mẫu
-                icon.innerText = commentCount > 0 ? commentCount : "";
+                icon.innerText = commentCount > 0 ? commentCount : "...";
                 icon.onclick = function() { toggleInlineComment(boxId); };
                 wrapper.appendChild(icon);
                 
