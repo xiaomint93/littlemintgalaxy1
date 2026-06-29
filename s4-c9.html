@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG */
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI */
         :root {
             --bg-image: url('background.jpg');
             --container-bg: rgba(255, 255, 255, 0.4);
@@ -24,7 +24,6 @@
             --input-text: #4a3728;
         }
 
-        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
         [data-theme="dark"] {
             --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
             --container-bg: rgba(35, 30, 27, 0.9);
@@ -139,103 +138,20 @@
             margin: 0;
         }
 
-        /* --- CHÚ THÍCH THẢ DẠNG DROPDOWN (DETAILS/SUMMARY) --- */
-        .dropdown-footnote {
-            border-left: 2px solid var(--border-color);
-            padding-left: 15px;
-            margin: 20px 0;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-            text-align: justify;
+        /* --- Cấu trúc đoạn văn truyện --- */
+        .story-paragraph-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            padding-right: 45px; 
         }
-        .dropdown-footnote summary {
-            font-weight: bold;
-            color: var(--header-color);
-            cursor: pointer;
-            outline: none;
-            user-select: none;
-            list-style: none; /* Ẩn mũi tên mặc định của trình duyệt */
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .dropdown-footnote summary::-webkit-details-marker {
-            display: none; /* Ẩn mũi tên mặc định trên Safari */
-        }
-        .dropdown-footnote summary::before {
-            content: "▾";
-            font-size: 12px;
-            transition: transform 0.2s ease;
-        }
-        .dropdown-footnote[open] summary::before {
-            transform: rotate(-180deg);
-        }
-        .dropdown-footnote[open] summary {
-            padding-bottom: 8px;
-            margin-bottom: 10px;
-        }
-        .dropdown-footnote-content {
-            font-style: italic;
-            opacity: 0.85;
-            line-height: 1.7;
+
+        .story-text {
+            font-size: 17px;
+            line-height: 1.8;
+            text-align: justify;          
+            text-justify: inter-word;     
+            word-break: break-word;       
             margin: 0;
-        }
-
-        /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ THEO Ý NGHI --- */
-        .like-chapter-container {
-            text-align: left;
-            margin: 30px 0 20px 0;
-            user-select: none;
-            font-family: 'Lora', Georgia, Serif;
-        }
-
-        .like-chapter-wrapper {
-            display: inline-block;
-            cursor: pointer;
-            color: var(--text-color, #4a3728);
-            transition: transform 0.2s ease, color 0.2s ease;
-        }
-
-        .like-chapter-wrapper:hover {
-            color: #a86232;
-            transform: scale(1.02);
-        }
-
-        .like-title-line {
-            font-size: 19px; 
-            font-weight: 600;
-            margin-bottom: 4px;
-            display: block;
-            color: var(--header-color, #5d4737);
-        }
-
-        .like-sub-line {
-            font-size: 14px; 
-            color: inherit;
-            opacity: 0.9;
-            display: flex;
-            align-items: center;
-            gap: 6px; 
-            padding-left: 2px;
-        }
-
-        .like-paw-icon {
-            font-size: 18px;
-            display: inline-block;
-            transition: transform 0.2s;
-        }
-
-        .like-chapter-wrapper.active {
-            color: #a86232;
-        }
-
-        .like-chapter-wrapper.active .like-title-line {
-            color: #a86232;
-        }
-
-        .like-chapter-wrapper.active .like-paw-icon {
-            transform: scale(1.2) rotate(-10deg);
         }
 
         /* Biểu tượng bóng chát mờ bên rìa phải nguyên bản */
@@ -350,6 +266,105 @@
             font-size: 12px;
             margin: 4px 0 0 0;
             text-align: center;
+        }
+
+        /* --- CHÚ THÍCH THẢ DẠNG DROPDOWN VINTAGE TỰ NHIÊN (DETAILS/SUMMARY) --- */
+        .dropdown-footnote {
+            border-left: 2px solid var(--border-color);
+            padding-left: 15px;
+            margin: 20px 0;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            text-align: justify;
+        }
+        .dropdown-footnote summary {
+            font-weight: bold;
+            color: var(--header-color);
+            cursor: pointer;
+            outline: none;
+            user-select: none;
+            list-style: none; /* Ẩn mũi tên mặc định của trình duyệt */
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dropdown-footnote summary::-webkit-details-marker {
+            display: none; /* Ẩn mũi tên mặc định trên Safari */
+        }
+        .dropdown-footnote summary::before {
+            content: "▾";
+            font-size: 12px;
+            transition: transform 0.2s ease;
+        }
+        .dropdown-footnote[open] summary::before {
+            transform: rotate(-180deg);
+        }
+        .dropdown-footnote[open] summary {
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+        .dropdown-footnote-content {
+            font-style: italic;
+            opacity: 0.85;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ THEO Ý NGHI --- */
+        .like-chapter-container {
+            text-align: left;
+            margin: 30px 0 20px 0;
+            user-select: none;
+            font-family: 'Lora', Georgia, Serif;
+        }
+
+        .like-chapter-wrapper {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--text-color, #4a3728);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .like-chapter-wrapper:hover {
+            color: #a86232;
+            transform: scale(1.02);
+        }
+
+        .like-title-line {
+            font-size: 19px; 
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+            color: var(--header-color, #5d4737);
+        }
+
+        .like-sub-line {
+            font-size: 14px; 
+            color: inherit;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px; 
+            padding-left: 2px;
+        }
+
+        .like-paw-icon {
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .like-chapter-wrapper.active {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-title-line {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-paw-icon {
+            transform: scale(1.2) rotate(-10deg);
         }
 
         /* --- Thanh Chuyển Chương Tối Giản --- */
@@ -469,7 +484,7 @@
             <p class="story-text">Đồng hồ treo tường đã trôi qua hai mươi phút, tay chân lạnh ngắt của Bạch Đường mới có cảm giác, đầu óc tỉnh táo trở lại, ánh mắt dần tụ lại, ngón tay khẽ cử động.</p>
             <p class="story-text">Chân của Tưởng Vân Thư đã sớm tê rần, lén nhúc nhích rất nhiều lần, cuối cùng thấy Bạch Đường không có phản ứng thì dứt khoát ngồi bệt xuống đất.</p>
             <p class="story-text">Bạch Đường chậm rãi chớp mắt, hơn hai mươi phút đó, đầu óc cậu trống rỗng, chỉ mơ hồ nghe thấy có người thấp giọng nói với mình “Sau này sẽ không đánh cậu nữa, đừng sợ”, cứ lặp đi lặp lại.</p>
-            <p class="story-text">Cậu khẽ ngẩng gương mặt đã thấm ướt mồ hôi lạnh từ đầu gối lên, nhìn alpha ngồi cách mình ba chọn mét. Ký ức ùa về, hàng mi Bạch Đường run run, tựa như đôi cánh bướm mỏng manh dưới ánh mặt trời.</p>
+            <p class="story-text">Cậu khẽ ngẩng gương mặt đã thấm ướt mồ hôi lạnh từ đầu gối lên, nhìn alpha ngồi cách mình ba bốn mét. Ký ức ùa về, hàng mi Bạch Đường run run, tựa như đôi cánh bướm mỏng manh dưới ánh mặt trời.</p>
             <p class="story-text">Cậu bắt đầu hoài nghi có khi nào alpha bị mất trí nhớ thật không, bởi vì người đàn ông lúc nào cũng tự cao tự đại chẳng ai sánh bằng sao có thể ngồi dưới đất đến tận nửa tiếng chỉ để chờ cậu, Tưởng Vân Tô yêu tiền như mạng kia sao có thể ném thành phẩm mà bản thân tự hào vào thùng rác được?</p>
             <p class="story-text">Hay là đây chỉ là một cuộc kiểm tra, một giọt mồ hôi lạnh từ cổ chảy xuống xương quai xanh, ánh mắt Bạch Đường thẫn thờ, đúng rồi, nhất định đây là một cuộc kiểm tra…</p>
             <p class="story-text">Kiểm tra xem trong khoảng thời gian hắn “mất trí nhớ”, cậu có nghe lời hay không, kiểm tra xem cậu có tuân theo quy định mà trước đây đã đặt ra hay không, kiểm tra xem cậu có nhân lúc hắn bị “mất trí nhớ” mà làm xằng làm bậy không.</p>
@@ -496,6 +511,7 @@
             <p class="story-text">Cơ thể và tinh thần khỏe mạnh là ranh giới của Tưởng Vân Thư, nếu không chạm đến hai nguyên tắc đó thì anh có thể luôn nghe theo Bạch Đường, từng cái từng cái một, nhưng một khi chạm đến, anh sẽ không thỏa hiệp.</p>
             <p class="story-text">Hơn nữa nhìn thấy phản ứng của Bạch Đường, rõ ràng cái vali kia chính là thứ khiến Bạch Đường bộc phát chứng PTSD(1).</p>
             
+            <!-- CHÚ THÍCH DẠNG DROPDOWN TỰ NHIÊN DƯỚI BÀI VIẾT (DETAILS / SUMMARY) -->
             <details class="dropdown-footnote">
                 <summary>(1) PTSD</summary>
                 <div class="dropdown-footnote-content">
@@ -587,7 +603,7 @@
         var currentChapterId = "s4-c9"; // Định danh chính xác vĩnh viễn cho bộ S4 Chương 9
         var currentChapterName = "Tập 4 - Chương 9"; 
         
-        // Link Google Form của S4 (tham khảo từ file image_088cfb.png cho các mã trường tương ứng)
+        // Link Google Form của S4
         var globalFormUrl = "https://docs.google.com/forms/d/11TtAuhxxEN--EhnwZTVwEn6vpTAXdKfJN67Cig0f9L4/formResponse";
 
         // Đồng bộ số mèo like từ Firebase Realtime Database
@@ -646,22 +662,6 @@
             }
             document.documentElement.setAttribute("data-theme", targetTheme);
         }
-
-        /* Hàm bật tắt tooltip khi nhấn trực tiếp vào liên kết chú thích */
-        function toggleTooltip(event, element) {
-            event.stopPropagation();
-            document.querySelectorAll('.tooltip-fn').forEach(el => {
-                if (el !== element) el.classList.remove('active');
-            });
-            element.classList.toggle('active');
-        }
-
-        /* Ẩn tooltip khi nhấn vào bất kỳ vùng nào khác ngoài màn hình */
-        document.addEventListener('click', function() {
-            document.querySelectorAll('.tooltip-fn').forEach(el => {
-                el.classList.remove('active');
-            });
-        });
 
         document.addEventListener("DOMContentLoaded", function() {
             var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
