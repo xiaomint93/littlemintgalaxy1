@@ -139,38 +139,19 @@
             margin: 0;
         }
 
-        /* --- Cấu trúc đoạn văn truyện --- */
-        .story-paragraph-wrapper {
-            position: relative;
-            margin-bottom: 25px;
-            padding-right: 45px; 
-        }
-
-        .story-text {
-            font-size: 17px;
-            line-height: 1.8;
-            text-align: justify;          
-            text-justify: inter-word;     
-            word-break: break-word;       
-            margin: 0;
-        }
-
         /* --- CHÚ THÍCH THẢ DẠNG DROPDOWN (DETAILS/SUMMARY) --- */
         .dropdown-footnote {
-            background-color: var(--comment-box-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 12px 15px;
-            margin: 15px auto;
-            max-width: 650px;
-            font-size: 14px;
+            border-left: 2px solid var(--border-color);
+            padding-left: 15px;
+            margin: 20px 0;
+            font-size: 15px;
             transition: all 0.3s ease;
             box-sizing: border-box;
             text-align: justify;
         }
         .dropdown-footnote summary {
             font-weight: bold;
-            color: #a86232;
+            color: var(--header-color);
             cursor: pointer;
             outline: none;
             user-select: none;
@@ -191,12 +172,13 @@
             transform: rotate(-180deg);
         }
         .dropdown-footnote[open] summary {
-            border-bottom: 1px dashed var(--border-color);
             padding-bottom: 8px;
             margin-bottom: 10px;
         }
         .dropdown-footnote-content {
-            line-height: 1.6;
+            font-style: italic;
+            opacity: 0.85;
+            line-height: 1.7;
             margin: 0;
         }
 
