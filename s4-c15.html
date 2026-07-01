@@ -75,7 +75,6 @@
             background-color: #7a5f4a;
         }
 
-        /* */
         /* Thanh Menu Điều Hướng */
         .nav-bar {
             display: flex;
@@ -140,11 +139,10 @@
             margin: 0;
         }
 
-        /* */
         /* --- Cấu trúc đoạn văn truyện --- */
         .story-paragraph-wrapper {
             position: relative;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding-right: 45px; 
         }
 
@@ -154,7 +152,23 @@
             text-align: justify;          
             text-justify: inter-word;     
             word-break: break-word;       
+            margin: 0 0 20px 0; /* Đặt khoảng cách mặc định đề phòng trường hợp JS chưa kịp bọc wrapper */
+        }
+
+        /* Khử khoảng cách margin của p khi đã có khung bọc ngoài gánh vác */
+        .story-paragraph-wrapper .story-text {
             margin: 0;
+        }
+
+        /* Thiết lập riêng biệt cho các dòng chú thích tránh gây xung đột bóng chát */
+        .story-note-style {
+            font-size: 15px;
+            font-style: italic;
+            color: var(--header-color);
+            padding-left: 15px;
+            border-left: 2px solid var(--border-color);
+            margin: 20px 0;
+            text-align: justify;
         }
 
         /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ --- */
@@ -326,7 +340,6 @@
             text-align: center;
         }
 
-        /* */
         /* --- Thanh Chuyển Chương Tối Giản --- */
         .chapter-navigation {
             display: flex;
@@ -416,7 +429,6 @@
         <a href="kho-bau.html" class="nav-item">Kho báu</a>
     </div>
 
-    <!-- -->
     <div class="reading-container">
         
         <div class="story-header">
@@ -443,7 +455,7 @@
             <p class="story-text">Nhưng có lẽ bắt đầu từ khóa của Chu Triêu Vũ mà bên trên dần gây áp lực, dù sao những tên alpha độc tài đó sao có thể chịu được ai đó cãi lời bọn chúng.</p>
             <p class="story-text">Ngôi trường dân lập này do chính tay hiệu trưởng và người yêu sáng lập nên, học phí không cao, những học sinh nghèo khó còn được miễn học phí, các hoạt động của trường học, đổi mới phương tiện hay tiền lương của giáo viên đều cần tiền, mười năm trôi qua, hiệu trưởng đã nghèo rớt mồng tơi, sức cùng lực kiệt.</p>
             <p class="story-text">Cho dù những học sinh đều đồng lòng góp tiền nhưng cũng chỉ có thể miễn cưỡng duy trì.</p>
-            <p class="story-text">Cho đến bây giờ, diện tích của tzrường Phượng Tê đã bị mất khoảng hai phần ba, học sinh chưa tới hai trăm, giáo viên cũng chỉ còn có sáu người.</p>
+            <p class="story-text">Cho đến bây giờ, diện tích của trường Phượng Tê đã bị mất khoảng hai phần ba, học sinh chưa tới hai trăm, giáo viên cũng chỉ còn có sáu người.</p>
             <p class="story-text">Bạch Đường run run cầm giấy chứng nhận, mười bảy vạn này chính là đưa than ngày tuyết cho trường cũ của cậu.</p>
             <p class="story-text">“Đây là tiền bán được của viên ngọc bích kia đó.” Tưởng Vân Thư giải thích.</p>
             <p class="story-text">Bạch Đường vuốt ve con dấu trường trên giấy chứng nhận, sau một hồi lâu yên lặng, cậu khẽ hỏi: “Ngài thật sự mất trí nhớ sao ạ?”</p>
@@ -455,7 +467,7 @@
             <p class="story-text">Nói một câu như vậy chợt khiến người khác có cảm giác tin cậy, suýt nữa Bạch Đường đã tin.</p>
             <p class="story-text">Nếu như không nghe được câu nói kia.</p>
             <p class="story-text">“Cảm ơn ngài...” Cậu rũ mắt, cho dù có mất trí nhớ thì bản tính cũng sẽ chẳng thay đổi.</p>
-            <p class="story-text">Với lại, lỡ như sau này có một ngày hắn nhớ lại thì cậu sẽ xong đời.</p>
+            <p class="story-text">With lại, lỡ như sau này có một ngày hắn nhớ lại thì cậu sẽ xong đời.</p>
             <p class="story-text">Lúc bác sĩ khám bệnh, cậu ở ngay bên cạnh, bác sĩ nhìn ảnh chụp CT não bộ trong tay, nói: “Có thể là mất trí nhớ ngắn hạn, sẽ nhanh chóng nhớ lại thôi, hoặc có lẽ cả đời cũng không nhớ được.”</p>
             <p class="story-text">Cậu không thể thả lỏng được, sắc mặt Bạch Đường u ám.</p>
             <p class="story-text">“Tôi về trước đây.” Tưởng Vân Thư đặt một cái áo vest vương đầy pheromone lên giường bệnh, “Ngày mai tôi sẽ đón cậu về nhà.”</p>
@@ -476,17 +488,16 @@
             <p class="story-text">Bạch Đường nhỏ nhắn dựa vào người alpha, nhìn qua hệt như một đứa nhỏ, tuy nói là ôm cổ Tưởng Vân Thư nhưng tay Bạch Đường chẳng thể thả lỏng, chỉ là khoác lên mà thôi, cả người cứng ngắc.</p>
             <p class="story-text">Hôm qua bọn họ nói trước khi về nhà phải kiểm tra sức khỏe tổng quát, toàn bộ quá trình Bạch Đường vô cùng ngoan ngoãn phối hợp, kêu làm cái gì thì làm cái đó.</p>
             <p class="story-text">Bác sĩ khoa tuyến thể là một omega, sắc mặt vô cùng kém khi đối diện với loại alpha vô đạo đức này, “Tuyến thể của omega còn chưa phát dục bình thường mà sao anh lại đánh dấu cả đời? Cái này anh có biết đau lắm không hả?”</p>
-            <p class="story-text">Trong đầu Tưởng Vân Thư lóe lên khái niệm đánh dấu cả đời trong cuốn sách nhỏ, anh yên lặng, đã đánh dấu cả đời luôn rồi? Quên đi, cái tên nguyên chủ cặn bã đó, cũng không bất ngờ lắm.</p>
+            <p class="story-text">Trong đầu Tưởng Vân Thư lướt qua khái niệm đánh dấu cả đời trong cuốn sách nhỏ, anh yên lặng, đã đánh dấu cả đời luôn rồi? Quên đi, cái tên nguyên chủ cặn bã đó, cũng không bất ngờ lắm.</p>
             <p class="story-text">Bạch Đường khẽ nhắm mắt lại, trước mắt hiện lên màu đỏ tươi, cậu nhìn thấy bản thân thoi thóp khi bị đánh dấu vào cái ngày đó.</p>
             <p class="story-text">Tưởng Vân Thư bị trừng mắt cũng không tức giận, anh hỏi: “Bác sĩ có thể cho tôi biết vì sao em ấy không phát dục bình thường không?”</p>
-            <p class="story-text">“Cái này không phải nên hỏi anh à?” Bác sĩ trào phúng mà nói, chỉ vào những sẹo sâu có nông có trên tuyến thể sau cổ Bạch Đường: “Bị bạo hành, không đánh dấu chính xác hoặc bẩm sinh, nhưng có lẽ là hai nguyên nhân trước, muốn biết nguyên nhân cụ thể và phương pháp điều trị thì phải đến khoa tuyến thể chuyên môn để kiểm tra.”</p>
-            <p class="story-text">Đây là lần đầu tiên Tưởng Vân Thư nhìn thấy tuyến thể sau cổ Bạch Đường, sau một khoảng yên lặng, anh hỏi: “Vậy cho tôi hỏi hôm nay khoa tuyến thể còn chỗ để hẹn trước không?”</p>
+            <p class="story-text">“Cái này không phải nên hỏi anh à?” Bác sĩ trào phúng mà nói, chỉ vào những vết sẹo sâu có nông có trên tuyến thể sau cổ Bạch Đường: “Bị bạo hành, không đánh dấu chính xác hoặc bẩm sinh, nhưng có lẽ là hai nguyên nhân trước, muốn biết nguyên nhân cụ thể và phương pháp điều trị thì phải đến khoa tuyến thể chuyên môn để kiểm tra.”</p>
+            <p class="story-text">Đây là lần đầu tiên Tưởng Vân Thư nhìn thấy tuyển thể sau cổ Bạch Đường, sau một khoảng yên lặng, anh hỏi: “Vậy cho tôi hỏi hôm nay khoa tuyến thể còn chỗ để hẹn trước không?”</p>
             <p class="story-text">“Không có,” Bác sĩ tức giận, “mấy ngày nữa đi.”</p>
             <p class="story-text">Anh ôm Bạch Đường ra khỏi phòng tuyến thể, nói: “Tôi xin lỗi, cậu đừng sợ, tôi sẽ chịu trách nhiệm với cậu.”</p>
             <p class="story-text">Bạch Đường không nhìn thấy vẻ mặt của anh, nếu không nhất định cậu sẽ bị dọa, bởi vì giờ phút này vẻ mặt Tưởng Vân Thư vô cùng lạnh lùng, ánh mắt rét lạnh, quả thật là đang nổi giận.</p>
         </div>
 
-        <!-- -->
         <div class="chapter-navigation">
             <a href="s4-c14.html" class="nav-btn">Chương trước</a>
             <a href="muc-luc-vi-sao.html" class="nav-btn">Mục lục</a>
@@ -538,7 +549,6 @@
 
     </div>
 
-    <!-- -->
     <!-- TOÀN BỘ ĐOẠN JAVASCRIPT ĐỒNG BỘ REALTIME FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -615,7 +625,7 @@
             document.documentElement.setAttribute("data-theme", targetTheme);
         }
 
-        //        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
             var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
             
             paragraphs.forEach(function(p, index) {
