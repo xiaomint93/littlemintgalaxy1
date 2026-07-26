@@ -159,12 +159,29 @@
             margin: 0;
         }
 
-        /* --- GHI CHÚ THƯỜNG (KIỂU CHỮ NGHIÊNG) --- */
-        .normal-footnote {
-            margin: 0 0 25px 0;
-            font-size: 17px;
-            line-height: 1.8;
-            color: var(--text-color);
+        /* --- CHÚ THÍCH THƯỜNG TRONG BÀI (DẠNG GẠCH DỌC BÊN TRÁI - ẢNH 1) --- */
+        .story-note-style {
+            font-size: 15px;
+            font-style: italic;
+            color: var(--header-color);
+            padding-left: 15px;
+            border-left: 2px solid var(--border-color);
+            margin: 20px 0 25px 5px;
+            text-align: justify;
+            opacity: 0.9;
+        }
+
+        /* --- LỜI CỦA TÁC GIẢ / EDITOR (DẠNG NẰM GIỮA 2 ĐƯỜNG ĐỨT NÉT - ẢNH 2) --- */
+        .author-note-box {
+            border-top: 1px dashed var(--border-color);
+            border-bottom: 1px dashed var(--border-color);
+            padding: 15px 0;
+            margin: 30px 0;
+            font-size: 15px;
+            font-style: italic;
+            color: var(--header-color);
+            text-align: justify;
+            opacity: 0.9;
         }
 
         /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ --- */
@@ -427,7 +444,7 @@
         
         <div class="story-header">
             <h2 class="story-title">Vì sao loại A này mà cũng có O</h2>
-            <h1 class="chapter-title">Chương 43: “Không phải mơ.”</h1>
+            <h1 class="chapter-title">Chương 43: Không phải mơ</h1>
         </div>
 
         <div id="story-content-area">
@@ -496,9 +513,12 @@
             <p class="story-text">Cậu bỗng không thể phân biệt được, rốt cuộc cái nào mới là mơ.</p>
             <p class="story-text">“Là tôi.” Tưởng Vân Thư lùi đến cửa, trấn an, “Đừng sợ.”</p>
             <p class="story-text">Đường gân trên tay Bạch Đường co lại như phát run, cậu nắm chặt lấy chăn như muốn khiến nó dừng lại, thế nhưng lại không có tác dụng, “Tưởng Vân Thư?”</p>
-            <p class="story-text">“Ừm, là tôi, phát âm cong lưỡi lên.”</p>
+            <p class="story-text">“Ừm, là tôi, phát âm cong lưỡi lên(1).”</p>
             
-            <p class="normal-footnote">Chú thích: Chữ Thư (shū) và Tô (sū) phát âm gần giống nhau nhưng chữ Thư phải cong lưỡi lên.</p>
+            <!-- CHÚ THÍCH THƯỜNG TRONG BÀI (ẢNH 1: CÓ GẠCH DỌC BÊN TRÁI, IN NGHIÊNG, CHỮ NHỎ MÀU NÂU NHẠT) -->
+            <p class="story-note-style">
+                (1) Chữ Thư (shū) và Tô (sū) phát âm gần giống nhau nhưng chữ Thư phải cong lưỡi lên.
+            </p>
 
             <p class="story-text">Bạch Đường run run giọng, dường như vẫn chưa tin nên hỏi lại một lần nữa: “Thư đúng không? Là, là Thư đúng không? Tưởng Vân Thư?”</p>
             <p class="story-text">Tưởng Vân Thư nhìn cậu một lát rồi đột nhiên đi tới, khẽ khom lưng véo mặt Bạch Đường, gương mặt trắng nõn lập tức đỏ ửng lên.</p>
@@ -507,6 +527,7 @@
             <p class="story-text">Tưởng Vân Thư nói: “Không phải mơ.”</p>
         </div>
 
+        <!-- LỜI TÁC GIẢ / EDITOR (ẢNH 2: NẰM GIỮA 2 ĐƯỜNG ĐỨT NÉT, IN NGHIÊNG, CHỮ NHỎ MÀU NÂU NHẠT) -->
         <p class="author-note-box">
             xiaomint: Phát hiện ra anh Thư rất thích chơi cosplay “Daddy với con trai ngoan” nha=))))
         </p>
