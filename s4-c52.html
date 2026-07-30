@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>s4-c52 - Little Mint's Galaxy</title>
+    
+    <!-- Nhúng phông chữ Lora xịn mịn chuyên dụng đọc truyện từ Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI */
+        :root {
+            --bg-image: url('background.jpg');
+            --container-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #4a3728;
+            --header-color: #5d4737;
+            --border-color: #8d7561;
+            --box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.08);
+            --comment-box-bg: rgba(255, 255, 255, 0.85);
+            --input-bg: #ffffff;
+            --input-text: #4a3728;
+        }
+
+        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
+        [data-theme="dark"] {
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
+            --container-bg: rgba(35, 30, 27, 0.9);
+            --text-color: #e2d7cc;
+            --header-color: #f1e6da;
+            --border-color: #5d4737;
+            --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
+            --comment-box-bg: rgba(45, 40, 37, 0.9);
+            --input-bg: #2d2825;
+            --input-text: #e2d7cc;
+        }
+
+        body {
+            background-image: var(--bg-image); 
+            background-attachment: fixed; 
+            background-size: cover;
+            background-position: center;
+            font-family: 'Lora', Georgia, Serif; 
+            color: var(--text-color); 
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- NÚT BẤM MẶT TRĂNG ĐỔI CHẾ ĐỘ ĐỌC (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background-color: #5d4737;
+            color: #ffffff;
+            border: 2px solid #8d7561;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+            box-sizing: border-box;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            background-color: #7a5f4a;
+        }
+
+        /* Thanh Menu Điều Hướng */
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0 50px 0;
+            position: relative;
+            z-index: 999; 
+        }
+
+        .nav-item {
+            background-color: #5d4737; 
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            display: block;
+            font-family: 'Lora', Georgia, Serif;
+            border: none;
+            transition: background-color 0.2s;
+        }
+        
+        a.nav-item:hover { background-color: #7a5f4a; }
+
+        /* --- Khung Đọc Truyện Giấy Cũ CĂN GIỮA TUYỆT ĐỐI --- */
+        .reading-container {
+            max-width: 800px;             
+            width: 90%;                    
+            margin: 40px auto;            
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            box-shadow: var(--box-shadow);
+            padding: 50px 60px;
+            box-sizing: border-box;       
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .story-header {
+            text-align: center;
+            border-bottom: 1px double var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .story-title {
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--header-color);
+            margin: 0 0 10px 0;
+            font-weight: normal;
+        }
+
+        .chapter-title {
+            font-size: 26px;
+            color: var(--header-color);
+            font-weight: normal;
+            margin: 0;
+        }
+
+        /* --- Cấu trúc đoạn văn truyện --- */
+        .story-paragraph-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            padding-right: 45px; 
+        }
+
+        .story-text {
+            font-size: 17px;
+            line-height: 1.8;
+            text-align: justify;          
+            text-justify: inter-word;     
+            word-break: break-word;       
+            margin: 0 0 25px 0;
+        }
+
+        .story-paragraph-wrapper .story-text {
+            margin: 0;
+        }
+
+        /* --- STYLES: CHÚ THÍCH & GHI CHÚ TÁC GIẢ --- */
+        .story-note-style {
+            font-size: 15px;
+            font-style: italic;
+            color: var(--header-color);
+            padding-left: 15px;
+            border-left: 2px solid var(--border-color);
+            margin: 20px 0 25px 5px;
+            text-align: justify;
+            opacity: 0.9;
+        }
+        
+        .author-note-box {
+            border-top: 1px dashed var(--border-color);
+            border-bottom: 1px dashed var(--border-color);
+            padding: 15px 0;
+            margin: 30px 0;
+            font-size: 15px;
+            font-style: italic;
+            color: var(--header-color);
+            text-align: justify;
+            opacity: 0.9;
+        }
+
+        /* --- KHU VỰC CSS ĐỊNH DẠNG NÚT LIKE ĐỒNG BỘ --- */
+        .like-chapter-container {
+            text-align: left;
+            margin: 30px 0 20px 0;
+            user-select: none;
+            font-family: 'Lora', Georgia, Serif;
+        }
+
+        .like-chapter-wrapper {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--text-color, #4a3728);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .like-chapter-wrapper:hover {
+            color: #a86232;
+            transform: scale(1.02);
+        }
+
+        .like-title-line {
+            font-size: 19px; 
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+            color: var(--header-color, #5d4737);
+        }
+
+        .like-sub-line {
+            font-size: 14px; 
+            color: inherit;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px; 
+            padding-left: 2px;
+        }
+
+        .like-paw-icon {
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .like-chapter-wrapper.active {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-title-line {
+            color: #a86232;
+        }
+
+        .like-chapter-wrapper.active .like-paw-icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        /* Tạo kiểu bong bóng chat cực nhỏ gọn */
+        .comment-icon {
+            position: absolute;
+            right: 5px;
+            top: 6px;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.2s ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--border-color);
+            color: #ffffff;
+            font-size: 9px;       
+            font-weight: bold;
+            font-family: sans-serif;
+            padding: 1px 4px;     
+            border-radius: 10px;  
+            min-width: 20px;      
+            height: 15px;         
+            box-sizing: border-box;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            line-height: 1;      
+        }
+
+        .comment-icon::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            right: 4px;
+            border-width: 2px 2px 0 0;
+            border-style: solid;
+            border-color: var(--border-color) transparent transparent transparent;
+        }
+
+        .story-paragraph-wrapper:hover .comment-icon {
+            opacity: 0.5;
+        }
+
+        .comment-icon:hover {
+            opacity: 1 !important;
+        }
+
+        /* Khung chứa bình luận hạ xuống của từng đoạn */
+        .paragraph-comment-box {
+            background-color: var(--comment-box-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            max-width: 650px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .old-comments-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--header-color);
+            margin: 0 0 8px 0;
+        }
+
+        .old-comments-list {
+            max-height: 120px;
+            overflow-y: auto;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .comment-form-inline {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .inline-input-name, .inline-textarea-text {
+            padding: 8px 10px;
+            font-size: 13px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-family: inherit;
+            background-color: var(--input-bg);
+            color: var(--input-text);
+        }
+
+        .inline-textarea-text { resize: none; }
+
+        .inline-submit-btn {
+            background-color: #5d4737;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            font-size: 12px;
+            border-radius: 2px;
+            cursor: pointer;
+            align-self: flex-end;
+            font-family: inherit;
+            font-weight: bold;
+        }
+
+        .inline-submit-btn:hover { background-color: #7a5f4a; }
+
+        .inline-success-msg {
+            color: var(--header-color);
+            font-weight: bold;
+            font-size: 12px;
+            margin: 4px 0 0 0;
+            text-align: center;
+        }
+
+        /* --- Thanh Chuyển Chương Tối Giản --- */
+        .chapter-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 50px;
+            border-top: 1px double var(--border-color);
+            padding-top: 30px;
+        }
+
+        .nav-btn {
+            background-color: #5d4737;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 25px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+
+        .nav-btn:hover { background-color: #7a5f4a; }
+
+        .chapter-discussion-box {
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .discussion-title {
+            font-size: 18px;
+            color: var(--header-color);
+            letter-spacing: 1px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            font-weight: normal;
+        }
+
+        /* --- ĐOẠN CODE ĐÁP ỨNG BIẾN ĐỔI TRÊN ĐIỆN THOẠI (RESPONSIVE) --- */
+        @media screen and (max-width: 768px) {
+            .reading-container {
+                width: 95% !important;
+                padding: 30px 20px !important; 
+                margin: 20px auto !important; 
+                border-radius: 4px !important;
+            }
+
+            .story-text {
+                font-size: 16px !important; 
+                text-align: justify !important;
+                text-justify: inter-word !important;
+                display: block !important;
+            }
+            
+            .story-paragraph-wrapper {
+                padding-right: 35px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .comment-icon {
+                opacity: 0.6 !important; 
+                right: 0px !important;
+            }
+
+            .theme-toggle-btn {
+                top: 15px !important;
+                right: 15px !important;
+                width: 38px !important;
+                height: 38px !important;
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
+
+    <div class="nav-bar">
+        <a href="index.html" class="nav-item">Chủ nhà</a>
+        <a href="kho-bau.html" class="nav-item">Kho báu</a>
+    </div>
+
+    <div class="reading-container">
+        
+        <div class="story-header">
+            <h2 class="story-title">Vì sao loại A này mà cũng có O</h2>
+            <h1 class="chapter-title">Chương 52: Tức giận</h1>
+        </div>
+
+        <div id="story-content-area">
+            <p class="story-text">Đến khi ra tới cổng bệnh viện thì Tưởng Vân Thư mới hiểu được câu “Cảm xúc không ổn” của Chu Triêu Vũ là có ý gì.</p>
+            <p class="story-text">Hai người vẫn luôn nắm tay, đôi mắt Bạch Đường sưng đỏ, mũi cũng ửng đỏ theo, mái tóc mướt mồ hôi bị vén lên, ánh mắt nhìn thẳng xuống đất tựa như đang chìm đắm vào thế giới của riêng mình, giác quan như bị che đậy chặn hết mọi thứ xung quanh, mơ hồ được nắm tay dắt đi về phía trước.</p>
+            <p class="story-text">Vô cùng gian truân mới thoát khỏi trạng thái e dè sợ hãi, chậm rãi khôi phục thành dáng vẻ hoạt bát đáng yêu, thế nhưng bây giờ lại giống như một con rối vậy.</p>
+            <p class="story-text">Tưởng Vân Thư nhìn Bạch Đường đi từng bước một, trạng thái của omega khiến anh thật sự rất lo lắng nhưng chẳng thể nào can thiệp được, đây là do Bạch Đường tự dựng lên lớp phòng bị cho chính mình.</p>
+            <p class="story-text">Bây giờ anh chỉ có thể cố gắng hết sức bầu bạn bên cạnh chờ đợi Bạch Đường trở lại như trước.</p>
+            <p class="story-text">Vậy nên anh nghĩ nên ra ngoài hóng gió một chút có lẽ sẽ ổn hơn, thế nên anh khom người, hỏi: “Bạch Đường này, tôi mới nhận được thông báo nói việc đổi tên của tôi đã được duyệt rồi, đúng lúc Cục Cảnh Sát cũng ở gần bệnh viện, cậu có muốn đi cùng tôi không?”</p>
+            <p class="story-text">Đôi mắt Bạch Đường vẫn không chút ánh sáng, cậu không nhúc nhích, dường như không nghe thấy anh nói gì.</p>
+            <p class="story-text">Tưởng Vân Thư quơ quơ tay, thấy cậu ngước lên thì mới lặp lại từng chữ một.</p>
+            <p class="story-text">Đại não Bạch Đường chậm chạp vận hành, lẩm bẩm: “Tên, đổi tên, Thư.”</p>
+            <p class="story-text">Tưởng Vân Thư nói: “Đúng rồi, sau này chứng minh nhân dân, hộ khẩu và cả giấy kết hôn đều là tên tôi hết.”</p>
+            <p class="story-text">Bạch Đường có phản ứng với những lời này, cậu nắm chặt lấy tay của Tưởng Vân Thư, nhìn thẳng vào mắt alpha, “Muốn đi.”</p>
+            <p class="story-text">Trong lòng bàn tay dần ấm lên, Tưởng Vân Thư cong cong khóe môi, “Vậy thì đi thôi.”</p>
+            <p class="story-text">Cục Cảnh Sát cách bệnh viện khoảng một cây số, thời tiết cũng khá mát mẻ, hai bên đường có rất nhiều cây xanh, bóng cây rợp mát dưới lề đường, hai người sóng vai đi với nhau, dường như Bạch Đường đã bình tĩnh lại, thế nhưng sắc đỏ trên gương mặt vẫn chưa biến mất, cậu nhìn xung quanh, vài tia nắng nhảy nhót trên sống mũi, cậu khàn giọng nói: “Lâu lắm rồi em không đi như thế này.”</p>
+            <p class="story-text">Tưởng Vân Thư đáp: “Nếu cậu muốn đi dạo thì cứ nói với tôi, tôi sẽ đi với cậu.”</p>
+            <p class="story-text">Một chiếc xe đạp đối diện chạy tới, anh ôm lấy vai Bạch Đường để cậu đi vào bên trong rồi chú ý đến ánh mắt nhìn chằm chằm của người trên xe đạp, đầu đã xoay lại rồi mà vẫn còn nhìn.</p>
+            <p class="story-text">Tưởng Vân Thư cau mày nhìn qua, người nọ lập tức nhìn sang chỗ khác.</p>
+            <p class="story-text">Bây giờ đang là giờ cao điểm tan học, khi đi đến đường lớn thì người lập tức đông đúc hơn, tiếng xe cộ, tiếng ồn ào huyên náo, tiếng động cơ tàu, từng tốp người lướt ngang qua bọn họ.</p>
+            <p class="story-text">Rất kỳ lạ, Tưởng Vân Thư gần như phát hiện ra trong phạm vi 50m, vô số ánh mắt nóng rực rơi xuống hai người bọn họ, rất khó để lơ đi, thật khiến người ta khó chịu.</p>
+            <p class="story-text">Nhưng sau đó mọi người liền cúi đầu, ngẩng đầu hay quay mặt sang chỗ khác, thế nhưng tất cả đều nhắm vào hai người, trong mắt mang theo tia tìm tòi nghiên cứu, tò mò và ngạc nhiên, tuy nhiên không liên quan gì đến anh mà lại hướng về Bạch Đường đang ở bên cạnh, khẽ xì xào bàn tán.</p>
+            <p class="story-text">“Là omega phải không? Trời ơi đẹp thật đó.”</p>
+            <p class="story-text">“Đm còn đẹp hơn idol của tao nữa!”</p>
+            <p class="story-text">“Omega thật sao? Lần đầu tiên tôi thấy đó, đăng lên vòng bạn bè được không?”</p>
+            <p class="story-text">Tưởng Vân Thư nhíu mày, đang định kéo Bạch Đường đứng lại ven đường thì một đám beta nhìn như học sinh cấp 2 cấp 3 đeo ba lô đi đến, một tên trong đám nói nhỏ vào tai của tên khác, thế nhưng giọng nói lại chẳng nhỏ chút nào: “Ê ê tụi bây thấy omega kia không, sao mặt lại đỏ như vậy, cứ như đang ha ha ha.”</p>
+            <p class="story-text">Thái độ rất cay nghiệt khó nghe.</p>
+            <p class="story-text">Nỗi bất an Bạch Đường vẫn luôn kìm nén bỗng nhiên bùng nổ, trên mặt tràn đầy kinh hoảng, cậu quay đầu xác nhận alpha trước mặt, trong lòng thì tự thôi miên chính mình: “Đây là thiên sứ, là thiên sứ Tưởng.”</p>
+            <p class="story-text">Cánh tay bỗng nhiên bị kéo lại, tai phải được cảm giác ấm áp bao lấy, cậu quay đầu thì thấy alpha đứng lại, khuôn mặt lạnh lùng, đường cằm sắc bén, anh vô cảm nhìn chằm chằm đám học sinh kia.</p>
+            <p class="story-text">Khí thế lạnh lùng của alpha vô cùng đáng sợ, là beta thì cũng không dám đắc tội alpha, đánh thì đánh không lại, có lên hết một lượt cũng chưa chắc, mà pháp luật cũng đứng về phía alpha, đám học sinh lập tức im miệng tăng tốc đi nhanh hơn.</p>
+            <p class="story-text">Tưởng Vân Thư thả tay đang che lỗ tai Bạch Đường xuống, giọng không vui, “Chúng ta bắt xe về bệnh viện đi rồi lái xe tới Cục Cảnh Sát.”</p>
+            <p class="story-text">Bạch Đường mím môi ngoan ngoãn đi theo, đi được vài bước, cậu không nhịn được mà đưa tay sờ sờ vành tai của mình, vừa nóng vừa ngứa.</p>
+            <p class="story-text">Sau khi lên xe taxi, tài xế cứ nhìn nhìn Bạch Đường qua kính chiếu hậu, Tưởng Vân Thư không khách khí hỏi: “Nhìn cái gì?”</p>
+            <p class="story-text">Tài xế lập tức ngồi đàng hoàng lại, mắt nhìn thẳng về phía trước.</p>
+            <p class="story-text">Tưởng Vân Thư hít sâu một hơi, anh không phải là người dễ nổi giận, là một bác sĩ, anh đã từng gặp qua rất nhiều loại người mở miệng là nói thẳng thế này, thế nhưng vẫn chưa từng khiến anh gợn sóng, nhưng mà hôm nay thì khác, bây giờ trong lòng anh như muốn bốc hỏa, anh nhéo nhéo mi tâm nói với tài xế vô tội: “Tôi xin lỗi.”</p>
+            <p class="story-text">Bạch Đường ngồi kế bên tựa đầu vào lưng ghế trước, chăm chú nhìn alpha, thấy alpha nhìn qua thì cậu liền xòe tay ra, nói bằng khẩu hình: “Anh có muốn nắm tay không?”</p>
+            <p class="story-text">Tưởng Vân Thư tưởng Bạch Đường đang sợ hãi, anh rũ mắt nhìn ngón tay thon dài trắng nõn trước mặt, nhưng do trước đây bị tổn thương và làm nhiều việc nhà nên không còn lành lặn mà có vài vết sẹo nho nhỏ.</p>
+            <p class="story-text">Bạch Đường ngẩn người, nhanh chóng nhận ra tay mình cũng không được đẹp lắm nên cậu cuộn tay lại muốn rút về.</p>
+            <p class="story-text">Tưởng Vân Thư nắm lấy.</p>
+            <p class="story-text">Hai người tay đan tay đặt giữa ghế xe.</p>
+            <p class="story-text">Khoảng ba năm phút sau, họ buông tay ra, xuống xe ở cổng bệnh viện rồi lại lên xe của mình.</p>
+            <p class="story-text">Bạch Đường nhìn alpha ngồi trên ghế lái vẫn căng mặt như trước, nhỏ giọng nói: “Đừng giận nữa mà.”</p>
+            <p class="story-text">Tưởng Vân Thư thở dài một hơi: “Giờ tôi không còn giận nữa.”</p>
+            <p class="story-text">Mày còn nhíu kìa, Bạch Đường lẩm bẩm: “Anh nói xạo.”</p>
+            <p class="story-text">“Tôi xin lỗi.” Tưởng Vân Thư nói, “Tôi không ngờ lại xảy ra chuyện này, cậu đừng để trong lòng.”</p>
+            <p class="story-text">Bạch Đường ngồi ở ghế phụ, cậu thắt chặt dây an toàn, theo quán tính mà cơ thể hơi nghiêng về phía trước, áp mặt lên bảng điều khiển, cứ như vậy mà nhìn alpha, cậu nhìn Tưởng Vân Thư vừa tức giận vừa mang theo chút tự trách, khẽ mỉm cười, “Thật ra là ngược lại, em vui lắm.”</p>
+            <p class="story-text">“Hả?”</p>
+            <p class="story-text">“Nếu là Tưởng Vân Tô thì”, Bạch Đường nói, “Hắn rất thích đi ra ngoài với em như vậy, nhưng lúc đó em ngu quá, tưởng hắn thật lòng thích em nên mới cam chịu vì hắn, nói với hắn em không sao, sau này mới nhận ra vốn dĩ hắn chẳng thích đi ra đường với em, hắn ghét cái nắng ói bức, ghét cảnh người đến người đi, hắn chỉ hưởng thụ ánh mắt hâm mộ của mọi người, muốn khoe khoang omega của mình với công chúng mà thôi.”</p>
+            <p class="story-text">Cứ như đang khoe một con thú cưng xinh đẹp.</p>
+            <p class="story-text">Bạch Đường thừa nhận, qua ba năm, cậu rất sợ hãi khi phải lâm vào trường hợp như thế này, cho nên cậu cứ hết lần này đến lần khác xác nhận alpha ở bên cạnh, nhưng cậu không hoảng sợ bao lâu thì Tưởng Vân Thư đã dùng hành động phá tan đi nghi ngờ và bất an của cậu.</p>
+            <p class="story-text">Sắc mặt Tưởng Vân Thư không vui, nói thẳng: “Hắn bị điên rồi.”</p>
+            <p class="story-text">Bạch Đường bật cười, đây là lần đầu tiên cậu nghe Tưởng Vân Thư nói mấy câu thẳng thắn như thế này, có cảm giác hệt như thần tiên hạ phàm bầu bạn với cậu, ít đi chút tiên khí và khoảng cách, nhiều thêm chút thân thiết.</p>
+            <p class="story-text">Cậu cười một hồi rồi nhẹ giọng nói: “Thật ra nếu là đàn anh, Như Vân hay nhiều omega khác, bọn họ đi ra ngoài cũng sẽ không bị như vậy, bởi vì mặc dù là omega như họ giống beta hơn.”</p>
+            <p class="story-text">“Em không biết vì sao nhưng từ lúc còn nhỏ thì đặc điểm giới tính omega của em đã rất rõ ràng rồi.” Bạch Đường xòe tay ra nhìn cổ tay mảnh khảnh của mình, “Vậy nên còn chưa phân hóa thì mọi người đều chắc chắn rằng em sẽ là omega, cũng do đó mà ba mẹ vẫn luôn không thích em.”</p>
+            <p class="story-text">Tưởng Vân Thư gọi: “Bạch Đường này.”</p>
+            <p class="story-text">Bạch Đường ngẩng đầu nhìn qua, “Dạ?”</p>
+            <p class="story-text">“Nếu cậu đau khổ vì mình có ngoại hình omega quá rõ ràng.” Tưởng Vân Thư nói, “Thì đó là do xã hội này, thế giới này sai.”</p>
+            <p class="story-text">Bạch Đường yên lặng một lát rồi cười rộ lên: “... Dạ.”</p>
+            <p class="story-text">“Bác sĩ Tưởng, anh nói một chút về chuyện trước đây của anh được không?” Trán Bạch Đường bị tì ra một vết đỏ, cậu hỏi: “Em, em có thể hiểu hơn anh một chút được không ạ?”</p>
+            <p class="story-text">Lúc này đến lượt Tưởng Vân Thư ngẩn người, nhưng anh vô thức đáp: “Được chứ.”</p>
+            <p class="story-text">Nhưng đợi vài phút mà alpha vẫn chưa lên tiếng, chỉ hơi nhíu mày, ngón tay gõ gõ lên vô lăng như là đang vắt óc nhớ lại.</p>
+            <p class="story-text">Lại qua vài phút nữa, Tưởng Vân Thư mới hỏi: “Có muốn nghe một vài chuyện tôi gặp bệnh nhân không?”</p>
+            <p class="story-text">Bạch Đường ngơ ngác gật đầu.</p>
+            <p class="story-text">Khi nghe đến câu chuyện thứ ba của Tưởng Vân Thư: một ông lão ầm ĩ nói không muốn làm phẫu thuật, bệnh viện toàn lừa đảo, người con lên Baidu tìm hiểu thì không có, sau đó còn muốn gọi viện trưởng ra đối chất, Bạch Đường không thể không cắt ngang, khéo léo nói: “Bác sĩ Tưởng ơi, có chuyện nào về anh không? Ví dụ như là lúc đi học hay gì đó.”</p>
+            <p class="story-text">Tưởng Vân Thư đành phải nhớ lại, anh định kể về Lâm Bạch Chu nhưng lại nghĩ cái này cũng giống như kể chuyện của người khác, cuối cùng đành bất đắc dĩ cười cười: “Tôi xin lỗi, tôi không có ấn tượng gì hết, hình như chỉ xoay quanh học tập và làm việc mà thôi.”</p>
+            <p class="story-text">Bạch Đường “À” một tiếng.</p>
+            <p class="story-text">Bầu không khí chợt trở nên yên lặng.</p>
+            <p class="story-text">Hóa ra mình nhạt nhẽo như vậy, Tưởng Vân Thư nghĩ.</p>
+            <p class="story-text">Bạch Đường chợt bật cười, đôi mắt cong như vầng trăng khuyết, lộ ra hàm răng trắng tinh, giọng điệu như bừng tỉnh: “Thì ra chỉ cần cố gắng như vậy là có thể trở thành người tài giỏi ưu tú như bác sĩ Tưởng sao.”</p>
+            <p class="story-text">Nói đến lúc “Như vậy”, cậu còn khua tay vẽ thành một cái vòng tròn lớn, chiếm hết không gian ghế phụ.</p>
+        </div>
+
+        <!-- Thanh chuyển chương: Nút Chương sau s4-c53.html luôn HOẠT ĐỘNG theo đúng yêu cầu -->
+        <div class="chapter-navigation">
+            <a href="s4-c51.html" class="nav-btn">Chương trước</a>
+            <a href="muc-luc-vi-sao.html" class="nav-btn">Mục lục</a>
+            <a href="s4-c53.html" class="nav-btn">Chương sau</a>
+        </div>
+
+        <!-- --- KHU VỰC THÍCH CHƯƠNG --- -->
+        <div class="like-chapter-container">
+            <div class="like-chapter-wrapper" id="likeChapterBtn" onclick="handleLikeChapter()">
+                <div class="like-title-line">
+                    <span>Meo meo có thích hong</span>
+                </div>
+                <div class="like-sub-line">
+                    <span class="like-paw-icon">🐾</span>
+                    <span id="likeCountDisplay">0</span> <span>dấu chân mèo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- --- KHU VỰC THẢO LUẬN CUỐI CHƯƠNG --- -->
+        <div class="chapter-discussion-box">
+            <h3 class="discussion-title">💬 Thảo luận của chương này</h3>
+            <form id="commentForm" onsubmit="sendGeneralComment(event)" style="max-width: 650px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Hãy cho xin danh tính</label>
+                    <input type="text" id="commentName" placeholder="Ví dụ: Aa..." required 
+                           style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text);">
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 14px; color: var(--header-color); font-weight: bold;">Bạn nói gì ó</label>
+                    <textarea id="commentText" rows="4" placeholder="Viết bình luận tại đây..." required
+                              style="padding: 10px; font-size: 14px; border: 1px solid var(--border-color); border-radius: 3px; font-family: inherit; background-color: var(--input-bg); color: var(--input-text); resize: none;"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" style="background-color: #5d4737; color: white; border: none; padding: 10px 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; border-radius: 2px; cursor: pointer; align-self: flex-end; font-family: 'Lora', serif;">
+                    Gửi bình luận
+                </button>
+                
+                <p id="successMessage" style="display: none; color: var(--header-color); font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px;">
+                    ✦ Bình luận của bạn đã được gửi thành công! Cảm ơn bạn nhé.
+                </p>
+            </form>
+
+            <div id="real-comments-area" style="margin-top: 40px; border-top: 1px dashed var(--border-color); padding-top: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 14px; font-weight: bold; color: var(--header-color); margin-bottom: 15px;">💬 Bàn tán gì ik</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TOÀN BỘ ĐOẠN JAVASCRIPT ĐỒNG BỘ REALTIME FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
+    <script>
+        var firebaseConfig = {
+            databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        var database = firebase.database();
+
+        var currentChapterId = "s4-c52"; // Định danh chính xác vĩnh viễn cho S4 Chương 52
+        var currentChapterName = "Tập 4 - Chương 52"; 
+        
+        // Link Google Form của S4
+        var globalFormUrl = "https://docs.google.com/forms/d/11TtAuhxxEN--EhnwZTVwEn6vpTAXdKfJN67Cig0f9L4/formResponse";
+
+        // Đồng bộ số mèo like từ Firebase Realtime Database
+        var likeRef = database.ref("likes/" + currentChapterId);
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            var btn = document.getElementById("likeChapterBtn");
+            var display = document.getElementById("likeCountDisplay");
+            
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+            if (userHasLiked === "true" && btn) {
+                btn.classList.add("active");
+            }
+
+            if (likeRef) {
+                likeRef.on("value", function(snapshot) {
+                    var count = snapshot.val() || 0;
+                    if (display) display.innerText = count;
+                });
+            }
+        });
+
+        function handleLikeChapter() {
+            var btn = document.getElementById("likeChapterBtn");
+            var userHasLiked = localStorage.getItem("user_liked_" + currentChapterId);
+
+            if (userHasLiked !== "true") {
+                likeRef.transaction(function(currentLikes) {
+                    return (currentLikes || 0) + 1;
+                }).then(function() {
+                    if (btn) btn.classList.add("active");
+                    localStorage.setItem("user_liked_" + currentChapterId, "true");
+                });
+            } else {
+                likeRef.transaction(function(currentLikes) {
+                    var newLikes = (currentLikes || 0) - 1;
+                    return newLikes < 0 ? 0 : newLikes;
+                }).then(function() {
+                    if (btn) btn.classList.remove("active");
+                    localStorage.removeItem("user_liked_" + currentChapterId);
+                });
+            }
+        }
+
+        function toggleTheme() {
+            var currentTheme = document.documentElement.getAttribute("data-theme");
+            var targetTheme = "light";
+            var btn = document.getElementById("themeToggleBtn");
+
+            if (currentTheme === "light" || !currentTheme) {
+                targetTheme = "dark";
+                btn.innerText = "☀️"; 
+            } else {
+                targetTheme = "light";
+                btn.innerText = "🌙"; 
+            }
+            document.documentElement.setAttribute("data-theme", targetTheme);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var paragraphs = document.querySelectorAll("#story-content-area > p.story-text");
+            
+            paragraphs.forEach(function(p, index) {
+                // Bỏ qua dòng chữ báo hết chương và ký tự phân tách để không tạo hộp chat thừa
+                if (p.textContent.includes("— Hết chương") || p.textContent.trim() === "...") return;
+
+                var paragraphIndex = index + 1; 
+                var boxId = "inline-comment-" + paragraphIndex;
+                
+                var wrapper = document.createElement("div");
+                wrapper.className = "story-paragraph-wrapper";
+                p.parentNode.insertBefore(wrapper, p);
+                wrapper.appendChild(p);
+                
+                var icon = document.createElement("span");
+                icon.className = "comment-icon";
+                icon.innerText = "..."; // Hiển thị 3 dấu chấm nguyên bản chuẩn chỉ
+                icon.onclick = function() { toggleInlineComment(boxId); };
+                wrapper.appendChild(icon);
+                
+                var commentBox = document.createElement("div");
+                commentBox.className = "paragraph-comment-box";
+                commentBox.id = boxId;
+                commentBox.style.display = "none";
+                
+                commentBox.innerHTML = `
+                    <p class="old-comments-title">💬 Độc giả đoạn này nói gì:</p>
+                    <div class="old-comments-list">
+                        <p style="font-style: italic; color: #888; margin: 0; font-size: 13px;">Chưa có bình luận hiển thị.</p>
+                    </div>
+                    <form class="comment-form-inline" onsubmit="sendInlineComment(event, '${boxId}', 'Đoạn ${paragraphIndex}')">
+                        <input type="text" class="inline-input-name" placeholder="Biệt danh..." required>
+                        <textarea class="inline-textarea-text" rows="2" placeholder="Nhập cảm nhận của bạn về đoạn này..." required></textarea>
+                        <button type="submit" class="inline-submit-btn">Gửi cmt</button>
+                        <p class="inline-success-msg" style="display: none;">✦ Gửi thành công!</p>
+                    </form>
+                `;
+                wrapper.appendChild(commentBox);
+            });
+        });
+
+        function toggleInlineComment(id) {
+            var box = document.getElementById(id);
+            box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";
+        }
+
+        // Đấu nối chuẩn 3 mã entry lấy từ Google Form S4 của Bé Chiêu
+        function sendInlineComment(event, boxId, paragraphLabel) {
+            event.preventDefault();
+            var box = document.getElementById(boxId);
+            var name = box.querySelector('.inline-input-name').value;
+            var text = box.querySelector('.inline-textarea-text').value;
+            var fullLocation = currentChapterName + " (" + paragraphLabel + ")"; 
+            
+            var formData = new FormData();
+            formData.append('entry.2082960728', name);         // Tên
+            formData.append('entry.1838246581', text);         // Nội dung cmt
+            formData.append('entry.69882803', fullLocation);   // Chương/Đoạn văn
+            
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
+                box.querySelector('.inline-textarea-text').value = '';
+                var successMsg = box.querySelector('.inline-success-msg');
+                successMsg.style.display = 'block';
+                setTimeout(function() { successMsg.style.display = 'none'; }, 3000);
+            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
+        }
+
+        function sendGeneralComment(event) {
+            event.preventDefault();
+            var name = document.getElementById('commentName').value;
+            var text = document.getElementById('commentText').value;
+            var fullLocation = currentChapterName + " (Tổng)";
+            
+            var formData = new FormData();
+            formData.append('entry.2082960728', name);         // Tên
+            formData.append('entry.1838246581', text);         // Nội dung cmt
+            formData.append('entry.69882803', fullLocation);   // Chương/Đoạn văn
+            
+            fetch(globalFormUrl, { method: 'POST', body: formData, mode: 'no-cors' }).then(function() {
+                document.getElementById('commentText').value = '';
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(function() { document.getElementById('successMessage').style.display = 'none'; }, 4000);
+            }).catch(function() { alert('Có lỗi xảy ra, thử lại giúp mình nha!'); });
+        }
+    </script>
+</body>
+</html>
