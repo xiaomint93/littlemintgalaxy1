@@ -139,12 +139,12 @@
             margin: 0;
         }
 
-        <!-- ... STREAMING_CHUNK:Styling reading area typography and paragraph structures... -->
         /* --- Cấu trúc đoạn văn truyện --- */
         .story-paragraph-wrapper {
             position: relative;
-            margin-bottom: 25px;
+            margin-bottom: 25px !important;
             padding-right: 45px; 
+            display: block;
         }
 
         .story-text {
@@ -153,11 +153,11 @@
             text-align: justify;          
             text-justify: inter-word;     
             word-break: break-word;       
-            margin: 0 0 25px 0;
+            margin: 0 0 25px 0 !important;
         }
 
         .story-paragraph-wrapper .story-text {
-            margin: 0;
+            margin: 0 !important;
         }
 
         .story-note-style {
@@ -338,7 +338,6 @@
             text-align: center;
         }
 
-        <!-- ... STREAMING_CHUNK:Styling navigation links and mobile responsive queries... -->
         /* --- Thanh Chuyển Chương Tối Giản --- */
         .chapter-navigation {
             display: flex;
@@ -575,7 +574,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     
-    <!-- --- STREAMING_CHUNK: Configuring Firebase Realtime Database and form submission JavaScript... -->
     <script>
         var firebaseConfig = {
             databaseURL: "https://littlemintgalaxy-default-rtdb.firebaseio.com/"
