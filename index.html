@@ -5,35 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Little Mint's Galaxy</title>
     
+    <!-- Nhúng phông chữ Lora, Courier Prime (Máy đánh chữ) và Dancing Script (Chữ viết tay) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG */
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI - TYPEWRITER THEME */
         :root {
-            --bg-image: url('background.jpg');
-            --container-bg: rgba(255, 255, 255, 0.4);
-            --gallery-bg: rgba(0, 0, 0, 0.02);
-            --text-color: #4a3728;
-            --header-color: #5d4737;
-            --border-color: #8d7561;
+            --bg-image: url('bgvintage.jpg');
+            --container-bg: rgba(246, 238, 224, 0.95); /* Màu giấy da, giấy bồi */
+            --gallery-bg: rgba(0, 0, 0, 0.05); /* Tách biệt nền mảng cuộn */
+            --text-color: #3b2b20; /* Màu mực in đen/nâu đậm */
+            --header-color: #1a120c;
+            --border-color: #a89a8a;
+            
+            /* Phím máy đánh chữ (Typewriter Keys) */
+            --key-bg: #ece5d3;
+            --key-text: #2c1e16;
+            --key-border: #7a6b5d;
+            --key-shadow: #5c4e40;
+            
+            /* Băng keo dán tên (Dymo Label) */
+            --dymo-bg: #2b2b2b;
+            --dymo-text: #f0f0f0;
+
+            /* Khung truyện mô phỏng ảnh Polaroid / Giấy note */
             --card-border: #ffffff;
-            --star-bg: rgba(255, 255, 255, 0.4);
-            --star-shadow: #5d4737;
+            
+            /* Fonts */
+            --font-typewriter: 'Courier Prime', monospace;
+            --font-handwriting: 'Dancing Script', cursive;
+            --font-body: 'Lora', Georgia, Serif;
         }
 
-        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
         [data-theme="dark"] {
-            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg'); /* Phủ lớp tối lên ảnh nền hoa hồng */
-            --container-bg: rgba(35, 30, 27, 0.9); /* Khung giấy chuyển sang tone nâu đen dịu mắt */
-            --gallery-bg: rgba(0, 0, 0, 0.2);
-            --text-color: #e2d7cc; /* Chữ chuyển sang màu kem sáng chống mỏi mắt */
-            --header-color: #f1e6da;
-            --border-color: #5d4737;
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('bgvintage.jpg');
+            --container-bg: rgba(43, 36, 31, 0.95); /* Giấy cũ trong bóng tối */
+            --gallery-bg: rgba(0, 0, 0, 0.3);
+            --text-color: #d1c5b4; /* Mực sáng */
+            --header-color: #e6dfd3;
+            --border-color: #5c4e40;
+            
+            /* Phím máy đánh chữ tối */
+            --key-bg: #362d26;
+            --key-text: #d1c5b4;
+            --key-border: #1a1511;
+            --key-shadow: #0a0806;
+
+            /* Băng keo dán tên sáng màu */
+            --dymo-bg: #e0d6c8;
+            --dymo-text: #1a1511;
+
             --card-border: #2d2825;
-            --star-bg: rgba(45, 40, 37, 0.6);
-            --star-shadow: #f1e6da;
         }
 
         body {
@@ -41,23 +65,23 @@
             background-attachment: fixed; 
             background-size: cover;
             background-position: center;
-            font-family: 'Lora', Georgia, Serif; /* Đồng bộ font chữ đọc truyện xịn mịn */
+            font-family: var(--font-body);
             color: var(--text-color); 
             margin: 0;
             padding: 0;
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* --- NÚT BẤM MẶT TRĂNG CHUYỂN CHẾ ĐỘ (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        /* --- NÚT BẤM MẶT TRĂNG CHUYỂN CHẾ ĐỘ --- */
         .theme-toggle-btn {
             position: fixed;
             top: 25px;
             right: 25px;
             width: 45px;
             height: 45px;
-            background-color: #5d4737;
-            color: #ffffff;
-            border: 2px solid #8d7561;
+            background-color: var(--key-bg);
+            color: var(--key-text);
+            border: 2px solid var(--key-border);
             border-radius: 50%;
             cursor: pointer;
             font-size: 20px;
@@ -65,35 +89,44 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 0 var(--key-shadow), 0 5px 10px rgba(0,0,0,0.15);
+            transition: transform 0.15s, box-shadow 0.15s;
         }
         .theme-toggle-btn:hover {
-            transform: scale(1.1);
-            background-color: #7a5f4a;
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--key-shadow), 0 3px 5px rgba(0,0,0,0.15);
+        }
+        .theme-toggle-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 transparent;
         }
 
-        /* 2. Khung Logo ở giữa */
+        /* --- HEADER & LOGO --- */
         .header-container {
             text-align: center;
             padding-top: 50px;
+            position: relative;
         }
 
         .site-title {
+            font-family: var(--font-typewriter); /* Đổi sang chữ đánh máy */
             font-size: 45px;
             margin: 10px 0;
-            font-weight: normal;
+            font-weight: 700;
+            letter-spacing: 2px;
             color: var(--header-color);
+            text-transform: uppercase;
         }
 
         .site-slogan {
-            font-style: italic;
-            font-size: 18px;
-            margin-bottom: 30px;
+            font-family: var(--font-handwriting); /* Chữ viết tay mượt mà */
+            font-size: 28px;
+            margin-bottom: 20px;
             color: var(--text-color);
+            opacity: 0.9;
         }
 
-        /* --- 3. Thanh Menu Điều Hướng dạng nút bấm cổ điển --- */
+        /* --- THANH MENU: MÔ PHỎNG PHÍM MÁY CHỮ --- */
         .nav-bar {
             display: flex;
             justify-content: center;
@@ -104,25 +137,35 @@
         }
 
         .nav-item {
-            background-color: #5d4737; 
-            color: #ffffff;
+            background-color: var(--key-bg); 
+            color: var(--key-text);
             text-decoration: none;
-            padding: 8px 20px;
-            font-size: 14px;
+            padding: 10px 25px;
+            font-size: 15px;
             font-weight: bold;
             text-transform: uppercase;
-            border-radius: 2px;
+            letter-spacing: 2px;
+            border-radius: 25px; /* Nút dáng capsule */
             display: block;
-            font-family: 'Lora', Georgia, Serif;
-            border: none;
-            transition: background-color 0.2s;
+            font-family: var(--font-typewriter);
+            border: 2px solid var(--key-border);
+            box-shadow: 0 4px 0 var(--key-shadow), 0 5px 10px rgba(0,0,0,0.1);
+            transition: all 0.15s ease;
         }
         
-        a.nav-item:hover { 
-            background-color: #7a5f4a; 
+        .nav-item:hover { 
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--key-shadow), 0 3px 5px rgba(0,0,0,0.1);
+            background-color: var(--key-bg);
+            filter: brightness(0.9);
         }
-        
-        /* --- 4. Khung Giới thiệu Giấy Cũ bọc trọn vẹn nội dung --- */
+
+        .nav-item:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 transparent;
+        }
+
+        /* --- KHUNG GIỚI THIỆU (Tờ Giấy Note) --- */
         .about-box-container {
             max-width: 850px;
             width: 90%;
@@ -134,19 +177,38 @@
             line-height: 1.8;
             color: var(--text-color);
             text-align: center;
-            box-shadow: inset 0 0 15px rgba(141, 117, 97, 0.1), 0 4px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.08), inset 0 0 40px rgba(141, 117, 97, 0.05); /* Hiệu ứng giấy nổi */
             box-sizing: border-box;
             transition: background-color 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden; /* Cắt phần cà phê thừa nếu vệt loang quá to */
         }
 
-        /* --- 5. Khung hành lang triển lãm Kho báu --- */
+        /* Vệt cà phê giả lập bằng class decor */
+        .coffee-stain-decor {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 180px;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+            transform: rotate(-15deg);
+            mix-blend-mode: multiply; /* Hòa trộn vào nền giấy chân thật hơn */
+        }
+        [data-theme="dark"] .coffee-stain-decor {
+            opacity: 0.05; /* Giảm chói khi ở Dark mode */
+            mix-blend-mode: normal;
+        }
+
+        /* --- KHUNG HÀNH LANG TRIỂN LÃM KHO BÁU --- */
         #kho-bau-gallery {
             width: 850px; 
             max-width: 95%;
             margin: 60px auto; 
             padding: 40px 0;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            border-top: 2px dashed var(--border-color); /* Nét đứt vintage */
+            border-bottom: 2px dashed var(--border-color);
             background-color: var(--gallery-bg);
             position: relative;
             overflow: hidden;
@@ -159,18 +221,18 @@
             justify-content: center;
             text-align: center;
             color: var(--header-color);
-            font-size: 18px;
+            font-family: var(--font-typewriter);
+            font-size: 20px;
             letter-spacing: 6px; 
             font-weight: bold;
             margin: 0 0 30px 0; 
             width: 100%;
         }
 
-        #gallery-label-new::before,
-        #gallery-label-new::after {
+        #gallery-label-new::before, #gallery-label-new::after {
             content: "";
             flex: 1;
-            border-bottom: 1px solid var(--border-color); 
+            border-bottom: 1px dashed var(--border-color); 
             margin: 0 20px; 
         }
 
@@ -194,13 +256,18 @@
             width: 220px;
             text-align: center;
             margin: 0 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .novel-card:hover {
+            transform: translateY(-5px) scale(1.02);
         }
 
         .novel-card .frame {
             width: 180px;
             height: 270px;
-            border: 8px solid var(--card-border);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border: 8px solid var(--card-border); /* Viền như ảnh in */
+            box-shadow: 2px 4px 12px rgba(0,0,0,0.2);
             overflow: hidden;
             margin: 0 auto;
             transition: border-color 0.3s ease;
@@ -212,21 +279,28 @@
             object-fit: cover;
         }
 
+        /* Băng keo Dymo dán tên truyện trong gallery */
         .novel-card .title-box {
-            background-color: #5d4737;
-            color: #fff;
-            padding: 5px 10px;
-            margin-top: 15px;
-            font-size: 12px;
+            font-family: var(--font-typewriter);
+            background-color: var(--dymo-bg);
+            color: var(--dymo-text);
             display: inline-block;
-            font-family: 'Lora', Georgia, Serif;
+            padding: 6px 12px;
+            border-radius: 2px;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            line-height: 1.4;
+            box-shadow: 1px 2px 3px rgba(0,0,0,0.25);
         }
-        
-        /* --- 6. Khu vực Nơi Cư Ngụ Vintage --- */
+
+        /* --- NƠI CƯ NGỤ VINTAGE --- */
         #noi-cu-ngu-container {
             width: 850px;
             max-width: 95%;
-            margin: 60px auto;
+            margin: 60px auto 80px;
             text-align: center;
         }
 
@@ -235,72 +309,59 @@
             align-items: center;
             justify-content: center;
             color: var(--header-color);
-            font-size: 18px;
-            letter-spacing: 6px;
+            font-family: var(--font-typewriter);
+            font-size: 20px;
+            letter-spacing: 4px;
             font-weight: bold;
             margin: 0 0 40px 0;
             width: 100%;
         }
 
-        #noi-cu-ngu-label::before,
-        #noi-cu-ngu-label::after {
+        #noi-cu-ngu-label::before, #noi-cu-ngu-label::after {
             content: "";
             flex: 1;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px dashed var(--border-color);
             margin: 0 20px;
         }
 
         .social-galaxy {
             display: flex;
             justify-content: center;
-            gap: 40px; 
+            gap: 30px; 
             flex-wrap: wrap;
         }
 
+        /* Thiết kế tem thư cũ cho mạng xã hội */
         .social-star {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--star-bg);
-            border: 1px solid var(--border-color);
+            background-color: var(--container-bg);
+            border: 2px dashed var(--border-color); /* Viền răng cưa tem thư */
             padding: 12px 25px;
             color: var(--text-color);
             text-decoration: none;
+            font-family: var(--font-typewriter);
             font-size: 14px;
             letter-spacing: 2px;
             font-weight: bold;
             text-transform: uppercase;
             border-radius: 2px;
-            box-shadow: 3px 3px 0px var(--star-shadow);
-            transition: all 0.3s ease;
-        }
-
-        .social-star::before {
-            content: "✦";
-            color: var(--text-color);
-            font-size: 12px;
-            transition: transform 0.4s ease;
+            transition: all 0.25s ease;
+            position: relative;
         }
 
         .social-star:hover {
-            background-color: #5d4737;
-            color: #ffffff;
-            box-shadow: 0px 0px 0px transparent;
-            transform: translateY(-5px); 
-        }
-
-        .social-star:hover::before {
-            color: #ffffff;
-            transform: rotate(180deg); 
+            background-color: var(--key-bg);
+            color: var(--header-color);
+            transform: scale(1.05) rotate(-3deg); /* Nghiêng như tem dán vội */
+            box-shadow: 2px 4px 12px rgba(0,0,0,0.1);
         }
 
         /* RESPONSIVE TRÊN ĐIỆN THOẠI CHỐNG TRÀN */
         @media screen and (max-width: 768px) {
             .site-title { font-size: 32px !important; }
-            .site-slogan { font-size: 15px !important; }
+            .site-slogan { font-size: 20px !important; }
             .about-box-container { padding: 25px 20px !important; }
-            .social-galaxy { gap: 20px !important; }
-            .social-star { padding: 10px 18px !important; font-size: 12px !important; }
+            .social-galaxy { gap: 15px !important; }
+            .social-star { padding: 10px 15px !important; font-size: 12px !important; }
             
             .theme-toggle-btn {
                 top: 15px !important;
@@ -317,32 +378,38 @@
     <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
 
     <div class="header-container">
-        <div class="logo-box" style="border: none; background: none;">
+        <!-- Phong thư decor nhỏ nhắm trên logo -->
+        <img src="phongthu.png" alt="Phong thư" style="width: 50px; opacity: 0.8; margin-bottom: 10px; display: inline-block;">
+
+        <div class="logo-box" style="border: none; background: none; margin-bottom: -10px;">
             <img src="logo.png" alt="Logo" style="max-width: 200px; height: auto;">
         </div>
 
         <h1 class="site-title">Little Mint's Galaxy</h1>
         <p class="site-slogan">Sinh tử tương hứa, khắc cốt tương tư</p>
 
-        <!-- Thanh Menu Điều Hướng mới không còn Menu thả (Dropdown) -->
+        <!-- Thanh Menu Điều Hướng mới -->
         <div class="nav-bar">
-            <a href="index.html" class="nav-item" style="background-color: #7a5f4a;">Chủ nhà</a>
+            <a href="index.html" class="nav-item" style="box-shadow: 0 0 0 transparent; transform: translateY(4px); filter: brightness(0.9);">Chủ nhà</a>
             <a href="kho-bau.html" class="nav-item">Kho báu</a>
         </div>
 
         <div class="about-box-container">
-            <h2 style="font-size: 24px; margin-bottom: 25px; color: var(--header-color); font-weight: normal; letter-spacing: 2px;">About xiaomint</h2>
+            <!-- Vệt cà phê decor -->
+            <img src="vetcaphe.png" alt="" class="coffee-stain-decor">
+
+            <h2 style="font-family: var(--font-typewriter); font-size: 24px; margin-bottom: 25px; color: var(--header-color); font-weight: bold; letter-spacing: 2px; text-transform: uppercase; position: relative; z-index: 1;">About xiaomint</h2>
             
-            <p style="font-style: italic; margin-bottom: 30px; font-size: 17px; color: var(--header-color);">
+            <p style="font-family: var(--font-handwriting); margin-bottom: 30px; font-size: 22px; color: var(--text-color); opacity: 0.9; position: relative; z-index: 1;">
                 "Ở đây có một chiếc bạc hà nhỏ phiêu bạt giữa muôn ngàn vì tinh tú xa xôi."
             </p>
 
-            <div style="text-align: justify; font-size: 15px; border-top: 1px double var(--border-color); padding-top: 25px;">
+            <div style="text-align: justify; font-size: 15px; border-top: 2px dashed var(--border-color); padding-top: 25px; position: relative; z-index: 1;">
                 Trong nhà chỉ có Mint tự edit tự beta, tự solo tự vui, hoan nghênh độc giả vô đọc truyện vui chung luôn, nhà chuyên edit truyện đam mỹ.<br>
                 Gặp nhau đã là duyên, rời đi không luyến tiếc!<br>
                 Cảm ơn mọi người đã ghé thăm ngôi nhà nhỏ này!<br><br>
 
-                <span style="font-weight: bold; color: var(--header-color); border-bottom: 1px solid var(--header-color);">Một số lưu ý:</span>
+                <span style="font-family: var(--font-typewriter); font-size: 16px; font-weight: bold; color: var(--header-color); border-bottom: 1px solid var(--header-color); text-transform: uppercase;">Một số lưu ý:</span>
                 <ul style="padding-left: 20px; list-style-type: none; margin-top: 15px; text-align: left; line-height: 1.8;">
                     <li style="margin-bottom: 10px;">✦ Khuyến khích mở web trong trình duyệt Chrome hoặc Google để không bị lỗi giao diện và các chức năng khác.</li>
                     <li style="margin-bottom: 10px;">✦ Mình edit phi lợi nhuận, chỉ đăng trên web littlemintgalaxy1, wordpress Bachanhoxinh và wattpad Mint9323. Đăng trên các nền tảng khác đều là ăn cắp. Không chấp nhận chuyển ver hay reup.</li>
@@ -357,7 +424,7 @@
         </div>
 
         <div style="text-align: center; margin: 20px 0; padding: 0;">
-            <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto;">
+            <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto; filter: grayscale(100%) contrast(150%);">
         </div>
 
         <div id="kho-bau-gallery">
@@ -367,19 +434,19 @@
                 <div style="display: flex;">
                     <div class="novel-card">
                         <a href="muc-luc-meo-con.html" style="text-decoration: none;">
-                            <div class="frame"><img src="bia1.png" alt="Hôm nay mèo con cũng cứu vớt vai ác"></div>
+                            <div class="frame"><img src="bia1.png" alt="Hôm nay mèo con cũng cứu vớt vai ác" onerror="this.src='https://placehold.co/300x450/8d7561/ffffff?text=Meo+Con'"></div>
                             <div class="title-box">[S1] Hôm nay mèo con...</div>
                         </a>
                     </div>
                     <div class="novel-card">
                         <a href="muc-luc-say.html" style="text-decoration: none;">
-                            <div class="frame"><img src="bia2.png" alt="Yêu tựa hơi say"></div>
+                            <div class="frame"><img src="bia2.png" alt="Yêu tựa hơi say" onerror="this.src='https://placehold.co/300x450/8d7561/ffffff?text=Yeu+Tua+Say'"></div>
                             <div class="title-box">[S2]  Yêu tựa hơi say</div>
                         </a>
                     </div>
                     <div class="novel-card">
                         <a href="muc-luc-vi-sao.html" style="text-decoration: none;">
-                            <div class="frame"><img src="bia3.png" alt="Vì sao loại A này mà cũng có O?"></div>
+                            <div class="frame"><img src="bia3.png" alt="Vì sao loại A này mà cũng có O?" onerror="this.src='https://placehold.co/300x450/8d7561/ffffff?text=Vi+Sao+Loai+A'"></div>
                             <div class="title-box">[S4] Vì sao loại A này...</div>
                         </a>
                     </div>
@@ -388,19 +455,19 @@
                 <div style="display: flex;">
                     <div class="novel-card">
                         <a href="muc-luc-meo-con.html" style="text-decoration: none;">
-                            <div class="frame"><img src="bia1.png" alt="Hôm nay mèo con cũng cứu vớt vai ác"></div>
+                            <div class="frame"><img src="bia1.png" alt="Hôm nay mèo con cũng cứu vớt vai ác" onerror="this.src='https://placehold.co/300x450/8d7561/ffffff?text=Meo+Con'"></div>
                             <div class="title-box">[S1] Hôm nay mèo con...</div>
                         </a>
                     </div>
                     <div class="novel-card">
                         <a href="muc-luc-say.html" style="text-decoration: none;">
-                            <div class="frame"><img src="bia2.png" alt="Yêu tựa hơi say"></div>
+                            <div class="frame"><img src="bia2.png" alt="Yêu tựa hơi say" onerror="this.src='https://placehold.co/300x450/8d7561/ffffff?text=Yeu+Tua+Say'"></div>
                             <div class="title-box">[S2] Yêu tựa hơi say</div>
                         </a>
                     </div>
                     <div class="novel-card">
                         <a href="muc-luc-vi-sao.html" style="text-decoration: none;">
-                            <div class="frame"><img src="bia3.png" alt="Vì sao loại A này mà cũng có O?"></div>
+                            <div class="frame"><img src="bia3.png" alt="Vì sao loại A này mà cũng có O?" onerror="this.src='https://placehold.co/300x450/8d7561/ffffff?text=Vi+Sao+Loai+A'"></div>
                             <div class="title-box">[S4] Vì sao loại A này...</div>
                         </a>
                     </div>
@@ -408,43 +475,45 @@
             </div>
         </div> 
 
-        <div style="text-align: center; margin: 40px 0; padding: 0;">
-            <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto;">
-        </div>
-
+        <!-- Khung Nơi cư ngụ -->
         <div id="noi-cu-ngu-container">
-            <div id="noi-cu-ngu-label">NƠI CƯ NGỤ</div>
+            <div id="noi-cu-ngu-label">
+                <img src="temthu.png" alt="" style="width: 28px; margin-right: 15px; opacity: 0.8; transform: rotate(-10deg);">
+                NƠI CƯ NGỤ
+                <img src="temthu.png" alt="" style="width: 28px; margin-left: 15px; opacity: 0.8; transform: rotate(15deg);">
+            </div>
             
             <div class="social-galaxy">
-                <a href="https://bachanhoxinh.wordpress.com" target="_blank" class="social-star">
-                    Wordpress
-                </a>
-                <a href="https://www.wattpad.com/user/xiaomint93" target="_blank" class="social-star">
-                    Wattpad
-                </a>
-                <a href="https://www.facebook.com/littlemint23" target="_blank" class="social-star">
-                    Facebook
-                </a>
+                <a href="https://bachanhoxinh.wordpress.com" target="_blank" class="social-star">Wordpress</a>
+                <a href="https://www.wattpad.com/user/xiaomint93" target="_blank" class="social-star">Wattpad</a>
+                <a href="https://www.facebook.com/littlemint23" target="_blank" class="social-star">Facebook</a>
             </div>
         </div>
 
     </div> 
 
     <script>
+        // Đồng bộ hóa trạng thái giao diện đêm thông minh bằng LocalStorage giữa các trang
+        document.addEventListener("DOMContentLoaded", function() {
+            var savedTheme = localStorage.getItem("user_theme") || "light";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+            updateToggleButton(savedTheme);
+        });
+
         function toggleTheme() {
-            var currentTheme = document.documentElement.getAttribute("data-theme");
-            var targetTheme = "light";
-            var btn = document.getElementById("themeToggleBtn");
-
-            if (currentTheme === "light" || !currentTheme) {
-                targetTheme = "dark";
-                btn.innerText = "☀️"; // Đổi sang hình mặt trời ở chế độ tối
-            } else {
-                targetTheme = "light";
-                btn.innerText = "🌙"; // Đổi sang hình mặt trăng ở chế độ sáng
-            }
-
+            var currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+            var targetTheme = currentTheme === "light" ? "dark" : "light";
+            
             document.documentElement.setAttribute("data-theme", targetTheme);
+            localStorage.setItem("user_theme", targetTheme);
+            updateToggleButton(targetTheme);
+        }
+
+        function updateToggleButton(theme) {
+            var btn = document.getElementById("themeToggleBtn");
+            if (btn) {
+                btn.innerText = theme === "light" ? "🌙" : "☀️";
+            }
         }
     </script>
 </body>
