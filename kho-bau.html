@@ -5,56 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kho báu - Little Mint's Galaxy</title>
     
-    <!-- Nhúng phông chữ Lora và font máy đánh chữ Courier New (mặc định hệ thống) -->
+    <!-- Nhúng phông chữ Lora, chữ viết tay Dancing Script và font máy đánh chữ Courier New (mặc định hệ thống) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI - GIỮ TONE MÀU CŨ */
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI - GIỮ Y NGUYÊN TONE MÀU CŨ CỦA EM */
         :root {
             --bg-image: url('background.jpg');
-            --container-bg: rgba(255, 255, 255, 0.45);
+            --container-bg: rgba(255, 255, 255, 0.4);
             --text-color: #4a3728;
             --header-color: #5d4737;
             --border-color: #8d7561;
             
-            /* Màu cũ cho thẻ Kho Báu */
+            /* Màu cũ cho thẻ truyện */
             --card-bg-custom: rgba(255, 255, 255, 0.45);
             --card-hover-bg-custom: rgba(255, 255, 255, 0.65);
+            
+            /* Màu huy hiệu cũ */
             --badge-bg-done: #e6f4ea;
             --badge-text-done: #137333;
             --badge-bg-pending: #fdf2e9;
             --badge-text-pending: #a86232;
 
-            /* Biến màu cho các nút bấm máy đánh chữ (Typewriter Keys) */
+            /* Biến màu cho các nút bấm máy đánh chữ */
             --key-bg: #dfd4c5; 
             --key-text: #362517;
             --key-border: #4a3728;
             --key-shadow: #4a3728;
             
-            /* Băng keo dán tên (Dymo Label) */
-            --dymo-bg: #4a3728;
-            --dymo-text: #ffffff;
-            
             /* Nơi cư ngụ */
-            --star-bg: rgba(255, 255, 255, 0.5);
+            --star-bg: rgba(255, 255, 255, 0.4);
+            --star-shadow: #5d4737;
 
             /* Fonts */
-            --font-typewriter: 'Courier New', Courier, monospace; 
+            --font-typewriter: 'Courier New', Courier, monospace; /* Khắc phục 100% lỗi tiếng Việt */
+            --font-handwriting: 'Dancing Script', cursive;
             --font-body: 'Lora', Georgia, Serif;
         }
 
         [data-theme="dark"] {
+            /* Giữ tone màu tối cũ */
             --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
             --container-bg: rgba(35, 30, 27, 0.9);
             --text-color: #e2d7cc;
             --header-color: #f1e6da;
             --border-color: #5d4737;
             
-            /* Màu tối cho thẻ Kho Báu */
+            /* Màu thẻ tối cũ */
             --card-bg-custom: rgba(53, 45, 40, 0.5);
             --card-hover-bg-custom: rgba(65, 55, 48, 0.7);
+            
+            /* Huy hiệu tối cũ */
             --badge-bg-done: rgba(19, 115, 51, 0.25);
             --badge-text-done: #81c995;
             --badge-bg-pending: rgba(168, 98, 50, 0.2);
@@ -66,10 +69,8 @@
             --key-border: #1a1511;
             --key-shadow: #0a0806;
 
-            --dymo-bg: #e2d7cc;
-            --dymo-text: #2d2825;
-            
-            --star-bg: rgba(45, 40, 37, 0.8);
+            --star-bg: rgba(45, 40, 37, 0.6);
+            --star-shadow: #f1e6da;
         }
 
         body {
@@ -176,7 +177,7 @@
             box-shadow: 0 0 0 transparent;
         }
 
-        /* --- KHUNG GIỚI THIỆU CHÍNH --- */
+        /* --- KHUNG KHO BÁU CHÍNH --- */
         .about-box-container {
             max-width: 850px;
             width: 90%;
@@ -189,9 +190,9 @@
             box-sizing: border-box;
             transition: background-color 0.3s ease, border-color 0.3s ease;
             position: relative;
-            overflow: hidden;
+            overflow: hidden; /* Cắt phần cà phê thừa nếu vệt loang quá to */
         }
-
+        
         /* Vệt cà phê giả lập bằng class decor */
         .coffee-stain-decor {
             position: absolute;
@@ -253,23 +254,15 @@
             object-fit: cover;
         }
 
-        /* Băng keo Dymo dán tên truyện trong Thẻ */
+        /* Tên truyện bỏ khung nền, chỉ in đậm và dùng font máy đánh chữ */
         .novel-title-text {
             font-family: var(--font-typewriter);
-            background-color: var(--dymo-bg);
-            color: var(--dymo-text);
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 2px;
-            font-size: 14px;
+            color: var(--header-color);
+            font-size: 16px;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             line-height: 1.4;
             text-align: left;
-            box-shadow: 1px 2px 3px rgba(0,0,0,0.25);
-            align-self: flex-start;
         }
 
         /* Tác giả giữ font lora bình thường cho dễ đọc */
@@ -281,16 +274,16 @@
             font-style: italic;
         }
 
+        /* Bỏ chữ in hoa ở huy hiệu (xóa text-transform: uppercase) */
         .novel-status-badge {
             display: inline-block;
             align-self: flex-start;
             font-family: var(--font-typewriter);
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             padding: 4px 10px;
             border-radius: 20px;
             margin-bottom: 16px;
-            text-transform: uppercase;
         }
 
         .badge-done { background-color: var(--badge-bg-done); color: var(--badge-text-done); }
@@ -345,7 +338,7 @@
         #noi-cu-ngu-label::before, #noi-cu-ngu-label::after {
             content: "";
             flex: 1;
-            border-bottom: 1px dashed var(--border-color); /* Đổi sang nét đứt */
+            border-bottom: 1px dashed var(--border-color); /* Nét đứt */
             margin: 0 20px;
         }
 
@@ -358,7 +351,7 @@
 
         /* Thiết kế tem thư cũ cho mạng xã hội */
         .social-star {
-            background-color: var(--container-bg);
+            background-color: var(--star-bg);
             border: 2px dashed var(--border-color); /* Viền răng cưa tem thư */
             padding: 12px 25px;
             color: var(--text-color);
@@ -371,6 +364,7 @@
             border-radius: 2px;
             transition: all 0.25s ease;
             position: relative;
+            box-shadow: 3px 3px 0px var(--star-shadow);
         }
 
         .social-star:hover {
@@ -385,11 +379,13 @@
             .site-title { font-size: 32px !important; }
             .site-slogan { font-size: 15px !important; }
             .about-box-container { padding: 25px 20px !important; }
-            .novels-grid { grid-template-columns: 1fr !important; gap: 20px !important; } /* Ép về 1 cột cho mobile dễ nhìn */
-            .novel-title-text { font-size: 12px !important; }
-            .novel-author-text { font-size: 14px !important; }
-            .social-galaxy { gap: 15px !important; }
-            .social-star { padding: 10px 15px !important; font-size: 12px !important; }
+            .novels-grid { gap: 12px !important; }
+            .novel-card-custom { padding: 10px !important; }
+            .novel-title-text { font-size: 14px !important; }
+            .novel-author-text { font-size: 12px !important; }
+            .read-button-custom { padding: 8px 10px !important; font-size: 12px !important; }
+            .social-galaxy { gap: 20px !important; }
+            .social-star { padding: 10px 18px !important; font-size: 12px !important; }
             
             .theme-toggle-btn {
                 top: 15px !important;
@@ -403,12 +399,13 @@
 </head>
 <body>
 
-    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ">🌙</button>
 
     <div class="header-container">
         <!-- Phong thư decor nhỏ nhắm trên logo -->
         <img src="phongthu.png" alt="Phong thư" style="width: 50px; opacity: 0.8; margin-bottom: 10px; display: inline-block;">
 
+        <!-- Logo ảnh chính xác như trang chủ -->
         <div class="logo-box" style="border: none; background: none; margin-bottom: -10px;">
             <img src="logo.png" alt="Logo" style="max-width: 200px; height: auto;">
         </div>
@@ -423,6 +420,7 @@
             <a href="kho-bau.html" class="nav-item" style="box-shadow: 0 0 0 transparent; transform: translateY(4px); filter: brightness(0.95);">Kho báu</a>
         </div>
 
+        <!-- Khung Kho Báu Chính -->
         <div class="about-box-container">
             <!-- Vệt cà phê decor -->
             <img src="vetcaphe.png" alt="" class="coffee-stain-decor">
@@ -433,9 +431,9 @@
                     <h2 style="font-family: var(--font-typewriter); font-size: 24px; margin: 0; color: var(--header-color); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">📦 Kho báu</h2>
                     <p style="font-style: italic; margin: 5px 0 0 0; font-size: 14px; opacity: 0.8;">Nơi cất giữ những hành tinh nhỏ trong dải ngân hà.</p>
                 </div>
-                <!-- Box số lượng truyện dạng Dymo dán hơi nghiêng -->
+                <!-- Box số lượng truyện dạng thẻ nhỏ -->
                 <div style="background-color: transparent; border: 2px dashed var(--border-color); border-radius: 2px; padding: 8px 16px; text-align: center; min-width: 90px; box-sizing: border-box; transform: rotate(2deg);">
-                    <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; font-family: var(--font-typewriter); letter-spacing: 1px; opacity: 0.7; display: block;">Báu vật</span>
+                    <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; font-family: var(--font-typewriter); letter-spacing: 1px; opacity: 0.7; display: block;">Số báu vật</span>
                     <div style="font-size: 26px; font-family: var(--font-typewriter); font-weight: bold; color: var(--header-color); margin-top: 2px;">03</div>
                 </div>
             </div>
@@ -448,8 +446,10 @@
                     <div class="novel-cover-frame">
                         <img src="bia1.png" alt="Hôm nay mèo con cũng cứu vớt vai ác" onerror="this.src='https://placehold.co/300x450/8d7561/ffffff?text=Meo+Con'">
                     </div>
+                    <!-- Đã bỏ khung nâu, chỉ in đậm, font máy đánh chữ -->
                     <div class="novel-title-text">[S1] Hôm nay mèo con cũng cứu vớt vai ác</div>
                     <div class="novel-author-text">Tác giả: Trác Mễ</div>
+                    <!-- Đã bỏ viết hoa toàn bộ ở badge -->
                     <span class="novel-status-badge badge-done">Đã hoàn thành</span>
                     <a href="muc-luc-meo-con.html" class="read-button-custom">Đọc truyện</a>
                 </div>
@@ -461,7 +461,7 @@
                     </div>
                     <div class="novel-title-text">[S2] Yêu tựa hơi say</div>
                     <div class="novel-author-text">Tác giả: Thời Túy</div>
-                    <span class="novel-status-badge badge-done">Đã hoàn thành</span>
+                    <span class="novel-status-badge badge-pending">Đang cập nhật</span>
                     <a href="muc-luc-say.html" class="read-button-custom">Đọc truyện</a>
                 </div>
 
@@ -472,7 +472,7 @@
                     </div>
                     <div class="novel-title-text">[S4] Vì sao loại A này mà cũng có O</div>
                     <div class="novel-author-text">Tác giả: Đồ Nam Kình</div>
-                    <span class="novel-status-badge badge-done">Đã hoàn thành</span>
+                    <span class="novel-status-badge badge-pending">Đang cập nhật</span>
                     <a href="muc-luc-vi-sao.html" class="read-button-custom">Đọc truyện</a>
                 </div>
 
@@ -480,10 +480,10 @@
         </div>
 
         <div style="text-align: center; margin: 40px 0; padding: 0;">
-            <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto; filter: grayscale(100%) contrast(150%);">
+            <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto;">
         </div>
 
-        <!-- Khung Nơi cư ngụ với icon Tem Thư hai bên -->
+        <!-- Khung Nơi cư ngụ chuẩn như bản cũ, thay font và thêm tem thư -->
         <div id="noi-cu-ngu-container">
             <div id="noi-cu-ngu-label">
                 <img src="temthu.png" alt="" style="width: 28px; margin-right: 15px; opacity: 0.8; transform: rotate(-10deg);">
