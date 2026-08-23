@@ -5,59 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Little Mint's Galaxy</title>
     
-    <!-- Nhúng phông chữ Lora, Courier Prime (Máy đánh chữ) và Dancing Script (Chữ viết tay) -->
+    <!-- Nhúng phông chữ Lora và Dancing Script (Chữ viết tay). Font máy đánh chữ sẽ dùng Courier New mặc định của hệ thống để không bao giờ lỗi tiếng Việt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI - TYPEWRITER THEME */
+        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI - GIỮ TONE MÀU CŨ */
         :root {
-            --bg-image: url('bgvintage.jpg');
-            --container-bg: rgba(246, 238, 224, 0.95); /* Màu giấy da, giấy bồi */
-            --gallery-bg: rgba(0, 0, 0, 0.05); /* Tách biệt nền mảng cuộn */
-            --text-color: #3b2b20; /* Màu mực in đen/nâu đậm */
-            --header-color: #1a120c;
-            --border-color: #a89a8a;
+            --bg-image: url('background.jpg'); /* Giữ bg cũ */
+            --container-bg: rgba(255, 255, 255, 0.45);
+            --gallery-bg: rgba(0, 0, 0, 0.02);
+            --text-color: #4a3728;
+            --header-color: #5d4737;
+            --border-color: #8d7561;
+            --card-border: #ffffff;
+            --star-bg: rgba(255, 255, 255, 0.5);
+            --star-shadow: #5d4737;
             
-            /* Phím máy đánh chữ (Typewriter Keys) */
-            --key-bg: #ece5d3;
-            --key-text: #2c1e16;
-            --key-border: #7a6b5d;
-            --key-shadow: #5c4e40;
+            /* Biến màu mới cho các nút bấm máy đánh chữ (Typewriter Keys) */
+            --key-bg: #dfd4c5; 
+            --key-text: #362517;
+            --key-border: #4a3728;
+            --key-shadow: #4a3728;
             
             /* Băng keo dán tên (Dymo Label) */
-            --dymo-bg: #2b2b2b;
-            --dymo-text: #f0f0f0;
+            --dymo-bg: #4a3728;
+            --dymo-text: #ffffff;
 
-            /* Khung truyện mô phỏng ảnh Polaroid / Giấy note */
-            --card-border: #ffffff;
-            
             /* Fonts */
-            --font-typewriter: 'Courier Prime', monospace;
+            --font-typewriter: 'Courier New', Courier, monospace; /* Khắc phục 100% lỗi tiếng Việt */
             --font-handwriting: 'Dancing Script', cursive;
             --font-body: 'Lora', Georgia, Serif;
         }
 
         [data-theme="dark"] {
-            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('bgvintage.jpg');
-            --container-bg: rgba(43, 36, 31, 0.95); /* Giấy cũ trong bóng tối */
-            --gallery-bg: rgba(0, 0, 0, 0.3);
-            --text-color: #d1c5b4; /* Mực sáng */
-            --header-color: #e6dfd3;
-            --border-color: #5c4e40;
+            /* Giữ tone màu tối cũ */
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
+            --container-bg: rgba(35, 30, 27, 0.9);
+            --gallery-bg: rgba(0, 0, 0, 0.2);
+            --text-color: #e2d7cc;
+            --header-color: #f1e6da;
+            --border-color: #5d4737;
+            --card-border: #2d2825;
+            --star-bg: rgba(45, 40, 37, 0.8);
+            --star-shadow: #f1e6da;
             
-            /* Phím máy đánh chữ tối */
-            --key-bg: #362d26;
-            --key-text: #d1c5b4;
+            /* Nút máy đánh chữ tối */
+            --key-bg: #3a2e26;
+            --key-text: #e2d7cc;
             --key-border: #1a1511;
             --key-shadow: #0a0806;
 
-            /* Băng keo dán tên sáng màu */
-            --dymo-bg: #e0d6c8;
-            --dymo-text: #1a1511;
-
-            --card-border: #2d2825;
+            --dymo-bg: #e2d7cc;
+            --dymo-text: #2d2825;
         }
 
         body {
@@ -72,7 +73,7 @@
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* --- NÚT BẤM MẶT TRĂNG CHUYỂN CHẾ ĐỘ --- */
+        /* --- NÚT BẤM MẶT TRĂNG CHUYỂN CHẾ ĐỘ MÔ PHỎNG PHÍM MÁY CHỮ --- */
         .theme-toggle-btn {
             position: fixed;
             top: 25px;
@@ -109,7 +110,7 @@
         }
 
         .site-title {
-            font-family: var(--font-typewriter); /* Đổi sang chữ đánh máy */
+            font-family: var(--font-typewriter); 
             font-size: 45px;
             margin: 10px 0;
             font-weight: 700;
@@ -157,7 +158,7 @@
             transform: translateY(2px);
             box-shadow: 0 2px 0 var(--key-shadow), 0 3px 5px rgba(0,0,0,0.1);
             background-color: var(--key-bg);
-            filter: brightness(0.9);
+            filter: brightness(0.95);
         }
 
         .nav-item:active {
@@ -207,8 +208,8 @@
             max-width: 95%;
             margin: 60px auto; 
             padding: 40px 0;
-            border-top: 2px dashed var(--border-color); /* Nét đứt vintage */
-            border-bottom: 2px dashed var(--border-color);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
             background-color: var(--gallery-bg);
             position: relative;
             overflow: hidden;
@@ -232,7 +233,7 @@
         #gallery-label-new::before, #gallery-label-new::after {
             content: "";
             flex: 1;
-            border-bottom: 1px dashed var(--border-color); 
+            border-bottom: 1px solid var(--border-color); 
             margin: 0 20px; 
         }
 
@@ -266,7 +267,7 @@
         .novel-card .frame {
             width: 180px;
             height: 270px;
-            border: 8px solid var(--card-border); /* Viền như ảnh in */
+            border: 8px solid var(--card-border); /* Viền như ảnh Polaroid */
             box-shadow: 2px 4px 12px rgba(0,0,0,0.2);
             overflow: hidden;
             margin: 0 auto;
@@ -320,7 +321,7 @@
         #noi-cu-ngu-label::before, #noi-cu-ngu-label::after {
             content: "";
             flex: 1;
-            border-bottom: 1px dashed var(--border-color);
+            border-bottom: 1px solid var(--border-color);
             margin: 0 20px;
         }
 
@@ -375,7 +376,7 @@
 </head>
 <body>
 
-    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ">🌙</button>
 
     <div class="header-container">
         <!-- Phong thư decor nhỏ nhắm trên logo -->
@@ -388,9 +389,10 @@
         <h1 class="site-title">Little Mint's Galaxy</h1>
         <p class="site-slogan">Sinh tử tương hứa, khắc cốt tương tư</p>
 
-        <!-- Thanh Menu Điều Hướng mới -->
+        <!-- Thanh Menu Điều Hướng dạng nút máy đánh chữ -->
         <div class="nav-bar">
-            <a href="index.html" class="nav-item" style="box-shadow: 0 0 0 transparent; transform: translateY(4px); filter: brightness(0.9);">Chủ nhà</a>
+            <!-- Nút "Chủ nhà" đang active, nhấn lún xuống để phân biệt -->
+            <a href="index.html" class="nav-item" style="box-shadow: 0 0 0 transparent; transform: translateY(4px); filter: brightness(0.95);">Chủ nhà</a>
             <a href="kho-bau.html" class="nav-item">Kho báu</a>
         </div>
 
@@ -404,11 +406,12 @@
                 "Ở đây có một chiếc bạc hà nhỏ phiêu bạt giữa muôn ngàn vì tinh tú xa xôi."
             </p>
 
-            <div style="text-align: justify; font-size: 15px; border-top: 2px dashed var(--border-color); padding-top: 25px; position: relative; z-index: 1;">
+            <div style="text-align: justify; font-size: 15px; border-top: 1px double var(--border-color); padding-top: 25px; position: relative; z-index: 1;">
                 Trong nhà chỉ có Mint tự edit tự beta, tự solo tự vui, hoan nghênh độc giả vô đọc truyện vui chung luôn, nhà chuyên edit truyện đam mỹ.<br>
                 Gặp nhau đã là duyên, rời đi không luyến tiếc!<br>
                 Cảm ơn mọi người đã ghé thăm ngôi nhà nhỏ này!<br><br>
 
+                <!-- Tiêu đề Một số lưu ý được chỉnh chuẩn font máy đánh chữ như ảnh em gửi -->
                 <span style="font-family: var(--font-typewriter); font-size: 16px; font-weight: bold; color: var(--header-color); border-bottom: 1px solid var(--header-color); text-transform: uppercase;">Một số lưu ý:</span>
                 <ul style="padding-left: 20px; list-style-type: none; margin-top: 15px; text-align: left; line-height: 1.8;">
                     <li style="margin-bottom: 10px;">✦ Khuyến khích mở web trong trình duyệt Chrome hoặc Google để không bị lỗi giao diện và các chức năng khác.</li>
@@ -424,6 +427,7 @@
         </div>
 
         <div style="text-align: center; margin: 20px 0; padding: 0;">
+            <!-- Căn chỉnh độ tương phản của mặt trăng cho hợp tông -->
             <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: block; margin: 0 auto; filter: grayscale(100%) contrast(150%);">
         </div>
 
@@ -435,6 +439,7 @@
                     <div class="novel-card">
                         <a href="muc-luc-meo-con.html" style="text-decoration: none;">
                             <div class="frame"><img src="bia1.png" alt="Hôm nay mèo con cũng cứu vớt vai ác" onerror="this.src='https://placehold.co/300x450/8d7561/ffffff?text=Meo+Con'"></div>
+                            <!-- Nhãn Dymo dán tên truyện -->
                             <div class="title-box">[S1] Hôm nay mèo con...</div>
                         </a>
                     </div>
@@ -452,6 +457,7 @@
                     </div>
                 </div>
 
+                <!-- Lặp lại để hiệu ứng cuộn mượt mà -->
                 <div style="display: flex;">
                     <div class="novel-card">
                         <a href="muc-luc-meo-con.html" style="text-decoration: none;">
@@ -475,7 +481,7 @@
             </div>
         </div> 
 
-        <!-- Khung Nơi cư ngụ -->
+        <!-- Khung Nơi cư ngụ với icon Tem Thư hai bên -->
         <div id="noi-cu-ngu-container">
             <div id="noi-cu-ngu-label">
                 <img src="temthu.png" alt="" style="width: 28px; margin-right: 15px; opacity: 0.8; transform: rotate(-10deg);">
