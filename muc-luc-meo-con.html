@@ -160,6 +160,18 @@
             box-shadow: 0 0 0 transparent;
         }
 
+        /* --- VỆT CÀ PHÊ DÙNG CHUNG --- */
+        .coffee-stain-decor {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: multiply; 
+        }
+        [data-theme="dark"] .coffee-stain-decor {
+            opacity: 0.05 !important; /* Giảm độ sáng mờ trong dark mode */
+            mix-blend-mode: normal;
+        }
+
         /* --- KHUNG GIỚI THIỆU TRUYỆN --- */
         .novel-info-container {
             max-width: 850px;
@@ -173,23 +185,7 @@
             box-sizing: border-box;
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             position: relative;
-            overflow: hidden;
-        }
-
-        .coffee-stain-decor {
-            position: absolute;
-            bottom: -30px;
-            right: -30px;
-            width: 180px;
-            opacity: 0.12;
-            pointer-events: none;
-            z-index: 0;
-            transform: rotate(-15deg);
-            mix-blend-mode: multiply; 
-        }
-        [data-theme="dark"] .coffee-stain-decor {
-            opacity: 0.05; 
-            mix-blend-mode: normal;
+            overflow: hidden; /* Cắt vệt cà phê thừa */
         }
 
         .novel-layout-flex {
@@ -361,6 +357,7 @@
             text-align: center;
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             position: relative;
+            overflow: hidden; /* Cắt vệt cà phê thừa */
         }
 
         #chapter-label {
@@ -373,6 +370,8 @@
             letter-spacing: 4px; 
             font-weight: bold;
             margin: 0 0 40px 0; 
+            position: relative;
+            z-index: 1;
             width: 100%;
         }
 
@@ -492,8 +491,10 @@
 
     <!-- Khung Giới Thiệu Truyện -->
     <div class="novel-info-container">
-        <!-- Vệt cà phê decor -->
-        <img src="vetcaphe.png" alt="" class="coffee-stain-decor">
+        <!-- Vết cà phê 1: Góc dưới phải -->
+        <img src="vetcaphe.png" alt="" class="coffee-stain-decor" style="bottom: -30px; right: -30px; width: 180px; opacity: 0.12; transform: rotate(-15deg);">
+        <!-- Vết cà phê 2: Góc trên trái -->
+        <img src="vetcaphe.png" alt="" class="coffee-stain-decor" style="top: -40px; left: -50px; width: 150px; opacity: 0.1; transform: rotate(60deg);">
 
         <div class="novel-layout-flex">
             <div class="novel-cover-cell">
@@ -570,6 +571,13 @@
 
     <!-- Khung Mục Lục -->
     <div class="novel-chapters-container">
+        <!-- Vết cà phê 3: Góc trên phải -->
+        <img src="vetcaphe.png" alt="" class="coffee-stain-decor" style="top: -20px; right: -40px; width: 160px; opacity: 0.1; transform: rotate(110deg);">
+        <!-- Vết cà phê 4: Giữa cạnh trái -->
+        <img src="vetcaphe.png" alt="" class="coffee-stain-decor" style="top: 45%; left: -60px; width: 220px; opacity: 0.08; transform: rotate(-45deg);">
+        <!-- Vết cà phê 5: Góc dưới cách phải 15% -->
+        <img src="vetcaphe.png" alt="" class="coffee-stain-decor" style="bottom: -50px; right: 15%; width: 190px; opacity: 0.1; transform: rotate(25deg);">
+
         <div id="chapter-label">DANH SÁCH CHƯƠNG</div>
         
         <div class="chapter-grid-new">
