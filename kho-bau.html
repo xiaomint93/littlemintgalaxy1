@@ -40,7 +40,7 @@
             --star-shadow: #5d4737;
 
             /* Fonts */
-            --font-typewriter: 'Courier New', Courier, monospace; /* Khắc phục 100% lỗi tiếng Việt */
+            --font-typewriter: 'Courier New', Courier, monospace; 
             --font-handwriting: 'Dancing Script', cursive;
             --font-body: 'Lora', Georgia, Serif;
         }
@@ -132,10 +132,12 @@
         }
 
         .site-slogan {
-            font-style: italic; /* Giữ nguyên font Lora in nghiêng như bản cũ */
-            font-size: 18px;
+            font-style: italic;
+            font-family: var(--font-handwriting); /* SỬA LỖI: Đồng bộ thành font chữ viết tay Dancing Script giống các trang khác */
+            font-size: 28px;
             margin-bottom: 30px;
             color: var(--text-color);
+            opacity: 0.9;
         }
 
         /* --- THANH MENU: MÔ PHỎNG PHÍM MÁY CHỮ --- */
@@ -190,24 +192,6 @@
             box-sizing: border-box;
             transition: background-color 0.3s ease, border-color 0.3s ease;
             position: relative;
-            overflow: hidden; /* Cắt phần cà phê thừa nếu vệt loang quá to */
-        }
-        
-        /* Vệt cà phê giả lập bằng class decor */
-        .coffee-stain-decor {
-            position: absolute;
-            bottom: -30px;
-            right: -30px;
-            width: 180px;
-            opacity: 0.12;
-            pointer-events: none;
-            z-index: 0;
-            transform: rotate(-15deg);
-            mix-blend-mode: multiply; 
-        }
-        [data-theme="dark"] .coffee-stain-decor {
-            opacity: 0.05; 
-            mix-blend-mode: normal;
         }
 
         /* --- LƯỚI HAI CỘT CHO KHO BÁU --- */
@@ -216,8 +200,6 @@
             grid-template-columns: repeat(2, 1fr); 
             gap: 24px;
             margin-top: 30px;
-            position: relative;
-            z-index: 1; /* Nổi lên trên vệt cà phê */
         }
 
         .novel-card-custom {
@@ -377,7 +359,7 @@
         /* RESPONSIVE TRÊN ĐIỆN THOẠI CHỐNG TRÀN */
         @media screen and (max-width: 768px) {
             .site-title { font-size: 32px !important; }
-            .site-slogan { font-size: 15px !important; }
+            .site-slogan { font-size: 20px !important; }
             .about-box-container { padding: 25px 20px !important; }
             .novels-grid { gap: 12px !important; }
             .novel-card-custom { padding: 10px !important; }
@@ -399,18 +381,16 @@
 </head>
 <body>
 
-    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ">🌙</button>
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
 
     <div class="header-container">
-        <!-- Phong thư decor nhỏ nhắm trên logo -->
-        <img src="phongthu.png" alt="Phong thư" style="width: 50px; opacity: 0.8; margin-bottom: 10px; display: inline-block;">
-
         <!-- Logo ảnh chính xác như trang chủ -->
-        <div class="logo-box" style="border: none; background: none; margin-bottom: -10px;">
+        <div class="logo-box" style="border: none; background: none;">
             <img src="logo.png" alt="Logo" style="max-width: 200px; height: auto;">
         </div>
 
         <h1 class="site-title">Little Mint's Galaxy</h1>
+        <!-- Đã đồng bộ font cho chữ Sinh tử tương hứa -->
         <p class="site-slogan">Sinh tử tương hứa, khắc cốt tương tư</p>
 
         <!-- Thanh Menu Điều Hướng dạng nút máy đánh chữ -->
@@ -422,13 +402,11 @@
 
         <!-- Khung Kho Báu Chính -->
         <div class="about-box-container">
-            <!-- Vệt cà phê decor -->
-            <img src="vetcaphe.png" alt="" class="coffee-stain-decor">
 
             <!-- Khu vực tiêu đề Kho Báu -->
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed var(--border-color); padding-bottom: 18px; margin-bottom: 25px; position: relative; z-index: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed var(--border-color); padding-bottom: 18px; margin-bottom: 25px;">
                 <div style="text-align: left;">
-                    <h2 style="font-family: var(--font-typewriter); font-size: 24px; margin: 0; color: var(--header-color); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">📦Kho báu</h2>
+                    <h2 style="font-family: var(--font-typewriter); font-size: 24px; margin: 0; color: var(--header-color); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">📦 Kho báu</h2>
                     <p style="font-style: italic; margin: 5px 0 0 0; font-size: 14px; opacity: 0.8;">Nơi cất giữ những hành tinh nhỏ trong dải ngân hà.</p>
                 </div>
                 <!-- Box số lượng truyện dạng thẻ nhỏ -->
@@ -461,7 +439,7 @@
                     </div>
                     <div class="novel-title-text">[S2] Yêu tựa hơi say</div>
                     <div class="novel-author-text">Tác giả: Thời Túy</div>
-                    <span class="novel-status-badge badge-done">Đã hoàn thành</span>
+                    <span class="novel-status-badge badge-pending">Đang cập nhật</span>
                     <a href="muc-luc-say.html" class="read-button-custom">Đọc truyện</a>
                 </div>
 
@@ -472,7 +450,7 @@
                     </div>
                     <div class="novel-title-text">[S4] Vì sao loại A này mà cũng có O</div>
                     <div class="novel-author-text">Tác giả: Đồ Nam Kình</div>
-                   <span class="novel-status-badge badge-done">Đã hoàn thành</span>
+                    <span class="novel-status-badge badge-pending">Đang cập nhật</span>
                     <a href="muc-luc-vi-sao.html" class="read-button-custom">Đọc truyện</a>
                 </div>
 
@@ -485,11 +463,7 @@
 
         <!-- Khung Nơi cư ngụ chuẩn như bản cũ, thay font và thêm tem thư -->
         <div id="noi-cu-ngu-container">
-            <div id="noi-cu-ngu-label">
-                <img src="temthu.png" alt="" style="width: 28px; margin-right: 15px; opacity: 0.8; transform: rotate(-10deg);">
-                NƠI CƯ NGỤ
-                <img src="temthu.png" alt="" style="width: 28px; margin-left: 15px; opacity: 0.8; transform: rotate(15deg);">
-            </div>
+            <div id="noi-cu-ngu-label">NƠI CƯ NGỤ</div>
             
             <div class="social-galaxy">
                 <a href="https://bachanhoxinh.wordpress.com" target="_blank" class="social-star">Wordpress</a>
