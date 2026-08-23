@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yêu tựa hơi say - Little Mint's Galaxy</title>
     
+    <!-- Nhúng phông chữ Lora, chữ viết tay Dancing Script và font máy đánh chữ Courier New (mặc định hệ thống) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* THIẾT LẬP BIẾN MÀU SẮC ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI CHẾ ĐỘ SÁNG */
+        /* THIẾT LẬP BIẾN MÀU SẮC - GIỮ Y NGUYÊN TONE MÀU CŨ CỦA EM */
         :root {
             --bg-image: url('background.jpg');
             --container-bg: rgba(255, 255, 255, 0.4);
@@ -21,19 +22,35 @@
             --link-hover-bg: rgba(255, 255, 255, 0.6);
             --star-bg: rgba(255, 255, 255, 0.4);
             --star-shadow: #5d4737;
+
+            /* Biến màu cho các nút bấm máy đánh chữ */
+            --key-bg: #dfd4c5; 
+            --key-text: #362517;
+            --key-border: #4a3728;
+            --key-shadow: #4a3728;
+
+            /* Fonts */
+            --font-typewriter: 'Courier New', Courier, monospace; 
+            --font-handwriting: 'Dancing Script', cursive;
+            --font-body: 'Lora', Georgia, Serif;
         }
 
-        /* KHU VỰC GIAO DIỆN TỐI (DARK MODE) KHI BẤM NÚT MẶT TRĂNG */
         [data-theme="dark"] {
-            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg'); /* Phủ lớp tối lên ảnh nền hoa hồng */
-            --container-bg: rgba(35, 30, 27, 0.9); /* Khung giấy chuyển sang tone nâu đen dịu mắt */
-            --text-color: #e2d7cc; /* Chữ chuyển sang màu kem sáng chống mỏi mắt */
+            --bg-image: linear-gradient(rgba(20, 16, 14, 0.85), rgba(20, 16, 14, 0.85)), url('background.jpg');
+            --container-bg: rgba(35, 30, 27, 0.9);
+            --text-color: #e2d7cc;
             --header-color: #f1e6da;
             --border-color: #5d4737;
             --box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
             --link-hover-bg: rgba(255, 255, 255, 0.08);
             --star-bg: rgba(45, 40, 37, 0.6);
             --star-shadow: #f1e6da;
+
+            /* Nút máy đánh chữ tối */
+            --key-bg: #3a2e26;
+            --key-text: #e2d7cc;
+            --key-border: #1a1511;
+            --key-shadow: #0a0806;
         }
 
         body {
@@ -41,23 +58,23 @@
             background-attachment: fixed; 
             background-size: cover;
             background-position: center;
-            font-family: 'Lora', Georgia, Serif; 
+            font-family: var(--font-body); 
             color: var(--text-color); 
             margin: 0;
             padding: 0;
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* --- NÚT BẤM MẶT TRĂNG CHUYỂN CHẾ ĐỘ (CỐ ĐỊNH GÓC TRÊN PHẢI) --- */
+        /* --- NÚT BẤM MẶT TRĂNG CHUYỂN CHẾ ĐỘ MÔ PHỎNG PHÍM MÁY CHỮ --- */
         .theme-toggle-btn {
             position: fixed;
             top: 25px;
             right: 25px;
             width: 45px;
             height: 45px;
-            background-color: #5d4737;
-            color: #ffffff;
-            border: 2px solid #8d7561;
+            background-color: var(--key-bg);
+            color: var(--key-text);
+            border: 2px solid var(--key-border);
             border-radius: 50%;
             cursor: pointer;
             font-size: 20px;
@@ -65,36 +82,46 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 0 var(--key-shadow), 0 5px 10px rgba(0,0,0,0.15);
+            transition: transform 0.15s, box-shadow 0.15s;
         }
         .theme-toggle-btn:hover {
-            transform: scale(1.1);
-            background-color: #7a5f4a;
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--key-shadow), 0 3px 5px rgba(0,0,0,0.15);
+        }
+        .theme-toggle-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 transparent;
         }
 
-        /* 2. Khung Logo và Header */
+        /* --- HEADER & LOGO --- */
         .header-container {
             text-align: center;
             padding-top: 50px;
             padding-bottom: 30px; 
+            position: relative;
         }
 
         .site-title {
+            font-family: var(--font-typewriter); 
             font-size: 45px;
             margin: 10px 0;
-            font-weight: normal;
+            font-weight: 700;
+            letter-spacing: 2px;
             color: var(--header-color);
+            text-transform: uppercase;
         }
 
         .site-slogan {
             font-style: italic;
-            font-size: 18px;
+            font-family: var(--font-handwriting);
+            font-size: 28px;
             margin-bottom: 30px;
             color: var(--text-color);
+            opacity: 0.9;
         }
 
-        /* 3. Thanh Menu Thả Xuống */
+        /* --- THANH MENU: MÔ PHỎNG PHÍM MÁY CHỮ --- */
         .nav-bar {
             display: flex;
             justify-content: center;
@@ -104,71 +131,48 @@
             z-index: 999; 
         }
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
         .nav-item {
-            background-color: #5d4737; 
-            color: #ffffff;
+            background-color: var(--key-bg); 
+            color: var(--key-text);
             text-decoration: none;
-            padding: 8px 20px;
-            font-size: 14px;
+            padding: 10px 25px;
+            font-size: 15px;
             font-weight: bold;
             text-transform: uppercase;
-            border-radius: 2px;
+            letter-spacing: 2px;
+            border-radius: 25px;
             display: block;
-            font-family: 'Lora', Georgia, Serif;
-            border: none;
+            font-family: var(--font-typewriter);
+            border: 2px solid var(--key-border);
+            box-shadow: 0 4px 0 var(--key-shadow), 0 5px 10px rgba(0,0,0,0.1);
+            transition: all 0.15s ease;
         }
         
-        a.nav-item:hover {
-            background-color: #7a5f4a;
+        .nav-item:hover { 
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--key-shadow), 0 3px 5px rgba(0,0,0,0.1);
+            background-color: var(--key-bg);
+            filter: brightness(0.95);
         }
 
-        span.nav-item {
-            cursor: default;
+        .nav-item:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 transparent;
         }
 
-        .dropdown-content {
-            display: none;
+        /* --- VỆT CÀ PHÊ DÙNG CHUNG --- */
+        .coffee-stain-decor {
             position: absolute;
-            background-color: #5d4737;
-            min-width: 220px; 
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            border-radius: 2px;
-            top: 100%; 
-            left: 50%;
-            transform: translateX(-50%); 
-            padding: 5px 0;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: multiply; 
+        }
+        [data-theme="dark"] .coffee-stain-decor {
+            opacity: 0.05 !important; /* Giảm độ sáng mờ trong dark mode */
+            mix-blend-mode: normal;
         }
 
-        .dropdown-content a {
-            color: #ffffff;
-            padding: 10px 15px;
-            text-decoration: none;
-            display: block;
-            font-size: 13px;
-            text-align: left; 
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.1); 
-            transition: 0.2s;
-        }
-
-        .dropdown-content a:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #7a5f4a;
-            padding-left: 20px; 
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* --- 4. Giao diện Khung Giới Thiệu Truyện --- */
+        /* --- KHUNG GIỚI THIỆU TRUYỆN --- */
         .novel-info-container {
             max-width: 850px;
             width: 90%;
@@ -180,11 +184,15 @@
             box-shadow: var(--box-shadow);
             box-sizing: border-box;
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden; /* Cắt vệt cà phê thừa */
         }
 
         .novel-layout-flex {
             display: flex;
             gap: 30px;
+            position: relative;
+            z-index: 1;
         }
 
         .novel-cover-cell {
@@ -201,9 +209,14 @@
             width: 220px;
             height: 330px;
             border: 8px solid #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 2px 5px 15px rgba(0,0,0,0.15);
             overflow: hidden;
             box-sizing: border-box;
+            border-radius: 2px;
+        }
+
+        [data-theme="dark"] .novel-cover-frame {
+            border-color: var(--border-color);
         }
 
         .novel-cover-frame img {
@@ -213,33 +226,39 @@
         }
 
         .novel-title {
-            font-size: 26px;
+            font-family: var(--font-typewriter);
+            font-size: 24px;
             color: var(--header-color);
             margin: 0 0 15px 0;
-            font-weight: normal;
+            font-weight: bold;
             letter-spacing: 1px;
-            line-height: 1.3;
+            line-height: 1.4;
+            text-transform: uppercase;
         }
 
         .novel-details {
             font-size: 14px;
             line-height: 1.8;
             margin-bottom: 20px;
-            border-bottom: 1px dashed var(--border-color);
+            border-bottom: 2px dashed var(--border-color);
             padding-bottom: 15px;
         }
 
         .novel-details strong {
             color: var(--header-color);
+            font-family: var(--font-typewriter);
+            font-size: 15px;
+            letter-spacing: 1px;
         }
 
         .novel-summary-title {
-            font-size: 16px;
+            font-family: var(--font-typewriter);
+            font-size: 18px;
             font-weight: bold;
             color: var(--header-color);
             margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .novel-summary-text {
@@ -248,7 +267,7 @@
             text-align: justify;
         }
 
-        /* --- 5. Khung Cổng Dịch Chuyển Khác (MỚI) --- */
+        /* --- 5. Khung Cổng Dịch Chuyển Khác --- */
         .portal-container {
             max-width: 850px;
             width: 90%;
@@ -261,6 +280,7 @@
             box-sizing: border-box;
             text-align: center;
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
         }
 
         #portal-label {
@@ -268,8 +288,9 @@
             align-items: center;
             justify-content: center;
             color: var(--header-color);
-            font-size: 18px;
-            letter-spacing: 6px;
+            font-family: var(--font-typewriter);
+            font-size: 20px;
+            letter-spacing: 4px;
             font-weight: bold;
             margin: 0 0 35px 0;
             width: 100%;
@@ -279,7 +300,7 @@
         #portal-label::after {
             content: "";
             flex: 1;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px dashed var(--border-color);
             margin: 0 20px;
         }
 
@@ -288,18 +309,22 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
+            position: relative;
+            z-index: 1;
         }
 
+        /* Thiết kế tem thư cũ cho nút Portal */
         .portal-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             background-color: var(--star-bg);
-            border: 1px solid var(--border-color);
+            border: 2px dashed var(--border-color);
             padding: 12px 25px;
             color: var(--text-color);
             text-decoration: none;
+            font-family: var(--font-typewriter);
             font-size: 14px;
             letter-spacing: 2px;
             font-weight: bold;
@@ -307,27 +332,15 @@
             border-radius: 2px;
             box-shadow: 3px 3px 0px var(--star-shadow);
             transition: all 0.3s ease;
-            width: 200px;
+            width: 250px;
             box-sizing: border-box;
         }
 
-        .portal-btn::before {
-            content: "✦";
-            color: var(--text-color);
-            font-size: 12px;
-            transition: transform 0.4s ease;
-        }
-
         .portal-btn:hover {
-            background-color: #5d4737;
-            color: #ffffff;
-            box-shadow: 0px 0px 0px transparent;
-            transform: translateY(-5px); 
-        }
-
-        .portal-btn:hover::before {
-            color: #ffffff;
-            transform: rotate(180deg); 
+            background-color: var(--key-bg);
+            color: var(--header-color);
+            box-shadow: 2px 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-5px) rotate(-1deg); 
         }
 
         /* --- 6. Khung Danh Sách Chương Riêng Biệt --- */
@@ -343,6 +356,8 @@
             box-sizing: border-box;
             text-align: center;
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden; /* Cắt vệt cà phê thừa */
         }
 
         #chapter-label {
@@ -350,10 +365,13 @@
             align-items: center;
             justify-content: center;
             color: var(--header-color);
-            font-size: 18px;
-            letter-spacing: 6px; 
+            font-family: var(--font-typewriter);
+            font-size: 20px;
+            letter-spacing: 4px; 
             font-weight: bold;
             margin: 0 0 40px 0; 
+            position: relative;
+            z-index: 1;
             width: 100%;
         }
 
@@ -361,40 +379,47 @@
         #chapter-label::after {
             content: "";
             flex: 1;
-            border-bottom: 1px solid var(--border-color); 
+            border-bottom: 1px dashed var(--border-color); 
             margin: 0 20px; 
         }
 
-        /* Thiết lập lưới tự động xếp chương tăng dần đều trên máy tính */
         .chapter-grid-new {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
             gap: 12px 20px;
+            position: relative;
+            z-index: 1;
         }
 
+        /* Link chương phong cách máy đánh chữ */
         .chapter-link {
             display: block;
             color: var(--text-color);
             text-decoration: none;
-            font-size: 14px;
+            font-family: var(--font-typewriter);
+            font-size: 15px;
+            font-weight: bold;
             padding: 8px 12px;
-            border-bottom: 1px dashed rgba(93, 71, 55, 0.2);
+            border-bottom: 1px dashed rgba(93, 71, 55, 0.3);
             transition: all 0.2s ease;
             text-align: left;
+        }
+
+        [data-theme="dark"] .chapter-link {
+            border-bottom: 1px dashed rgba(226, 215, 204, 0.2);
         }
 
         .chapter-link:hover {
             color: var(--header-color);
             background-color: var(--link-hover-bg);
             padding-left: 18px;
-            border-bottom: 1px solid var(--header-color);
-            font-weight: bold;
+            border-bottom: 1px dashed var(--header-color);
         }
 
         /* --- 7. RESPONSIVE ĐIỆN THOẠI --- */
         @media screen and (max-width: 768px) {
             .site-title { font-size: 32px !important; }
-            .site-slogan { font-size: 15px !important; }
+            .site-slogan { font-size: 20px !important; }
 
             .novel-layout-flex {
                 flex-direction: column;
@@ -409,28 +434,21 @@
             }
             .novel-title {
                 text-align: center;
-                font-size: 22px !important;
+                font-size: 20px !important;
             }
 
-            #portal-label {
+            #portal-label, #chapter-label {
                 font-size: 16px !important;
                 letter-spacing: 3px !important;
             }
-            #portal-label::before, #portal-label::after {
+            #portal-label::before, #portal-label::after,
+            #chapter-label::before, #chapter-label::after {
                 margin: 0 10px !important;
             }
 
-            /* Điện thoại tự thu về thành 2 cột tăng dần thẳng thớm đẹp mắt */
             .chapter-grid-new {
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 10px 15px !important;
-            }
-            #chapter-label {
-                font-size: 16px !important;
-                letter-spacing: 3px !important;
-            }
-            #chapter-label::before, #chapter-label::after {
-                margin: 0 10px !important;
             }
 
             .theme-toggle-btn {
@@ -442,7 +460,6 @@
             }
         }
 
-        /* Điện thoại màn hình rất nhỏ thì xếp thành 1 hàng dọc đứng */
         @media screen and (max-width: 420px) {
             .chapter-grid-new {
                 grid-template-columns: 1fr !important;
@@ -455,13 +472,17 @@
     <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ đọc">🌙</button>
 
     <div class="header-container">
-        <div class="logo-box" style="border: none; background: none;">
+        <!-- Phong thư decor nhỏ nhắm trên logo -->
+        <img src="phongthu.png" alt="Phong thư" style="width: 50px; opacity: 0.8; margin-bottom: 10px; display: inline-block;">
+
+        <div class="logo-box" style="border: none; background: none; margin-bottom: -10px;">
             <img src="logo.png" alt="Logo" style="max-width: 200px; height: auto;">
         </div>
 
         <h1 class="site-title">Little Mint's Galaxy</h1>
         <p class="site-slogan">Sinh tử tương hứa, khắc cốt tương tư</p>
 
+        <!-- Thanh Menu Điều Hướng dạng nút máy đánh chữ -->
         <div class="nav-bar">
             <a href="index.html" class="nav-item">Chủ nhà</a>
             <a href="kho-bau.html" class="nav-item">Kho báu</a>
@@ -470,6 +491,11 @@
 
     <!-- Khung Giới Thiệu Truyện -->
     <div class="novel-info-container">
+        <!-- Vết cà phê 1: Góc dưới phải -->
+        <img src="vetcaphe.png" alt="" class="coffee-stain-decor" style="bottom: -30px; right: -30px; width: 180px; opacity: 0.12; transform: rotate(-15deg);">
+        <!-- Vết cà phê 2: Góc trên trái -->
+        <img src="vetcaphe.png" alt="" class="coffee-stain-decor" style="top: -40px; left: -50px; width: 150px; opacity: 0.1; transform: rotate(60deg);">
+
         <div class="novel-layout-flex">
             <div class="novel-cover-cell">
                 <div class="novel-cover-frame">
@@ -478,7 +504,7 @@
             </div>
             
             <div class="novel-meta-cell">
-                <h2 class="novel-title">[S2] Yêu tựa hơi say</h2>
+                <h2 class="novel-title">[S2] Yêu Tựa Hơi Say</h2>
                 
                 <div class="novel-details">
                     <strong>Tác giả:</strong> Thời Túy <br>
@@ -491,24 +517,15 @@
                 <div class="novel-summary-text">
                     CP: Dịu dàng đạm bạc mỹ công (Đỗ Vân Nghiên) X Phong lưu đẹp trai phú nhị đại thụ (Cố Văn Hi)<br><br>
                     Cải nhau với ba, bạn gái cặp kè với bạn thân… Mọi việc không suôn sẻ khiến cho thiếu gia nhà giàu Cố Văn Hi bỏ nhà đi, xách ba lô đến một sơn thôn nhỏ để gột rửa tâm hồn. Tại đây, cậu gặp được ông chủ nhà trọ dân có dung mạo xinh đẹp nhưng bí ẩn Đỗ Vân Nghiên, không lâu sau đó thẻ tín dụng cũng bị đóng băng nên cậu liền mặt dày xin đối phương cho mình ở lại nhà trọ dân để làm công.<br><br>
-
                     Đỗ Vân Nghiên cẩn thận tỉ mỉ, Cố Văn Hi tùy tiện phóng khoáng, trải qua một mùa đông gập ghềnh, ấy vậy mà trong lòng hai người đã xảy ra biến hóa vi diệu. Nhưng vào lúc này, Cố Văn Hi lại nhận được tin nhắn từ người thân giục cậu mau trở về…<br><br>
-
                     “Giữa chúng ta, như vậy cũng rất tốt.”<br><br>
-
                     “Nếu tôi trở về thì sao? Anh có thể nói hết những lời hôm nay không?”<br><br>
-
                     “Cậu sẽ không quay lại đây, cũng đừng làm chuyện vô ích nữa.”<br><br>
-
                     ———————–<br><br>
                     <strong>Thuyết minh:</strong><br><br>
-
                     1. Hoàn cảnh địa lý của sơn thôn phương nam là hư cấu, địa danh tự đặt không có thật.<br><br>
-
                     2. Lúc đầu công có thích người khác (không có ở bên nhau) / thụ đã từng có bạn gái / có một tên pháo hôi (đất diễn trong cốt truyện không nhiều)<br><br>
-
                     3. Công 29 tuổi, thụ 26 tuổi, giả thiết công thấp hơn thụ.<br><br>
-
                     ———————–<br><br>
                     <strong>Khuyến khích đọc trên trình duyệt Chrome hoặc Google để không bị lỗi giao diện và các chức năng khác.</strong>
                 </div>
@@ -516,14 +533,18 @@
         </div>
     </div>
 
-    <!-- GIF Moon ngăn cách giữa Giới thiệu và Cổng dịch chuyển khác -->
+    <!-- GIF Moon ngăn cách -->
     <div style="text-align: center; margin: 40px auto; padding: 10px 0; display: block; width: 100%;">
-        <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: inline-block;">
+        <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: inline-block; filter: grayscale(100%) contrast(150%);">
     </div>
 
-    <!-- --- 5. Khung Cổng Dịch Chuyển Khác (MỚI) --- -->
+    <!-- Khung Cổng Dịch Chuyển Khác -->
     <div class="portal-container">
-        <div id="portal-label">CỔNG DỊCH CHUYỂN KHÁC</div>
+        <div id="portal-label">
+            <img src="temthu.png" alt="" style="width: 28px; margin-right: 15px; opacity: 0.8; transform: rotate(-10deg);">
+            CỔNG DỊCH CHUYỂN KHÁC
+            <img src="temthu.png" alt="" style="width: 28px; margin-left: 15px; opacity: 0.8; transform: rotate(15deg);">
+        </div>
         <div class="portal-wrapper">
             <a href="https://www.wattpad.com/story/294724651-%C4%91m-s2-y%C3%AAu-t%E1%BB%B1a-h%C6%A1i-say" target="_blank" class="portal-btn">
                 Wattpad
@@ -534,13 +555,20 @@
         </div>
     </div>
 
-    <!-- GIF Moon ngăn cách giữa Cổng dịch chuyển khác và Mục lục -->
+    <!-- GIF Moon ngăn cách -->
     <div style="text-align: center; margin: 40px auto; padding: 10px 0; display: block; width: 100%;">
-        <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: inline-block;">
+        <img src="moon.gif" style="width: 200px; height: auto; opacity: 0.9; display: inline-block; filter: grayscale(100%) contrast(150%);">
     </div>
 
     <!-- Khung Mục Lục -->
     <div class="novel-chapters-container">
+        <!-- Vết cà phê 3: Góc trên phải -->
+        <img src="vetcaphe.png" alt="" class="coffee-stain-decor" style="top: -20px; right: -40px; width: 160px; opacity: 0.1; transform: rotate(110deg);">
+        <!-- Vết cà phê 4: Giữa cạnh trái -->
+        <img src="vetcaphe.png" alt="" class="coffee-stain-decor" style="top: 45%; left: -60px; width: 220px; opacity: 0.08; transform: rotate(-45deg);">
+        <!-- Vết cà phê 5: Góc dưới cách phải 15% -->
+        <img src="vetcaphe.png" alt="" class="coffee-stain-decor" style="bottom: -50px; right: 15%; width: 190px; opacity: 0.1; transform: rotate(25deg);">
+
         <div id="chapter-label">DANH SÁCH CHƯƠNG</div>
         
         <div class="chapter-grid-new">
@@ -607,7 +635,7 @@
             <a href="s2-c61.html" class="chapter-link">Chương 61</a>
             <a href="s2-c62.html" class="chapter-link">Chương 62</a>
             <a href="s2-c63.html" class="chapter-link">Chương 63</a>
-            <a href="s2-c64.html" class="chapter-link">Chương 64</a>     
+            <a href="s2-c64.html" class="chapter-link">Chương 64</a>
         </div>
     </div>
 
@@ -619,10 +647,10 @@
 
             if (currentTheme === "light" || !currentTheme) {
                 targetTheme = "dark";
-                btn.innerText = "☀️"; // Đổi sang icon Mặt Trời khi ở nền tối
+                btn.innerText = "☀️"; 
             } else {
                 targetTheme = "light";
-                btn.innerText = "🌙"; // Đổi sang icon Mặt Trăng khi ở nền sáng
+                btn.innerText = "🌙"; 
             }
 
             document.documentElement.setAttribute("data-theme", targetTheme);
